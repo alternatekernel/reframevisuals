@@ -1,0 +1,10 @@
+{
+  "buildCommand": "astro build",
+  "outputDirectory": "dist",
+  "regions": ["iad1", "sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 30
+    }
+  }
+}
