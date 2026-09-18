@@ -1,0 +1,159 @@
+---
+/**
+ * Faq — generic FAQ section with details/summary accordion (zero JS).
+ * Token-wired. Pass items array and optional category filter.
+ * Emits FAQPage JSON-LD when emitSchema=true.
+ */
+interface FaqItem {
+  question: string
+  answer: string
+  category?: string
+}
+
+interface Props {
+  title?: string
+  subtitle?: string
+  items: FaqItem[]
+  emitSchema?: boolean
+  columns?: 1 | 2
+}
+
+const {
+  title = 'Frequently asked questions',
+  subtitle,
+  items,
+  emitSchema = true,
+  columns = 1,
+} = Astro.props
+
+const schema = emitSchema ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+} : null
+---
+
+{schema && (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+)}
+
+<section class="faq-section reveal" aria-label="Frequently asked questions">
+  <div class="section-container">
+    <div class="faq-section__header">
+      <h2 class="faq-section__title">{title}</h2>
+      {subtitle && <p class="faq-section__subtitle">{subtitle}</p>}
+    </div>
+
+    <div class:list={['faq-list', columns === 2 && 'faq-list--two-col']}>
+      {items.map(({ question, answer }) => (
+        <details class="faq-item">
+          <summary class="faq-item__q">
+            <span>{question}</span>
+            <svg class="faq-item__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </summary>
+          <div class="faq-item__a">
+            <p>{answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.faq-section {
+  padding: 5rem 0;
+}
+
+.faq-section__header {
+  margin-bottom: 2.5rem;
+  max-width: 40rem;
+}
+
+.faq-section__title {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.faq-section__subtitle {
+  margin-top: 0.625rem;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+/* ── List layout ─────────────────────────────────────────── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.faq-list--two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border-top: none;
+}
+@media (min-width: 1024px) {
+  .faq-list--two-col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 3rem;
+  }
+  .faq-list--two-col .faq-item {
+    border-top: 1px solid var(--color-border-light);
+  }
+}
+
+/* ── Item ────────────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.faq-item__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  list-style: none;
+  user-select: none;
+  transition: color var(--transition-fast);
+}
+.faq-item__q::-webkit-details-marker { display: none; }
+.faq-item__q:hover { color: var(--brand); }
+
+.faq-item__chevron {
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+details[open] .faq-item__chevron {
+  transform: rotate(180deg);
+  color: var(--brand);
+}
+
+.faq-item__a {
+  padding-bottom: 1.25rem;
+}
+
+.faq-item__a p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 56rem;
+}
+</style>

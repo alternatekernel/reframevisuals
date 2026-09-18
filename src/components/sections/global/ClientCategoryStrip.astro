@@ -1,0 +1,130 @@
+---
+/**
+ * ClientCategoryStrip — scrolling marquee of client industry categories.
+ * Token-wired. Zero JS — pure CSS animation.
+ */
+interface Props {
+  label?: string
+  categories?: string[]
+  speed?: 'slow' | 'normal' | 'fast'
+}
+
+const {
+  label = 'Trusted by brands across',
+  speed = 'normal',
+  categories = [
+    'Fashion & Apparel',
+    'Jewellery & Accessories',
+    'Home & Furniture',
+    'Footwear',
+    'Consumer Electronics',
+    'Beauty & Skincare',
+    'Pet Products',
+    'Sporting Goods',
+    'Amazon Sellers',
+    'Shopify Brands',
+    'Wholesale Distributors',
+    'Photography Studios',
+  ],
+} = Astro.props
+
+const dur = { slow: '40s', normal: '28s', fast: '16s' }[speed]
+const doubled = [...categories, ...categories]
+---
+
+<div class="cat-strip" aria-label={label}>
+  <div class="section-container cat-strip__label-wrap">
+    <span class="cat-strip__label">{label}</span>
+  </div>
+  <div class="cat-strip__track-wrap" style={`--cat-dur:${dur}`} aria-hidden="true">
+    <div class="cat-strip__track">
+      {doubled.map((cat, i) => (
+        <span class="cat-strip__item" key={i}>
+          <span class="cat-strip__dot" aria-hidden="true"></span>
+          {cat}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+.cat-strip {
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-primary);
+  overflow: hidden;
+}
+
+.cat-strip__label-wrap {
+  margin-bottom: 1rem;
+}
+
+.cat-strip__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.cat-strip__track-wrap {
+  --cat-dur: 28s;
+  position: relative;
+}
+.cat-strip__track-wrap::before,
+.cat-strip__track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6rem;
+  z-index: 2;
+  pointer-events: none;
+}
+.cat-strip__track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-primary), transparent);
+}
+.cat-strip__track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-primary), transparent);
+}
+
+.cat-strip__track {
+  display: flex;
+  width: max-content;
+  animation: cat-scroll var(--cat-dur) linear infinite;
+}
+
+@keyframes cat-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-strip__track { animation: none; }
+}
+
+.cat-strip__item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.375rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cat-strip__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--brand);
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+</style>

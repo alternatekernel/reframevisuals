@@ -1,0 +1,171 @@
+---
+/**
+ * Differentiation — "Why Reframe" 3-column proof block.
+ * Token-wired. Props let each page customise the pillars.
+ */
+interface Pillar {
+  icon: string   // inline SVG path string
+  label: string
+  headline: string
+  body: string
+  color?: string  // one of --cat-* tokens
+}
+
+interface Props {
+  title?: string
+  subtitle?: string
+  pillars?: Pillar[]
+  background?: 'white' | 'offwhite'
+}
+
+const {
+  title = 'Why Reframe Visuals',
+  subtitle = 'We are not a tool. We are a team of editors who happen to use great tools.',
+  background = 'offwhite',
+  pillars = [
+    {
+      icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+      label: 'Human editors',
+      headline: 'Pen Tool precision — not a click-and-remove button',
+      body: 'Every clipping path is traced by hand. AI helps with repeatable steps; a human verifies every edge, shadow, and colour before delivery.',
+      color: 'var(--cat-foundation)',
+    },
+    {
+      icon: '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+      label: 'Quality guarantee',
+      headline: 'Two-stage QA before your images leave our studio',
+      body: 'A second editor independently reviews every file. If anything does not meet your brief, it is revised same-day — covered by our quality SLA.',
+      color: 'var(--cat-retouch)',
+    },
+    {
+      icon: '<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>',
+      label: 'Transparent pricing',
+      headline: 'Per-image pricing. No subscription, no minimums',
+      body: 'You get a binding quote before we start. Pricing is per image with no monthly commitment. Order one image or ten thousand.',
+      color: 'var(--cat-enhancement)',
+    },
+  ],
+} = Astro.props
+---
+
+<section class={`diff-section diff-section--${background} reveal`} aria-label="Why Reframe Visuals">
+  <div class="section-container">
+    <div class="diff-section__header">
+      <h2 class="diff-section__title">{title}</h2>
+      <p class="diff-section__subtitle">{subtitle}</p>
+    </div>
+
+    <div class="diff-grid">
+      {pillars.map((p, i) => (
+        <div class="diff-card reveal" style={`--delay:${i * 80}ms`}>
+          <div class="diff-card__icon-wrap" style={`color:${p.color ?? 'var(--brand)'}`}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true" set:html={p.icon} />
+          </div>
+          <span class="diff-card__label" style={`color:${p.color ?? 'var(--brand)'}`}>{p.label}</span>
+          <h3 class="diff-card__headline">{p.headline}</h3>
+          <p class="diff-card__body">{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.diff-section {
+  padding: 5rem 0;
+}
+.diff-section--white    { background: var(--color-bg-primary); }
+.diff-section--offwhite { background: var(--color-bg-secondary); }
+
+.diff-section__header {
+  max-width: 40rem;
+  margin-bottom: 3rem;
+}
+
+.diff-section__title {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.diff-section__subtitle {
+  margin-top: 0.75rem;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+/* ── Grid ────────────────────────────────────────────────── */
+.diff-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px)  { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .diff-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── Card ────────────────────────────────────────────────── */
+.diff-card {
+  padding: 2rem;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+}
+.diff-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+.diff-card__icon-wrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  background: currentColor;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.diff-card__icon-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0.08;
+}
+.diff-card__icon-wrap svg {
+  position: relative;
+  z-index: 1;
+}
+
+.diff-card__label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.diff-card__headline {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+}
+
+.diff-card__body {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+}
+</style>

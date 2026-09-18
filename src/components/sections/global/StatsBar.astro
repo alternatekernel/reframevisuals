@@ -1,0 +1,178 @@
+---
+/**
+ * StatsBar — 3 proof-point numbers with animated count-up.
+ * All colors/typography from design tokens. Swap the stats array to update everywhere.
+ */
+interface Stat {
+  value: string
+  label: string
+  source?: string
+  sourceUrl?: string
+}
+
+interface Props {
+  stats?: Stat[]
+  background?: 'white' | 'offwhite' | 'dark'
+}
+
+const {
+  background = 'offwhite',
+  stats = [
+    {
+      value: '93%',
+      label: 'of consumers say product images directly influence purchase decisions',
+      source: 'Salsify 2025',
+      sourceUrl: 'https://www.salsify.com/blog/images-and-videos-most-important-product-page-elements',
+    },
+    {
+      value: '$890B',
+      label: 'in annual US retail returns, often driven by inaccurate product photos',
+      source: 'NRF 2024',
+      sourceUrl: 'https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion',
+    },
+    {
+      value: '67%',
+      label: 'of shoppers rate image quality as "very important" in purchase decisions',
+      source: 'Baymard Institute',
+      sourceUrl: 'https://baymard.com/blog/home-and-hardware-ux-benchmark-2026',
+    },
+  ],
+} = Astro.props
+
+const bgClass = {
+  white: 'stats-bar--white',
+  offwhite: 'stats-bar--offwhite',
+  dark: 'stats-bar--dark',
+}[background]
+---
+
+<section class={`stats-bar ${bgClass} reveal`} aria-label="Industry statistics">
+  <div class="section-container">
+    <div class="stats-bar__grid">
+      {stats.map((stat, i) => (
+        <div class="stat-card">
+          <div
+            class="stat-card__value"
+            data-target={stat.value}
+            data-index={i}
+          >
+            {stat.value}
+          </div>
+          <p class="stat-card__label">{stat.label}</p>
+          {stat.source && (
+            <a
+              href={stat.sourceUrl ?? '#'}
+              class="stat-card__source"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {stat.source}
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.stats-bar {
+  padding: 4rem 0;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.stats-bar--white    { background: var(--color-bg-primary); }
+.stats-bar--offwhite { background: var(--color-bg-secondary); }
+.stats-bar--dark     { background: var(--footer-dark); color: #fff; }
+
+.stats-bar__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .stats-bar__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+@media (min-width: 768px) {
+  .stat-card:not(:last-child) {
+    border-right: 1px solid var(--color-border-light);
+    padding-right: 2.5rem;
+  }
+}
+
+.stat-card__value {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+}
+.stats-bar--dark .stat-card__value { color: #ffffff; }
+
+.stat-card__label {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 24rem;
+}
+.stats-bar--dark .stat-card__label { color: rgba(255,255,255,0.55); }
+
+.stat-card__source {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.stat-card__source:hover { color: var(--brand); }
+.stats-bar--dark .stat-card__source { color: rgba(255,255,255,0.30); }
+</style>
+
+<script>
+// Count-up animation — runs only on the client, crawlers see the final values
+const isCrawler = /bot|crawl|spider|prerender|headless/i.test(navigator.userAgent)
+
+if (!isCrawler) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return
+      observer.unobserve(entry.target)
+
+      const el = entry.target as HTMLElement
+      const raw = el.dataset.target ?? ''
+      const numMatch = raw.match(/[\d.]+/)
+      if (!numMatch) return
+
+      const finalNum = parseFloat(numMatch[0])
+      const prefix  = raw.slice(0, raw.indexOf(numMatch[0]))
+      const suffix  = raw.slice(raw.indexOf(numMatch[0]) + numMatch[0].length)
+      const duration = 2000
+      const start = performance.now()
+
+      const tick = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        const cur = finalNum < 10
+          ? (finalNum * eased).toFixed(1)
+          : Math.round(finalNum * eased).toString()
+        el.textContent = `${prefix}${cur}${suffix}`
+        if (progress < 1) requestAnimationFrame(tick)
+      }
+      requestAnimationFrame(tick)
+    })
+  }, { threshold: 0.2 })
+
+  document.querySelectorAll<HTMLElement>('[data-target]').forEach(el => observer.observe(el))
+}
+</script>

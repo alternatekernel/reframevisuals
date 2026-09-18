@@ -1,0 +1,25 @@
+---
+interface Props {
+  variant?: 'default' | 'brand' | 'foundation' | 'enhancement' | 'retouch' | 'advanced' | 'success' | 'error'
+  class?: string
+}
+const { variant = 'default', class: className = '' } = Astro.props
+
+const styles: Record<string, string> = {
+  default:     '',
+  brand:       'background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.15);color:var(--brand)',
+  foundation:  'background:rgba(234,88,12,0.08);border-color:rgba(234,88,12,0.2);color:var(--cat-foundation)',
+  enhancement: 'background:rgba(2,132,199,0.08);border-color:rgba(2,132,199,0.2);color:var(--cat-enhancement)',
+  retouch:     'background:rgba(22,163,74,0.08);border-color:rgba(22,163,74,0.2);color:var(--cat-retouch)',
+  advanced:    'background:rgba(124,58,237,0.08);border-color:rgba(124,58,237,0.2);color:var(--cat-advanced)',
+  success:     'background:var(--color-success-bg);border-color:rgba(22,163,74,0.2);color:var(--color-success)',
+  error:       'background:var(--color-error-bg);border-color:rgba(220,38,38,0.2);color:var(--color-error)',
+}
+---
+
+<span
+  class:list={['badge', variant === 'brand' ? 'badge-brand' : '', className]}
+  style={variant !== 'default' && variant !== 'brand' ? styles[variant] : ''}
+>
+  <slot />
+</span>

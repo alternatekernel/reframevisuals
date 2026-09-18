@@ -1,0 +1,34 @@
+---
+interface Props {
+  intensity?: number
+  width?: string
+  height?: string
+  position?: string
+  color?: string
+  class?: string
+}
+
+const {
+  intensity = 0.3,
+  width = '60%',
+  height = '60%',
+  position = '50% 100%',
+  color = 'var(--brand-rgb, 124, 58, 237)',
+  class: className = '',
+} = Astro.props
+---
+
+<div
+  class:list={['aura-blob', className]}
+  style={`background:radial-gradient(ellipse ${width} ${height} at ${position}, rgba(${color},${intensity}) 0%, rgba(${color},${intensity * 0.5}) 50%, transparent 100%)`}
+  aria-hidden="true"
+></div>
+
+<style>
+.aura-blob {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+</style>

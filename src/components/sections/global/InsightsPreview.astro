@@ -1,0 +1,245 @@
+---
+/**
+ * InsightsPreview — 3-post blog preview grid for use on non-blog pages.
+ * Token-wired. Static data passed as props; Astro content collection
+ * fetches will replace this when Phase 3 blog content is ready.
+ */
+interface Post {
+  slug: string
+  title: string
+  excerpt: string
+  category: string
+  categoryColor?: string
+  readingTime?: number
+  date?: string
+  image?: string
+}
+
+interface Props {
+  title?: string
+  subtitle?: string
+  posts?: Post[]
+  ctaLabel?: string
+  ctaHref?: string
+}
+
+const {
+  title    = 'From the Reframe blog',
+  subtitle = 'Guides and insights on product photography and photo editing for e-commerce.',
+  ctaLabel = 'Browse all articles',
+  ctaHref  = '/blog',
+  posts = [
+    {
+      slug: 'clipping-path-vs-background-removal',
+      title: 'Clipping Path vs Background Removal: What Every Amazon Seller Should Know',
+      excerpt: 'Remove.bg is fast — but it cannot trace lace, hair, or glass. Here is when you need a human Pen Tool trace instead.',
+      category: 'Techniques',
+      categoryColor: 'var(--cat-foundation)',
+      readingTime: 6,
+      date: '2025-05-12',
+    },
+    {
+      slug: 'ghost-mannequin-guide',
+      title: 'Ghost Mannequin Photography: A Complete Post-Production Guide',
+      excerpt: 'How to shoot, composite, and deliver fashion product images with perfect hollow-neck joins.',
+      category: 'Services',
+      categoryColor: 'var(--cat-enhancement)',
+      readingTime: 9,
+      date: '2025-04-28',
+    },
+    {
+      slug: 'photo-editing-turnaround-guide',
+      title: 'How to Hit a 24-Hour Turnaround Without Sacrificing Quality',
+      excerpt: 'Workflow, briefing, and file-naming conventions that make same-day delivery reliable.',
+      category: 'Industry',
+      categoryColor: 'var(--cat-retouch)',
+      readingTime: 7,
+      date: '2025-04-10',
+    },
+  ],
+} = Astro.props
+
+const fmt = (iso?: string) => iso
+  ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  : ''
+---
+
+<section class="insights-preview reveal" aria-label="Blog preview">
+  <div class="section-container">
+    <div class="insights-preview__header">
+      <div>
+        <h2 class="insights-preview__title">{title}</h2>
+        <p class="insights-preview__subtitle">{subtitle}</p>
+      </div>
+      <a href={ctaHref} class="insights-preview__cta">
+        {ctaLabel}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="insights-preview__grid">
+      {posts.map(post => (
+        <article class="ip-card">
+          {post.image && (
+            <div class="ip-card__img-wrap">
+              <img src={post.image} alt={post.title} width="640" height="360" loading="lazy" class="ip-card__img" />
+            </div>
+          )}
+          <div class="ip-card__body">
+            <div class="ip-card__meta">
+              <span class="ip-card__cat" style={`color:${post.categoryColor ?? 'var(--brand)'}`}>{post.category}</span>
+              {post.readingTime && <span class="ip-card__time">{post.readingTime} min read</span>}
+            </div>
+            <h3 class="ip-card__title">
+              <a href={`/blog/${post.slug}`} class="ip-card__title-link">{post.title}</a>
+            </h3>
+            <p class="ip-card__excerpt">{post.excerpt}</p>
+            {post.date && <time class="ip-card__date" datetime={post.date}>{fmt(post.date)}</time>}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.insights-preview {
+  padding: 5rem 0;
+  background: var(--color-bg-primary);
+}
+
+.insights-preview__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 768px) {
+  .insights-preview__header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.insights-preview__title {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.insights-preview__subtitle {
+  margin-top: 0.5rem;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+  max-width: 36rem;
+}
+
+.insights-preview__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-fast);
+}
+.insights-preview__cta:hover { color: var(--brand); }
+
+/* ── Grid ────────────────────────────────────────────────── */
+.insights-preview__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px)  { .insights-preview__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .insights-preview__grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── Post card ───────────────────────────────────────────── */
+.ip-card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+}
+.ip-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+}
+
+.ip-card__img-wrap { overflow: hidden; aspect-ratio: 16/9; }
+.ip-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.ip-card:hover .ip-card__img { transform: scale(1.04); }
+
+.ip-card__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.ip-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ip-card__cat {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.ip-card__time {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.ip-card__title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.ip-card__title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.ip-card__title-link:hover { color: var(--brand); }
+
+.ip-card__excerpt {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.ip-card__date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+</style>

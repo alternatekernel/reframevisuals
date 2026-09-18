@@ -1,0 +1,71 @@
+---
+type Variant = 'linear' | 'ellipse' | 'ellipse-light' | 'multi-layer'
+
+interface Props {
+  variant?: Variant
+  class?: string
+}
+
+const { variant = 'ellipse', class: className = '' } = Astro.props
+---
+
+<div class:list={['dot-bg', `dot-bg--${variant}`, className]} aria-hidden="true">
+  {variant === 'multi-layer' ? (
+    <>
+      <div class="dot-bg__layer dot-bg__layer--fine"></div>
+      <div class="dot-bg__layer dot-bg__layer--coarse"></div>
+    </>
+  ) : (
+    <div class="dot-bg__layer dot-bg__layer--single" data-variant={variant}></div>
+  )}
+</div>
+
+<style>
+.dot-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dot-bg__layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Single-layer variants */
+.dot-bg__layer--single[data-variant="linear"] {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.45) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, transparent 60%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 60%, black 100%);
+}
+.dot-bg__layer--single[data-variant="ellipse"] {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.45) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+.dot-bg__layer--single[data-variant="ellipse-light"] {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.45) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+/* Multi-layer */
+.dot-bg__layer--fine {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.15) 1px, transparent 1px);
+  background-size: 12px 12px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+}
+.dot-bg__layer--coarse {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  transform: rotate(-2deg);
+  -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
+  mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
+}
+</style>

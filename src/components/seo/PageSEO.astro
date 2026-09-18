@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string
+  description: string
+  canonical?: string
+  ogImage?: string
+  noIndex?: boolean
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-default.jpg',
+  noIndex = false,
+} = Astro.props
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://reframevisuals.com'
+const resolvedCanonical = canonical ?? `${siteUrl}${Astro.url.pathname}`
+const resolvedOg = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`
+---
+
+<!-- Primary -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={resolvedCanonical} />
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content={resolvedCanonical} />
+<meta property="og:title"       content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image"       content={resolvedOg} />
+
+<!-- Twitter -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image"       content={resolvedOg} />

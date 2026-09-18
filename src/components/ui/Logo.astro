@@ -1,0 +1,92 @@
+---
+interface Props {
+  light?: boolean
+  showText?: boolean
+  class?: string
+}
+const { light = false, showText = true, class: className = '' } = Astro.props
+---
+
+<a
+  href="/"
+  class:list={['logo-link', className]}
+  aria-label="Reframe Visuals — Home"
+>
+  <div class="logo-mark">
+    <img
+      src="/logo.svg"
+      alt="Reframe Visuals"
+      width="32"
+      height="32"
+      class:list={['logo-img', { 'logo-img--light': light }]}
+    />
+  </div>
+
+  {showText && (
+    <div class="logo-text">
+      <span class="logo-brand" style={light ? 'color:#fff' : ''}>REFRAME</span>
+      <span class="logo-sub" style={light ? 'color:rgba(255,255,255,0.5)' : ''}>VISUALS</span>
+    </div>
+  )}
+</a>
+
+<style>
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+.logo-link:hover { opacity: 0.85; }
+
+.logo-mark {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.logo-img--light {
+  filter: brightness(0) invert(1);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-brand {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.logo-sub {
+  font-family: var(--font-heading);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity var(--transition-base), max-height var(--transition-base);
+}
+
+.logo-link:hover .logo-sub {
+  opacity: 1;
+  max-height: 1rem;
+}
+</style>

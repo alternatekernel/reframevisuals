@@ -1,0 +1,52 @@
+---
+type Variant = 'fade-slide' | 'slide-left' | 'scale' | 'fade'
+
+interface Props {
+  variant?: Variant
+  delay?: number
+  class?: string
+  tag?: string
+}
+
+const {
+  variant = 'fade-slide',
+  delay = 0,
+  class: className = '',
+  tag = 'div',
+} = Astro.props
+
+const revealClass = {
+  'fade-slide': 'reveal',
+  'slide-left': 'reveal-left',
+  'scale':      'reveal-scale',
+  'fade':       'reveal',
+}[variant]
+
+const Tag = tag as any
+---
+
+<Tag
+  class:list={[revealClass, className]}
+  style={delay ? `transition-delay:${delay}ms` : ''}
+>
+  <slot />
+</Tag>
+
+<script>
+// Minimal IntersectionObserver — no library, zero JS bundle cost
+const io = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible')
+        io.unobserve(e.target)
+      }
+    })
+  },
+  { threshold: 0.08 }
+)
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-scale').forEach((el) =>
+  io.observe(el)
+)
+</script>

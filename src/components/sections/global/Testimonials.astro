@@ -1,0 +1,236 @@
+---
+/**
+ * Testimonials — infinite marquee with expandable cards.
+ * Token-wired: colors, shadows, radius, transitions all from tokens.css.
+ * No framer-motion — CSS animation via --marquee-duration token override.
+ */
+interface Testimonial {
+  name: string
+  role?: string
+  company?: string
+  avatar?: string
+  rating?: number
+  text: string
+  highlight?: string   // keyword to bold in the quote
+}
+
+interface Props {
+  title?: string
+  subtitle?: string
+  items?: Testimonial[]
+  speed?: 'slow' | 'normal' | 'fast'
+}
+
+const {
+  title = 'What our clients say',
+  subtitle,
+  speed = 'normal',
+  items = [
+    { name: 'Todd Carli',    role: 'E-Commerce Director', company: 'Neon Poodle',      rating: 5, text: 'Reframe turned around 800 product images in under 24 hours. The clipping paths on our jewellery line were immaculate — better than anything we had done in-house.', highlight: 'clipping paths' },
+    { name: 'Jamie Puppach', role: 'Founder',             company: 'Surreal Goods',     rating: 5, text: 'We switched from Remove.bg after the AI kept butchering lace edges. Reframe uses a real Pen Tool trace and it shows. Zero re-work on our end.', highlight: 'Pen Tool' },
+    { name: 'Nigel O.',      role: 'Brand Manager',       company: 'Fashion Forward',   rating: 5, text: 'Ghost mannequin edits came back with perfect hollow-neck alignment. The 12-hour turnaround meant we hit our product launch deadline with a day to spare.', highlight: '12-hour turnaround' },
+    { name: 'Nikola Filić',  role: 'Creative Director',   company: 'Studio NF',         rating: 5, text: 'The two-stage QA process means I rarely need to request revisions. When I do, they are resolved same-day. Consistent quality at scale.', highlight: 'two-stage QA' },
+    { name: 'Priya Menon',   role: 'Operations Lead',     company: 'Scale Commerce',    rating: 5, text: 'We send 3,000 images per week. Reframe never misses the SLA. The Shopify integration alone saves my team four hours every Monday morning.', highlight: 'never misses the SLA' },
+    { name: 'Marcus Webb',   role: 'Founder',             company: 'Webb Studio',       rating: 5, text: 'Colour correction consistency across 500 SKUs was a nightmare before Reframe. Now every image matches our brand palette without manual touch-ups.', highlight: 'Colour correction' },
+  ],
+} = Astro.props
+
+const durationMap = { slow: '120s', normal: '80s', fast: '45s' }
+const dur = durationMap[speed]
+
+const doubled = [...items, ...items]
+---
+
+<section class="testimonials reveal" aria-label="Client testimonials">
+  <div class="section-container testimonials__header">
+    <h2 class="testimonials__title">{title}</h2>
+    {subtitle && <p class="testimonials__subtitle">{subtitle}</p>}
+  </div>
+
+  <div class="marquee-outer" aria-hidden="true" style={`--marquee-duration:${dur}`}>
+    <div class="marquee-track">
+      {doubled.map((t, i) => (
+        <article class="t-card" key={i}>
+          <div class="t-card__stars" aria-label={`${t.rating ?? 5} out of 5 stars`}>
+            {'★'.repeat(t.rating ?? 5)}
+          </div>
+          <p class="t-card__text">
+            {t.highlight
+              ? t.text.split(t.highlight).map((part, pi, arr) => (
+                  pi < arr.length - 1
+                    ? <>{part}<strong class="t-card__kw">{t.highlight}</strong></>
+                    : part
+                ))
+              : t.text}
+          </p>
+          <div class="t-card__author">
+            {t.avatar
+              ? <img src={t.avatar} alt={t.name} width="36" height="36" loading="lazy" class="t-card__avatar" />
+              : <div class="t-card__initials" aria-hidden="true">
+                  {t.name.split(' ').map(n => n[0]).join('').slice(0,2)}
+                </div>
+            }
+            <div class="t-card__meta">
+              <span class="t-card__name">{t.name}</span>
+              {(t.role || t.company) && (
+                <span class="t-card__role">{[t.role, t.company].filter(Boolean).join(' · ')}</span>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.testimonials {
+  padding: 5rem 0;
+  overflow: hidden;
+}
+
+.testimonials__header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.testimonials__title {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.testimonials__subtitle {
+  margin-top: 0.75rem;
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+/* ── Marquee ────────────────────────────────────────────── */
+.marquee-outer {
+  --marquee-duration: 80s;
+  position: relative;
+}
+.marquee-outer::before,
+.marquee-outer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8rem;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-outer::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-bg-primary), transparent);
+}
+.marquee-outer::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-bg-primary), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: marquee-scroll var(--marquee-duration) linear infinite;
+  padding: 0.5rem 0;
+}
+
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* ── Testimonial card ───────────────────────────────────── */
+.t-card {
+  flex-shrink: 0;
+  width: 22rem;
+  padding: 1.5rem;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-card-sm);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.t-card:hover {
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0,0,0,0.12);
+}
+
+.t-card__stars {
+  font-size: 0.875rem;
+  color: #F59E0B;
+  letter-spacing: 0.1em;
+}
+
+.t-card__text {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.t-card__kw {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.t-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.t-card__avatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.t-card__initials {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.t-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.t-card__name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.t-card__role {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+</style>

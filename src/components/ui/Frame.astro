@@ -1,0 +1,94 @@
+---
+interface Props {
+  light?: boolean
+  extended?: boolean
+  stretchAmount?: string
+  showVertical?: boolean
+  size?: 'sm' | 'md' | 'lg'
+  noPadding?: boolean
+  hideCrosshairs?: boolean
+  class?: string
+}
+
+const {
+  light = false,
+  extended = false,
+  stretchAmount = '100px',
+  showVertical = true,
+  size = 'md',
+  noPadding = false,
+  hideCrosshairs = false,
+  class: className = '',
+} = Astro.props
+
+const crossSize = { sm: 10, md: 16, lg: 24 }[size]
+const offset   = { sm: -5, md: -8, lg: -12 }[size]
+
+const lineColor  = light ? 'rgba(255,255,255,0.28)' : 'rgba(0,0,0,0.10)'
+const crossColor = light ? 'rgba(255,255,255,0.65)' : 'rgba(10,10,11,0.30)'
+---
+
+<div class:list={['frame-root', !noPadding && 'frame-padded', className]}>
+  <!-- Frame overlay -->
+  <div
+    class="frame-overlay"
+    style={extended ? `left:-${stretchAmount};right:-${stretchAmount}` : ''}
+  >
+    <!-- Lines -->
+    <div class="frame-line frame-line--top"    style={`background:${lineColor}`}></div>
+    <div class="frame-line frame-line--bottom" style={`background:${lineColor}`}></div>
+    {showVertical && <>
+      <div class="frame-line frame-line--left"  style={`background:${lineColor}`}></div>
+      <div class="frame-line frame-line--right" style={`background:${lineColor}`}></div>
+    </>}
+
+    <!-- Corner crosshairs -->
+    {!hideCrosshairs && <>
+      <svg width={crossSize} height={crossSize} viewBox="0 0 244 244" fill="none" class="frame-cross" style={`top:${offset}px;left:${offset}px;color:${crossColor}`}><path d="M20 122H224M122 20V224" stroke="currentColor" stroke-width="36" stroke-linecap="round"/></svg>
+      <svg width={crossSize} height={crossSize} viewBox="0 0 244 244" fill="none" class="frame-cross" style={`top:${offset}px;right:${offset}px;color:${crossColor}`}><path d="M20 122H224M122 20V224" stroke="currentColor" stroke-width="36" stroke-linecap="round"/></svg>
+      <svg width={crossSize} height={crossSize} viewBox="0 0 244 244" fill="none" class="frame-cross" style={`bottom:${offset}px;left:${offset}px;color:${crossColor}`}><path d="M20 122H224M122 20V224" stroke="currentColor" stroke-width="36" stroke-linecap="round"/></svg>
+      <svg width={crossSize} height={crossSize} viewBox="0 0 244 244" fill="none" class="frame-cross" style={`bottom:${offset}px;right:${offset}px;color:${crossColor}`}><path d="M20 122H224M122 20V224" stroke="currentColor" stroke-width="36" stroke-linecap="round"/></svg>
+    </>}
+  </div>
+
+  <!-- Content -->
+  <div class="frame-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+.frame-root {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+.frame-padded { padding: 0.5rem; }
+
+.frame-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.frame-line {
+  position: absolute;
+}
+.frame-line--top    { top: 0;    left: 0; right:   0; height: 1px; }
+.frame-line--bottom { bottom: 0; left: 0; right:   0; height: 1px; }
+.frame-line--left   { top: 0; bottom: 0; left:   0; width:  1px; }
+.frame-line--right  { top: 0; bottom: 0; right:  0; width:  1px; }
+
+.frame-cross {
+  position: absolute;
+}
+
+.frame-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

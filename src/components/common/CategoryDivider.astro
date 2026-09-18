@@ -1,0 +1,71 @@
+---
+interface Props {
+  label: string
+  color: string
+  description?: string
+}
+const { label, color, description } = Astro.props
+---
+
+<div class="cat-divider reveal">
+  <div class="cat-divider__left">
+    <div class="cat-divider__dot" style={`background:${color};box-shadow:0 0 12px ${color}40`}></div>
+    <h3 class="cat-divider__label">{label}</h3>
+    {description && <span class="cat-divider__desc">{description}</span>}
+  </div>
+  <div class="cat-divider__line"></div>
+</div>
+
+<style>
+.cat-divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+@media (min-width: 1024px) {
+  .cat-divider { gap: 2rem; }
+}
+
+.cat-divider__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cat-divider__dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+}
+
+.cat-divider__label {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+@media (min-width: 1024px) {
+  .cat-divider__label { font-size: 1rem; }
+}
+
+.cat-divider__desc {
+  display: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(0,0,0,0.30);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@media (min-width: 1024px) {
+  .cat-divider__desc { display: block; }
+}
+
+.cat-divider__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+</style>
