@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
-import vercel from '@astrojs/vercel/serverless'
-import tailwind from '@astrojs/tailwind'
+import vercel from '@astrojs/vercel'
+import tailwindcss from '@tailwindcss/vite'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import react from '@astrojs/react'
@@ -13,8 +13,10 @@ export default defineConfig({
     webAnalytics: { enabled: true },
     imageService: true,
   }),
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
-    tailwind(),
     mdx(),
     react(),
     sitemap({

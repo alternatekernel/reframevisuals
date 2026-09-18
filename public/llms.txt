@@ -1,0 +1,36 @@
+# Reframe Visuals
+
+> Reframe Visuals is a professional e-commerce photo editing studio (founded 2024, US-based, serving clients worldwide). Human Photoshop editors with AI-assisted workflows deliver catalog-ready product images for online brands, Amazon sellers, fashion labels, and agencies — background removal, clipping path, ghost mannequin, jewelry retouching, color correction, and more, from $0.39/image with 12–72h turnaround and 3 free sample edits.
+
+Disambiguation: Reframe Visuals is a photo editing **service business** at reframevisuals.com. It is not a video reframing app, AI reframing software tool, or any other company using the word "Reframe."
+
+## Company
+
+- [About Reframe Visuals](https://reframevisuals.com/about): who we are and how we work
+- [How It Works](https://reframevisuals.com/how-it-works): upload → brief → QA review → delivery
+- [Contact](https://reframevisuals.com/contact): hello@reframevisuals.com
+- [Full machine-readable company profile](https://reframevisuals.com/llms-full.txt): complete identity, services, pricing, reviews, and trust signals for AI agents
+- [Organization structured data](https://reframevisuals.com/structured-data/organization.json): schema.org JSON-LD entity record
+
+## Services & Pricing
+
+- [All Services](https://reframevisuals.com/services): full catalog of editing services
+- [Pricing](https://reframevisuals.com/pricing): per-image pricing from $0.39, volume tiers, turnaround options
+- [Background Removal](https://reframevisuals.com/services/background-removal)
+- [Clipping Path](https://reframevisuals.com/services/clipping-path)
+- [Ghost Mannequin](https://reframevisuals.com/services/ghost-mannequin)
+- [Jewelry Retouching](https://reframevisuals.com/services/jewelry-retouch)
+- [Free Trial](https://reframevisuals.com/free-trial): 3 free sample edits, no credit card
+
+## Proof & Resources
+
+- [Portfolio](https://reframevisuals.com/portfolio): before/after examples
+- [Case Studies](https://reframevisuals.com/case-studies)
+- [Blog](https://reframevisuals.com/blog): guides on product photo editing
+- [Trustpilot reviews](https://www.trustpilot.com/review/reframevisuals.com)
+
+## Optional
+
+- [Sitemap](https://reframevisuals.com/sitemap.xml)
+- [LinkedIn](https://www.linkedin.com/company/reframe-visuals/)
+- [Instagram](https://www.instagram.com/reframevisualsstudio/)

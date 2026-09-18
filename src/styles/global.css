@@ -1,0 +1,248 @@
+/* ============================================================
+   REFRAME VISUALS — Global Styles (Tailwind v4 CSS-first)
+   ============================================================ */
+
+/* Tailwind v4 base import */
+@import "tailwindcss";
+
+/* Space Grotesk (heading) — self-hosted via @fontsource-variable */
+@import '@fontsource-variable/space-grotesk';
+
+/* Design tokens */
+@import './tokens.css';
+
+/* Pattern utilities */
+@import './patterns.css';
+
+/* Satoshi (body) — self-hosted woff2 in /public/fonts/ */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Metric-adjusted fallback faces to minimise CLS on font swap */
+@font-face {
+  font-family: 'Space Grotesk Fallback';
+  src: local('Arial');
+  size-adjust: 105.5%;
+  ascent-override: 93.2%;
+  descent-override: 27.6%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Satoshi Fallback';
+  src: local('Arial');
+  size-adjust: 103%;
+  ascent-override: 97.1%;
+  descent-override: 24.3%;
+  line-gap-override: 0%;
+}
+
+/* ── Tailwind v4 theme extensions ────────────────────────── */
+@theme {
+  /* Fonts */
+  --font-heading: 'Space Grotesk Variable', 'Space Grotesk', 'Space Grotesk Fallback', system-ui, sans-serif;
+  --font-body:    'Satoshi', 'Satoshi Fallback', system-ui, sans-serif;
+
+  /* Colors mapped to CSS tokens */
+  --color-brand:           #7C3AED;
+  --color-brand-hover:     #6D28D9;
+  --color-onyx:            #0A0A0B;
+  --color-soft-black:      #1F1F1F;
+  --color-surface:         #FFFFFF;
+  --color-text-primary:    #171717;
+  --color-text-secondary:  #666666;
+  --color-text-muted:      #808080;
+  --color-bg-primary:      #ffffff;
+  --color-bg-secondary:    #fafafa;
+  --color-border-light:    #eaeaea;
+  --color-border-subtle:   #f5f5f5;
+  --color-cat-foundation:  #EA580C;
+  --color-cat-enhancement: #0284C7;
+  --color-cat-retouch:     #16A34A;
+  --color-cat-advanced:    #7C3AED;
+  --color-success:         #16A34A;
+  --color-error:           #DC2626;
+  --color-footer-dark:     #050505;
+
+  /* Font sizes */
+  --font-size-caption:   0.75rem;
+  --font-size-body-sm:   0.9375rem;
+  --font-size-body:      1rem;
+  --font-size-body-lg:   1.25rem;
+  --font-size-heading-4: 1.5625rem;
+  --font-size-heading-3: 1.9375rem;
+  --font-size-heading-2: 2.4375rem;
+  --font-size-heading-1: 3.0625rem;
+  --font-size-hero:      3.8125rem;
+
+  /* Border radius */
+  --radius-card:    24px;
+  --radius-card-sm: 20px;
+  --radius-lg:      32px;
+  --radius-md:      16px;
+  --radius-sm:       8px;
+  --radius-pill:   9999px;
+
+  /* Shadows */
+  --shadow-card:    0 4px 16px rgb(0 0 0 / 0.03);
+  --shadow-hover:   0 18px 36px rgb(0 0 0 / 0.06);
+  --shadow-hero:    0 14px 40px rgb(0 0 0 / 0.06);
+  --shadow-shadow-lg: 0 24px 60px rgb(15 23 42 / 0.08);
+  --shadow-btn:     0 8px 24px rgb(0 0 0 / 0.10);
+
+  /* Animations */
+  --animate-marquee:    marquee 60s linear infinite;
+  --animate-pulse-slow: pulse-slow 3s ease-in-out infinite;
+  --animate-shimmer:    shimmer 2.5s ease-in-out infinite;
+  --animate-fade-slide-up: fadeSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  /* Keyframes */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 0.8; transform: scale(1.05); }
+  }
+  @keyframes shimmer {
+    0%        { transform: translateX(-150%); }
+    50%, 100% { transform: translateX(150%); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* ── Base resets ─────────────────────────────────────────── */
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  img, video {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+/* ── Scroll reveal (used by ScrollReveal.astro) ──────────── */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .reveal-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .reveal-scale.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Fluid typography */
+  .text-fluid-h1   { font-size: clamp(1.75rem, 4.5vw + 1rem, 4.5rem); }
+  .text-fluid-h2   { font-size: clamp(1.5rem,  2.5vw + 1rem, 3.25rem); }
+  .text-fluid-body { font-size: clamp(0.85rem, 0.4vw + 0.75rem, 1rem); }
+  .py-fluid        { padding-top: clamp(2.5rem, 5vw, 7.5rem); padding-bottom: clamp(2.5rem, 5vw, 7.5rem); }
+  .scroll-mt-nav   { scroll-margin-top: 100px; }
+}
+
+/* ── Glass utilities ─────────────────────────────────────── */
+.glass-liquid {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  isolation: isolate;
+}
+
+.glass-shadow {
+  box-shadow:
+    inset 0 4px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -4px 6px rgba(0, 0, 0, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Metallic button utilities ───────────────────────────── */
+.onyx-liquid {
+  background: var(--onyx);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 4px 12px rgba(255, 255, 255, 0.05),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+    0 8px 30px -8px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.amethyst-liquid {
+  background: var(--brand);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 4px 12px rgba(255, 255, 255, 0.1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 30px -8px var(--brand),
+    0 0 0 1px var(--brand);
+}

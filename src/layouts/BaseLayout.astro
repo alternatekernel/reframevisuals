@@ -1,0 +1,86 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description?: string
+  canonical?: string
+  ogImage?: string
+  noIndex?: boolean
+  jsonLd?: object | object[]
+}
+
+const {
+  title,
+  description = 'Reframe Visuals — Professional photo editing for e-commerce and product brands.',
+  canonical,
+  ogImage = '/og-default.jpg',
+  noIndex = false,
+  jsonLd,
+} = Astro.props
+
+const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://reframevisuals.com'
+const resolvedCanonical = canonical ?? `${siteUrl}${Astro.url.pathname}`
+
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Reframe Visuals',
+  url: siteUrl,
+  logo: `${siteUrl}/logo.svg`,
+  sameAs: [
+    'https://www.instagram.com/reframevisuals',
+    'https://www.linkedin.com/company/reframe-visuals',
+  ],
+}
+
+const allJsonLd = [
+  orgJsonLd,
+  ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : []),
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={resolvedCanonical} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={resolvedCanonical} />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+
+    <!-- Favicons -->
+    <link rel="icon"             href="/favicon.ico" sizes="any" />
+    <link rel="icon"             href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- Font preloads (Satoshi is critical — heading font loads via fontsource) -->
+    <link rel="preload" href="/fonts/Satoshi-Variable.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- JSON-LD Structured Data -->
+    {allJsonLd.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
