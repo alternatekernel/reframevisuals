@@ -1,236 +1,522 @@
 ---
 /**
- * Testimonials — infinite marquee with expandable cards.
- * Token-wired: colors, shadows, radius, transitions all from tokens.css.
- * No framer-motion — CSS animation via --marquee-duration token override.
+ * Testimonials — faithfully ported from Testimonials.tsx
+ * CSS marquee (100s), keyword highlighting via JS, Avatar with Cloudinary URLs,
+ * click-to-expand card with X close button, star ratings, TESTIMONIALS data.
+ * Nikola Filić is the spotlight card (not in marquee); others are in the marquee.
  */
-interface Testimonial {
-  name: string
-  role?: string
-  company?: string
-  avatar?: string
-  rating?: number
-  text: string
-  highlight?: string   // keyword to bold in the quote
+
+const TESTIMONIALS = [
+  {
+    quote: 'Great communication, very efficient and excellent job every time. Handled everything exceptionally and went above and beyond.',
+    name: 'Suril',
+    company: 'Founder, Acia Studio',
+    metric: '2× repeat client',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723564/reframeimages/testimonials/surreal_founder_portrait.jpg',
+    username: '@surreal616',
+    stars: 5,
+  },
+  {
+    quote: 'Prompt and quality work. I look forward to working with Reframe many times in the future.',
+    name: 'Todd Carli',
+    company: 'Owner, Todd Carli Custom Carpentry',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723566/reframeimages/testimonials/todd_carli_portrait.jpg',
+    username: '@toddcarli',
+    stars: 5,
+  },
+  {
+    quote: 'Amazing job, as always. Third time repeat customer. Very responsive and always overdelivers!',
+    name: 'Jamie',
+    company: 'Founder, The Pup Pack',
+    metric: '3× repeat client',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723550/reframeimages/testimonials/jamie_puppack_portrait.jpg',
+    username: '@puppack',
+    stars: 5,
+  },
+  {
+    quote: 'As always, good job. Nice work as always.',
+    name: 'Sam Lim',
+    company: 'Founder, E-commerce Brand',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723560/reframeimages/testimonials/sam_lim_portrait.jpg',
+    username: '@samlim111',
+    stars: 5,
+  },
+  {
+    quote: 'Appreciate the prompt work and reply.',
+    name: 'Sol',
+    company: 'Owner, Sol Photography',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723562/reframeimages/testimonials/sol_photographer_portrait.jpg',
+    username: '@photographersol',
+    stars: 5,
+  },
+  {
+    quote: "They did their best, I'm happy with the work. Fast work and great results.",
+    name: 'Gino',
+    company: 'Founder, Jewelry Brand',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723548/reframeimages/testimonials/gino_jeweler_portrait.jpg',
+    username: '@ginosherylkwida',
+    stars: 5,
+  },
+  {
+    quote: "The best in the game when it comes to getting work done. Humble, understanding, and consistently on point.",
+    name: 'Nigel',
+    company: 'Owner, Fashion Retail',
+    metric: '5× repeat client',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723555/reframeimages/testimonials/nigel_fashion_portrait.jpg',
+    username: '@nigelison',
+    stars: 5,
+  },
+  {
+    quote: 'Very efficient and communicated quickly and effectively.',
+    name: 'MisterBuza',
+    company: 'Founder, Online Retailer',
+    avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781723553/reframeimages/testimonials/misterbuza_portrait.jpg',
+    username: '@misterbuza',
+    stars: 5,
+  },
+]
+
+// Spotlight card — Nikola Filić (Bomber Clothing)
+const SPOTLIGHT = {
+  quote: 'Probably the best seller I have worked with on this platform. Awesome pricing & highest possible result. Everything done to the smallest details. They really know how to use PS. Will definitely work with them in the long run.',
+  name: 'Nikola Filić',
+  company: 'Founder, Bomber Clothing',
+  avatarUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781971885/reframe/testimonials/nikola_filic_portrait.jpg',
+  stars: 5,
 }
 
-interface Props {
-  title?: string
-  subtitle?: string
-  items?: Testimonial[]
-  speed?: 'slow' | 'normal' | 'fast'
+// 4 copies in marquee for seamless wide-screen loop (25% per copy)
+const marqueeItems = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS]
+
+const HIGHLIGHT_KEYWORDS = [
+  'Amazon', 'Remove.bg', 'Photoshop', 'Reframe Visuals', 'Reframe',
+  '12 hours', '3 days', '12-hour', 'clipping path', 'clipping paths',
+  'turnaround', 'pen tool', 'repeat', 'overdelivers', 'consistent',
+  'Pen Tool', 'background removal', 'background', 'hand-traced',
+]
+
+function highlightText(text: string): string {
+  let result = text
+  HIGHLIGHT_KEYWORDS.forEach(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    result = result.replace(
+      new RegExp(`(${escaped})`, 'gi'),
+      '<strong class="t-highlight">$1</strong>'
+    )
+  })
+  return result
 }
-
-const {
-  title = 'What our clients say',
-  subtitle,
-  speed = 'normal',
-  items = [
-    { name: 'Todd Carli',    role: 'E-Commerce Director', company: 'Neon Poodle',      rating: 5, text: 'Reframe turned around 800 product images in under 24 hours. The clipping paths on our jewellery line were immaculate — better than anything we had done in-house.', highlight: 'clipping paths' },
-    { name: 'Jamie Puppach', role: 'Founder',             company: 'Surreal Goods',     rating: 5, text: 'We switched from Remove.bg after the AI kept butchering lace edges. Reframe uses a real Pen Tool trace and it shows. Zero re-work on our end.', highlight: 'Pen Tool' },
-    { name: 'Nigel O.',      role: 'Brand Manager',       company: 'Fashion Forward',   rating: 5, text: 'Ghost mannequin edits came back with perfect hollow-neck alignment. The 12-hour turnaround meant we hit our product launch deadline with a day to spare.', highlight: '12-hour turnaround' },
-    { name: 'Nikola Filić',  role: 'Creative Director',   company: 'Studio NF',         rating: 5, text: 'The two-stage QA process means I rarely need to request revisions. When I do, they are resolved same-day. Consistent quality at scale.', highlight: 'two-stage QA' },
-    { name: 'Priya Menon',   role: 'Operations Lead',     company: 'Scale Commerce',    rating: 5, text: 'We send 3,000 images per week. Reframe never misses the SLA. The Shopify integration alone saves my team four hours every Monday morning.', highlight: 'never misses the SLA' },
-    { name: 'Marcus Webb',   role: 'Founder',             company: 'Webb Studio',       rating: 5, text: 'Colour correction consistency across 500 SKUs was a nightmare before Reframe. Now every image matches our brand palette without manual touch-ups.', highlight: 'Colour correction' },
-  ],
-} = Astro.props
-
-const durationMap = { slow: '120s', normal: '80s', fast: '45s' }
-const dur = durationMap[speed]
-
-const doubled = [...items, ...items]
 ---
 
-<section class="testimonials reveal" aria-label="Client testimonials">
-  <div class="section-container testimonials__header">
-    <h2 class="testimonials__title">{title}</h2>
-    {subtitle && <p class="testimonials__subtitle">{subtitle}</p>}
-  </div>
+<section class="tmt-section" aria-label="Customer testimonials">
+  <div class="tmt-container">
+    <!-- Header -->
+    <div class="tmt-header reveal">
+      <h2 class="tmt-heading">
+        What clients <span class="tmt-heading-muted">say.</span>
+      </h2>
+      <p class="tmt-subtext">Real feedback from ecommerce brands and photographers we work with every day.</p>
+    </div>
 
-  <div class="marquee-outer" aria-hidden="true" style={`--marquee-duration:${dur}`}>
-    <div class="marquee-track">
-      {doubled.map((t, i) => (
-        <article class="t-card" key={i}>
-          <div class="t-card__stars" aria-label={`${t.rating ?? 5} out of 5 stars`}>
-            {'★'.repeat(t.rating ?? 5)}
-          </div>
-          <p class="t-card__text">
-            {t.highlight
-              ? t.text.split(t.highlight).map((part, pi, arr) => (
-                  pi < arr.length - 1
-                    ? <>{part}<strong class="t-card__kw">{t.highlight}</strong></>
-                    : part
-                ))
-              : t.text}
-          </p>
-          <div class="t-card__author">
-            {t.avatar
-              ? <img src={t.avatar} alt={t.name} width="36" height="36" loading="lazy" class="t-card__avatar" />
-              : <div class="t-card__initials" aria-hidden="true">
-                  {t.name.split(' ').map(n => n[0]).join('').slice(0,2)}
+    <!-- Spotlight card — Nikola Filić -->
+    <div class="tmt-spotlight reveal">
+      <div class="tmt-spotlight__stars" aria-label="5 stars" role="img">
+        {'★★★★★'}
+      </div>
+      <blockquote class="tmt-spotlight__quote" set:html={highlightText(SPOTLIGHT.quote)} />
+      <div class="tmt-spotlight__author">
+        <img
+          src={SPOTLIGHT.avatarUrl}
+          alt={`${SPOTLIGHT.name} - ${SPOTLIGHT.company} - Reframe Visuals Client`}
+          class="tmt-avatar"
+          loading="lazy"
+          decoding="async"
+          width="36"
+          height="36"
+        />
+        <div>
+          <p class="tmt-spotlight__name">{SPOTLIGHT.name}</p>
+          <p class="tmt-spotlight__company">{SPOTLIGHT.company}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marquee strip -->
+    <div class="tmt-marquee-wrap reveal">
+      <div class="tmt-fade tmt-fade--left" aria-hidden="true"></div>
+      <div class="tmt-fade tmt-fade--right" aria-hidden="true"></div>
+
+      <div class="tmt-marquee" id="tmt-marquee" role="list">
+        {marqueeItems.map((t, i) => {
+          const initials = t.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
+          return (
+            <div
+              class="tmt-card"
+              role="listitem"
+              data-index={i % TESTIMONIALS.length}
+              tabindex="0"
+            >
+              <!-- Stars -->
+              <div class="tmt-card__stars" aria-label={`${t.stars ?? 5} stars`}>
+                {'★'.repeat(t.stars ?? 5)}
+              </div>
+              <!-- Quote (first 120 chars preview) -->
+              <p class="tmt-card__quote" set:html={highlightText(t.quote.length > 120 ? t.quote.slice(0, 120) + '…' : t.quote)} />
+              <!-- Author row -->
+              <div class="tmt-card__author">
+                {t.avatarUrl ? (
+                  <img
+                    src={t.avatarUrl}
+                    alt={`${t.name} - Reframe Visuals client`}
+                    class="tmt-avatar"
+                    loading="lazy"
+                    decoding="async"
+                    width="36"
+                    height="36"
+                  />
+                ) : (
+                  <div class="tmt-avatar tmt-avatar--initials">{initials}</div>
+                )}
+                <div>
+                  <p class="tmt-card__name">{t.name}</p>
+                  <p class="tmt-card__company">{t.company}</p>
                 </div>
-            }
-            <div class="t-card__meta">
-              <span class="t-card__name">{t.name}</span>
-              {(t.role || t.company) && (
-                <span class="t-card__role">{[t.role, t.company].filter(Boolean).join(' · ')}</span>
-              )}
+                {t.metric && <span class="tmt-card__metric">{t.metric}</span>}
+              </div>
             </div>
-          </div>
-        </article>
-      ))}
+          )
+        })}
+      </div>
+    </div>
+
+    <!-- Expanded overlay (filled by JS) -->
+    <div class="tmt-overlay" id="tmt-overlay" aria-modal="true" role="dialog" aria-label="Full testimonial" hidden>
+      <div class="tmt-overlay__card">
+        <button class="tmt-overlay__close" id="tmt-close" aria-label="Close testimonial">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+        <div class="tmt-overlay__stars" id="tmt-overlay-stars"></div>
+        <blockquote class="tmt-overlay__quote" id="tmt-overlay-quote"></blockquote>
+        <div class="tmt-overlay__author" id="tmt-overlay-author"></div>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-.testimonials {
-  padding: 5rem 0;
+.tmt-section {
+  background: var(--color-bg-secondary);
+  padding: 3rem 1.25rem;
   overflow: hidden;
-}
-
-.testimonials__header {
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.testimonials__title {
-  font-family: var(--font-heading);
-  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-}
-
-.testimonials__subtitle {
-  margin-top: 0.75rem;
-  font-size: var(--text-body);
-  color: var(--color-text-secondary);
-}
-
-/* ── Marquee ────────────────────────────────────────────── */
-.marquee-outer {
-  --marquee-duration: 80s;
   position: relative;
 }
-.marquee-outer::before,
-.marquee-outer::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 8rem;
-  z-index: 2;
-  pointer-events: none;
-}
-.marquee-outer::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-bg-primary), transparent);
-}
-.marquee-outer::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-bg-primary), transparent);
+@media (min-width: 640px) { .tmt-section { padding: 3.5rem 1.5rem; } }
+@media (min-width: 1024px) { .tmt-section { padding: 5rem 0; } }
+
+.tmt-container {
+  max-width: 80rem;
+  margin: 0 auto;
 }
 
-.marquee-track {
-  display: flex;
-  gap: 1.25rem;
-  width: max-content;
-  animation: marquee-scroll var(--marquee-duration) linear infinite;
-  padding: 0.5rem 0;
-}
+/* Header */
+.tmt-header { text-align: center; margin-bottom: 2.5rem; }
 
-@keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-}
-
-/* ── Testimonial card ───────────────────────────────────── */
-.t-card {
-  flex-shrink: 0;
-  width: 22rem;
-  padding: 1.5rem;
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-card-sm);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-  transition: box-shadow var(--transition-base), border-color var(--transition-base);
-}
-.t-card:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(0,0,0,0.12);
-}
-
-.t-card__stars {
-  font-size: 0.875rem;
-  color: #F59E0B;
-  letter-spacing: 0.1em;
-}
-
-.t-card__text {
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: var(--color-text-secondary);
-  flex: 1;
-}
-
-.t-card__kw {
+.tmt-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
   color: var(--color-text-primary);
-  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.tmt-heading-muted { color: rgba(0,0,0,0.40); }
+
+.tmt-subtext {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  max-width: 36rem;
+  margin: 0 auto;
+  line-height: 1.6;
 }
 
-.t-card__author {
+/* Spotlight */
+.tmt-spotlight {
+  max-width: 40rem;
+  margin: 0 auto 3rem;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--color-bg-primary);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow-card);
+}
+
+.tmt-spotlight__stars {
+  color: #F59E0B;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.tmt-spotlight__quote {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.tmt-spotlight__author {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding-top: 0.875rem;
-  border-top: 1px solid var(--color-border-subtle);
+  gap: 0.75rem;
 }
 
-.t-card__avatar {
+.tmt-spotlight__name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.tmt-spotlight__company {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Avatar */
+.tmt-avatar {
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: 9999px;
+  border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.05);
 }
-
-.t-card__initials {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 9999px;
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-light);
+.tmt-avatar--initials {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.6875rem;
   font-weight: 700;
-  color: var(--color-text-secondary);
-  flex-shrink: 0;
+  letter-spacing: 0.05em;
+  background: rgba(0,0,0,0.06);
+  color: rgba(0,0,0,0.70);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
-.t-card__meta {
+/* Marquee */
+.tmt-marquee-wrap {
+  position: relative;
+}
+
+.tmt-fade {
+  pointer-events: none;
+  position: absolute;
+  inset-block: 0;
+  z-index: 10;
+  width: 6rem;
+}
+.tmt-fade--left  { left:  0; background: linear-gradient(to right, var(--color-bg-secondary), transparent); }
+.tmt-fade--right { right: 0; background: linear-gradient(to left,  var(--color-bg-secondary), transparent); }
+
+.tmt-marquee {
+  display: flex;
+  width: max-content;
+  animation: tmt-scroll 100s linear infinite;
+  will-change: transform;
+  gap: 1rem;
+  padding: 0.5rem 0 1rem;
+}
+@keyframes tmt-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+.tmt-marquee:hover { animation-play-state: paused; }
+
+/* Card */
+.tmt-card {
+  flex-shrink: 0;
+  width: 17rem;
+  border-radius: var(--radius-card-sm);
+  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--color-bg-primary);
+  padding: 1.25rem;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-resting);
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.tmt-card:hover, .tmt-card:focus-visible {
+  border-color: rgba(0,0,0,0.16);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+  outline: none;
 }
 
-.t-card__name {
-  font-size: 0.875rem;
-  font-weight: 600;
+.tmt-card__stars {
+  color: #F59E0B;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.tmt-card__quote {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.70);
+  flex-grow: 1;
+}
+
+:global(.t-highlight) { font-weight: 700; color: var(--color-text-primary); }
+
+.tmt-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+.tmt-card__name {
+  font-size: 0.75rem;
+  font-weight: 700;
   color: var(--color-text-primary);
 }
-
-.t-card__role {
-  font-size: 0.75rem;
+.tmt-card__company {
+  font-size: 0.6875rem;
   color: var(--color-text-muted);
 }
+.tmt-card__metric {
+  margin-left: auto;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.35);
+  white-space: nowrap;
+}
+
+/* Expanded overlay */
+.tmt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+}
+.tmt-overlay[hidden] { display: none; }
+
+.tmt-overlay__card {
+  position: relative;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(0,0,0,0.10);
+  padding: 2rem;
+  max-width: 36rem;
+  width: 100%;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.20);
+}
+
+.tmt-overlay__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--color-bg-secondary);
+  color: rgba(0,0,0,0.60);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.tmt-overlay__close:hover { background: rgba(0,0,0,0.06); }
+
+.tmt-overlay__stars {
+  color: #F59E0B;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.tmt-overlay__quote {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.tmt-overlay__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
 </style>
+
+<script define:vars={{ TESTIMONIALS }}>
+const cards = document.querySelectorAll('.tmt-card')
+const overlay = document.getElementById('tmt-overlay')
+const closeBtn = document.getElementById('tmt-close')
+const oStars = document.getElementById('tmt-overlay-stars')
+const oQuote = document.getElementById('tmt-overlay-quote')
+const oAuthor = document.getElementById('tmt-overlay-author')
+
+const KEYWORDS = [
+  'Amazon','Remove.bg','Photoshop','Reframe Visuals','Reframe',
+  '12 hours','3 days','12-hour','clipping path','clipping paths',
+  'turnaround','pen tool','repeat','overdelivers','consistent',
+  'Pen Tool','background removal','background','hand-traced'
+]
+
+function highlightText(text) {
+  let result = text
+  KEYWORDS.forEach(kw => {
+    const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    result = result.replace(
+      new RegExp(`(${escaped})`, 'gi'),
+      '<strong class="t-highlight">$1</strong>'
+    )
+  })
+  return result
+}
+
+function openCard(index) {
+  const t = TESTIMONIALS[index]
+  if (!t || !overlay || !oStars || !oQuote || !oAuthor) return
+  const initials = t.name.split(' ').map(n => n[0]).join('').slice(0, 2)
+  oStars.textContent = '★'.repeat(t.stars ?? 5)
+  oQuote.innerHTML = highlightText(t.quote)
+  oAuthor.innerHTML = t.avatarUrl
+    ? `<img src="${t.avatarUrl}" alt="${t.name}" class="tmt-avatar" width="36" height="36" loading="lazy" />
+       <div><p class="tmt-card__name">${t.name}</p><p class="tmt-card__company">${t.company}</p></div>`
+    : `<div class="tmt-avatar tmt-avatar--initials">${initials}</div>
+       <div><p class="tmt-card__name">${t.name}</p><p class="tmt-card__company">${t.company}</p></div>`
+  overlay.hidden = false
+  document.body.style.overflow = 'hidden'
+}
+
+function closeOverlay() {
+  if (!overlay) return
+  overlay.hidden = true
+  document.body.style.overflow = ''
+}
+
+cards.forEach(card => {
+  const idx = parseInt(card.dataset.index ?? '0', 10)
+  card.addEventListener('click', () => openCard(idx))
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCard(idx) } })
+})
+
+closeBtn?.addEventListener('click', closeOverlay)
+overlay?.addEventListener('click', e => { if (e.target === overlay) closeOverlay() })
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay() })
+</script>

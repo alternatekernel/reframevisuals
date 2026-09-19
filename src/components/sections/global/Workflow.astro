@@ -1,222 +1,351 @@
 ---
 /**
- * Workflow — 4-step process section.
- * Token-wired. Steps are props so any page can customise them.
- * Reveal animation via IntersectionObserver (.reveal class).
+ * Workflow — faithfully ported from Workflow.tsx + workflowData.ts
+ * Node cards (upload/review/editing/qa) with dashed borders + corner ticks,
+ * Actor user-boxes, integration tags, step descriptions.
+ * Static CSS animation replaces framer-motion.
  */
-interface Step {
-  number: string
-  title: string
-  description: string
-  icon?: 'upload' | 'scope' | 'edit' | 'deliver'
-}
 
-interface Props {
-  title?: string
-  subtitle?: string
-  steps?: Step[]
-  variant?: 'light' | 'dark'
-}
+const WORKFLOW_NODES = [
+  { id: 'upload',  label: 'Upload',  sublabel: 'Files',              color: '#3B82F6', bg: '#EFF6FF', iconColor: '#3B82F6',  icon: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M17 8l-5-5-5 5 M12 3v12' },
+  { id: 'review',  label: 'Review',  sublabel: 'Admin Estimation',   color: '#C2410C', bg: '#FFF4F0', iconColor: '#C2410C',  icon: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z' },
+  { id: 'retouch', label: 'Editing', sublabel: 'Expert Production',  color: '#8B5CF6', bg: '#F5F3FF', iconColor: '#8B5CF6',  icon: 'M15 4V2m0 2a2 2 0 0 1 0 4m0-4H9m6 4H9m0-4V2m0 2a2 2 0 0 0 0 4m0 4v2m0-2a2 2 0 0 1 0 4m0-4h6m-6 4h6m0-4v2m0-2a2 2 0 0 1 0 4' },
+  { id: 'qa',      label: 'QA Gate', sublabel: 'Quality Control',    color: '#047857', bg: '#ECFDF5', iconColor: '#047857',  icon: 'M9 11l3 3L22 4 M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11' },
+]
 
-const {
-  title = 'How it works',
-  subtitle = 'From raw files to catalog-ready images in 12–72 hours.',
-  variant = 'light',
-  steps = [
-    {
-      number: '01',
-      icon: 'upload',
-      title: 'Upload & Connect',
-      description: 'Drop files manually, share a Google Drive link, or connect Dropbox/Amazon Seller Central. Our systems fetch your raw assets instantly — no new software to install.',
-    },
-    {
-      number: '02',
-      icon: 'scope',
-      title: 'Scoping & Quote',
-      description: 'Within 15–30 minutes our team reviews your files for complexity. You get a transparent, binding quote before a single pixel is touched. No hidden fees.',
-    },
-    {
-      number: '03',
-      icon: 'edit',
-      title: 'Human + AI Editing',
-      description: 'Human editors use the Pen Tool on every clipping path. AI handles repetitive steps; editors verify every shadow, texture, and edge before moving to QA.',
-    },
-    {
-      number: '04',
-      icon: 'deliver',
-      title: 'QA & Delivery',
-      description: 'Two editors review each file independently. Then your images land in your dashboard for approval. Revisions are same-day and covered by our quality SLA.',
-    },
-  ],
-} = Astro.props
+const WORKFLOW_INTEGRATIONS = [
+  'Amazon', 'Google Drive', 'Dropbox', 'WeTransfer', 'App Sync', 'Direct Connect',
+]
 
-const ICONS: Record<string, string> = {
-  upload:  '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>',
-  scope:   '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>',
-  edit:    '<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
-  deliver: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
-}
+const WORKFLOW_STEP_DESCRIPTIONS = [
+  'Drop files, share a link, or connect your cloud storage.',
+  'We review your files and send a quote in 15–30 minutes.',
+  'Our production team edits every image to your brief.',
+  'Two QA checks before delivery. Approve or request revisions.',
+]
+
+const ACTOR_COLOR = '#C2410C'
 ---
 
-<section class={`workflow workflow--${variant} reveal`} aria-label="How Reframe Visuals works">
-  <div class="section-container">
-    <div class="workflow__header">
-      <h2 class="workflow__title">{title}</h2>
-      <p class="workflow__subtitle">{subtitle}</p>
+<section class="wf-section" id="how-it-works" aria-label="How it works">
+  <div class="wf-container">
+    <!-- Header -->
+    <div class="wf-header reveal">
+      <h2 class="wf-heading">
+        How it <span class="wf-heading-muted">works.</span>
+      </h2>
+      <p class="wf-subtext">From raw files to catalog-ready images in 12–72 hours.</p>
     </div>
 
-    <ol class="workflow__steps" role="list">
-      {steps.map((step, i) => (
-        <li class="workflow-step reveal" style={`--delay:${i * 80}ms`}>
-          <div class="workflow-step__num-wrap">
-            <span class="workflow-step__num">{step.number}</span>
-            {i < steps.length - 1 && <div class="workflow-step__connector" aria-hidden="true" />}
+    <!-- Desktop diagram -->
+    <div class="wf-diagram reveal">
+
+      <!-- Top actor: Your Store -->
+      <div class="wf-actors wf-actors--top">
+        <div class="wf-actor">
+          <div class="wf-actor__box" style={`border-color:${ACTOR_COLOR}; background:${ACTOR_COLOR}12`}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={ACTOR_COLOR} stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
           </div>
-          <div class="workflow-step__body">
-            {step.icon && ICONS[step.icon] && (
-              <div class="workflow-step__icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" set:html={ICONS[step.icon]} />
-              </div>
+          <span class="wf-actor__label" style={`color:${ACTOR_COLOR}`}>Your Store</span>
+        </div>
+      </div>
+
+      <!-- Dashed connector line (top → nodes) -->
+      <div class="wf-connector wf-connector--v" aria-hidden="true"></div>
+
+      <!-- Node row -->
+      <div class="wf-nodes">
+        {WORKFLOW_NODES.map((node, i) => (
+          <div class="wf-node-wrap">
+            <!-- Node card -->
+            <div class="wf-node" style={`--node-color:${node.color}; --node-bg:${node.bg}`}>
+              <!-- Corner tick marks -->
+              <span class="wf-tick wf-tick--tl" style={`border-color:${node.color}`}></span>
+              <span class="wf-tick wf-tick--tr" style={`border-color:${node.color}`}></span>
+              <span class="wf-tick wf-tick--bl" style={`border-color:${node.color}`}></span>
+              <span class="wf-tick wf-tick--br" style={`border-color:${node.color}`}></span>
+
+              <!-- Icon -->
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={node.iconColor} stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                {node.icon.split(' M').map((seg: string, si: number) => (
+                  <path d={si === 0 ? seg : 'M' + seg} />
+                ))}
+              </svg>
+            </div>
+            <span class="wf-node__label" style={`color:${node.color}`}>{node.label}</span>
+            <span class="wf-node__sublabel">{node.sublabel}</span>
+
+            <!-- Horizontal connector to next node -->
+            {i < WORKFLOW_NODES.length - 1 && (
+              <div class="wf-connector wf-connector--h" aria-hidden="true"></div>
             )}
-            <h3 class="workflow-step__title">{step.title}</h3>
-            <p class="workflow-step__desc">{step.description}</p>
           </div>
-        </li>
+        ))}
+      </div>
+
+      <!-- Dashed connector line (nodes → bottom actor) -->
+      <div class="wf-connector wf-connector--v" aria-hidden="true"></div>
+
+      <!-- Bottom actor: Delivered Back -->
+      <div class="wf-actors wf-actors--bottom">
+        <div class="wf-actor">
+          <div class="wf-actor__box" style={`border-color:${ACTOR_COLOR}; background:${ACTOR_COLOR}12`}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={ACTOR_COLOR} stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </div>
+          <span class="wf-actor__label" style={`color:${ACTOR_COLOR}`}>Delivered Back</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step descriptions grid -->
+    <div class="wf-steps reveal">
+      {WORKFLOW_STEP_DESCRIPTIONS.map((desc, i) => (
+        <div class="wf-step" style={`--step-color:${WORKFLOW_NODES[i].color}`}>
+          <div class="wf-step__num">0{i + 1}</div>
+          <p class="wf-step__title" style={`color:${WORKFLOW_NODES[i].color}`}>{WORKFLOW_NODES[i].label}</p>
+          <p class="wf-step__desc">{desc}</p>
+        </div>
       ))}
-    </ol>
+    </div>
+
+    <!-- Integration tags -->
+    <div class="wf-integrations reveal">
+      <p class="wf-integrations__label">Connects with</p>
+      <div class="wf-integrations__tags">
+        {WORKFLOW_INTEGRATIONS.map(tag => (
+          <span class="wf-tag">{tag}</span>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-.workflow {
-  padding: 5rem 0;
-}
-.workflow--dark {
-  background: var(--footer-dark);
-  color: #ffffff;
-}
-.workflow--light {
+.wf-section {
+  padding: 3.5rem 1.5rem;
   background: var(--color-bg-primary);
+  overflow: hidden;
+}
+@media (min-width: 640px) { .wf-section { padding: 4rem 1.5rem; } }
+@media (min-width: 1024px) { .wf-section { padding: 5rem 3rem; } }
+
+.wf-container {
+  max-width: 64rem;
+  margin: 0 auto;
 }
 
-.workflow__header {
-  max-width: 40rem;
+/* Header */
+.wf-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.wf-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+.wf-heading-muted { color: rgba(0,0,0,0.40); }
+.wf-subtext {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Diagram */
+.wf-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   margin-bottom: 3rem;
 }
 
-.workflow__title {
-  font-family: var(--font-heading);
-  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-}
-.workflow--dark .workflow__title { color: #ffffff; }
-
-.workflow__subtitle {
-  margin-top: 0.75rem;
-  font-size: var(--text-body);
-  color: var(--color-text-secondary);
-}
-.workflow--dark .workflow__subtitle { color: rgba(255,255,255,0.55); }
-
-/* ── Steps grid ─────────────────────────────────────────── */
-.workflow__steps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-@media (min-width: 768px) {
-  .workflow__steps {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem 3rem;
-  }
-  .workflow-step__connector { display: none; }
-}
-@media (min-width: 1200px) {
-  .workflow__steps { grid-template-columns: repeat(4, 1fr); }
-}
-
-/* ── Single step ─────────────────────────────────────────── */
-.workflow-step {
-  display: flex;
-  gap: 1.25rem;
-  padding: 1.75rem 0;
-  border-bottom: 1px solid var(--color-border-subtle);
-}
-@media (min-width: 768px) {
-  .workflow-step {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0;
-    border-bottom: none;
-  }
-}
-
-.workflow-step__num-wrap {
+/* Actor boxes */
+.wf-actors { display: flex; justify-content: center; }
+.wf-actor {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  flex-shrink: 0;
-}
-@media (min-width: 768px) {
-  .workflow-step__num-wrap { flex-direction: row; }
-}
-
-.workflow-step__num {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 9999px;
-  border: 1.5px solid var(--brand);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--brand);
-  flex-shrink: 0;
-}
-
-.workflow-step__connector {
-  width: 1.5px;
-  flex: 1;
-  min-height: 2rem;
-  background: var(--color-border-light);
-  margin: 0.375rem auto;
-}
-
-.workflow-step__body {
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
 }
-
-.workflow-step__icon {
-  width: 2rem;
-  height: 2rem;
+.wf-actor__box {
+  width: 4.25rem;
+  height: 4.25rem;
+  border-radius: 0.25rem;
+  border-width: 1.5px;
+  border-style: solid;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--brand);
 }
-
-.workflow-step__title {
-  font-family: var(--font-heading);
-  font-size: 1.0625rem;
+.wf-actor__label {
+  font-family: monospace;
+  font-size: 0.75rem;
   font-weight: 700;
-  color: var(--color-text-primary);
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
 }
-.workflow--dark .workflow-step__title { color: #ffffff; }
 
-.workflow-step__desc {
-  font-size: 0.875rem;
-  line-height: 1.65;
-  color: var(--color-text-secondary);
+/* Vertical connector */
+.wf-connector--v {
+  width: 1.5px;
+  height: 2.5rem;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0.20) 0, rgba(0,0,0,0.20) 4px, transparent 4px, transparent 8px);
 }
-.workflow--dark .workflow-step__desc { color: rgba(255,255,255,0.55); }
+
+/* Node row */
+.wf-nodes {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+@media (max-width: 767px) { .wf-nodes { flex-direction: column; } }
+
+.wf-node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .wf-node-wrap { flex-direction: row; align-items: center; }
+}
+
+.wf-node {
+  position: relative;
+  width: 6.875rem;
+  height: 6.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--node-bg);
+  border: 1.5px dashed var(--node-color);
+}
+
+/* Corner ticks */
+.wf-tick {
+  position: absolute;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-width: 2px;
+  border-style: solid;
+}
+.wf-tick--tl { top: -0.3125rem;  left:  -0.3125rem; border-right: none; border-bottom: none; }
+.wf-tick--tr { top: -0.3125rem;  right: -0.3125rem; border-left:  none; border-bottom: none; }
+.wf-tick--bl { bottom: -0.3125rem; left:  -0.3125rem; border-right: none; border-top:    none; }
+.wf-tick--br { bottom: -0.3125rem; right: -0.3125rem; border-left:  none; border-top:    none; }
+
+.wf-node__label {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.wf-node__sublabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(0,0,0,0.60);
+  letter-spacing: 0.02em;
+}
+
+@media (min-width: 768px) {
+  .wf-node-wrap { flex-direction: column; }
+  .wf-node__label { font-size: 0.9375rem; }
+}
+
+/* Horizontal connector */
+.wf-connector--h {
+  width: 3rem;
+  height: 1.5px;
+  background: repeating-linear-gradient(to right, rgba(0,0,0,0.20) 0, rgba(0,0,0,0.20) 4px, transparent 4px, transparent 8px);
+  flex-shrink: 0;
+  display: none;
+}
+@media (min-width: 768px) { .wf-connector--h { display: block; } }
+
+/* Step descriptions */
+.wf-steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 1024px) { .wf-steps { grid-template-columns: repeat(4, 1fr); } }
+
+.wf-step {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.06);
+  background: var(--color-bg-secondary);
+}
+
+.wf-step__num {
+  font-family: monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(0,0,0,0.30);
+  margin-bottom: 0.5rem;
+}
+
+.wf-step__title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.375rem;
+}
+
+.wf-step__desc {
+  font-size: 0.8125rem;
+  color: rgba(0,0,0,0.55);
+  line-height: 1.55;
+}
+
+/* Integration tags */
+.wf-integrations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.wf-integrations__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(0,0,0,0.30);
+}
+
+.wf-integrations__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.wf-tag {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(0,0,0,0.55);
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  white-space: nowrap;
+}
 </style>

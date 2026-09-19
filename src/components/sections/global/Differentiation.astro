@@ -1,171 +1,283 @@
 ---
 /**
- * Differentiation — "Why Reframe" 3-column proof block.
- * Token-wired. Props let each page customise the pillars.
+ * Differentiation — faithfully ported from Differentiation.tsx
+ * Two-column: left = copy with price callout + decorative logo; right = transformation cards.
+ * Each card: pastel icon (blue/rose/amber/yellow/teal/purple per index),
+ * point.old (strikethrough, dimmed) → point.new (bold).
  */
-interface Pillar {
-  icon: string   // inline SVG path string
-  label: string
-  headline: string
-  body: string
-  color?: string  // one of --cat-* tokens
+
+interface DiffPoint {
+  old: string
+  new: string
 }
 
 interface Props {
-  title?: string
-  subtitle?: string
-  pillars?: Pillar[]
-  background?: 'white' | 'offwhite'
+  heading?: string
+  subheading?: string
+  points?: DiffPoint[]
 }
 
 const {
-  title = 'Why Reframe Visuals',
-  subtitle = 'We are not a tool. We are a team of editors who happen to use great tools.',
-  background = 'offwhite',
-  pillars = [
-    {
-      icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-      label: 'Human editors',
-      headline: 'Pen Tool precision — not a click-and-remove button',
-      body: 'Every clipping path is traced by hand. AI helps with repeatable steps; a human verifies every edge, shadow, and colour before delivery.',
-      color: 'var(--cat-foundation)',
-    },
-    {
-      icon: '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
-      label: 'Quality guarantee',
-      headline: 'Two-stage QA before your images leave our studio',
-      body: 'A second editor independently reviews every file. If anything does not meet your brief, it is revised same-day — covered by our quality SLA.',
-      color: 'var(--cat-retouch)',
-    },
-    {
-      icon: '<rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>',
-      label: 'Transparent pricing',
-      headline: 'Per-image pricing. No subscription, no minimums',
-      body: 'You get a binding quote before we start. Pricing is per image with no monthly commitment. Order one image or ten thousand.',
-      color: 'var(--cat-enhancement)',
-    },
+  heading = 'Where standard services fail.',
+  subheading = 'How we handle it differently.',
+  points = [
+    { old: 'AI drops lace, glass, hair, and transparent edges', new: 'Hand-traced pen tool paths on every complex edge' },
+    { old: 'Offshore services race on price, lose on consistency', new: 'Dedicated editor team with a shared style guide per client' },
+    { old: 'Flat-looking ghost mannequin with visible seams', new: 'Natural hollow-man composite that sells the garment shape' },
+    { old: 'White background only, no variation options', new: 'Any background: white, custom color, lifestyle, gradient' },
+    { old: 'Enterprise studios with monthly minimums you can\'t fill', new: 'Per-image pricing from $0.39 — no contract, no minimum' },
+    { old: 'Days of back-and-forth over revisions', new: 'Unlimited revisions included — delivered correct the first time' },
   ],
 } = Astro.props
+
+// Pastel card color system matches getCardStyles() in Differentiation.tsx
+const CARD_COLORS = [
+  { bg: 'rgba(239,246,255,0.5)', border: 'rgba(191,219,254,0.5)', iconBg: 'rgba(219,234,254,0.6)', iconColor: '#2563EB', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
+  { bg: 'rgba(255,241,242,0.5)', border: 'rgba(254,205,211,0.5)', iconBg: 'rgba(254,226,226,0.6)', iconColor: '#E11D48', icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' },
+  { bg: 'rgba(255,251,235,0.5)', border: 'rgba(253,230,138,0.5)', iconBg: 'rgba(254,243,199,0.6)', iconColor: '#D97706', icon: 'M8.21 13.89L7 23l5-3 5 3-1.21-9.12 M15.91 9.11A4.08 4.08 0 0 0 12 8a4 4 0 1 0 3.91 1.11z' },
+  { bg: 'rgba(254,252,232,0.5)', border: 'rgba(253,224,71,0.5)', iconBg: 'rgba(254,249,195,0.6)', iconColor: '#CA8A04', icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 1 1 7.072 0l-.548.547A3.374 3.374 0 0 0 14 18.469V19a2 2 0 1 1-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z' },
+  { bg: 'rgba(240,253,250,0.5)', border: 'rgba(153,246,228,0.5)', iconBg: 'rgba(204,251,241,0.6)', iconColor: '#0D9488', icon: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M23 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75' },
+  { bg: 'rgba(250,245,255,0.5)', border: 'rgba(233,213,255,0.5)', iconBg: 'rgba(243,232,255,0.6)', iconColor: '#7C3AED', icon: 'M23 6l-9.5 9.5-5-5L1 18 M17 6h6v6' },
+]
 ---
 
-<section class={`diff-section diff-section--${background} reveal`} aria-label="Why Reframe Visuals">
-  <div class="section-container">
-    <div class="diff-section__header">
-      <h2 class="diff-section__title">{title}</h2>
-      <p class="diff-section__subtitle">{subtitle}</p>
-    </div>
+<section class="diff-section">
+  <div class="diff-container">
 
     <div class="diff-grid">
-      {pillars.map((p, i) => (
-        <div class="diff-card reveal" style={`--delay:${i * 80}ms`}>
-          <div class="diff-card__icon-wrap" style={`color:${p.color ?? 'var(--brand)'}`}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true" set:html={p.icon} />
+      <!-- Left: copy column -->
+      <div class="diff-left reveal">
+        <h2 class="diff-heading">
+          {heading} <br />
+          <span class="diff-heading-muted">{subheading}</span>
+        </h2>
+
+        <div class="diff-body">
+          <p class="diff-body-primary">
+            Automated tools drop <strong>lace, glass, hair, and transparent edges</strong>. Offshore services race on price and lose on consistency. Enterprise studios charge monthly minimums most catalogs can't fill. We trace complex edges by hand, match your style guide, and price per image.
+          </p>
+          <p class="diff-body-callout">
+            <strong>Pen Tool tracing on every path.</strong> Guaranteed turnaround windows. No contracts. Send 3 images free before your first paid order.
+          </p>
+          <div class="diff-price-wrap">
+            <!-- Decorative logo overlay -->
+            <div class="diff-logo-overlay" aria-hidden="true">
+              <img src="/logo.svg" alt="" class="diff-logo-img" />
+            </div>
+            <p class="diff-price-text">
+              Per-image pricing from $0.39, with no contract and no minimum order.
+            </p>
           </div>
-          <span class="diff-card__label" style={`color:${p.color ?? 'var(--brand)'}`}>{p.label}</span>
-          <h3 class="diff-card__headline">{p.headline}</h3>
-          <p class="diff-card__body">{p.body}</p>
         </div>
-      ))}
+      </div>
+
+      <!-- Right: transformation cards -->
+      <div class="diff-right reveal">
+        <div class="diff-cards-wrap">
+          <div class="diff-cards">
+            {points.map((point, i) => {
+              const c = CARD_COLORS[i % CARD_COLORS.length]
+              return (
+                <div
+                  class="diff-card"
+                  style={`--card-bg:${c.bg}; --card-border:${c.border}; --icon-bg:${c.iconBg}; --icon-color:${c.iconColor}; --delay:${i * 0.04}s`}
+                >
+                  <!-- Pastel icon -->
+                  <div class="diff-card__icon" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      {c.icon.split(' M').map((seg, si) => (
+                        <path d={si === 0 ? seg : 'M' + seg} />
+                      ))}
+                    </svg>
+                  </div>
+                  <!-- Text: old → new -->
+                  <div class="diff-card__text">
+                    <p class="diff-card__old">{point.old}</p>
+                    <p class="diff-card__new">{point.new}</p>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </section>
 
 <style>
 .diff-section {
-  padding: 5rem 0;
+  padding: 3.5rem 1.5rem;
+  background: var(--color-bg-primary);
 }
-.diff-section--white    { background: var(--color-bg-primary); }
-.diff-section--offwhite { background: var(--color-bg-secondary); }
+@media (min-width: 640px) { .diff-section { padding: 4rem 1.5rem; } }
+@media (min-width: 1024px) { .diff-section { padding: 6rem 3rem; } }
 
-.diff-section__header {
-  max-width: 40rem;
-  margin-bottom: 3rem;
-}
-
-.diff-section__title {
-  font-family: var(--font-heading);
-  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
+.diff-container {
+  max-width: 72rem;
+  margin: 0 auto;
 }
 
-.diff-section__subtitle {
-  margin-top: 0.75rem;
-  font-size: var(--text-body);
-  color: var(--color-text-secondary);
-}
-
-/* ── Grid ────────────────────────────────────────────────── */
 .diff-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
-@media (min-width: 768px)  { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .diff-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 640px) { .diff-grid { gap: 2rem; } }
+@media (min-width: 1024px) {
+  .diff-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+}
 
-/* ── Card ────────────────────────────────────────────────── */
-.diff-card {
-  padding: 2rem;
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
+/* Left column */
+.diff-left {}
+
+.diff-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 640px) { .diff-heading { margin-bottom: 1rem; } }
+
+.diff-heading-muted { color: rgba(0,0,0,0.40); }
+
+.diff-body { display: flex; flex-direction: column; gap: 0.75rem; }
+@media (min-width: 640px) { .diff-body { gap: 1rem; } }
+@media (min-width: 1024px) { .diff-body { gap: 1.5rem; } }
+
+.diff-body-primary {
+  max-width: 34ch;
+  font-size: 0.9375rem;
+  color: rgba(0,0,0,0.60);
+  line-height: 1.55;
+}
+@media (min-width: 640px) {
+  .diff-body-primary { max-width: none; font-size: 1rem; line-height: 1.6; }
+}
+
+.diff-body-callout {
+  display: none;
+  font-size: 0.875rem;
+  color: rgba(0,0,0,0.70);
+  line-height: 1.55;
+  border-left: 2px solid rgba(0,0,0,0.20);
+  padding-left: 0.75rem;
+}
+@media (min-width: 640px) {
+  .diff-body-callout { display: block; font-size: 1rem; padding-left: 1.25rem; }
+}
+
+.diff-price-wrap {
+  display: none;
+  position: relative;
+}
+@media (min-width: 640px) { .diff-price-wrap { display: block; } }
+
+.diff-logo-overlay {
+  display: none;
+}
+@media (min-width: 640px) {
+  .diff-logo-overlay {
+    display: block;
+    position: absolute;
+    top: -3rem;
+    left: -5rem;
+    width: 12rem;
+    height: 12rem;
+    pointer-events: none;
+    opacity: 0.05;
+    z-index: 0;
+  }
+}
+
+.diff-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: rotate(-12deg);
+}
+
+.diff-price-text {
+  position: relative;
+  z-index: 10;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+@media (min-width: 640px) { .diff-price-text { font-size: 1.125rem; } }
+
+/* Right column */
+.diff-cards-wrap {
+  border-radius: 1.75rem;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: #FAFAFA;
+  padding: 0.625rem;
+  box-shadow: 0 18px 60px -48px rgba(0,0,0,0.5);
+}
+@media (min-width: 640px) { .diff-cards-wrap { padding: 1rem; } }
+
+.diff-cards {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+  gap: 0.625rem;
 }
-.diff-card:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(0,0,0,0.12);
-  transform: translateY(-2px);
-}
+@media (min-width: 640px) { .diff-cards { gap: 0.75rem; } }
 
-.diff-card__icon-wrap {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.875rem;
-  background: currentColor;
-  opacity: 1;
+.diff-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  border-radius: 1rem;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  padding: 0.75rem;
+  transition: transform 0.3s;
+  animation-delay: var(--delay, 0s);
+}
+.diff-card:hover { transform: translateY(-2px); }
+@media (min-width: 640px) { .diff-card { padding: 1.25rem; } }
+
+.diff-card__icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: var(--icon-bg);
+  color: var(--icon-color);
+  transition: background 0.3s, color 0.3s;
 }
-.diff-card__icon-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: currentColor;
-  opacity: 0.08;
-}
-.diff-card__icon-wrap svg {
-  position: relative;
-  z-index: 1;
-}
+@media (min-width: 640px) { .diff-card__icon { width: 2.75rem; height: 2.75rem; } }
 
-.diff-card__label {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
+.diff-card__text { display: flex; flex-direction: column; gap: 0.25rem; }
 
-.diff-card__headline {
-  font-family: var(--font-heading);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-text-primary);
+.diff-card__old {
+  font-size: 0.75rem;
+  font-weight: 600;
   line-height: 1.35;
+  color: rgba(0,0,0,0.35);
+  text-decoration: line-through;
 }
+@media (min-width: 640px) { .diff-card__old { font-size: 0.9375rem; } }
 
-.diff-card__body {
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: var(--color-text-secondary);
+.diff-card__new {
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
 }
+@media (min-width: 640px) { .diff-card__new { font-size: 1.125rem; } }
 </style>

@@ -1,130 +1,290 @@
 ---
 /**
- * ClientCategoryStrip — scrolling marquee of client industry categories.
- * Token-wired. Zero JS — pure CSS animation.
+ * ClientCategoryStrip — faithfully ported from ClientCategoryStrip.tsx
+ * Named client logos (Bomber + Puppack), "Trusted by" row,
+ * TWO separate marquee tracks: PLATFORMS (forward) + CATEGORIES (reversed, dimmed),
+ * 8× item duplication, edge-fade masks.
  */
-interface Props {
-  label?: string
-  categories?: string[]
-  speed?: 'slow' | 'normal' | 'fast'
-}
 
-const {
-  label = 'Trusted by brands across',
-  speed = 'normal',
-  categories = [
-    'Fashion & Apparel',
-    'Jewellery & Accessories',
-    'Home & Furniture',
-    'Footwear',
-    'Consumer Electronics',
-    'Beauty & Skincare',
-    'Pet Products',
-    'Sporting Goods',
-    'Amazon Sellers',
-    'Shopify Brands',
-    'Wholesale Distributors',
-    'Photography Studios',
-  ],
-} = Astro.props
+const NAMED_CLIENTS = [
+  {
+    name: 'BOMBER',
+    detail: 'Bold Streetwear',
+    websiteUrl: 'https://bomberclothing.com/',
+    logoUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781635028/reframe-assets/bomber-logo-2026-06-16.jpg',
+  },
+  {
+    name: 'PUPPACK',
+    detail: 'Pet Accessories · USA',
+    websiteUrl: 'https://puppack.co/',
+    logoUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781635030/reframe-assets/pup-pack-logo-2026-06-16.jpg',
+  },
+]
 
-const dur = { slow: '40s', normal: '28s', fast: '16s' }[speed]
-const doubled = [...categories, ...categories]
+const PLATFORMS = [
+  'Amazon',
+  'Etsy',
+  'ASOS Marketplace',
+  'Depop',
+  'Zalando',
+  'eBay',
+  'WooCommerce',
+  'BigCommerce',
+  'Squarespace',
+]
+
+const CATEGORIES = [
+  'Jewelry & Fine Accessories',
+  'Apparel & Fashion',
+  'Footwear',
+  'Homewares & Furniture',
+  'Beauty & Skincare',
+  'Consumer Electronics',
+  'Bags & Leather Goods',
+  'Sports & Outdoor',
+  'Toys & Kids',
+  'Pet Products',
+]
+
+// 8 copies ensures ultra-wide coverage. -12.5% (1/8) translates one copy, loops perfectly.
+const platformsX8 = Array(8).fill(PLATFORMS).flat()
+const categoriesX8 = Array(8).fill(CATEGORIES).flat()
 ---
 
-<div class="cat-strip" aria-label={label}>
-  <div class="section-container cat-strip__label-wrap">
-    <span class="cat-strip__label">{label}</span>
-  </div>
-  <div class="cat-strip__track-wrap" style={`--cat-dur:${dur}`} aria-hidden="true">
-    <div class="cat-strip__track">
-      {doubled.map((cat, i) => (
-        <span class="cat-strip__item" key={i}>
-          <span class="cat-strip__dot" aria-hidden="true"></span>
-          {cat}
-        </span>
+<section class="strip-section reveal">
+  <!-- Named client logos -->
+  <div class="strip-logos">
+    <p class="strip-trusted-label">Trusted by</p>
+    <div class="strip-logos-row">
+      {NAMED_CLIENTS.map(client => (
+        <a
+          href={client.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Visit ${client.name} website`}
+          class="strip-client-link"
+          itemscope
+          itemtype="https://schema.org/Organization"
+        >
+          <meta itemprop="name" content={client.name} />
+          <meta itemprop="url" content={client.websiteUrl} />
+          <div class="strip-client-inner">
+            {client.logoUrl ? (
+              <img
+                src={client.logoUrl}
+                alt={`${client.name} ecommerce photo editing clients - Reframe Visuals`}
+                itemprop="logo"
+                loading="eager"
+                class="strip-client-logo"
+              />
+            ) : (
+              <span class="strip-client-name">{client.name}</span>
+            )}
+            {client.detail && (
+              <span class="strip-client-detail">{client.detail}</span>
+            )}
+          </div>
+        </a>
       ))}
     </div>
   </div>
-</div>
+
+  <!-- "We work across" label -->
+  <div class="strip-works-label-wrap">
+    <p class="strip-works-label">We work across</p>
+  </div>
+
+  <!-- Two marquee tracks -->
+  <div class="strip-tracks">
+    <!-- Track 1: Platforms, forward -->
+    <div class="strip-track">
+      <div class="strip-fade strip-fade--left" aria-hidden="true"></div>
+      <div class="strip-fade strip-fade--right" aria-hidden="true"></div>
+      <div class="strip-track__inner strip-marquee-left">
+        {platformsX8.map((item, i) => (
+          <span class="strip-item">
+            <span class="strip-item__text strip-item__text--normal">{item}</span>
+            <span class="strip-sep" aria-hidden="true"></span>
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Track 2: Categories, reversed + dimmed -->
+    <div class="strip-track">
+      <div class="strip-fade strip-fade--left" aria-hidden="true"></div>
+      <div class="strip-fade strip-fade--right" aria-hidden="true"></div>
+      <div class="strip-track__inner strip-marquee-right">
+        {categoriesX8.map((item, i) => (
+          <span class="strip-item">
+            <span class="strip-item__text strip-item__text--dim">{item}</span>
+            <span class="strip-sep" aria-hidden="true"></span>
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
 <style>
-.cat-strip {
-  padding: 2rem 0;
-  border-top: 1px solid var(--color-border-subtle);
-  border-bottom: 1px solid var(--color-border-subtle);
+.strip-section {
   background: var(--color-bg-primary);
+  padding-top: 1.5rem;
+  padding-bottom: 3.5rem;
   overflow: hidden;
 }
 
-.cat-strip__label-wrap {
-  margin-bottom: 1rem;
+/* Client logos */
+.strip-logos {
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 48rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0 1rem;
 }
 
-.cat-strip__label {
+.strip-trusted-label {
   font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--color-text-muted);
+  letter-spacing: 0.30em;
+  color: rgba(0,0,0,0.60);
 }
 
-.cat-strip__track-wrap {
-  --cat-dur: 28s;
-  position: relative;
-}
-.cat-strip__track-wrap::before,
-.cat-strip__track-wrap::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 6rem;
-  z-index: 2;
-  pointer-events: none;
-}
-.cat-strip__track-wrap::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-bg-primary), transparent);
-}
-.cat-strip__track-wrap::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-bg-primary), transparent);
-}
-
-.cat-strip__track {
+.strip-logos-row {
   display: flex;
-  width: max-content;
-  animation: cat-scroll var(--cat-dur) linear infinite;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem 3rem;
 }
+@media (min-width: 640px) { .strip-logos-row { gap: 1rem 4rem; } }
 
-@keyframes cat-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cat-strip__track { animation: none; }
-}
-
-.cat-strip__item {
+.strip-client-link {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.375rem 1.5rem;
-  font-size: 0.875rem;
+  justify-content: center;
+  min-width: 9.375rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.strip-client-link:hover { background: rgba(0,0,0,0.03); }
+.strip-client-link:focus-visible { outline: 2px solid rgba(0,0,0,0.30); outline-offset: 2px; }
+
+.strip-client-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.strip-client-logo {
+  height: 3rem;
+  width: auto;
+  object-fit: contain;
+}
+@media (min-width: 640px) { .strip-client-logo { height: 3.5rem; } }
+
+.strip-client-name {
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  font-size: 1.125rem;
+  color: rgba(0,0,0,0.60);
+  text-transform: uppercase;
+}
+
+.strip-client-detail {
+  font-size: 0.625rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
-  white-space: nowrap;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+}
+
+/* "We work across" */
+.strip-works-label-wrap {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.strip-works-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(0,0,0,0.25);
+}
+
+/* Marquee tracks */
+.strip-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.strip-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.strip-fade {
+  pointer-events: none;
+  position: absolute;
+  inset-block: 0;
+  width: 8rem;
+  z-index: 10;
+}
+.strip-fade--left { left: 0; background: linear-gradient(to right, var(--color-bg-primary), transparent); }
+.strip-fade--right { right: 0; background: linear-gradient(to left, var(--color-bg-primary), transparent); }
+
+.strip-track__inner {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+}
+
+/* 8 copies = 12.5% per copy. Translating -12.5% shifts exactly one copy → seamless loop. */
+@keyframes marquee-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-12.5%); }
+}
+@keyframes marquee-right {
+  0%   { transform: translateX(-12.5%); }
+  100% { transform: translateX(0); }
+}
+
+.strip-marquee-left  { animation: marquee-left  45s linear infinite; }
+.strip-marquee-right { animation: marquee-right 45s linear infinite; }
+
+.strip-item {
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
 }
 
-.cat-strip__dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 9999px;
-  background: var(--brand);
-  opacity: 0.5;
+.strip-item__text {
+  white-space: nowrap;
+  font-family: var(--font-body, sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.strip-item__text--normal { color: rgba(0,0,0,0.50); }
+.strip-item__text--dim    { color: rgba(0,0,0,0.28); }
+
+.strip-sep {
+  display: inline-block;
+  margin: 0 1.5rem;
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.20);
   flex-shrink: 0;
+  align-self: center;
 }
 </style>

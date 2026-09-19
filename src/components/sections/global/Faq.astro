@@ -1,159 +1,370 @@
 ---
 /**
- * Faq — generic FAQ section with details/summary accordion (zero JS).
- * Token-wired. Pass items array and optional category filter.
- * Emits FAQPage JSON-LD when emitSchema=true.
+ * Faq — faithfully ported from Faq.tsx
+ * JS accordion (details/summary for zero-JS fallback but matching visual design).
+ * Icon per item (category label + Lucide-style inline SVG), rounded-3xl outer wrapper,
+ * indented answer at pl-[55px], two-tone heading.
  */
+
 interface FaqItem {
+  icon?: string
+  category?: string
   question: string
   answer: string
-  category?: string
 }
 
 interface Props {
-  title?: string
-  subtitle?: string
-  items: FaqItem[]
-  emitSchema?: boolean
-  columns?: 1 | 2
+  items?: FaqItem[]
+  heading?: string
+  subheading?: string
+  description?: string
 }
 
 const {
-  title = 'Frequently asked questions',
-  subtitle,
-  items,
-  emitSchema = true,
-  columns = 1,
+  heading = 'Common',
+  subheading = 'Questions.',
+  description = 'Everything you need to know for seamless production.',
+  items = [
+    {
+      icon: 'Image',
+      category: 'OUTPUT',
+      question: 'What file formats do you deliver?',
+      answer: 'We deliver PNG (transparent background), JPEG (white or custom background), TIFF, and PSD. Just specify in the order notes and we\'ll match your requirements exactly.',
+    },
+    {
+      icon: 'Clock',
+      category: 'TURNAROUND',
+      question: 'How fast is the turnaround?',
+      answer: 'Standard turnaround is 12–24 hours for most orders. Rush 4–8 hour delivery is available for an additional fee. Large batches (500+ images) are quoted individually.',
+    },
+    {
+      icon: 'CreditCard',
+      category: 'PRICING',
+      question: 'How is pricing structured?',
+      answer: 'We price per image starting from $0.39 with no monthly minimums or contracts. Volume discounts apply automatically at 50, 200, and 500 images. Send 3 images free before your first paid order.',
+    },
+    {
+      icon: 'Cpu',
+      category: 'QUALITY',
+      question: 'Do you use AI automation?',
+      answer: 'No. Every path is hand-traced by a human editor using the pen tool. AI tools struggle with lace, glass, hair, and transparent edges — we don\'t. Your consistency across a catalog is guaranteed.',
+    },
+    {
+      icon: 'Layers',
+      category: 'WORKFLOW',
+      question: 'How do I send files and receive deliveries?',
+      answer: 'Upload via your dashboard, Google Drive, Dropbox, or WeTransfer. We deliver back to the same platform. A style guide submission on your first order means every subsequent batch matches automatically.',
+    },
+    {
+      icon: 'RotateCcw',
+      category: 'REVISIONS',
+      question: 'What if I need a revision?',
+      answer: 'Unlimited revisions are included until you\'re satisfied. If an image doesn\'t match your style guide or the brief, we re-edit at no extra cost.',
+    },
+    {
+      icon: 'MessageCircle',
+      category: 'SUPPORT',
+      question: 'Can I speak with someone before ordering?',
+      answer: 'Yes. Book a 15-minute call from the /book-meeting page or email hello@reframevisuals.com. We\'ll review your catalog requirements and recommend the right service tier.',
+    },
+  ],
 } = Astro.props
 
-const schema = emitSchema ? {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: items.map(({ question, answer }) => ({
-    '@type': 'Question',
-    name: question,
-    acceptedAnswer: { '@type': 'Answer', text: answer },
-  })),
-} : null
+// SVG icon paths keyed by Faq.tsx ICON_MAP names
+const ICON_PATHS: Record<string, string> = {
+  Image: 'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z M3.27 6.96L12 12.01l8.73-5.05 M12 22.08V12',
+  Cpu: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 0 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 0-2-2V9m0 0h18',
+  Layers: 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
+  Clock: 'M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z M12 6v6l4 2',
+  CreditCard: 'M1 4h22a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z M1 10h22',
+  RotateCcw: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8 M3 3v5h5',
+  MessageCircle: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+}
 ---
 
-{schema && (
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-)}
-
-<section class="faq-section reveal" aria-label="Frequently asked questions">
-  <div class="section-container">
-    <div class="faq-section__header">
-      <h2 class="faq-section__title">{title}</h2>
-      {subtitle && <p class="faq-section__subtitle">{subtitle}</p>}
+<section id="faq" class="faq-section">
+  <div class="faq-container">
+    <!-- Two-tone center heading -->
+    <div class="faq-header reveal">
+      <h2 class="faq-heading">
+        {heading}<br />
+        <span class="faq-heading-muted">{subheading}</span>
+      </h2>
+      <p class="faq-description">{description}</p>
     </div>
 
-    <div class:list={['faq-list', columns === 2 && 'faq-list--two-col']}>
-      {items.map(({ question, answer }) => (
-        <details class="faq-item">
-          <summary class="faq-item__q">
-            <span>{question}</span>
-            <svg class="faq-item__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
-          </summary>
-          <div class="faq-item__a">
-            <p>{answer}</p>
-          </div>
-        </details>
-      ))}
+    <!-- Accordion wrapper -->
+    <div class="faq-card">
+      <div class="faq-list">
+        {items.map((item, i) => {
+          const iconPath = ICON_PATHS[item.icon ?? ''] ?? ICON_PATHS['MessageCircle']
+          return (
+            <div class="faq-item reveal" style={`--delay:${i * 0.035}s`} data-faq-index={i}>
+              <button
+                class="faq-item__trigger"
+                aria-expanded="false"
+                aria-controls={`faq-answer-${i}`}
+                id={`faq-btn-${i}`}
+              >
+                <div class="faq-item__left">
+                  <!-- Icon box -->
+                  <div class="faq-item__icon-wrap" aria-hidden="true">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      {iconPath.split(' M').map((seg, si) => (
+                        <path d={si === 0 ? seg : 'M' + seg} />
+                      ))}
+                    </svg>
+                  </div>
+                  <div class="faq-item__text">
+                    <span class="faq-item__category">{item.category ?? 'GENERAL'}</span>
+                    <span class="faq-item__question">{item.question}</span>
+                  </div>
+                </div>
+                <!-- Chevron -->
+                <span class="faq-item__chevron" aria-hidden="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Answer panel -->
+              <div
+                class="faq-item__answer"
+                id={`faq-answer-${i}`}
+                role="region"
+                aria-labelledby={`faq-btn-${i}`}
+                hidden
+              >
+                <div class="faq-item__answer-inner">
+                  <p class="faq-item__answer-text">{item.answer}</p>
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
 .faq-section {
-  padding: 5rem 0;
+  padding: 2rem 1.5rem 2.5rem;
+  background: var(--color-bg-primary);
+  overflow: hidden;
+  position: relative;
+}
+@media (min-width: 640px) { .faq-section { padding: 2.5rem 1.5rem 3rem; } }
+@media (min-width: 1024px) { .faq-section { padding: 3rem 3rem 4rem; } }
+
+.faq-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
 }
 
-.faq-section__header {
-  margin-bottom: 2.5rem;
-  max-width: 40rem;
+.faq-header {
+  text-align: center;
+  max-width: 32rem;
+  margin: 0 auto 4rem;
 }
 
-.faq-section__title {
+.faq-heading {
   font-family: var(--font-heading);
-  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
+  font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
   color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
 }
 
-.faq-section__subtitle {
-  margin-top: 0.625rem;
-  font-size: var(--text-body);
+.faq-heading-muted {
+  color: rgba(0,0,0,0.45);
+}
+
+.faq-description {
+  font-size: 1rem;
   color: var(--color-text-secondary);
+  line-height: 1.6;
 }
 
-/* ── List layout ─────────────────────────────────────────── */
+/* Outer card */
+.faq-card {
+  max-width: 48rem;
+  margin: 0 auto;
+  border-radius: var(--radius-card);
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--color-bg-primary);
+  padding: 1rem;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.03);
+}
+@media (min-width: 640px) { .faq-card { padding: 1.5rem; } }
+
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  border-top: 1px solid var(--color-border-light);
+  gap: 0.75rem;
 }
 
-.faq-list--two-col {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  border-top: none;
-}
-@media (min-width: 1024px) {
-  .faq-list--two-col {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0 3rem;
-  }
-  .faq-list--two-col .faq-item {
-    border-top: 1px solid var(--color-border-light);
-  }
-}
-
-/* ── Item ────────────────────────────────────────────────── */
+/* Individual item */
 .faq-item {
-  border-bottom: 1px solid var(--color-border-light);
+  border-radius: 1rem;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+.faq-item:hover {
+  border-color: rgba(0,0,0,0.20);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.faq-item[data-open="true"] {
+  border-color: rgba(0,0,0,0.10);
+  background: var(--color-bg-primary);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
 }
 
-.faq-item__q {
+.faq-item__trigger {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1.25rem 0;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  background: none;
+  border: none;
   cursor: pointer;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  list-style: none;
-  user-select: none;
-  transition: color var(--transition-fast);
 }
-.faq-item__q::-webkit-details-marker { display: none; }
-.faq-item__q:hover { color: var(--brand); }
+@media (min-width: 640px) { .faq-item__trigger { padding: 1.25rem; gap: 1rem; } }
+
+.faq-item__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+@media (min-width: 640px) { .faq-item__left { gap: 1rem; } }
+
+.faq-item__icon-wrap {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--color-bg-primary);
+  color: rgba(0,0,0,0.60);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+@media (min-width: 640px) { .faq-item__icon-wrap { width: 2.25rem; height: 2.25rem; border-radius: 0.5rem; } }
+.faq-item[data-open="true"] .faq-item__icon-wrap {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.20);
+}
+
+.faq-item__text {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item__category {
+  font-size: 0.625rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(0,0,0,0.50);
+  margin-bottom: 0.2rem;
+}
+
+.faq-item__question {
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+}
+@media (min-width: 640px) { .faq-item__question { font-size: 1rem; } }
 
 .faq-item__chevron {
   flex-shrink: 0;
-  color: var(--color-text-muted);
-  transition: transform var(--transition-fast), color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: var(--color-bg-primary);
+  color: rgba(0,0,0,0.50);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  transition: background 0.3s, color 0.3s, transform 0.3s;
 }
-details[open] .faq-item__chevron {
+@media (min-width: 640px) { .faq-item__chevron { width: 1.75rem; height: 1.75rem; } }
+.faq-item[data-open="true"] .faq-item__chevron {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.20);
   transform: rotate(180deg);
-  color: var(--brand);
 }
 
-.faq-item__a {
-  padding-bottom: 1.25rem;
+.faq-item__answer {
+  overflow: hidden;
+}
+.faq-item__answer[hidden] { display: none; }
+.faq-item__answer-inner {
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding: 0.75rem 1.25rem 1rem 3.4375rem;
+}
+@media (min-width: 640px) {
+  .faq-item__answer-inner {
+    padding: 1rem 1.25rem 1.25rem 4.25rem;
+  }
 }
 
-.faq-item__a p {
-  font-size: 0.9375rem;
+.faq-item__answer-text {
+  font-size: 0.875rem;
+  font-weight: 500;
   line-height: 1.7;
-  color: var(--color-text-secondary);
-  max-width: 56rem;
+  color: rgba(0,0,0,0.60);
 }
 </style>
+
+<script>
+// Accordion: one-open-at-a-time, matches original useState behavior
+const items = document.querySelectorAll<HTMLElement>('.faq-item')
+
+items.forEach((item, i) => {
+  const btn = item.querySelector<HTMLButtonElement>('.faq-item__trigger')
+  const answer = item.querySelector<HTMLElement>('.faq-item__answer')
+  if (!btn || !answer) return
+
+  btn.addEventListener('click', () => {
+    const isOpen = item.dataset.open === 'true'
+
+    // Close all
+    items.forEach(it => {
+      it.dataset.open = 'false'
+      const a = it.querySelector<HTMLElement>('.faq-item__answer')
+      const b = it.querySelector<HTMLButtonElement>('.faq-item__trigger')
+      if (a) a.hidden = true
+      if (b) b.setAttribute('aria-expanded', 'false')
+    })
+
+    // Toggle current
+    if (!isOpen) {
+      item.dataset.open = 'true'
+      answer.hidden = false
+      btn.setAttribute('aria-expanded', 'true')
+    }
+  })
+})
+</script>

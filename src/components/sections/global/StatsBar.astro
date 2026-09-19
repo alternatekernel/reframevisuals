@@ -1,153 +1,307 @@
 ---
 /**
- * StatsBar — 3 proof-point numbers with animated count-up.
- * All colors/typography from design tokens. Swap the stats array to update everywhere.
+ * StatsBar — faithfully ported from Stats.tsx
+ * Font-mono black numbers, rounded-3xl cards, hover arrow to source,
+ * DotBackground (CSS), two-tone heading.
  */
-interface Stat {
-  value: string
-  label: string
-  source?: string
-  sourceUrl?: string
-}
 
-interface Props {
-  stats?: Stat[]
-  background?: 'white' | 'offwhite' | 'dark'
-}
-
-const {
-  background = 'offwhite',
-  stats = [
-    {
-      value: '93%',
-      label: 'of consumers say product images directly influence purchase decisions',
-      source: 'Salsify 2025',
-      sourceUrl: 'https://www.salsify.com/blog/images-and-videos-most-important-product-page-elements',
-    },
-    {
-      value: '$890B',
-      label: 'in annual US retail returns, often driven by inaccurate product photos',
-      source: 'NRF 2024',
-      sourceUrl: 'https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion',
-    },
-    {
-      value: '67%',
-      label: 'of shoppers rate image quality as "very important" in purchase decisions',
-      source: 'Baymard Institute',
-      sourceUrl: 'https://baymard.com/blog/home-and-hardware-ux-benchmark-2026',
-    },
-  ],
-} = Astro.props
-
-const bgClass = {
-  white: 'stats-bar--white',
-  offwhite: 'stats-bar--offwhite',
-  dark: 'stats-bar--dark',
-}[background]
+const STATS = [
+  {
+    value: '75%',
+    label: 'of shoppers name product images as the #1 factor influencing purchase decisions',
+    source: 'Salsify 2025 Consumer Report',
+    sourceUrl: 'https://www.salsify.com/blog/images-and-videos-most-important-product-page-elements',
+  },
+  {
+    value: '$890B',
+    label: 'in annual US retail returns — frequently caused by inaccurate or misleading product images',
+    source: 'NRF Happy Returns Report',
+    sourceUrl: 'https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion',
+  },
+  {
+    value: '93%',
+    label: 'of consumers rate image quality as "very important" — ahead of price, copy, and reviews',
+    source: 'Baymard Institute UX Research',
+    sourceUrl: 'https://baymard.com/blog/home-and-hardware-ux-benchmark-2026',
+  },
+]
 ---
 
-<section class={`stats-bar ${bgClass} reveal`} aria-label="Industry statistics">
-  <div class="section-container">
-    <div class="stats-bar__grid">
-      {stats.map((stat, i) => (
-        <div class="stat-card">
-          <div
-            class="stat-card__value"
-            data-target={stat.value}
-            data-index={i}
-          >
-            {stat.value}
-          </div>
-          <p class="stat-card__label">{stat.label}</p>
-          {stat.source && (
+<section
+  id="stats"
+  class="stats-section"
+  aria-label="Industry statistics"
+>
+  <div class="stats-container">
+    <!-- Two-tone heading -->
+    <h2 class="stats-heading">
+      The research is clear.<br class="stats-heading-br" />
+      <span class="stats-heading-muted">The best brands already act on it.</span>
+    </h2>
+
+    <!-- DotBackground + card grid -->
+    <div class="stats-grid-wrap">
+      <div class="stats-dot-bg" aria-hidden="true"></div>
+
+      <div class="stats-grid">
+        {STATS.map((stat, i) => (
+          <div class="stat-card reveal" style={`--delay:${i * 0.1}s`}>
+            <!-- Hover arrow (top-right, links to source) -->
             <a
-              href={stat.sourceUrl ?? '#'}
-              class="stat-card__source"
+              href={stat.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Open source article for ${stat.source}`}
+              class="stat-card__arrow"
             >
-              {stat.source}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
             </a>
-          )}
-        </div>
-      ))}
+
+            <!-- Step index -->
+            <div class="stat-card__index">0{i + 1}</div>
+
+            <!-- Number -->
+            <span
+              class="stat-card__number"
+              data-target={stat.value}
+            >
+              {stat.value}
+            </span>
+
+            <!-- Description -->
+            <p class="stat-card__label">{stat.label}</p>
+
+            <!-- Source badge -->
+            <div class="stat-card__source-wrap">
+              <a
+                href={stat.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="stat-card__source"
+              >
+                {stat.source}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-.stats-bar {
-  padding: 4rem 0;
-  border-top: 1px solid var(--color-border-subtle);
-  border-bottom: 1px solid var(--color-border-subtle);
+.stats-section {
+  padding: 2.5rem 1.5rem 3rem;
+  background: var(--color-bg-primary);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
 }
-.stats-bar--white    { background: var(--color-bg-primary); }
-.stats-bar--offwhite { background: var(--color-bg-secondary); }
-.stats-bar--dark     { background: var(--footer-dark); color: #fff; }
+@media (min-width: 640px) {
+  .stats-section { padding: 3rem 1.5rem 3.5rem; }
+}
+@media (min-width: 1024px) {
+  .stats-section { padding: 4rem 3rem 5rem; }
+}
 
-.stats-bar__grid {
+.stats-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+.stats-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+  margin-bottom: 2rem;
+}
+@media (min-width: 640px) { .stats-heading { margin-bottom: 3rem; } }
+@media (min-width: 1024px) { .stats-heading { margin-bottom: 4rem; } }
+
+.stats-heading-br { display: none; }
+@media (min-width: 1024px) { .stats-heading-br { display: block; } }
+
+.stats-heading-muted {
+  color: rgba(0,0,0,0.40);
+}
+
+/* DotBackground (ellipse variant) */
+.stats-grid-wrap {
+  position: relative;
+  max-width: 56rem;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.stats-dot-bg {
+  pointer-events: none;
+  position: absolute;
+  inset: -5rem 0;
+  left: 50%;
+  width: 100vw;
+  height: calc(100% + 10rem);
+  transform: translateX(-50%);
+  opacity: 0.45;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+}
+
+.stats-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 10;
 }
 @media (min-width: 768px) {
-  .stats-bar__grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.5rem 0;
-}
-@media (min-width: 768px) {
-  .stat-card:not(:last-child) {
-    border-right: 1px solid var(--color-border-light);
-    padding-right: 2.5rem;
+  .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 }
 
-.stat-card__value {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5vw, 4rem);
+.stat-card {
+  position: relative;
+  padding: 3rem 1.5rem 2rem;
+  background: var(--color-bg-primary);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: var(--radius-card);
+  box-shadow: 0 12px 32px -12px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  min-height: 320px;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation-delay: var(--delay, 0s);
+}
+@media (min-width: 768px) {
+  .stat-card { min-height: 360px; padding: 4rem 2rem 2.5rem; }
+}
+.stat-card::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 1rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.02);
+  filter: blur(16px);
+  transition: bottom 0.3s;
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,0,0,0.18);
+  box-shadow: 0 24px 50px -12px rgba(0,0,0,0.06);
+}
+.stat-card:hover::before { bottom: 0.5rem; }
+
+/* Hover arrow — top-right, visible only on hover */
+.stat-card__arrow {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.95);
+  color: rgba(0,0,0,0.4);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s, border-color 0.2s, background 0.2s, color 0.2s;
+}
+.stat-card:hover .stat-card__arrow {
+  opacity: 1;
+  transform: translateY(0) rotate(-45deg);
+}
+.stat-card__arrow:hover {
+  border-color: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.9);
+  color: #fff;
+}
+
+.stat-card__index {
+  font-family: monospace;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
+}
+@media (min-width: 640px) { .stat-card__index { font-size: 0.6875rem; } }
+
+.stat-card__number {
+  display: block;
+  font-family: monospace;
+  font-size: clamp(3rem, 8vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   line-height: 1;
-  color: var(--color-text-primary);
-  transition: color var(--transition-base);
+  color: rgba(0,0,0,0.88);
 }
-.stats-bar--dark .stat-card__value { color: #ffffff; }
+@media (min-width: 640px) { .stat-card__number { font-size: clamp(3.5rem, 8vw, 4.5rem); } }
 
 .stat-card__label {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--color-text-secondary);
-  max-width: 24rem;
-}
-.stats-bar--dark .stat-card__label { color: rgba(255,255,255,0.55); }
-
-.stat-card__source {
-  font-size: 0.6875rem;
+  margin-top: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  transition: color var(--transition-fast);
+  color: rgba(0,0,0,0.5);
+  line-height: 1.5;
+  max-width: 16rem;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
 }
-.stat-card__source:hover { color: var(--brand); }
-.stats-bar--dark .stat-card__source { color: rgba(255,255,255,0.30); }
+@media (min-width: 640px) { .stat-card__label { font-size: 1rem; } }
+
+.stat-card__source-wrap {
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+.stat-card__source {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.stat-card__source:hover {
+  color: rgba(0,0,0,0.8);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 </style>
 
 <script>
-// Count-up animation — runs only on the client, crawlers see the final values
 const isCrawler = /bot|crawl|spider|prerender|headless/i.test(navigator.userAgent)
 
 if (!isCrawler) {
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return
-      observer.unobserve(entry.target)
+      obs.unobserve(entry.target)
 
       const el = entry.target as HTMLElement
       const raw = el.dataset.target ?? ''
@@ -171,8 +325,8 @@ if (!isCrawler) {
       }
       requestAnimationFrame(tick)
     })
-  }, { threshold: 0.2 })
+  }, { threshold: 0.2, rootMargin: '-10% 0px' })
 
-  document.querySelectorAll<HTMLElement>('[data-target]').forEach(el => observer.observe(el))
+  document.querySelectorAll<HTMLElement>('[data-target]').forEach(el => obs.observe(el))
 }
 </script>

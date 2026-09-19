@@ -1,245 +1,376 @@
 ---
 /**
- * InsightsPreview — 3-post blog preview grid for use on non-blog pages.
- * Token-wired. Static data passed as props; Astro content collection
- * fetches will replace this when Phase 3 blog content is ready.
+ * InsightsPreview — faithfully ported from InsightsPreview.tsx
+ * Dark section (#0b0b10) with blur orbs, "Reframe Blog" pill, two-tone heading,
+ * 1 featured article card + 2 secondary cards in a lg:grid-cols-[1.3fr_0.7fr] layout.
+ * In Astro we load posts from the blog content collection (featured first, newest next).
  */
-interface Post {
-  slug: string
-  title: string
-  excerpt: string
-  category: string
-  categoryColor?: string
-  readingTime?: number
-  date?: string
-  image?: string
-}
+import { getCollection } from 'astro:content'
 
-interface Props {
-  title?: string
-  subtitle?: string
-  posts?: Post[]
-  ctaLabel?: string
-  ctaHref?: string
-}
+const allPosts = await getCollection('blog')
 
-const {
-  title    = 'From the Reframe blog',
-  subtitle = 'Guides and insights on product photography and photo editing for e-commerce.',
-  ctaLabel = 'Browse all articles',
-  ctaHref  = '/blog',
-  posts = [
-    {
-      slug: 'clipping-path-vs-background-removal',
-      title: 'Clipping Path vs Background Removal: What Every Amazon Seller Should Know',
-      excerpt: 'Remove.bg is fast — but it cannot trace lace, hair, or glass. Here is when you need a human Pen Tool trace instead.',
-      category: 'Techniques',
-      categoryColor: 'var(--cat-foundation)',
-      readingTime: 6,
-      date: '2025-05-12',
-    },
-    {
-      slug: 'ghost-mannequin-guide',
-      title: 'Ghost Mannequin Photography: A Complete Post-Production Guide',
-      excerpt: 'How to shoot, composite, and deliver fashion product images with perfect hollow-neck joins.',
-      category: 'Services',
-      categoryColor: 'var(--cat-enhancement)',
-      readingTime: 9,
-      date: '2025-04-28',
-    },
-    {
-      slug: 'photo-editing-turnaround-guide',
-      title: 'How to Hit a 24-Hour Turnaround Without Sacrificing Quality',
-      excerpt: 'Workflow, briefing, and file-naming conventions that make same-day delivery reliable.',
-      category: 'Industry',
-      categoryColor: 'var(--cat-retouch)',
-      readingTime: 7,
-      date: '2025-04-10',
-    },
-  ],
-} = Astro.props
+const recentPosts = [...allPosts]
+  .sort((a, b) => {
+    if ((a.data.featured ?? false) !== (b.data.featured ?? false)) {
+      return a.data.featured ? -1 : 1
+    }
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  })
+  .slice(0, 3)
+  .map(post => ({
+    category: post.data.category
+      ? post.data.category.charAt(0).toUpperCase() + post.data.category.slice(1)
+      : 'General',
+    title: post.data.title,
+    readTime: post.data.readTime ?? '5 min read',
+    slug: post.slug,
+  }))
 
-const fmt = (iso?: string) => iso
-  ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-  : ''
+// Fallback placeholders if no blog posts exist yet
+const placeholders = [
+  { category: 'Technique', title: 'How to Remove Complex Backgrounds from Lace & Sheer Fabrics', readTime: '6 min read', slug: 'remove-backgrounds-lace-sheer' },
+  { category: 'Marketplace', title: 'Amazon Main Image Requirements in 2025: What Changed and Why It Matters', readTime: '4 min read', slug: 'amazon-main-image-requirements-2025' },
+  { category: 'Operations', title: 'Batch Processing 500+ Product Images: A Catalog Ops Playbook', readTime: '8 min read', slug: 'batch-processing-product-images-catalog-ops' },
+]
+
+const posts = recentPosts.length > 0 ? recentPosts : placeholders
+const featuredPost = posts[0]
+const secondaryPosts = posts.slice(1)
 ---
 
-<section class="insights-preview reveal" aria-label="Blog preview">
-  <div class="section-container">
-    <div class="insights-preview__header">
-      <div>
-        <h2 class="insights-preview__title">{title}</h2>
-        <p class="insights-preview__subtitle">{subtitle}</p>
+<section class="insights-section" aria-label="Latest blog posts">
+  <!-- Blur orbs -->
+  <div class="insights-orb insights-orb--top"    aria-hidden="true"></div>
+  <div class="insights-orb insights-orb--bl"     aria-hidden="true"></div>
+  <div class="insights-orb insights-orb--tr"     aria-hidden="true"></div>
+  <div class="insights-top-line"                 aria-hidden="true"></div>
+
+  <div class="insights-container">
+    <!-- Header row -->
+    <div class="insights-header reveal">
+      <div class="insights-header__left">
+        <!-- Blog pill -->
+        <div class="insights-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          Reframe Blog
+        </div>
+
+        <h2 class="insights-heading">
+          Knowledge from the <span class="insights-heading-muted">editing floor.</span>
+        </h2>
+
+        <p class="insights-subtext">
+          Retouching technique, marketplace prep, and catalog ops. From editors who do this work.
+        </p>
       </div>
-      <a href={ctaHref} class="insights-preview__cta">
-        {ctaLabel}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+
+      <a href="/blog" class="insights-cta-btn">View all blog posts</a>
     </div>
 
-    <div class="insights-preview__grid">
-      {posts.map(post => (
-        <article class="ip-card">
-          {post.image && (
-            <div class="ip-card__img-wrap">
-              <img src={post.image} alt={post.title} width="640" height="360" loading="lazy" class="ip-card__img" />
-            </div>
-          )}
-          <div class="ip-card__body">
-            <div class="ip-card__meta">
-              <span class="ip-card__cat" style={`color:${post.categoryColor ?? 'var(--brand)'}`}>{post.category}</span>
-              {post.readingTime && <span class="ip-card__time">{post.readingTime} min read</span>}
-            </div>
-            <h3 class="ip-card__title">
-              <a href={`/blog/${post.slug}`} class="ip-card__title-link">{post.title}</a>
-            </h3>
-            <p class="ip-card__excerpt">{post.excerpt}</p>
-            {post.date && <time class="ip-card__date" datetime={post.date}>{fmt(post.date)}</time>}
+    <!-- Card grid -->
+    <div class="insights-grid reveal">
+      <!-- Featured card -->
+      <a href={`/blog/${featuredPost.slug}`} class="insights-card insights-card--featured" aria-label={`Read: ${featuredPost.title}`}>
+        <div class="insights-card__shimmer" aria-hidden="true"></div>
+        <div class="insights-card__body">
+          <div>
+            <p class="insights-card__category">{featuredPost.category}</p>
+            <h3 class="insights-card__title insights-card__title--lg">{featuredPost.title}</h3>
           </div>
-        </article>
-      ))}
+          <div class="insights-card__footer">
+            <span class="insights-card__read-time">{featuredPost.readTime}</span>
+            <span class="insights-card__arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Secondary cards -->
+      <div class="insights-secondary">
+        {secondaryPosts.map(post => (
+          <a href={`/blog/${post.slug}`} class="insights-card insights-card--secondary" aria-label={`Read: ${post.title}`}>
+            <div>
+              <p class="insights-card__category insights-card__category--dim">{post.category}</p>
+              <h3 class="insights-card__title insights-card__title--sm">{post.title}</h3>
+            </div>
+            <div class="insights-card__footer">
+              <span class="insights-card__read-time insights-card__read-time--dim">{post.readTime}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="insights-card__arrow-sm" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-.insights-preview {
-  padding: 5rem 0;
-  background: var(--color-bg-primary);
+.insights-section {
+  position: relative;
+  overflow: hidden;
+  background: #0b0b10;
+  padding: 3rem 1.25rem;
+  color: #fff;
+}
+@media (min-width: 640px) { .insights-section { padding: 3.5rem 1.5rem; } }
+@media (min-width: 1024px) { .insights-section { padding: 5rem 2.5rem; } }
+
+/* Blur orbs */
+.insights-orb {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 50%;
+}
+.insights-orb--top {
+  left: 50%;
+  top: -13.75rem;
+  width: 51.25rem;
+  height: 27.5rem;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.03);
+  filter: blur(3rem);
+}
+.insights-orb--bl {
+  bottom: -10%;
+  left: 14%;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(255,255,255,0.05);
+  filter: blur(3rem);
+}
+.insights-orb--tr {
+  right: 10%;
+  top: 18%;
+  width: 13rem;
+  height: 13rem;
+  background: rgba(255,255,255,0.05);
+  filter: blur(3rem);
+}
+.insights-top-line {
+  pointer-events: none;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
 }
 
-.insights-preview__header {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
+.insights-container {
+  position: relative;
+  z-index: 10;
+  margin: 0 auto;
+  max-width: 77.5rem;
 }
-@media (min-width: 768px) {
-  .insights-preview__header {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
+
+/* Header */
+.insights-header {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+@media (min-width: 1024px) {
+  .insights-header {
+    margin-bottom: 2.5rem;
+    grid-template-columns: 0.95fr auto;
   }
 }
 
-.insights-preview__title {
-  font-family: var(--font-heading);
-  font-size: clamp(var(--text-heading-3), 3vw, var(--text-heading-2));
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-}
+.insights-header__left { max-width: 48rem; }
 
-.insights-preview__subtitle {
-  margin-top: 0.5rem;
-  font-size: var(--text-body);
-  color: var(--color-text-secondary);
-  max-width: 36rem;
-}
-
-.insights-preview__cta {
+.insights-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-text-primary);
-  white-space: nowrap;
-  flex-shrink: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--transition-fast);
-}
-.insights-preview__cta:hover { color: var(--brand); }
-
-/* ── Grid ────────────────────────────────────────────────── */
-.insights-preview__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-@media (min-width: 640px)  { .insights-preview__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .insights-preview__grid { grid-template-columns: repeat(3, 1fr); } }
-
-/* ── Post card ───────────────────────────────────────────── */
-.ip-card {
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
-}
-.ip-card:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(0,0,0,0.12);
-  transform: translateY(-3px);
-}
-
-.ip-card__img-wrap { overflow: hidden; aspect-ratio: 16/9; }
-.ip-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--transition-slow);
-}
-.ip-card:hover .ip-card__img { transform: scale(1.04); }
-
-.ip-card__body {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
   gap: 0.5rem;
-  flex: 1;
+  margin-bottom: 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.65);
 }
 
-.ip-card__meta {
+.insights-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.insights-heading-muted { color: rgba(255,255,255,0.40); }
+
+.insights-subtext {
+  margin-top: 1.25rem;
+  max-width: 40rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.60);
+}
+@media (min-width: 1024px) { .insights-subtext { font-size: 1.125rem; } }
+
+.insights-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  width: 100%;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #fff;
+  padding: 0 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+@media (min-width: 640px) { .insights-cta-btn { width: auto; } }
+.insights-cta-btn:hover { background: rgba(255,255,255,0.90); }
+.insights-cta-btn:active { transform: scale(0.97); }
+
+/* Card grid */
+.insights-grid {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 1024px) {
+  .insights-grid { grid-template-columns: 1.3fr 0.7fr; }
+}
+
+/* Featured card */
+.insights-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+  box-shadow: 0 24px 60px -42px rgba(0,0,0,0.55);
+}
+.insights-card:hover {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+}
+
+.insights-card--featured {
+  position: relative;
+  overflow: hidden;
+  min-height: 20rem;
+  padding: 1.5rem;
+}
+@media (min-width: 640px) { .insights-card--featured { padding: 2rem; } }
+@media (min-width: 1024px) { .insights-card--featured { padding: 2.5rem; } }
+.insights-card--featured:hover { transform: translateY(-2px); }
+
+.insights-card__shimmer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0 2rem auto;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+}
+
+.insights-card__body {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+}
+@media (min-width: 640px) { .insights-card__body { gap: 4rem; } }
+
+.insights-card__category {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.40);
+  margin-bottom: 1.25rem;
+}
+.insights-card__category--dim { color: rgba(255,255,255,0.35); margin-bottom: 1rem; }
+
+.insights-card__title { color: rgba(255,255,255,0.90); }
+.insights-card__title--lg {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  max-width: 40rem;
+}
+.insights-card__title--sm {
+  font-size: clamp(1.1875rem, 2.5vw, 1.3125rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.insights-card__footer {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  padding-top: 1.25rem;
 }
 
-.ip-card__cat {
-  font-size: 0.6875rem;
+.insights-card__read-time {
+  font-size: 0.8125rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.40);
 }
+.insights-card__read-time--dim { color: rgba(255,255,255,0.35); }
 
-.ip-card__time {
-  font-size: 0.6875rem;
-  color: var(--color-text-muted);
-  font-weight: 500;
-}
-
-.ip-card__title {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
+.insights-card__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #fff;
   color: var(--color-text-primary);
-  flex: 1;
+  flex-shrink: 0;
+  transition: transform 0.3s;
 }
+.insights-card--featured:hover .insights-card__arrow { transform: rotate(-45deg); }
 
-.ip-card__title-link {
-  color: inherit;
-  text-decoration: none;
-  transition: color var(--transition-fast);
+.insights-card__arrow-sm {
+  color: rgba(255,255,255,0.45);
+  transition: transform 0.3s;
+  flex-shrink: 0;
 }
-.ip-card__title-link:hover { color: var(--brand); }
+.insights-card--secondary:hover .insights-card__arrow-sm { transform: rotate(-45deg); }
 
-.ip-card__excerpt {
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
+/* Secondary cards column */
+.insights-secondary {
+  display: grid;
+  gap: 1rem;
 }
+@media (min-width: 640px) { .insights-secondary { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .insights-secondary { grid-template-columns: 1fr; } }
 
-.ip-card__date {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin-top: 0.25rem;
+.insights-card--secondary {
+  padding: 1.25rem;
+  box-shadow: 0 20px 50px -40px rgba(0,0,0,0.55);
 }
+@media (min-width: 640px) { .insights-card--secondary { padding: 1.5rem; } }
+.insights-card--secondary:hover { transform: translateY(-2px); }
+.insights-card--secondary .insights-card__footer { margin-top: 1.75rem; padding-top: 1rem; }
 </style>

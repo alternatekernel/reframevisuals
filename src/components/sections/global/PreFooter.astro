@@ -1,0 +1,54 @@
+---
+/**
+ * PreFooter — faithfully ported from PreFooter.tsx
+ * Just renders /above-footer.svg with a thin border line above it.
+ */
+---
+
+<section class="prefooter" aria-hidden="true">
+  <div class="prefooter__line"></div>
+  <div class="prefooter__inner">
+    <div class="prefooter__img-wrap reveal">
+      <img
+        src="/above-footer.svg"
+        alt="Reframe Visuals - ecommerce photo editing services branding artwork"
+        class="prefooter__img"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+.prefooter {
+  background: var(--color-bg-primary);
+}
+
+.prefooter__line {
+  width: 100%;
+  height: 1px;
+  background: rgba(10,10,11,0.10);
+}
+
+.prefooter__inner {
+  padding: 3rem 1.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 1024px) { .prefooter__inner { padding: 5rem 1.5rem 0; } }
+
+.prefooter__img-wrap {
+  width: 100%;
+  max-width: 80rem;
+}
+
+.prefooter__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+}
+</style>

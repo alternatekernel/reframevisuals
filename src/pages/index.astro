@@ -2,19 +2,13 @@
 import PageLayout from '../layouts/PageLayout.astro'
 import StatsBar from '../components/sections/global/StatsBar.astro'
 import Testimonials from '../components/sections/global/Testimonials.astro'
-import PreFooterCTA from '../components/sections/global/PreFooterCTA.astro'
+import PreFooter from '../components/sections/global/PreFooter.astro'
 import Faq from '../components/sections/global/Faq.astro'
 import Workflow from '../components/sections/global/Workflow.astro'
 import Differentiation from '../components/sections/global/Differentiation.astro'
 import ClientCategoryStrip from '../components/sections/global/ClientCategoryStrip.astro'
 import InsightsPreview from '../components/sections/global/InsightsPreview.astro'
 
-const FAQ_ITEMS = [
-  { question: 'What is the minimum order?', answer: 'There is no minimum order. You can order a single image or thousands. Pricing is per image with no monthly commitment.' },
-  { question: 'How does the 24-hour turnaround work?', answer: 'Once your brief is confirmed, your images are delivered within 24 hours. Select the 12-hour express option at checkout for same-day delivery.' },
-  { question: 'Do you offer bulk discounts?', answer: 'Yes. Volume bundles are available for 500+ images per month. Contact us or see the pricing page for bundle options.' },
-  { question: 'What is included in the free trial?', answer: 'The free trial includes 3 images edited at no cost. Upload your files, describe your requirements, and receive professionally edited images within 24 hours.' },
-]
 ---
 
 <PageLayout
@@ -38,6 +32,6 @@ const FAQ_ITEMS = [
   <Workflow />
   <Testimonials />
   <InsightsPreview />
-  <Faq items={FAQ_ITEMS} />
-  <PreFooterCTA />
+  <Faq />
+  <PreFooter />
 </PageLayout>
