@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Block authenticated/private areas
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /account/
+Disallow: /jobs/
+
+# Block auth flows (no indexing value)
+Disallow: /login
+Disallow: /signup
+Disallow: /forgot-password
+Disallow: /reset-password
+
+Sitemap: https://reframevisuals.com/sitemap.xml

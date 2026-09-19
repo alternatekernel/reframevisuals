@@ -1,0 +1,135 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/about-reframe-visuals$",
+			"headers": {
+				"Location": "/about"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/blog/series(?:/([^/]+?))$",
+			"headers": {
+				"Location": "/blog"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/blog/topic(?:/([^/]+?))$",
+			"headers": {
+				"Location": "/blog"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/cookies$",
+			"headers": {
+				"Location": "/legal/cookies"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/privacy$",
+			"headers": {
+				"Location": "/legal/privacy"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/reframe-visuals-services$",
+			"headers": {
+				"Location": "/services"
+			},
+			"status": 301
+		},
+		{
+			"src": "^/terms$",
+			"headers": {
+				"Location": "/legal/terms"
+			},
+			"status": 301
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/about-reframe-visuals/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/contact/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/series/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/blog/topic/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/cookies/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/design-system/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/privacy/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/reframe-visuals-services/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/terms/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/.*$",
+			"dest": "_render",
+			"status": 404
+		}
+	],
+	"images": {
+		"sizes": [
+			640,
+			750,
+			828,
+			1080,
+			1200,
+			1920,
+			2048,
+			3840
+		],
+		"domains": [],
+		"remotePatterns": []
+	}
+}
