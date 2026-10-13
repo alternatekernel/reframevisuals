@@ -13,8 +13,10 @@ const HeroCards: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const isInViewRef = useRef(false);
+  // Hero is above the fold — treat as in-view from the start so auto-advance
+  // begins immediately on hydration without waiting for the observer to fire.
+  const [isInView, setIsInView] = useState(true);
+  const isInViewRef = useRef(true);
 
   const progress = useMotionValue(INITIAL_CENTER_INDEX);
   const expansion = useMotionValue(1);
@@ -120,7 +122,7 @@ const HeroCards: React.FC = () => {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => { isInViewRef.current = entry.isIntersecting; setIsInView(entry.isIntersecting); },
-      { threshold: 0.35 }
+      { threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -161,14 +163,23 @@ const HeroCards: React.FC = () => {
         {/* Navigation arrows */}
         <div className="absolute inset-x-0 z-[150] flex justify-between px-1 pointer-events-none sm:px-4 lg:px-12">
           <button
-            onClick={() => animate(progress, Math.round(progress.get() - 1), { type: 'spring', stiffness: 200, damping: 25 })}
+            onClick={() => {
+              // Snap from current spring position so rapid clicks don't stack
+              const cur = smoothProgress.get();
+              progress.set(cur);
+              animate(progress, Math.round(cur) - 1, { type: 'spring', stiffness: 200, damping: 25 });
+            }}
             className="group pointer-events-auto flex min-h-11 min-w-11 items-center justify-center rounded-full border border-black/[0.08] bg-[#FAFAF9]/95 p-2 backdrop-blur-md touch-manipulation transition-transform hover:-translate-y-0.5 sm:min-h-0 sm:min-w-0 sm:p-4"
             aria-label="Previous card"
           >
             <ChevronLeft size={20} className="text-black/50 transition-colors group-hover:text-black/80 sm:h-6 sm:w-6" />
           </button>
           <button
-            onClick={() => animate(progress, Math.round(progress.get() + 1), { type: 'spring', stiffness: 200, damping: 25 })}
+            onClick={() => {
+              const cur = smoothProgress.get();
+              progress.set(cur);
+              animate(progress, Math.round(cur) + 1, { type: 'spring', stiffness: 200, damping: 25 });
+            }}
             className="group pointer-events-auto flex min-h-11 min-w-11 items-center justify-center rounded-full border border-black/[0.08] bg-[#FAFAF9]/95 p-2 backdrop-blur-md touch-manipulation transition-transform hover:-translate-y-0.5 sm:min-h-0 sm:min-w-0 sm:p-4"
             aria-label="Next card"
           >
