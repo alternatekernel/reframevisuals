@@ -1,37 +1,60 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro'
-import StatsBar from '../components/sections/global/StatsBar.astro'
-import Testimonials from '../components/sections/global/Testimonials.astro'
-import PreFooter from '../components/sections/global/PreFooter.astro'
-import Faq from '../components/sections/global/Faq.astro'
-import Workflow from '../components/sections/global/Workflow.astro'
-import Differentiation from '../components/sections/global/Differentiation.astro'
+import Hero from '../components/sections/global/Hero.astro'
+import BeatPixelzBanner from '../components/sections/global/BeatPixelzBanner.astro'
 import ClientCategoryStrip from '../components/sections/global/ClientCategoryStrip.astro'
+import Testimonials from '../components/sections/global/Testimonials.astro'
+import Workflow from '../components/sections/global/Workflow.astro'
+import TargetAudienceProof from '../components/sections/global/TargetAudienceProof.astro'
+import TrialAuditCta from '../components/sections/global/TrialAuditCta.astro'
+import ReframeCSShowcase from '../components/sections/global/ReframeCSShowcase.astro'
+import StatsBar from '../components/sections/global/StatsBar.astro'
 import InsightsPreview from '../components/sections/global/InsightsPreview.astro'
-
+import Differentiation from '../components/sections/global/Differentiation.astro'
+import Faq from '../components/sections/global/Faq.astro'
+import PreFooter from '../components/sections/global/PreFooter.astro'
 ---
 
 <PageLayout
   title="Reframe Visuals — Professional Photo Editing for E-Commerce"
   description="Hand-traced background removal, colour correction, and product retouching. Start with 3 free sample edits. No minimum order."
 >
-  <!-- Placeholder hero -->
-  <section style="padding: 8rem 1.5rem; text-align: center; background: var(--color-bg-primary);">
-    <h1 style="font-family: var(--font-heading); font-size: var(--text-heading-1); font-weight: 800; letter-spacing: -0.04em; margin-bottom: 1rem;">
-      Professional Photo Editing<br/>for E-Commerce
-    </h1>
-    <p style="color: var(--color-text-secondary); font-size: 1.125rem; max-width: 36rem; margin: 0 auto 2rem;">
-      Hand-traced edges. Two-stage QA. Start with 3 free sample edits.
-    </p>
-    <a href="/free-trial" class="btn-primary">Get 3 Free Sample Edits</a>
-  </section>
+  <!-- 1. Hero -->
+  <Hero />
 
+  <!-- 2. Client / platform strip (trust signals) -->
   <ClientCategoryStrip />
-  <StatsBar />
+
+  <!-- 3. Beat Pixelz CTA banner -->
+  <BeatPixelzBanner />
+
+  <!-- 4. Differentiation feature grid -->
   <Differentiation />
-  <Workflow />
+
+  <!-- 5. Testimonials marquee -->
   <Testimonials />
+
+  <!-- 6. Free-trial email CTA -->
+  <TrialAuditCta />
+
+  <!-- 7. Workflow diagram -->
+  <Workflow />
+
+  <!-- 8. Target audience proof (3 segments) -->
+  <TargetAudienceProof />
+
+  <!-- 9. Stats bar (count-up numbers) -->
+  <StatsBar />
+
+  <!-- 10. ReframeCS support showcase -->
+  <ReframeCSShowcase />
+
+  <!-- 11. Insights / blog preview -->
   <InsightsPreview />
+
+  <!-- 12. FAQ -->
   <Faq />
+
+  <!-- 13. Pre-footer image -->
   <PreFooter />
 </PageLayout>
