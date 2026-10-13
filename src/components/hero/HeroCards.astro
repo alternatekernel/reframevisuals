@@ -1,0 +1,718 @@
+---
+/**
+ * HeroCards — Astro port of HeroCards.tsx + HeroCard.tsx + HeroBeforeAfter.tsx.
+ * Card positions are server-rendered from CSS vars (--o offset, --ao |offset|);
+ * the inline script drives them with a two-stage spring (progress → display),
+ * matching framer-motion's animate(progress) + useSpring(progress) pairing.
+ */
+import { HERO_SERVICES } from '../../data/heroServices'
+
+const INITIAL_CENTER_INDEX = 2
+const CARD_WIDTHS = [420, 640]
+const CARD_SIZES = '(min-width: 640px) 273px, 160px'
+const appUrl = import.meta.env.PUBLIC_APP_URL ?? 'https://app.reframevisuals.com'
+
+const total = HERO_SERVICES.length
+const wrapOffset = (diff: number) => (((diff + total / 2) % total) + total) % total - total / 2
+
+const optimized = (url: string, width: number) =>
+  url.replace(/upload\/[^/]+\//, `upload/f_auto,q_auto,c_scale,w_${width}/`)
+const srcSet = (url: string) => CARD_WIDTHS.map((w) => `${optimized(url, w)} ${w}w`).join(', ')
+
+const cards = HERO_SERVICES.map((card, index) => {
+  const offset = wrapOffset(index - INITIAL_CENTER_INDEX)
+  const abs = Math.abs(offset)
+  return {
+    ...card,
+    index,
+    href: `/services/${card.categoryId}/${card.id}`,
+    style: `--o:${offset};--ao:${abs};z-index:${Math.round(100 - abs * 10)}`,
+    loading: (abs <= 1 ? 'eager' : 'lazy') as 'eager' | 'lazy',
+    priority: index === INITIAL_CENTER_INDEX,
+  }
+})
+---
+
+<div class="hc-root" data-hero-cards>
+  <div class="hc-stage">
+    <div class="hc-stage__shadow" aria-hidden="true"></div>
+    <div class="hc-stage__line" aria-hidden="true"></div>
+
+    <div class="hc-nav">
+      <button type="button" class="hc-nav__btn" data-hc-prev aria-label="Previous card">
+        <svg class="hc-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="hc-nav__btn" data-hc-next aria-label="Next card">
+        <svg class="hc-nav__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="hc-track" data-hc-track>
+      {cards.map((card) => (
+        <div class="hc" data-hc-card style={card.style}>
+          <div class="hc__surface" data-hc-surface>
+            <div class="hc__media">
+              <div class="hc__ba">
+                <img
+                  src={optimized(card.afterImage, CARD_WIDTHS[0])}
+                  srcset={srcSet(card.afterImage)}
+                  sizes={CARD_SIZES}
+                  class="hc__img"
+                  alt="Ecommerce product photo after professional editing by Reframe Visuals"
+                  loading={card.loading}
+                  fetchpriority={card.priority ? 'high' : undefined}
+                  decoding="async"
+                  draggable="false"
+                />
+                <div class="hc__before">
+                  <img
+                    src={optimized(card.beforeImage, CARD_WIDTHS[0])}
+                    srcset={srcSet(card.beforeImage)}
+                    sizes={CARD_SIZES}
+                    class="hc__img"
+                    alt="Ecommerce product photo before editing - Reframe Visuals"
+                    loading={card.loading}
+                    fetchpriority={card.priority ? 'high' : undefined}
+                    decoding="async"
+                    draggable="false"
+                  />
+                </div>
+                <div class="hc__divider" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <div class="hc__footer">
+              <div class="hc__tip-wrap">
+                <a href={`${appUrl}/dashboard?view=new-project`} class="hc__icon" draggable="false" aria-label={`Order ${card.name}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"/><path d="m7.5 4.27 9 5.15"/></svg>
+                </a>
+                <div class="hc__tip hc__tip--order" role="tooltip">Order Now</div>
+              </div>
+
+              <div class="hc__name-wrap">
+                <a href={card.href} class="hc__name" draggable="false">{card.name}</a>
+              </div>
+
+              <div class="hc__tip-wrap">
+                <a href={card.href} class="hc__icon" draggable="false" aria-label={`About ${card.name}`}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                </a>
+                <div class="hc__tip hc__tip--info" role="tooltip"><p>{card.description}</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+/* Card gap / width tiers mirror updateDimensions(); the script refines them for short viewports. */
+.hc-root {
+  --hc-gap: 265;
+  --hc-cw: 273;
+  --hc-rot: 4;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: visible;
+  user-select: none;
+  -webkit-user-select: none;
+}
+@media (max-width: 1439px) { .hc-root { --hc-gap: 210; --hc-cw: 210; } }
+@media (max-width: 1023px) { .hc-root { --hc-gap: 190; --hc-cw: 195; } }
+@media (max-width: 639px)  { .hc-root { --hc-gap: 150; --hc-cw: 160; } }
+@media (max-width: 389px)  { .hc-root { --hc-gap: 138; --hc-cw: 148; } }
+.hc-root.is-panning { --hc-rot: 0; }
+
+.hc-stage {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: clamp(184px, 30svh, 230px);
+}
+@media (min-width: 640px)  { .hc-stage { height: clamp(300px, 42svh, 360px); } }
+@media (min-width: 1024px) { .hc-stage { height: clamp(330px, 44svh, 440px); } }
+@media (min-width: 640px) and (max-height: 860px) { .hc-stage { height: clamp(280px, 42svh, 340px); } }
+
+.hc-stage__shadow {
+  pointer-events: none;
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  height: 18%;
+  width: 74%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,0.11);
+  opacity: 0.6;
+  filter: blur(34px);
+}
+.hc-stage__line {
+  pointer-events: none;
+  position: absolute;
+  bottom: 9%;
+  left: 50%;
+  height: 1px;
+  width: 58%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, transparent, rgba(0,0,0,0.10), transparent);
+}
+
+/* Navigation */
+.hc-nav {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 150;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.25rem;
+}
+@media (min-width: 640px)  { .hc-nav { padding: 0 1rem; } }
+@media (min-width: 1024px) { .hc-nav { padding: 0 3rem; } }
+
+.hc-nav__btn {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: color-mix(in srgb, var(--color-bg-secondary) 95%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.hc-nav__btn:hover { transform: translateY(-2px); }
+@media (min-width: 640px) { .hc-nav__btn { min-width: 0; min-height: 0; padding: 1rem; } }
+
+.hc-nav__icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(0,0,0,0.50);
+  transition: color 0.2s;
+}
+.hc-nav__btn:hover .hc-nav__icon { color: rgba(0,0,0,0.80); }
+@media (min-width: 640px) { .hc-nav__icon { width: 24px; height: 24px; } }
+
+/* Track */
+.hc-track {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: pan-y;
+}
+.hc-root.is-panning .hc-track { cursor: grabbing; }
+
+/* Card */
+.hc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: calc((var(--hc-cw) * 1px + 23px) / -2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  will-change: transform;
+  transform:
+    translate(calc(var(--o) * var(--hc-gap) * 1px), calc(-50% + var(--ao) * 15px))
+    rotate(calc(var(--o) * var(--hc-rot) * 1deg));
+}
+
+.hc__surface {
+  position: relative;
+  overflow: hidden;
+  padding: 4px;
+  pointer-events: auto;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: var(--color-bg-secondary);
+  box-shadow: 0 18px 44px -36px rgba(0,0,0,0.42);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+.hc__surface::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 1px;
+  z-index: 30;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.025);
+}
+.hc.is-active .hc__surface {
+  border-color: rgba(0,0,0,0.20);
+  box-shadow: 0 20px 50px -34px rgba(0,0,0,0.48);
+}
+.hc .hc__surface:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0,0,0,0.24);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05), 0 12px 24px rgba(0,0,0,0.12), 0 34px 68px rgba(0,0,0,0.17);
+}
+
+.hc__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: calc(var(--hc-cw) * 1px);
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+}
+
+/* Before / after reveal */
+.hc__ba {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: rgba(249,250,251,0.5);
+}
+.hc__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+.hc__before {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  clip-path: inset(0 0% 0 0);
+  will-change: clip-path;
+  transition: clip-path 2.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+.hc__divider {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  z-index: 20;
+  width: 1px;
+  background: rgba(255,255,255,0.40);
+  will-change: left;
+  transition: left 2.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+.hc.is-active:not(.is-hovered) .hc__before { clip-path: inset(0 100% 0 0); }
+.hc.is-active:not(.is-hovered) .hc__divider { left: 0%; }
+.hc.is-hovered .hc__before,
+.hc.is-hovered .hc__divider,
+.hc.is-hoverfast .hc__before,
+.hc.is-hoverfast .hc__divider {
+  transition-duration: 0.8s;
+  transition-delay: 0s;
+}
+
+/* Footer */
+.hc__footer {
+  position: relative;
+  z-index: 20;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  background: var(--color-bg-secondary);
+}
+
+.hc__name-wrap {
+  flex: 1;
+  padding: 0.5rem 0;
+  text-align: center;
+}
+.hc__name {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgba(0,0,0,0.70);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hc__surface:hover .hc__name { color: #000; }
+@media (min-width: 640px) and (max-height: 860px) { .hc__name { font-size: 13.5px; } }
+
+.hc__tip-wrap { position: relative; }
+
+/* Icons fade in only on the centered card: 1 - 2·|offset|, forced to 1 on hover. */
+.hc__icon {
+  display: block;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  cursor: pointer;
+  color: rgba(0,0,0,0.40);
+  opacity: clamp(0, calc(1 - var(--ao) * 2), 1);
+  transition: color 0.3s;
+}
+.hc__icon:hover { color: #000; }
+.hc.is-hovered .hc__icon {
+  opacity: 1;
+  transition: color 0.3s, opacity 0.25s;
+}
+
+.hc__tip {
+  pointer-events: none;
+  position: absolute;
+  bottom: 100%;
+  z-index: 50;
+  margin-bottom: 0.5rem;
+  background: var(--color-text-primary);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.15s;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+.hc__tip-wrap:hover .hc__tip { opacity: 1; }
+.hc__tip--order {
+  left: 0;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 12px;
+  font-weight: 500;
+}
+.hc__tip--info {
+  right: 0;
+  width: 16rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 0.75rem 1rem;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: left;
+}
+</style>
+
+<script>
+  type Spring = { x: number; v: number; to: number; k: number; c: number }
+
+  const INITIAL_CENTER_INDEX = 2
+
+  const stepSpring = (s: Spring, dt: number) => {
+    const a = -s.k * (s.x - s.to) - s.c * s.v
+    s.v += a * dt
+    s.x += s.v * dt
+  }
+  const isSettled = (s: Spring) => Math.abs(s.x - s.to) < 1e-4 && Math.abs(s.v) < 1e-3
+
+  function initHeroCards(root: HTMLElement) {
+    if (root.dataset.hcReady) return
+    root.dataset.hcReady = '1'
+
+    const track = root.querySelector<HTMLElement>('[data-hc-track]')!
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-hc-card]')].map((el, index) => ({
+      el,
+      index,
+      active: false,
+      hovered: false,
+      completeTimer: 0,
+      hoverFastTimer: 0,
+    }))
+    const total = cards.length
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const wrapOffset = (diff: number) => (((diff + total / 2) % total) + total) % total - total / 2
+
+    // progress = framer's raw motion value; display = useSpring(progress, 150/25)
+    const progress: Spring = { x: INITIAL_CENTER_INDEX, v: 0, to: INITIAL_CENTER_INDEX, k: 150, c: 25 }
+    const display: Spring = { x: INITIAL_CENTER_INDEX, v: 0, to: INITIAL_CENTER_INDEX, k: 150, c: 25 }
+    let gap = 265
+    let dragging = false
+    let panning = false
+    // The hero sits above the fold, so start in view; the observer corrects this once it reports.
+    let inView = true
+    let raf = 0
+    let lastFrame = 0
+
+    function render() {
+      for (const card of cards) {
+        const o = wrapOffset(card.index - display.x)
+        const ao = Math.abs(o)
+        card.el.style.setProperty('--o', o.toFixed(4))
+        card.el.style.setProperty('--ao', ao.toFixed(4))
+        card.el.style.zIndex = String(Math.round(100 - ao * 10))
+        setActive(card, ao < 0.02)
+      }
+    }
+
+    function frame(now: number) {
+      const dt = Math.min(Math.max((now - lastFrame) / 1000, 0), 0.064)
+      lastFrame = now
+      const steps = Math.max(1, Math.ceil(dt / (1 / 240)))
+      const h = dt / steps
+      for (let i = 0; i < steps; i++) {
+        stepSpring(progress, h)
+        display.to = progress.x
+        stepSpring(display, h)
+      }
+      if (isSettled(progress)) { progress.x = progress.to; progress.v = 0 }
+      display.to = progress.x
+      if (isSettled(progress) && isSettled(display)) {
+        display.x = display.to
+        display.v = 0
+        raf = 0
+        render()
+        return
+      }
+      render()
+      raf = requestAnimationFrame(frame)
+    }
+
+    function kick() {
+      if (raf) return
+      lastFrame = performance.now()
+      raf = requestAnimationFrame(frame)
+    }
+
+    function animateTo(to: number, k: number, c: number) {
+      progress.to = to
+      progress.k = k
+      progress.c = c
+      kick()
+    }
+
+    function stopProgress() {
+      progress.to = progress.x
+      progress.v = 0
+    }
+
+    function setProgress(x: number) {
+      progress.x = x
+      progress.to = x
+      progress.v = 0
+      kick()
+    }
+
+    // After a card's 2.7s reveal, nudge to the next card (handleCardComplete).
+    function onCardComplete(index: number) {
+      if (!inView || document.hidden || dragging) return
+      const cur = progress.x
+      const norm = ((cur % total) + total) % total
+      const dist = Math.abs(index - norm)
+      if (dist < 0.1 || dist > total - 0.1) {
+        setTimeout(() => {
+          if (dragging || !inView || document.hidden) return
+          animateTo(Math.round(cur + 1), 40, 20)
+        }, 1000)
+      }
+    }
+
+    function syncComplete(card: (typeof cards)[number]) {
+      clearTimeout(card.completeTimer)
+      if (inView && card.active && !card.hovered) {
+        card.completeTimer = window.setTimeout(() => onCardComplete(card.index), 2700)
+      }
+    }
+
+    function setActive(card: (typeof cards)[number], active: boolean) {
+      if (card.active === active) return
+      card.active = active
+      card.el.classList.toggle('is-active', active)
+      if (active) card.el.querySelectorAll('img').forEach((img) => { img.loading = 'eager' })
+      syncComplete(card)
+    }
+
+    function setHovered(card: (typeof cards)[number], hovered: boolean) {
+      if (card.hovered === hovered) return
+      card.hovered = hovered
+      card.el.classList.toggle('is-hovered', hovered)
+      card.el.classList.add('is-hoverfast')
+      clearTimeout(card.hoverFastTimer)
+      card.hoverFastTimer = window.setTimeout(() => card.el.classList.remove('is-hoverfast'), 900)
+      syncComplete(card)
+    }
+
+    for (const card of cards) {
+      const surface = card.el.querySelector<HTMLElement>('[data-hc-surface]')!
+      surface.addEventListener('mouseenter', () => setHovered(card, true))
+      surface.addEventListener('mouseleave', () => setHovered(card, false))
+    }
+
+    // Responsive dimensions (updateDimensions)
+    function updateDimensions() {
+      const w = window.innerWidth
+      const h = window.innerHeight
+      let targetGap = 265
+      let targetWidth = 273
+      if (w < 390) { targetGap = 138; targetWidth = 148 }
+      else if (w < 640) { targetGap = 150; targetWidth = 160 }
+      else if (w < 1024) { targetGap = 190; targetWidth = 195 }
+      else if (w < 1440) { targetGap = 210; targetWidth = 210 }
+
+      if (w >= 640) {
+        const short = h <= 860
+        const stageHeight = short
+          ? Math.min(Math.max(h * 0.42, 280), 340)
+          : w >= 1024
+            ? Math.min(Math.max(h * 0.44, 330), 440)
+            : Math.min(Math.max(h * 0.42, 300), 360)
+        const maxWidthForHeight = Math.floor((stageHeight - (short ? 75 : 60)) / 1.25)
+        if (maxWidthForHeight < targetWidth) {
+          targetGap = Math.round(targetGap * (maxWidthForHeight / targetWidth))
+          targetWidth = maxWidthForHeight
+        }
+      }
+      gap = targetGap
+      root.style.setProperty('--hc-gap', String(targetGap))
+      root.style.setProperty('--hc-cw', String(targetWidth))
+    }
+    updateDimensions()
+    window.addEventListener('resize', updateDimensions)
+
+    // Arrow buttons
+    root.querySelector('[data-hc-prev]')!.addEventListener('click', () =>
+      animateTo(Math.round(progress.x - 1), 200, 25))
+    root.querySelector('[data-hc-next]')!.addEventListener('click', () =>
+      animateTo(Math.round(progress.x + 1), 200, 25))
+
+    // Horizontal trackpad swipe; vertical wheel scrolls the page as normal.
+    let wheeling = false
+    let wheelStart = 0
+    let lastWheelDelta = 0
+    let wheelTimeout = 0
+    track.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return
+      e.preventDefault()
+      if (!wheeling) {
+        stopProgress()
+        wheeling = true
+        wheelStart = progress.x
+        dragging = true
+      }
+      lastWheelDelta = e.deltaX * 0.006
+      setProgress(progress.x + lastWheelDelta)
+      clearTimeout(wheelTimeout)
+      wheelTimeout = window.setTimeout(() => {
+        wheeling = false
+        dragging = false
+        const cur = progress.x
+        let target = Math.round(cur)
+        const diff = cur - wheelStart
+        if (Math.abs(diff) > 0.1 && Math.abs(diff) < 0.5) {
+          target = lastWheelDelta > 0 ? Math.ceil(cur) : Math.floor(cur)
+        }
+        animateTo(target, 150, 25)
+      }, 150)
+    }, { passive: false })
+
+    // Pointer pan (onPanStart / onPan / onPanEnd), 3px threshold like framer-motion.
+    let pointerId: number | null = null
+    let startX = 0
+    let lastX = 0
+    let samples: { t: number; x: number }[] = []
+    let suppressClick = false
+
+    track.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return
+      pointerId = e.pointerId
+      startX = lastX = e.clientX
+      samples = [{ t: e.timeStamp, x: e.clientX }]
+    })
+
+    track.addEventListener('pointermove', (e) => {
+      if (e.pointerId !== pointerId) return
+      if (!panning) {
+        if (Math.abs(e.clientX - startX) < 3) return
+        panning = true
+        dragging = true
+        root.classList.add('is-panning')
+        track.setPointerCapture(e.pointerId)
+        stopProgress()
+      }
+      setProgress(progress.x - (e.clientX - lastX) / gap)
+      lastX = e.clientX
+      samples.push({ t: e.timeStamp, x: e.clientX })
+      while (samples.length > 2 && e.timeStamp - samples[0].t > 100) samples.shift()
+    })
+
+    const endPan = (e: PointerEvent) => {
+      if (e.pointerId !== pointerId) return
+      pointerId = null
+      if (!panning) return
+      panning = false
+      dragging = false
+      root.classList.remove('is-panning')
+      suppressClick = true
+      setTimeout(() => { suppressClick = false }, 0)
+      const first = samples[0]
+      const last = samples[samples.length - 1]
+      const seconds = (last.t - first.t) / 1000
+      const velocityX = seconds > 0 ? (last.x - first.x) / seconds : 0
+      animateTo(Math.round(progress.x + (-velocityX / gap) * 0.2), 100, 20)
+    }
+    track.addEventListener('pointerup', endPan)
+    track.addEventListener('pointercancel', endPan)
+
+    // A drag that ends over a link must not navigate.
+    track.addEventListener('click', (e) => {
+      if (!suppressClick) return
+      e.preventDefault()
+      e.stopPropagation()
+    }, true)
+    track.addEventListener('contextmenu', (e) => {
+      if (e.target instanceof HTMLImageElement) e.preventDefault()
+    })
+
+    // Freeze carousel motion while the page is scrolling.
+    let scrollDebounce = 0
+    window.addEventListener('scroll', () => {
+      if (!dragging) {
+        stopProgress()
+        dragging = true
+      }
+      clearTimeout(scrollDebounce)
+      scrollDebounce = window.setTimeout(() => {
+        if (!panning && !wheeling) dragging = false
+      }, 200)
+    }, { passive: true })
+
+    // Auto-advance every 3.2s while in view.
+    let interval = 0
+    function syncInterval() {
+      clearInterval(interval)
+      interval = 0
+      if (!inView || reduced) return
+      interval = window.setInterval(() => {
+        if (dragging || document.hidden) return
+        animateTo(Math.round(progress.x + 1), 90, 18)
+      }, 3200)
+    }
+
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      syncInterval()
+      cards.forEach(syncComplete)
+    }, { threshold: 0.35 }).observe(root)
+    syncInterval()
+
+    // Mark the centered card active after first paint so its reveal animates.
+    requestAnimationFrame(() => requestAnimationFrame(render))
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-hero-cards]').forEach(initHeroCards)
+</script>

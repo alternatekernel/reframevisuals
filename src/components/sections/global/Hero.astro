@@ -8,7 +8,7 @@
  *   - h1 with AnimatePresence-style fade (CSS keyframes)
  *   - Subtitle paragraph
  *   - Two CTA buttons
- *   - HeroCards React island (client:visible — drag carousel with before/after)
+ *   - HeroCards (pure Astro drag carousel with before/after reveal)
  *   - Social proof bar (avatars + "50k+ images hand-edited")
  *
  * Mobile layout:
@@ -17,7 +17,7 @@
  *   - "Swipe to explore" nudge
  */
 
-import HeroCards from '../../hero/HeroCards';
+import HeroCards from '../../hero/HeroCards.astro';
 
 const HERO_AVATARS = [
   'https://res.cloudinary.com/dnmj4altq/image/upload/c_fill,w_72,h_72,g_face,q_auto,f_auto/v1781723564/reframeimages/testimonials/surreal_founder_portrait.jpg',
@@ -165,11 +165,11 @@ const MOBILE_FEATURES = [
         <a href="/services" class="hd-btn hd-btn--secondary">View Editing Services</a>
       </div>
 
-      <!-- HeroCards React island -->
+      <!-- HeroCards carousel -->
       <div class="hd-cards-wrap">
         <!-- Radial shadow under cards -->
         <div class="hd-cards-shadow" aria-hidden="true"></div>
-        <HeroCards client:load />
+        <HeroCards />
       </div>
 
       <!-- Social proof bar -->

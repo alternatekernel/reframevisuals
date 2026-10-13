@@ -1,10 +1,10 @@
-// Hero carousel service cards — only the 10 priority services with before/after images.
 // Mirrors SERVICES + HERO_CONFIG.PRIORITY_IDS from the original frontend/src/data/services.ts
 
 const BASE = 'https://res.cloudinary.com/dnmj4altq/image/upload/f_auto,q_auto,w_800/reframe/services/';
 
 export interface HeroService {
   id: string;
+  categoryId: string;
   name: string;
   description: string;
   beforeImage: string;
@@ -14,13 +14,15 @@ export interface HeroService {
 export const HERO_SERVICES: HeroService[] = [
   {
     id: 'jewelry-retouch',
+    categoryId: 'retouch',
     name: 'Jewelry Retouch',
-    description: 'Metal polishing, gemstone enhancement, reflection cleanup, and sparkle amplification.',
+    description: 'Specialized retouching for jewelry and accessories.',
     beforeImage: `${BASE}jewelry-retouch-before.jpg`,
     afterImage: `${BASE}jewelry-retouch-after.jpg`,
   },
   {
     id: 'color-change',
+    categoryId: 'foundation',
     name: 'Color Change',
     description: 'Swap product colours or fabrics while preserving natural texture and lighting.',
     beforeImage: `${BASE}color-change-before.jpg`,
@@ -28,6 +30,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'pattern-change',
+    categoryId: 'enhancement',
     name: 'Pattern Change',
     description: 'Replace patterns and prints on garments while preserving folds and shadows.',
     beforeImage: `${BASE}pattern-change-before.jpg`,
@@ -35,6 +38,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'ghost-mannequin',
+    categoryId: 'foundation',
     name: 'Ghost Mannequin',
     description: 'Invisible mannequin compositing for a clean, hollow product look.',
     beforeImage: `${BASE}ghost-mannequin-before.jpg`,
@@ -42,6 +46,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'model-retouch',
+    categoryId: 'retouch',
     name: 'Model Retouch',
     description: 'Natural skin retouching, blemish removal, and lifestyle photo polish.',
     beforeImage: `${BASE}model-retouch-before.jpg`,
@@ -49,6 +54,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'garment-retouch',
+    categoryId: 'retouch',
     name: 'Garment Retouch',
     description: 'Fabric cleanup, crease removal, and lint/dust correction for flat-lay and on-model shots.',
     beforeImage: `${BASE}garment-retouch-before.jpg`,
@@ -56,6 +62,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'manipulation',
+    categoryId: 'enhancement',
     name: 'Image Manipulation',
     description: 'Creative compositing, object removal, and scene construction.',
     beforeImage: `${BASE}manipulation-before.jpg`,
@@ -63,6 +70,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'background-removal',
+    categoryId: 'foundation',
     name: 'Background Removal',
     description: 'Manual Pen Tool background removal with pixel-perfect edges.',
     beforeImage: `${BASE}background-removal-before.jpg`,
@@ -70,6 +78,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'color-correction',
+    categoryId: 'foundation',
     name: 'Color Correction',
     description: 'White balance, exposure correction, and true-to-life colour grading.',
     beforeImage: `${BASE}color-correction-before.jpg`,
@@ -77,6 +86,7 @@ export const HERO_SERVICES: HeroService[] = [
   },
   {
     id: 'retouching',
+    categoryId: 'retouch',
     name: 'Retouching',
     description: 'High-end product retouching for catalogs, ads, and marketplaces.',
     beforeImage: `${BASE}retouching-before.jpg`,
