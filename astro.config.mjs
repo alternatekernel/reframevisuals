@@ -15,6 +15,9 @@ export default defineConfig({
   }),
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['framer-motion', 'lucide-react', 'react', 'react-dom', 'react-dom/client'],
+    },
   },
   integrations: [
     mdx(),
