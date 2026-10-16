@@ -1,0 +1,23 @@
+{
+  "name": "cusersshovon-ahmedreframe-visual-client",
+  "type": "web app",
+  "version": "0.1.0",
+  "techStack": ["React 19", "Vite", "Tailwind CSS", "Framer Motion", "TypeScript"],
+  "deployment": {
+    "platform": "Vercel",
+    "config": "vercel.json"
+  },
+  "versionControl": {
+    "autoPush": ["new features", "major fixes", "breaking changes", "config changes"],
+    "requireConfirmation": ["minor tweaks", "styling", "typo fixes"]
+  },
+  "qualityStandards": {
+    "maxFunctionLength": 50,
+    "documentationRequired": true
+  },
+  "memorySystem": {
+    "stateFile": "PROJECT_STATE.md",
+    "changelog": "CHANGELOG.md",
+    "notes": "AGENT_NOTES.md"
+  }
+}

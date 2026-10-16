@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reframe Chat Prototype Demo</title>
+  <style>
+    :root {
+      --bg: #f7f7f6;
+      --panel: #ffffff;
+      --line: #e9e9e7;
+      --text: #141414;
+      --muted: #6f6f6a;
+      --chip: #f2f2f1;
+      --dark: #171717;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: var(--bg); color: var(--text); }
+    .app { display: grid; grid-template-columns: 280px 1fr; height: 100vh; }
+    .side { border-right: 1px solid var(--line); background: #fbfbfa; display: flex; flex-direction: column; }
+    .block { padding: 16px; border-bottom: 1px solid var(--line); }
+    .brand { font-weight: 700; font-size: 15px; margin-bottom: 14px; }
+    .btn-primary { width: 100%; border: 0; border-radius: 999px; padding: 10px 14px; background: var(--dark); color: #fff; font-weight: 600; cursor: pointer; }
+    .section { padding: 12px 14px; }
+    .section.secondary-nav { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 14px; }
+    .label { font-size: 10px; text-transform: uppercase; letter-spacing: .16em; color: #9a9a95; margin: 8px 6px; }
+    .nav-item, .chat-item { width: 100%; text-align: left; border: 0; background: transparent; cursor: pointer; border-radius: 10px; padding: 9px 10px; color: #5f5f5a; font-size: 13px; }
+    .nav-item.active, .chat-item.active { background: #fff; color: #1b1b1b; border: 1px solid #ececeb; }
+    .nav-item + .nav-item { margin-top: 6px; }
+    .chat-item small { display: block; color: #8a8a85; font-size: 11px; margin-top: 3px; }
+    .grow { flex: 1; overflow: auto; }
+    .main { display: flex; flex-direction: column; min-width: 0; }
+    .header { height: 74px; border-bottom: 1px solid var(--line); background: var(--panel); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
+    .title { font-size: 26px; font-weight: 650; line-height: 1; margin-bottom: 4px; }
+    .sub { font-size: 12px; color: var(--muted); }
+    .talk { border: 1px solid #dbdbd8; background: #fff; padding: 8px 12px; border-radius: 999px; font-size: 13px; }
+    .messages { flex: 1; overflow: auto; padding: 20px 28px; }
+    .date { text-align: center; color: #9d9d98; font-size: 11px; margin: 10px 0 18px; letter-spacing: .08em; text-transform: uppercase; }
+    .row { display: flex; margin: 10px 0; width: 100%; }
+    .row.user { justify-content: flex-end; }
+    .bubble { max-width: 64%; border-radius: 18px; padding: 9px 13px; font-size: 14px; line-height: 1.42; border: 1px solid #ececea; background: #f4f4f2; color: #1a1a1a; }
+    .row.user .bubble { background: #171717; color: #fff; border-color: #171717; }
+    .meta { font-size: 11px; color: #999994; margin-top: 4px; }
+    .quick { border-top: 1px solid var(--line); background: #fff; padding: 4px 28px; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
+    .chip { background: var(--chip); border: 1px solid #ececea; border-radius: 999px; padding: 4px 9px; font-size: 11px; color: #555550; line-height: 1.2; }
+    .composer { background: #fff; padding: 8px 28px 12px; border-top: 1px solid var(--line); }
+    .box { border: 1px solid #e3e3e0; border-radius: 24px; padding: 8px 16px; background: #fff; max-width: 860px; margin: 0 auto; }
+    .input { color: #9a9a96; font-size: 15px; padding: 6px 4px 12px; }
+    .tools { display: flex; justify-content: space-between; align-items: center; }
+    .tools-left span { margin-right: 10px; color: #7b7b76; }
+    .send { width: 36px; height: 36px; border-radius: 999px; border: 0; background: #171717; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="side">
+      <div class="block">
+        <div class="brand">Reframe CS</div>
+        <button class="btn-primary">+ New Project</button>
+      </div>
+      <div class="grow">
+        <div class="section">
+          <button class="nav-item active">Chat</button>
+        </div>
+        <div class="section">
+          <div class="label">Recent Chats</div>
+          <button class="chat-item active">Hello this is client<small>hello zahid</small></button>
+          <button class="chat-item">Request about pricing<small>latest quote?</small></button>
+        </div>
+        <div class="section secondary-nav">
+          <div class="label">Workspace</div>
+          <button class="nav-item">Active Projects</button>
+          <button class="nav-item">Order History</button>
+          <button class="nav-item">Billing &amp; Invoices</button>
+        </div>
+      </div>
+      <div class="block" style="border-top:1px solid var(--line); border-bottom:0;">
+        <button class="nav-item">View Website</button>
+        <button class="nav-item">Settings &amp; Profile</button>
+        <button class="nav-item" style="color:#c53b3b;">Sign Out</button>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="header">
+        <div>
+          <div class="title">Reframe CS</div>
+          <div class="sub">Online · Studio Guidelines Active</div>
+        </div>
+        <button class="talk">Talk to Human</button>
+      </div>
+      <div class="messages">
+        <div class="date">May 15</div>
+        <div class="row">
+          <div>
+            <div class="bubble">Hello 1234 hello 1234</div>
+            <div class="meta">10:02 PM</div>
+          </div>
+        </div>
+        <div class="row user">
+          <div>
+            <div class="bubble">hello hello hello hello hello hello hello</div>
+            <div class="meta" style="text-align:right;">10:04 PM</div>
+          </div>
+        </div>
+        <div class="row"><div class="bubble">hello</div></div>
+        <div class="row user"><div class="bubble">hello hasib</div></div>
+        <div class="row"><div class="bubble">hello zahid</div></div>
+      </div>
+      <div class="quick">
+        <div class="label" style="margin:0;">Quick Replies</div>
+        <div class="chips">
+          <span class="chip">View Services</span>
+          <span class="chip">View Pricing</span>
+          <span class="chip">Start an Order</span>
+          <span class="chip">Talk to Human</span>
+        </div>
+      </div>
+      <div class="composer">
+        <div class="box">
+          <div class="input">Ask Reframe CS anything...</div>
+          <div class="tools">
+            <div class="tools-left"><span>Attach</span><span>Voice</span></div>
+            <button class="send">Send</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

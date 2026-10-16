@@ -1,10 +1,13 @@
 {
-  "buildCommand": "astro build",
-  "outputDirectory": "dist",
-  "regions": ["iad1", "sfo1"],
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install && npm install --prefix frontend && npm install --prefix backend",
+  "buildCommand": "npm run db:generate && cd frontend && npx vite build",
+  "outputDirectory": "frontend/dist",
   "functions": {
-    "api/**/*.ts": {
-      "maxDuration": 30
-    }
-  }
+    "api/index.ts": { "maxDuration": 60, "includeFiles": "backend/{prisma,src}/**" }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
+  ]
 }

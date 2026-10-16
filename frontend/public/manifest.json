@@ -1,0 +1,9 @@
+{
+  "name": "Reframe Admin",
+  "short_name": "Reframe",
+  "start_url": "/admin",
+  "display": "standalone",
+  "background_color": "#0C0D0F",
+  "theme_color": "#0C0D0F",
+  "icons": []
+}

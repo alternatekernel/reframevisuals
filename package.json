@@ -1,34 +1,29 @@
 {
-  "name": "reframe-visuals-astro",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
+  "name": "reframe-monorepo",
+  "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^8.0.1",
-    "@astrojs/react": "^6.0.6",
-    "@astrojs/sitemap": "^3.7.4",
-    "@fontsource-variable/space-grotesk": "^5.3.0",
-    "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.3.3",
-    "framer-motion": "^14.2.0",
-    "lucide-react": "^1.56.0",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "resend": "^6.28.1"
-  },
-  "allowScripts": {
-    "esbuild": true
+    "start": "node server.js",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:backend": "npm run build --prefix backend",
+    "build": "npm run build:frontend && npm run build:backend && node -e \"const fs=require('fs'); const path=require('path'); if(fs.existsSync('dist')) fs.rmSync('dist', {recursive:true, force:true}); fs.mkdirSync('dist'); const copyDir=(src, dest)=>{ if(!fs.existsSync(dest)) fs.mkdirSync(dest); fs.readdirSync(src).forEach(file=>{ const s=path.join(src,file); const d=path.join(dest,file); if(fs.lstatSync(s).isDirectory()) copyDir(s,d); else fs.copyFileSync(s,d); }); }; copyDir('frontend/dist', 'dist'); console.log('✅ Full build synchronized to root dist/')\"",
+    "test": "npm run -s seo:check-slugs && npm run -s build:frontend && npm run -s build:backend",
+    "install:all": "npm install --prefix frontend && npm install --prefix backend",
+    "db:generate": "npm run db:generate --prefix backend",
+    "seo:kpi": "node scripts/seo_weekly_kpi_report.mjs",
+    "seo:submit": "node scripts/seo_submit_sitemaps.mjs",
+    "seo:inspect": "node scripts/seo_url_inspect.mjs",
+    "seo:guardrails": "node scripts/seo_guardrails.mjs",
+    "seo:check-slugs": "node scripts/seo_check_service_slugs.mjs"
   },
   "devDependencies": {
-    "@astrojs/vercel": "^11.0.10",
-    "tailwindcss": "^4.3.3"
+    "concurrently": "^9.2.1",
+    "playwright": "1.49.1",
+    "schema-dts": "^2.0.0"
+  },
+  "dependencies": {
+    "form-data": "^4.0.6"
   }
 }

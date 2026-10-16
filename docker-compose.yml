@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        - VITE_API_URL=${VITE_API_URL:-https://reframevisuals.com/api}
+    ports:
+      - "${PORT:-3001}:3001"
+    environment:
+      # Core
+      - NODE_ENV=production
+      - PORT=3001
+
+      # Database (MySQL — required)
+      - DATABASE_URL=${DATABASE_URL}
+
+      # JWT
+      - JWT_SECRET=${JWT_SECRET}
+
+      # CORS / URLs
+      - FRONTEND_URL=${FRONTEND_URL:-https://reframevisuals.com}
+      - BASE_URL=${BASE_URL:-https://reframevisuals.com}
+      - ADMIN_DASHBOARD_URL=${ADMIN_DASHBOARD_URL:-https://reframevisuals.com/dashboard}
+
+      # Email (Resend)
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - EMAIL_FROM=${EMAIL_FROM:-Reframe Visual <hello@reframevisuals.com>}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-hello@reframevisuals.com}
+      - ADMIN_NOTIFY_EMAIL=${ADMIN_NOTIFY_EMAIL:-hello@reframevisuals.com}
+
+      # Dropbox
+      - DROPBOX_APP_KEY=${DROPBOX_APP_KEY}
+      - DROPBOX_APP_SECRET=${DROPBOX_APP_SECRET}
+      - DROPBOX_REFRESH_TOKEN=${DROPBOX_REFRESH_TOKEN}
+      - DROPBOX_ACCESS_TOKEN=${DROPBOX_ACCESS_TOKEN}
+      - DROPBOX_UPLOAD_FOLDER=${DROPBOX_UPLOAD_FOLDER:-/Reframe Uploads}
+
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ADMIN_CHAT_ID=${TELEGRAM_ADMIN_CHAT_ID}
+      - TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}
+      - TELEGRAM_TOPIC_URGENT_ID=${TELEGRAM_TOPIC_URGENT_ID}
+      - TELEGRAM_TOPIC_ORDERS_ID=${TELEGRAM_TOPIC_ORDERS_ID}
+      - TELEGRAM_TOPIC_PAYMENTS_ID=${TELEGRAM_TOPIC_PAYMENTS_ID}
+      - TELEGRAM_TOPIC_LEADS_ID=${TELEGRAM_TOPIC_LEADS_ID}
+      - TELEGRAM_TOPIC_CHAT_ID=${TELEGRAM_TOPIC_CHAT_ID}
+      - TELEGRAM_TOPIC_SYSTEM_ID=${TELEGRAM_TOPIC_SYSTEM_ID}
+
+      # Discord
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - DISCORD_ORDER_WEBHOOK=${DISCORD_ORDER_WEBHOOK}
+      - DISCORD_URGENT_WEBHOOK=${DISCORD_URGENT_WEBHOOK}
+      - DISCORD_PAYMENTS_WEBHOOK=${DISCORD_PAYMENTS_WEBHOOK}
+      - DISCORD_LEADS_WEBHOOK=${DISCORD_LEADS_WEBHOOK}
+      - DISCORD_CHAT_WEBHOOK=${DISCORD_CHAT_WEBHOOK}
+      - DISCORD_SYSTEM_WEBHOOK=${DISCORD_SYSTEM_WEBHOOK}
+
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

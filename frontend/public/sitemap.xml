@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
+  <url><loc>https://reframevisuals.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://reframevisuals.com/services</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://reframevisuals.com/pricing</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://reframevisuals.com/how-it-works</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/platform</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/free-trial</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://reframevisuals.com/portfolio</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/quote-builder</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Service pages -->
+  <url><loc>https://reframevisuals.com/services/background-removal</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/ghost-mannequin</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/jewelry-retouch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/clipping-path</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/color-correction</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/shadow-creation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/model-retouch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/services/garment-retouch</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- Additional pages -->
+  <url><loc>https://reframevisuals.com/case-studies</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/insights</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/ai-product-visuals</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Blog posts -->
+  <url><loc>https://reframevisuals.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/blog/art-of-background-removal</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/blog/ghost-mannequin-fit-conversion</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/blog/human-eye-vs-ai-consistency</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/blog/color-accuracy-return-rates</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/blog/choosing-retouching-tiers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/blog/quality-debt-cheap-offshoring</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Comparison pages -->
+  <url><loc>https://reframevisuals.com/pixelz-alternative</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/clipping-path-india-alternative</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/cutoutwiz-alternative</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Resources -->
+  <url><loc>https://reframevisuals.com/resources</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/amazon-image-compliance-checklist-2026</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/shopify-product-photography-conversion-playbook</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/ghost-mannequin-vs-flat-lay-when-to-use-each</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/how-to-scale-photo-editing-for-10000-skus</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/jewelry-retouching-quality-checklist</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/ecommerce-image-sla-framework-for-growth-teams</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/best-ecommerce-photo-editing-services-shopify-brands</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/ghost-mannequin-editing-cost-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/background-removal-service-pricing-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/how-to-prepare-product-photos-for-amazon</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/jewelry-retouching-checklist-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/clipping-path-vs-background-removal</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/resources/in-house-vs-outsourced-product-photo-editing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- Intent & Expansion Pages -->
+  <url><loc>https://reframevisuals.com/services/background-removal/best-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/background-removal/pricing-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/clipping-path/best-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/clipping-path/pricing-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/ghost-mannequin/best-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/ghost-mannequin/pricing-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/jewelry-retouch/best-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/services/retouching/best-for-ecommerce</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  
+  <!-- Brand Facts & Landing Pages -->
+  <url><loc>https://reframevisuals.com/about-reframe-visuals</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-services</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/free-sample-edit</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-pricing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-reviews</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-for-shopify-brands</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-for-amazon-sellers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  
+  <!-- Platform Specific -->
+  <url><loc>https://reframevisuals.com/amazon-product-image-editing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/shopify-product-photo-editing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/woocommerce-product-image-editing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/fashion-photo-retouching-service</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/jewelry-photo-retouching-service</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://reframevisuals.com/furniture-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  
+  <!-- General Trust / FAQ -->
+  <url><loc>https://reframevisuals.com/turnaround-sla</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/quality-assurance-process</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/who-is-reframe-visuals</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/reframe-visuals-brand-facts</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Location pages -->
+  <url><loc>https://reframevisuals.com/uk-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/canada-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/australia-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/uae-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://reframevisuals.com/singapore-photo-editing-service</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Policy pages -->
+  <url><loc>https://reframevisuals.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://reframevisuals.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+</urlset>

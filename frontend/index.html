@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- defer: guards prompt APIs / sets canonical before the app bundle runs
+         (defer scripts execute in order, ahead of the module entry), but does
+         not need to block HTML parsing or first paint. -->
+    <script src="/security-bootstrap.js" defer></script>
+    <title>Ecommerce Photo Editing from $0.39/Image | Reframe Visuals</title>
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. 12h turnaround. AI-ready workflow. Try 3 images free." />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Reframe Visuals" />
+
+    <!-- AI Discovery / AEO -->
+    <link rel="alternate" type="text/markdown" title="AI Agent Instructions" href="/llms.txt" />
+    <link rel="alternate" type="text/markdown" title="Full Platform Context" href="/llms-full.txt" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Ecommerce Photo Editing from $0.39/Image | Reframe Visuals" />
+    <meta property="og:description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. AI-ready workflow for agencies and brands. Try 3 images free." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reframevisuals.com/" />
+    <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ecommerce Photo Editing from $0.39/Image | Reframe Visuals" />
+    <meta name="twitter:description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. AI-ready workflow. Try 3 images free." />
+    <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+
+    <!-- Organization JSON-LD (static fallback for crawlers that don't execute JS) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://reframevisuals.com/#organization",
+      "name": "Reframe Visuals",
+      "alternateName": "Reframe Visuals LLC",
+      "url": "https://reframevisuals.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://reframevisuals.com/logo.svg",
+        "width": 300,
+        "height": 100
+      },
+      "image": "https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png",
+      "description": "Reframe Visuals is a professional e-commerce photo editing studio offering background removal, clipping path, ghost mannequin editing, jewelry retouching, garment retouching, model retouching, color correction, shadow creation, and AI-assisted image refinement for online brands and marketplace sellers. Starting at $0.39/image with 24-hour turnaround and 3 free sample edits.",
+      "foundingDate": "2024",
+      "address": { "@type": "PostalAddress", "addressCountry": "US" },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@reframevisuals.com",
+        "contactType": "customer service",
+        "availableLanguage": ["English"],
+        "areaServed": "Worldwide"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/reframe-visuals/",
+        "https://www.instagram.com/reframevisualsstudio/",
+        "https://www.trustpilot.com/review/reframevisuals.com",
+        "https://x.com/ReframeVisual",
+        "https://www.pinterest.com/reframevisuals/",
+        "https://www.behance.net/reframevisuals",
+        "https://www.tiktok.com/@reframe_visuals"
+      ],
+      "areaServed": { "@type": "WorldArea", "name": "Worldwide" },
+      "knowsAbout": [
+        "E-commerce Photo Editing", "Background Removal", "Clipping Path",
+        "Ghost Mannequin Editing", "Jewelry Retouching", "Product Photography",
+        "Color Correction", "Shadow Creation", "Image Manipulation",
+        "AI Product Photography", "Amazon Image Compliance",
+        "Fashion Photo Editing", "Apparel Retouching", "Commercial Photo Editing"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "14",
+        "reviewCount": "14"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "The best in the game when it comes to getting work done. Humble, understanding, and consistently on point."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Always on time and very patient. Service is on point and affordable."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Goes above and beyond in everything. Very responsive as well."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "The most efficient service — delivers exactly what I ask for. Will definitely recommend to others."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Patient and gives more than just what you ask for — even good advice on the work."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Verified Client", "description": "Online Retailer" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Fantastic job with my order. Very skilled and made the small adjustments I requested in a timely manner."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Verified Client", "description": "Online Retailer" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Excellent retouching and communication. Thank you very much!"
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Surreal", "description": "Ecommerce Brand" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Great communication, very efficient and excellent job every time. Handled everything exceptionally and went above and beyond."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Surreal", "description": "Ecommerce Brand" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Perfect as usual. Delivers very quickly and completed work amazingly. Will continue working together."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Todd", "description": "Product Seller, NY" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Prompt and quality work. I look forward to working with Reframe many times in the future."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Jamie", "description": "puppack.co — Pet Accessories, USA" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Amazing job, as always. Third time repeat customer. Very responsive and always overdelivers!"
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Buza", "description": "Online Retailer" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Very efficient and communicated quickly and effectively."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Sol", "description": "Freelance Photographer" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Appreciate the prompt work and reply."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Gino", "description": "Jewelry Seller" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Fast work, excellent quality, and great attention to detail. Thank you."
+        }
+      ]
+    }
+    </script>
+
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- LCP image: initially-centered hero carousel card (Pattern Change).
+         Must stay in sync with the transform + sizes in
+         src/components/hero/HeroBeforeAfter.tsx and the initial card in HeroCards.tsx. -->
+    <link rel="preload" as="image" fetchpriority="high" media="(min-width: 640px)"
+      imagesrcset="https://res.cloudinary.com/dnmj4altq/image/upload/f_auto,q_auto,c_scale,w_420/reframe/services/pattern-change-after.jpg 420w, https://res.cloudinary.com/dnmj4altq/image/upload/f_auto,q_auto,c_scale,w_640/reframe/services/pattern-change-after.jpg 640w"
+      imagesizes="(min-width: 640px) 273px, 160px" />
+
+    <!-- Font stylesheets: loaded async (preload + rel swap) so they never block
+         render; fontshare alone blocked ~1.4s. Inline handlers are permitted by
+         the site CSP (script-src 'unsafe-inline'); <noscript> keeps a blocking
+         fallback for no-JS visitors. -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
+    
+    <!-- Theme Color & Scheme -->
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Umami Analytics is injected at runtime by main.tsx (CSP-safe, no inline scripts) -->
+    
+    <!-- Inline shell loader — replaces blank white flash before JS hydrates -->
+    <style>
+      #app-shell { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:#fafaf9; z-index:9999; }
+      #app-shell .shell-inner { display:flex; flex-direction:column; align-items:center; gap:12px; }
+      #app-shell .shell-brand { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; font-size:28px; font-weight:600; letter-spacing:-0.04em; color:#171717; }
+      #app-shell .shell-bar { width:120px; height:6px; overflow:hidden; border-radius:999px; background:rgba(0,0,0,0.08); }
+      #app-shell .shell-bar-fill { height:100%; border-radius:999px; background:#171717; animation:shell-progress 1.4s ease-in-out infinite; }
+      #app-shell .shell-tag { font-size:11px; font-weight:500; letter-spacing:0.18em; color:rgba(0,0,0,0.45); text-transform:uppercase; }
+      @keyframes shell-progress { 0%{width:0;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0;margin-left:100%} }
+    </style>
+    
+    <!-- Organization schema is injected server-side to keep a single source of truth. -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the turnaround time for image editing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Standard turnaround is 24-72 hours depending on service type and volume. Express 12-hour turnaround is available for urgent orders."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What file formats do you accept?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We accept all major formats including JPEG, PNG, TIFF, PSD, and RAW files. Output can be delivered in any format you need."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a minimum order quantity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No minimum order quantity. We handle single images to bulk orders of thousands. Bulk pricing is available for orders over 100 images."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer a free trial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, we offer a free trial for new customers. Upload up to 3 images and we'll process them at no charge to demonstrate our quality."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes Reframe Visuals different from AI editing tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Human editors trace clipping paths with the Pen Tool and review each image manually. Automated tools tend to fail on hair, lace, glass, and reflective surfaces; manual editing handles these cases and keeps color and lighting consistent across a catalog."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do bulk pricing discounts work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer volume discounts starting at 100+ images per order. Bundle pricing combines multiple services at discounted rates. Contact us for custom enterprise pricing."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Product Schema for Services -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Photo Editing Services",
+      "description": "Professional image editing services for e-commerce product photography",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Service",
+            "name": "Background Removal",
+            "description": "Professional manual background removal for e-commerce product photos",
+            "image": "https://reframevisuals.com/logo.svg",
+            "brand": {
+              "@type": "Brand",
+              "name": "Reframe Visuals"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0.39",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Service",
+            "name": "Ghost Mannequin",
+            "description": "Invisible mannequin effect for apparel photography",
+            "image": "https://reframevisuals.com/logo.svg",
+            "brand": {
+              "@type": "Brand",
+              "name": "Reframe Visuals"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0.85",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Service",
+            "name": "Jewelry Retouch",
+            "description": "Professional jewelry retouching for luxury e-commerce",
+            "image": "https://reframevisuals.com/logo.svg",
+            "brand": {
+              "@type": "Brand",
+              "name": "Reframe Visuals"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0.80",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Service",
+            "name": "Clipping Path",
+            "description": "High-quality product image cutouts with precision vector paths",
+            "image": "https://reframevisuals.com/logo.svg",
+            "brand": {
+              "@type": "Brand",
+              "name": "Reframe Visuals"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0.39",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Service",
+            "name": "High-End Retouch",
+            "description": "Publication-grade retouching for premium brands",
+            "image": "https://reframevisuals.com/logo.svg",
+            "brand": {
+              "@type": "Brand",
+              "name": "Reframe Visuals"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "4.00",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- WebSite Schema for Search -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://reframevisuals.com/#website",
+      "name": "Reframe Visuals",
+      "url": "https://reframevisuals.com",
+      "description": "Professional photo editing services for e-commerce brands",
+      "publisher": { "@id": "https://reframevisuals.com/#organization" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://reframevisuals.com/blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- HowTo Schema — Workflow steps (static fallback for crawlers) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "How to Get Your Product Images Edited by Reframe Visuals",
+      "description": "Upload your product images, receive catalog-ready edits with human QA review, and download within 12–72 hours.",
+      "totalTime": "PT12H",
+      "supply": [{ "@type": "HowToSupply", "name": "Product photos (RAW, JPEG, or PNG)" }],
+      "tool": [{ "@type": "HowToTool", "name": "Reframe Visuals platform" }],
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "Upload Your Images", "text": "Connect via Google Drive, Dropbox, Amazon, or Zapier and upload your raw product images." },
+        { "@type": "HowToStep", "position": 2, "name": "Set Your Brief", "text": "Specify background style, turnaround window, and service type. Human editors follow your exact brief." },
+        { "@type": "HowToStep", "position": 3, "name": "QA Review", "text": "Senior editors inspect every image against quality checklists before delivery." },
+        { "@type": "HowToStep", "position": 4, "name": "Download Catalog-Ready Files", "text": "Receive finished images within your selected turnaround window: 12h, 24h, 48h, or 72h." }
+      ]
+    }
+    </script>
+
+    <!-- Service + Pricing Schema (static fallback for crawlers) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Ecommerce Photo Editing",
+      "serviceType": "Ecommerce photo editing and post-production",
+      "description": "Manual and AI-assisted ecommerce image editing services with human Photoshop editor review, free sample edits, and flexible 12h, 24h, 48h, or 72h turnaround options.",
+      "provider": { "@type": "Organization", "name": "Reframe Visuals", "url": "https://reframevisuals.com" },
+      "areaServed": "Worldwide",
+      "termsOfService": "https://reframevisuals.com/pricing",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "0.35",
+        "highPrice": "4.00",
+        "offerCount": "9",
+        "availability": "https://schema.org/InStock"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Photo Editing Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Background Removal" }, "price": "0.39", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Clipping Path" }, "price": "0.39", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ghost Mannequin Editing" }, "price": "0.85", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Jewelry Retouching" }, "price": "0.80", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Color Correction" }, "price": "0.35", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Shadow Creation" }, "price": "0.35", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Garment Retouching" }, "price": "0.55", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Model Retouching" }, "price": "1.20", "priceCurrency": "USD" },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "High-End Retouching" }, "price": "4.00", "priceCurrency": "USD" }
+        ]
+      }
+    }
+    </script>
+
+    <!-- SoftwareApplication Schema — Customer Portal Platform -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Reframe Visuals Customer Portal",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://reframevisuals.com/dashboard",
+      "description": "A proprietary SaaS customer portal for managing photo editing orders end-to-end. Features include real-time order tracking via Server-Sent Events, in-portal image delivery and review, revision request workflow, pricing proposal approval, ZIP download of completed assets, billing history, and direct messaging with editors.",
+      "featureList": [
+        "Real-time order status updates (Server-Sent Events)",
+        "Order tracking from submission to delivery",
+        "In-portal image review and approval",
+        "Revision request with notes",
+        "Pricing proposal review and approval",
+        "Order cancellation for pending orders",
+        "ZIP download of completed asset batches",
+        "Order history and billing dashboard",
+        "Email notification preferences",
+        "Brand guidelines and order templates",
+        "Direct messaging with editing team",
+        "3-step guided onboarding for new customers"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free customer portal included with all orders. No subscription required."
+      },
+      "provider": {
+        "@type": "Organization",
+        "name": "Reframe Visuals",
+        "url": "https://reframevisuals.com"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;" onfocus="this.style.position='fixed';this.style.top='10px';this.style.left='10px';this.style.width='auto';this.style.height='auto';this.style.padding='10px 20px';this.style.margin='0';this.style.overflow='visible';this.style.clip='auto';this.style.whiteSpace='normal';this.style.background='#000';this.style.color='#fff';this.style.zIndex='9999';this.style.borderRadius='8px';this.style.fontWeight='bold';" tabindex="0">
+      Skip to main content
+    </a>
+    <noscript>
+      <div id="seo-content" style="padding:40px;font-family:system-ui,-apple-system,sans-serif;max-width:800px;margin:0 auto;line-height:1.6;color:#171717;">
+        <h1>Reframe Visuals — Ecommerce Product Photo Editing Service</h1>
+        <p>
+          Reframe Visuals is a professional ecommerce photo editing studio. Human Photoshop
+          editors handle manual Pen Tool clipping, ghost mannequin editing, jewelry retouching,
+          apparel and model retouching, background removal, color correction, and shadow
+          creation for online brands, agencies, and marketplace sellers. Pricing starts at
+          $0.39 per image with flexible 12h, 24h, 48h, or 72h turnaround, and new customers
+          get 3 free sample edits before their first paid order.
+        </p>
+        <h2>Services</h2>
+        <ul>
+          <li><a href="/services/background-removal">Background Removal</a> — manual background removal for product photos, from $0.39/image</li>
+          <li><a href="/services/clipping-path">Clipping Path</a> — precision vector cutouts traced by hand, from $0.39/image</li>
+          <li><a href="/services/ghost-mannequin">Ghost Mannequin Editing</a> — invisible mannequin effect for apparel, from $0.85/image</li>
+          <li><a href="/services/jewelry-retouch">Jewelry Retouching</a> — high-end retouching for luxury ecommerce, from $0.80/image</li>
+          <li><a href="/services/garment-retouch">Garment Retouching</a> — apparel cleanup and shape correction</li>
+          <li><a href="/services/model-retouch">Model Retouching</a> — natural skin and detail retouching</li>
+          <li><a href="/services/color-correction">Color Correction</a> — accurate, catalog-consistent color</li>
+          <li><a href="/services/shadow-creation">Shadow Creation</a> — natural drop and reflection shadows</li>
+          <li><a href="/services/ai-product-photography">AI Product Photography</a> — AI-assisted visuals refined by human editors</li>
+        </ul>
+        <h2>Why Reframe Visuals</h2>
+        <ul>
+          <li>Human Photoshop editors — every image traced and reviewed by hand before it ships</li>
+          <li>AI-assisted workflow — AI handles routine steps, editors check and correct every image</li>
+          <li>Built for ecommerce teams — Amazon, Shopify, jewelry, apparel, and agencies</li>
+          <li>Flexible turnaround — 12h, 24h, 48h, or 72h to fit your deadline</li>
+        </ul>
+        <p>
+          <a href="/free-trial">Get 3 free sample edits</a> ·
+          <a href="/pricing">View pricing</a> ·
+          <a href="/portfolio">Portfolio</a> ·
+          <a href="/about">About</a> ·
+          <a href="/contact">Contact</a>
+        </p>
+        <p>Contact: <a href="mailto:hello@reframevisuals.com">hello@reframevisuals.com</a> — Reframe Visuals, serving ecommerce brands worldwide.</p>
+      </div>
+    </noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

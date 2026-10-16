@@ -1,0 +1,1080 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                String   @id @default(cuid())
+  firstName         String
+  lastName          String
+  email             String   @unique
+  passwordHash      String
+  role              String   @default("user")
+  active            Boolean  @default(true)
+  /// Hashed nonce stored for one-time password reset token validation. Cleared after use.
+  resetTokenNonce   String?
+  avatarUrl         String?  @db.Text
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  sections          Section[]
+  theme             ThemeSetting?
+  customerId        String?      @unique
+  customer          Customer?    @relation(fields: [customerId], references: [id])
+  pushSubscriptions PushSubscription[]
+  posts             Post[]
+  assignedLeads     Lead[]
+  leadActivities    LeadActivity[]
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  endpoint  String   @db.Text
+  p256dh    String   @db.Text
+  auth      String   @db.Text
+  userAgent String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, endpoint])
+  @@map("push_subscriptions")
+}
+
+model Customer {
+  id             String   @id @default(cuid())
+  tenantId       String   @unique
+  /// Sequential customer number assigned on registration. Displayed as CLTxxx. Never in file paths.
+  customerNumber Int?
+  name           String?
+  email          String   @unique
+  passwordHash   String?
+  /// Google account subject ID (sub claim). Set when the customer signs in via Google OAuth.
+  googleId       String?  @unique
+  avatarUrl      String?  @db.Text
+  isGuest        Boolean  @default(false)
+  onboardingCompleted Boolean @default(false)
+  companyName    String?
+  industry       String?
+  contactEmail   String?
+  contactPhone   String?
+  tier           String   @default("startup")
+  monthlyVolume  Int      @default(0)
+  creditLimit    Int      @default(100) // Total monthly photo allowance
+  creditBalance  Int      @default(100) // Remaining allowance
+  totalOrders    Int      @default(0)
+  totalSpent     Decimal  @default(0) @db.Decimal(12, 2)
+  revisionRate   Decimal  @default(0) @db.Decimal(5, 4)
+  lastOrderDate  DateTime?
+  country        String?
+  lastIp         String?
+  status         String   @default("active")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  /// Permanent Telegram thread for this customer (for all their conversations)
+  telegramThreadId String?
+
+  /// Permanent Slack thread ts for this customer (anchors all their conversations)
+  slackThreadTs    String?
+
+  tickets        SupportTicket[]
+  conversations  Conversation[]
+  user           User?
+  orders         Order[]
+  quotations     Quotation[]
+  invoices       Invoice[]
+  npsResponses   NpsResponse[]
+
+  @@index([tenantId])
+  @@index([status])
+  @@index([companyName])
+  @@index([customerNumber])
+}
+
+model Section {
+  id        String   @id @default(cuid())
+  sectionId String
+  label     String
+  content   String   // JSON string
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([sectionId, userId])
+}
+
+model ThemeSetting {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id])
+  heading            String   @default("Satoshi")
+  body               String   @default("Satoshi")
+  mono               String   @default("JetBrains Mono")
+  brand              String   @default("#E97451")
+  brandHover         String   @default("#D66140")
+  onyx               String   @default("#0A0A0B")
+  surface            String   @default("#FFFFFF")
+  categoryFoundation String   @default("#E97451")
+  categoryEnhancement String   @default("#E07A5F")
+  categoryRetouch    String   @default("#3D8B7A")
+  categoryAdvanced   String   @default("#D4A843")
+  ambientOrb         String   @default("#CFC2FF")
+  chatBubbles        String   @default("#F1F1F4")
+  footerDark         String   @default("#050505")
+  accentLavender     String   @default("#F8F6FF")
+  baseFontSize       Int      @default(16)
+  headingScale       Decimal  @default(1.25) @db.Decimal(6, 3)
+  lineHeight         Decimal  @default(1.6) @db.Decimal(6, 3)
+  letterSpacing      Decimal  @default(-0.02) @db.Decimal(6, 3)
+  radiusSm           Int      @default(8)
+  radiusMd           Int      @default(16)
+  radiusLg           Int      @default(32)
+  radiusXl           Int      @default(64)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+model SupportTicket {
+  id         String   @id @default(cuid())
+  tenantId   String
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  subject    String
+  message    String
+  threadId   String?
+  status     String   @default("open")
+  priority   String   @default("medium")
+  assignedTo String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  resolvedAt DateTime?
+  messages   SupportMessage[]
+  slackThreadTs String?
+  slackDraft    String? @db.Text
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([status])
+  @@index([threadId])
+}
+
+model SupportMessage {
+  id         String   @id @default(cuid())
+  ticketId   String
+  ticket     SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  content    String
+  senderId   String
+  senderRole String   // 'admin' or 'customer'
+  smtpMessageId String? @unique
+  createdAt  DateTime @default(now())
+}
+
+model Conversation {
+  id         String   @id @default(cuid())
+  tenantId   String
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  title      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  messages   Message[]
+
+  /// Telegram message ID of the first notification message in the admin group
+  telegramThreadId String?
+
+  /// Slack thread ts of the first notification message in the chat channel
+  slackThreadTs    String?
+
+  /// Whether a human specialist has taken over (suppresses AI responses)
+  isEscalated      Boolean  @default(false)
+
+  orderId          String?
+  order            Order?   @relation(fields: [orderId], references: [id])
+  guestId          String?
+  archivedAt       DateTime?
+  pinnedAt         DateTime?
+  deletedAt        DateTime?
+  adminReadAt      DateTime?
+  tags             String?
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([orderId])
+  @@index([createdAt])
+  @@index([updatedAt])
+  @@index([archivedAt])
+  @@index([pinnedAt])
+}
+
+model Message {
+  id               String       @id @default(cuid())
+  conversationId   String
+  conversation     Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role             String       // 'user' or 'assistant'
+  content          String       @db.Text
+  metadata         String?      @db.Text // JSON string for AI response data
+  status           String       @default("sent") // sent | delivered | seen
+  deliveredAt      DateTime?
+  seenAt           DateTime?
+  createdAt        DateTime     @default(now())
+
+  /// telegram message ID for tracking admin replies
+  telegramMessageId String?
+
+  /// slack message ts for tracking admin replies
+  slackMessageTs    String?
+
+  @@index([conversationId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  basePrice   Decimal  @db.Decimal(12, 2)
+  unit        String
+  category    String
+  metadata    String?  // Changed from Json for SQLite compatibility if needed, but Prisma handles Json in SQLite now
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  bundles     Bundle[] @relation("BundleServices")
+}
+
+model Bundle {
+  id          String    @id @default(cuid())
+  name        String
+  description String
+  price       Decimal  @db.Decimal(12, 2)
+  savings     Decimal  @db.Decimal(12, 2)
+  features    String    // Changed from String[] to String for SQLite
+  services    Service[] @relation("BundleServices")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  email     String
+  subject   String
+  message   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id               String   @id @default(cuid())
+  tenantId         String
+  code             String   @unique
+  customerId       String
+  customer         Customer @relation(fields: [customerId], references: [id])
+  title            String
+  description      String?
+  serviceType      String   @default("standard")
+  complexity       String   @default("medium")
+  priority         String   @default("medium")
+  volume           Int
+  photoCount       Int?
+  pricePerPhoto    Decimal? @db.Decimal(12, 2)
+  rushFee          Decimal? @db.Decimal(12, 2)
+  basePrice        Decimal? @db.Decimal(12, 2)
+  discountPercent  Decimal  @default(0) @db.Decimal(5, 2)
+  totalPrice       Decimal? @db.Decimal(12, 2)
+  rush             Boolean  @default(false)
+  
+  // Technical Specifications
+  outputFormat     String?
+  background       String?
+  colorProfile     String?
+  resolutionDPI    String?
+  layering         String?
+  namingPattern    String?
+  marginPercent    String?
+  deliveryVector   String?
+  cropRatio        String?
+  resizeWidth      String?
+  resizeHeight     String?
+  turnaround       String?
+  
+  status           String   @default("new_review")
+  paymentStatus    String   @default("pending") // pending, paid, failed
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  startedAt        DateTime?
+  submittedQCAt    DateTime?
+  completedAt      DateTime?
+  expectedCompletion DateTime?
+  stripePaymentId  String?
+  notes            String?
+  adminNotes       String?
+  revisionNotes    String?
+  customFilesLink  String?  @db.VarChar(2048)
+  customFilesCount Int?
+  /// Where the finished work is handed back to the client (Drive / Dropbox / WeTransfer).
+  deliveryLink     String?  @db.VarChar(2048)
+  /// Free-text note that accompanies the delivery (what changed, how to use the files).
+  deliveryNote     String?  @db.Text
+  idempotencyKey   String?  @unique
+  columnPosition   Int      @default(0)
+  archivedAt       DateTime?
+
+  assignedEditorId String?
+  assignedEditor   Editor?  @relation(fields: [assignedEditorId], references: [id])
+
+  images           Image[]
+  conversations    Conversation[]
+  quotation        Quotation?
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([status])
+  @@index([assignedEditorId])
+  @@index([createdAt])
+  @@index([code])
+  @@index([archivedAt])
+}
+
+model Image {
+  id             String   @id @default(cuid())
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id])
+  url            String
+  /// Full Dropbox path — used to delete the file when an order is cancelled
+  path           String?
+  filename       String?
+  type           String?  // 'work' or 'support'
+  status         String   @default("pending") // 'pending', 'completed', 'rejected'
+  revisionCount  Int      @default(0)
+  rawUrl         String?
+  editedUrl      String?
+  versions       ImageVersion[]
+  annotations    Annotation[]
+  
+  completedBy    String?
+  completedByEditor Editor?  @relation(fields: [completedBy], references: [id])
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  qcNotes        String?
+  qcPassed       Boolean  @default(false)
+  qcReviewedAt   DateTime?
+
+  @@index([orderId])
+  @@index([status])
+}
+
+model Editor {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String   @unique
+  tier         String   @default("junior") // 'junior', 'mid', 'senior'
+  status       String   @default("offline") // 'online', 'busy', 'offline'
+  lastActiveAt DateTime @default(now())
+  
+  capacity     Int      @default(20)
+  currentLoad  Int      @default(0)
+  qualityScore Decimal  @default(100.0) @db.Decimal(5, 2)
+  
+  orders       Order[]
+  images       Image[]
+  payouts      EditorPayout[]
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Quotation {
+  id             String   @id @default(cuid())
+  tenantId       String
+  code           String   @unique
+  customerId     String
+  customer       Customer @relation(fields: [customerId], references: [id])
+  volume         Int
+  serviceType    String
+  complexity     String
+  deliveryDays   Int?
+  basePrice      Decimal? @db.Decimal(12, 2)
+  volumeDiscount Decimal? @db.Decimal(5, 2)
+  totalPrice     Decimal? @db.Decimal(12, 2)
+  marginPercent  Decimal? @db.Decimal(5, 2)
+  status         String   @default("draft")
+  expiresAt      DateTime @default(now())
+  sentAt         DateTime?
+  acceptedAt     DateTime?
+  orderId        String?  @unique
+  order          Order?   @relation(fields: [orderId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([status])
+  @@index([code])
+}
+
+model PortalSettings {
+  id             String   @id @default(cuid())
+  tenantId       String   @unique
+  pricePerPhoto  Decimal  @default(2.5) @db.Decimal(12, 2)
+  rushFeePercent Decimal  @default(50.0) @db.Decimal(5, 2)
+  systemPrompt   String?
+  updatedAt      DateTime @updatedAt
+}
+
+model PricingTier {
+  id              String   @id @default(cuid())
+  tierType        String
+  tierName        String
+  tierLevel       Int?
+  minVolume       Int?
+  maxVolume       Int?
+  minQualityScore Decimal? @db.Decimal(5, 2)
+  pricingConfig   String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([tierType])
+}
+
+model KnowledgeArticle {
+  id        String   @id @default(cuid())
+  title     String
+  category  String
+  content   String
+  tags      String?
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([category])
+  @@index([published])
+}
+
+model Alert {
+  id          String    @id @default(cuid())
+  severity    String
+  title       String
+  message     String
+  alertType   String?
+  actionLink  String?
+  actionLabel String?
+  isDismissed Boolean   @default(false)
+  dismissedBy String?
+  dismissedAt DateTime?
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime
+
+  @@index([severity])
+  @@index([createdAt])
+}
+
+model Asset {
+  id        String   @id @default(cuid())
+  name      String
+  type      String   // 'background', 'texture', etc.
+  category  String
+  url       String
+  tags      String?  // JSON string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([type])
+  @@index([category])
+}
+
+model ChatbotConfig {
+  id             String   @id @default(cuid())
+  tenantId       String   @unique
+  name           String   @default("Reframe Assistant")
+  welcomeMessage String   @default("How can I help you today?")
+  systemPrompt   String?
+  primaryColor   String   @default("#E97451")
+  position       String   @default("right")
+  isEnabled      Boolean  @default(true)
+  updatedAt      DateTime @updatedAt
+}
+
+model PlatformPage {
+  id           String   @id @default(cuid())
+  path         String   @unique
+  title        String
+  description  String
+  icon         String?  // Lucide icon name
+  section      String?  // Navigation section (e.g., 'Main', 'Business')
+  requiresAuth Boolean  @default(false)
+  isAdmin      Boolean  @default(false)
+  howToAccess  String   // JSON array string
+  keyActions   String   // JSON array string
+  relatedPages String   // JSON array string
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model UserFlow {
+  id          String   @id @default(cuid())
+  flowId      String   @unique
+  name        String
+  steps       String   // JSON array string
+  entryPoints String   // JSON array string
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PlatformPolicy {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  label     String
+  content   String   // JSON string
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MeetingRequest {
+  id          String    @id @default(cuid())
+  name        String
+  email       String
+  company     String
+  message     String
+  status      String    @default("pending")
+  adminNotes  String?
+  scheduledAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status])
+  @@index([email])
+  @@index([createdAt])
+}
+
+model Invoice {
+  id              String    @id @default(cuid())
+  customerId      String
+  customer        Customer  @relation(fields: [customerId], references: [id])
+  amount          Decimal  @db.Decimal(12, 2)
+  status          String    @default("unpaid")
+  dueDate         DateTime
+  paidAt          DateTime?
+  stripePaymentId String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([customerId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model AttendanceLog {
+  id        String   @id @default(cuid())
+  userId    String
+  date      String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([date])
+}
+
+model Employee {
+  id         String   @id @default(cuid())
+  firstName  String
+  lastName   String
+  email      String   @unique
+  department String
+  paySlips   PaySlip[]
+  expenses   Expense[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model PaySlip {
+  id           String   @id @default(cuid())
+  employeeId   String
+  employee     Employee @relation(fields: [employeeId], references: [id])
+  employeeName String
+  period       String
+  baseSalary   Decimal  @db.Decimal(12, 2)
+  bonuses      Decimal  @db.Decimal(12, 2)
+  deductions   Decimal  @db.Decimal(12, 2)
+  netSalary    Decimal  @db.Decimal(12, 2)
+  createdAt    DateTime @default(now())
+
+  @@index([employeeId])
+  @@index([period])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  employeeId  String?
+  employee    Employee? @relation(fields: [employeeId], references: [id])
+  category    String
+  amount      Decimal  @db.Decimal(12, 2)
+  description String?
+  date        DateTime @default(now())
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+
+  @@index([category])
+  @@index([status])
+  @@index([date])
+}
+
+model Lead {
+  id              String         @id @default(cuid())
+  name            String
+  email           String
+  company         String?
+  source          String?
+  status          String         @default("new")
+  score           Int            @default(0)
+  notes           String?        @db.Text
+  assignedToId    String?
+  assignedTo      User?          @relation(fields: [assignedToId], references: [id])
+  lastContactedAt DateTime?
+  nextFollowUpAt  DateTime?
+  /// Lead opted out of outreach — blocks all sequence sends permanently
+  unsubscribed    Boolean        @default(false)
+  activities      LeadActivity[]
+  enrollments     OutreachEnrollment[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  @@index([status])
+  @@index([email])
+  @@index([assignedToId])
+}
+
+// ── Outreach sequences (in-house cold email engine) ─────────────
+// Sends through the Google outreach mailbox with daily caps, jitter,
+// and IMAP stop-on-reply. See services/outreachService.ts.
+
+model OutreachSequence {
+  id          String   @id @default(cuid())
+  name        String
+  active      Boolean  @default(true)
+  steps       OutreachStep[]
+  enrollments OutreachEnrollment[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model OutreachStep {
+  id         String   @id @default(cuid())
+  sequenceId String
+  sequence   OutreachSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+  stepOrder  Int
+  /// Days to wait after the previous step (0 = send shortly after enrollment)
+  delayDays  Int      @default(0)
+  subject    String   @db.Text
+  /// Plain text with {{name}}, {{firstName}}, {{company}}, {{email}} variables
+  body       String   @db.Text
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([sequenceId])
+}
+
+model OutreachEnrollment {
+  id           String   @id @default(cuid())
+  sequenceId   String
+  sequence     OutreachSequence @relation(fields: [sequenceId], references: [id], onDelete: Cascade)
+  leadId       String
+  lead         Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  /// active | completed | replied | stopped | unsubscribed
+  status       String   @default("active")
+  /// Number of steps already sent
+  currentStep  Int      @default(0)
+  nextSendAt   DateTime?
+  lastSentAt   DateTime?
+  /// Admin who enrolled the lead — used as the actor for auto-logged activities
+  enrolledById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([sequenceId, leadId])
+  @@index([status, nextSendAt])
+  @@index([leadId])
+}
+
+model LeadActivity {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // email | call | note | meeting | status_change
+  content   String   @db.Text
+  metadata  String?  @db.Text // JSON
+  createdAt DateTime @default(now())
+
+  @@index([leadId])
+  @@index([userId])
+}
+
+model Campaign {
+  id          String   @id @default(cuid())
+  name        String
+  type        String
+  status      String
+  budget      Decimal  @db.Decimal(12, 2)
+  spent       Decimal  @default(0) @db.Decimal(12, 2)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([type])
+}
+
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  type        String
+  contact     String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status])
+  @@index([type])
+}
+
+model Contract {
+  id          String    @id @default(cuid())
+  title       String
+  type        String
+  status      String
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([status])
+  @@index([expiresAt])
+}
+
+model NpsResponse {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  score      Int
+  comment    String?
+  feedback   String?  // For extended feedback
+  createdAt  DateTime @default(now())
+
+  @@index([customerId])
+}
+
+model PayoutBatch {
+  id            String         @id @default(cuid())
+  code          String         @unique
+  status        String         @default("pending")
+  totalAmount   Decimal        @default(0) @db.Decimal(12, 2)
+  paymentCount  Int            @default(0)
+  paymentMethod String         @default("ACH Transfer")
+  sentAt        DateTime?
+  approvedAt    DateTime?
+  approvedBy    String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  payouts       EditorPayout[]
+}
+
+model EditorPayout {
+  id              String       @id @default(cuid())
+  editorId        String
+  editor          Editor       @relation(fields: [editorId], references: [id])
+  amount          Decimal      @db.Decimal(12, 2)
+  imagesCompleted Int          @default(0)
+  qualityBonus    Decimal      @default(0) @db.Decimal(12, 2)
+  status          String       @default("pending")
+  batchId         String?
+  batch           PayoutBatch? @relation(fields: [batchId], references: [id], onDelete: SetNull)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+model Referral {
+  id         String   @id @default(cuid())
+  referrerId String
+  referredId String
+  status     String   @default("pending")
+  reward     Decimal? @db.Decimal(12, 2)
+  createdAt  DateTime @default(now())
+
+  @@index([referrerId])
+  @@index([status])
+}
+
+
+
+model QuoteRequest {
+  id                  String   @id @default(cuid())
+  // Fields for quoteBuilderRoutes
+  name                String?
+  email               String?
+  company             String?
+  phone               String?
+  services            String?  // JSON string
+  turnaround          String?
+  basePrice            Decimal? @db.Decimal(12, 2)
+  volumeDiscount       Decimal? @db.Decimal(5, 2)
+  turnaroundMultiplier Decimal? @db.Decimal(5, 4)
+  estimatedPrice       Decimal? @db.Decimal(12, 2)
+  
+  // Fields for quoteController
+  customerName        String?
+  customerEmail       String?
+  description         String?
+  returnFormat        String?
+  wantVariations      Boolean?
+  selectedServices    String?  // JSON string
+  sampleFiles         String?  // JSON string
+  
+  // Shared fields
+  quantity            Int
+  status              String   @default("pending")
+  adminNotes          String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  // Relations
+  quotes              Quote[]
+}
+
+model Quote {
+  id            String       @id @default(cuid())
+  requestId     String
+  request       QuoteRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  services      String       // JSON string
+  turnaround    String
+  quantity      Int
+  perImage      Decimal  @db.Decimal(12, 2)
+  subtotal      Decimal  @db.Decimal(12, 2)
+  discount      Decimal  @db.Decimal(12, 2)
+  total         Decimal  @db.Decimal(12, 2)
+  templateUsed  String?
+  documentation String?
+  status        String       @default("draft")
+  sentAt        DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([requestId])
+}
+
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  assignees   String?   // JSON string
+  priority    String    @default("medium")
+  dueDate     DateTime?
+  labels      String?   // JSON string
+  status      String    @default("todo")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+model ImageVersion {
+  id        String   @id @default(cuid())
+  imageId   String
+  image     Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  version   Int
+  editorId  String?
+  changes   String?  // JSON string
+  fileUrl   String
+  createdAt DateTime @default(now())
+
+  @@index([imageId])
+}
+
+model Annotation {
+  id          String   @id @default(cuid())
+  imageId     String
+  image       Image    @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  type        String   // 'rect', 'point', etc.
+  coordinates String   // JSON string
+  note        String?
+  authorId    String?
+  createdAt   DateTime @default(now())
+
+  @@index([imageId])
+}
+
+model Activity {
+  id         String   @id @default(cuid())
+  tenantId   String
+  customerId String?
+  orderId    String?
+  type       String   // 'status_change' | 'assignment' | 'comment' | 'field_change' | 'archive'
+  message    String
+  authorId   String?
+  authorName String?
+  createdAt  DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([customerId])
+  @@index([orderId])
+}
+
+// ============================================================
+// CMS: Blog Posts, Categories, Tags, Media Library
+// ============================================================
+
+model Post {
+  id              String    @id @default(cuid())
+  /// Maps to the original numeric id from the legacy insightsData.ts file. Used for idempotent migration.
+  legacyId        Int?      @unique
+  slug            String    @unique
+  title           String    @db.Text
+  excerpt         String?   @db.Text
+  content         String    @db.Text // markdown
+  coverImage      String?   @db.Text     // Cloudinary URL
+  status          String    @default("draft") // draft | published | scheduled
+  featured        Boolean   @default(false)
+  readTime        String?
+  ctaType         String?   // audit | trial | quote
+  topic           String?
+  seriesId        String?
+  seriesOrder     Int?
+  canonicalSlug   String?
+  publishedAt     DateTime?
+  authorId        String?
+  author          User?     @relation(fields: [authorId], references: [id])
+  categoryId      String?
+  category        PostCategory? @relation(fields: [categoryId], references: [id])
+  tags            PostTag[] @relation("PostTags")
+  // SEO & Geo fields
+  metaTitle       String?   @db.Text
+  metaDescription String?   @db.Text
+  focusKeywords   String?   @db.Text
+  geoScope        String?   @db.Text // global | regional | local | none
+  geoRegions      String?   @db.Text // comma-separated target regions
+  hreflang        String?   @db.Text // target locale/hreflang e.g. en-US
+  schemaType      String?   @db.Text
+  schemaMarkup    String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status])
+  @@index([categoryId])
+  @@index([authorId])
+  @@index([publishedAt])
+}
+
+model PostCategory {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?  @db.Text
+  parentId    String?
+  parent      PostCategory?  @relation("CatTree", fields: [parentId], references: [id])
+  children    PostCategory[] @relation("CatTree")
+  posts       Post[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([parentId])
+}
+
+model PostTag {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  posts     Post[]   @relation("PostTags")
+  createdAt DateTime @default(now())
+}
+
+model Page {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String    @db.Text
+  excerpt         String?   @db.Text
+  content         String    @db.Text // markdown
+  coverImage      String?   @db.Text
+  status          String    @default("draft") // draft | published
+  metaTitle       String?   @db.Text
+  metaDescription String?   @db.Text
+  publishedAt     DateTime?
+  authorId        String?
+  schemaType      String?   @db.Text
+  schemaMarkup    String?   @db.Text
+  geoScope        String?   @db.Text // global | regional | local | none
+  geoRegions      String?   @db.Text // comma-separated target regions
+  focusKeywords   String?   @db.Text // focus keywords for SEO
+  hreflang        String?   @db.Text // target locale/hreflang, e.g. en-US
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status])
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model Media {
+  id           String   @id @default(cuid())
+  /// Cloudinary public_id — used to apply transforms and delete the asset.
+  publicId     String   @unique
+  url          String   @db.Text
+  format       String?
+  width        Int?
+  height       Int?
+  bytes        Int?
+  altText      String?  @db.Text
+  caption      String?  @db.Text
+  folder       String?
+  uploadedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+model ScheduledMeeting {
+  id        String   @id @default(cuid())
+  title     String
+  time      DateTime
+  channelId String
+  triggered Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ============================================================
+// Newsletter Subscribers (Ghost-style double opt-in)
+// ============================================================
+
+model NewsletterSubscriber {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  confirmed   Boolean  @default(false)
+  token       String   @unique @default(cuid()) // confirm token (one-time)
+  unsubToken  String   @unique @default(cuid()) // persistent unsubscribe token
+  createdAt   DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
+
+model ChatPresence {
+  conversationId String
+  role           String
+  typingAt       DateTime?
+  seenMessageId  String?
+  seenAt         DateTime?
+  updatedAt      DateTime  @updatedAt
+
+  @@id([conversationId, role])
+}

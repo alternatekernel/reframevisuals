@@ -1,0 +1,23 @@
+{
+  "asset_id": "d940a9714472d9d3e2c323ae2a16c49e",
+  "public_id": "reframe/testimonials/nikola_filic_portrait",
+  "version": 1781683915,
+  "version_id": "512d646c5d91540d2dbe8fdd44eaec84",
+  "signature": "60a97ee840d58737b418e55f75234ca2da6cd706",
+  "width": 852,
+  "height": 1024,
+  "format": "jpg",
+  "resource_type": "image",
+  "created_at": "2026-06-17T08:11:55Z",
+  "tags": [],
+  "bytes": 128049,
+  "type": "upload",
+  "etag": "63554a1f04e1de15332af7a8a6a59d89",
+  "placeholder": false,
+  "url": "http://res.cloudinary.com/dnmj4altq/image/upload/v1781683915/reframe/testimonials/nikola_filic_portrait.jpg",
+  "secure_url": "https://res.cloudinary.com/dnmj4altq/image/upload/v1781683915/reframe/testimonials/nikola_filic_portrait.jpg",
+  "asset_folder": "reframe/testimonials",
+  "display_name": "nikola_filic_portrait",
+  "original_filename": "media__1781683777909",
+  "api_key": "246224826751964"
+}

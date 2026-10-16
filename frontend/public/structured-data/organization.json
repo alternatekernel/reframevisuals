@@ -1,0 +1,315 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://reframevisuals.com/#organization",
+  "name": "Reframe Visuals",
+  "alternateName": "Reframe Visuals LLC",
+  "url": "https://reframevisuals.com",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://reframevisuals.com/logo.svg",
+    "width": 300,
+    "height": 100
+  },
+  "image": "https://reframevisuals.com/og-image.jpg",
+  "description": "Reframe Visuals is a professional e-commerce photo editing studio offering background removal, clipping path, ghost mannequin editing, jewelry retouching, and product photography services starting at $0.39/image with 24-hour turnaround.",
+  "foundingDate": "2024",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "email": "hello@reframevisuals.com",
+      "contactType": "customer service",
+      "availableLanguage": [
+        "English"
+      ],
+      "areaServed": "Worldwide"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/reframe-visuals/",
+    "https://www.instagram.com/reframevisualsstudio/",
+    "https://www.trustpilot.com/review/reframevisuals.com",
+    "https://x.com/ReframeVisual",
+    "https://www.pinterest.com/reframevisuals/",
+    "https://www.behance.net/reframevisuals",
+    "https://www.tiktok.com/@reframe_visuals"
+  ],
+  "areaServed": {
+    "@type": "WorldArea",
+    "name": "Worldwide"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "E-commerce Photo Editing Services",
+    "url": "https://reframevisuals.com/services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Background Removal",
+          "description": "Professional background removal service starting at $0.39/image with 24-hour turnaround. Manual Photoshop editing with dual-stage quality inspection.",
+          "url": "https://reframevisuals.com/services/background-removal"
+        },
+        "price": "0.39",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.39",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Clipping Path",
+          "description": "Manual vector clipping path service for precise product cutouts. Hand-drawn paths with razor-sharp edges.",
+          "url": "https://reframevisuals.com/services/clipping-path"
+        },
+        "price": "0.39",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.39",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Ghost Mannequin Editing",
+          "description": "Professional ghost mannequin neck-joint composition for apparel and fashion. Invisible mannequin effect with fabric texture preservation.",
+          "url": "https://reframevisuals.com/services/ghost-mannequin"
+        },
+        "price": "0.85",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.85",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Jewelry Retouching",
+          "description": "Macro-precision jewelry retouching with reflection control, dust removal, and gemstone enhancement at 500% zoom.",
+          "url": "https://reframevisuals.com/services/jewelry-retouch"
+        },
+        "price": "0.80",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.80",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Color Correction",
+          "description": "Professional color correction and calibration matching real-world product swatches. Consistent colors across catalog.",
+          "url": "https://reframevisuals.com/services/color-correction"
+        },
+        "price": "0.35",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.35",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Shadow Creation",
+          "description": "Drop shadow, reflection shadow, and natural shadow creation for product depth and realism.",
+          "url": "https://reframevisuals.com/services/shadow-creation"
+        },
+        "price": "0.35",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.35",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Garment Retouching",
+          "description": "Apparel photo cleanup: wrinkle smoothing, lint removal, consistent fabric finish for fashion ecommerce.",
+          "url": "https://reframevisuals.com/services/garment-retouch"
+        },
+        "price": "0.55",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.55",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Model Retouching",
+          "description": "Professional model and portrait retouching for fashion photography and lookbooks.",
+          "url": "https://reframevisuals.com/services/model-retouch"
+        },
+        "price": "1.20",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "1.20",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "High-End Retouching",
+          "description": "Advanced high-end retouching for hero images, campaign photography, and luxury product visuals.",
+          "url": "https://reframevisuals.com/services/high-end-retouch"
+        },
+        "price": "4.00",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "4.00",
+          "priceCurrency": "USD",
+          "unitText": "per image"
+        }
+      }
+    ]
+  },
+  "knowsAbout": [
+    "E-commerce Photo Editing",
+    "Background Removal",
+    "Clipping Path",
+    "Ghost Mannequin Editing",
+    "Jewelry Retouching",
+    "Product Photography",
+    "Color Correction",
+    "Shadow Creation",
+    "Image Manipulation",
+    "AI Product Photography",
+    "Amazon Image Compliance",
+    "Fashion Photo Editing",
+    "Apparel Retouching",
+    "Commercial Photo Editing"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "14",
+    "reviewCount": "14"
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "The best in the game when it comes to getting work done. Humble, understanding, and consistently on point."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Always on time and very patient. Service is on point and affordable."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Goes above and beyond in everything. Very responsive as well."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "The most efficient service — delivers exactly what I ask for. Will definitely recommend to others."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Nigel", "description": "Fashion Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Patient and gives more than just what you ask for — even good advice on the work."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Verified Client", "description": "Online Retailer" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Fantastic job with my order. Very skilled and made the small adjustments I requested in a timely manner."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Verified Client", "description": "Online Retailer" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Excellent retouching and communication. Thank you very much!"
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Surreal", "description": "Ecommerce Brand" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Great communication, very efficient and excellent job every time. Handled everything exceptionally and went above and beyond."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Surreal", "description": "Ecommerce Brand" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Perfect as usual. Delivers very quickly and completed work amazingly. Will continue working together."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Todd", "description": "Product Seller, NY" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Prompt and quality work. I look forward to working with Reframe many times in the future."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Jamie", "description": "puppack.co — Pet Accessories, USA" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Amazing job, as always. Third time repeat customer. Very responsive and always overdelivers!"
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Buza", "description": "Online Retailer" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Very efficient and communicated quickly and effectively."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Sol", "description": "Freelance Photographer" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Appreciate the prompt work and reply."
+    },
+    {
+      "@type": "Review",
+      "author": { "@type": "Person", "name": "Gino", "description": "Jewelry Seller" },
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "reviewBody": "Fast work, excellent quality, and great attention to detail. Thank you."
+    }
+  ]
+}
