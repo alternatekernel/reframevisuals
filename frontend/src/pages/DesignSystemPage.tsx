@@ -308,7 +308,7 @@ export default function DesignSystemPage() {
       <div className="max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 items-start">
           {/* ─── Sticky Sidebar Navigation ─── */}
-          <aside className="sticky top-20 hidden lg:block rounded-2xl border border-black/10 bg-white p-4 shadow-sm text-left">
+          <aside className="sticky top-20 hidden lg:block rounded-2xl border border-black/10 bg-white p-4 shadow-sm text-left max-h-[calc(100vh-6rem)] overflow-y-auto">
             {/* Search Filter */}
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
@@ -438,7 +438,7 @@ export default function DesignSystemPage() {
                           {copiedKey === swatch.name ? <Check className="h-3 w-3 text-emerald-600" /> : <Copy className="h-3 w-3" />}
                         </button>
                       </div>
-                      <div className="mt-1 text-[11px] text-black/50 truncate">{swatch.role}</div>
+                      <div className="mt-1 text-[11px] text-[#737373] truncate">{swatch.role}</div>
                     </div>
                   </div>
                 ))}
@@ -454,66 +454,41 @@ export default function DesignSystemPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-[13px]">
+                    <table className="w-full text-left text-[13px]" style={{ tableLayout: "fixed" }}>
+                      <colgroup>
+                        <col style={{ width: "72px" }} />
+                        <col style={{ width: "160px" }} />
+                        <col style={{ width: "80px" }} />
+                        <col style={{ width: "200px" }} />
+                        <col />
+                      </colgroup>
                       <thead>
-                        <tr className="border-b border-black/10 text-black/50 font-mono text-[11px] uppercase tracking-wider">
-                          <th className="pb-2">Role</th>
-                          <th className="pb-2">Size / Weight</th>
-                          <th className="pb-2">Line Height</th>
-                          <th className="pb-2">Primary Usage</th>
-                          <th className="pb-2">Live Preview</th>
+                        <tr className="border-b border-black/10 text-[#737373] font-mono text-[10.5px] uppercase tracking-wider">
+                          <th className="pb-2 font-semibold">Role</th>
+                          <th className="pb-2 font-semibold">Size / Weight</th>
+                          <th className="pb-2 font-semibold">Leading</th>
+                          <th className="pb-2 font-semibold">Usage</th>
+                          <th className="pb-2 font-semibold">Live Preview</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-black/6">
-                        <tr>
-                          <td className="py-2.5 font-bold">Display</td>
-                          <td className="font-mono text-black/60">48px (3rem) / 700</td>
-                          <td className="font-mono text-black/60">1.05</td>
-                          <td className="text-black/60">Page title & hero statement</td>
-                          <td className="font-heading text-[24px] font-bold">Catalog Editing</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">H1</td>
-                          <td className="font-mono text-black/60">32px (2rem) / 700</td>
-                          <td className="font-mono text-black/60">1.15</td>
-                          <td className="text-black/60">Major section headings</td>
-                          <td className="font-heading text-[20px] font-bold">Guaranteed 12h Turnaround</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">H2</td>
-                          <td className="font-mono text-black/60">24px (1.5rem) / 600</td>
-                          <td className="font-mono text-black/60">1.2</td>
-                          <td className="text-black/60">Subsection headers & card titles</td>
-                          <td className="font-heading text-[18px] font-semibold">Ghost Mannequin</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">H3</td>
-                          <td className="font-mono text-black/60">20px (1.25rem) / 600</td>
-                          <td className="font-mono text-black/60">1.25</td>
-                          <td className="text-black/60">Minor headings & modal titles</td>
-                          <td className="font-heading text-[16px] font-semibold">Clipping Tolerances</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">Body</td>
-                          <td className="font-mono text-black/60">16px (1rem) / 400</td>
-                          <td className="font-mono text-black/60">1.6</td>
-                          <td className="text-black/60">Default reading paragraphs</td>
-                          <td className="text-[15px]">Hand-traced pen tool paths at 300% zoom.</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">Small</td>
-                          <td className="font-mono text-black/60">14px (0.875rem) / 400</td>
-                          <td className="font-mono text-black/60">1.5</td>
-                          <td className="text-black/60">Secondary text & helper hints</td>
-                          <td className="text-[14px] text-black/70">Replies within 30 minutes.</td>
-                        </tr>
-                        <tr>
-                          <td className="py-2.5 font-bold">Tiny</td>
-                          <td className="font-mono text-black/60">12px (0.75rem) / 500</td>
-                          <td className="font-mono text-black/60">1.4</td>
-                          <td className="text-black/60">Form labels, captions & badges</td>
-                          <td className="text-[12px] font-medium text-black/60">SLA 12H GUARANTEE</td>
-                        </tr>
+                        {[
+                          { role: "Display", spec: "48px / 700", lead: "1.05", usage: "Hero titles", preview: <span className="font-heading text-[18px] font-bold leading-tight">Catalog Editing</span> },
+                          { role: "H1",      spec: "32px / 700", lead: "1.15", usage: "Major headings", preview: <span className="font-heading text-[16px] font-bold">12h Turnaround</span> },
+                          { role: "H2",      spec: "24px / 600", lead: "1.2",  usage: "Card titles", preview: <span className="font-heading text-[15px] font-semibold">Ghost Mannequin</span> },
+                          { role: "H3",      spec: "20px / 600", lead: "1.25", usage: "Modal titles", preview: <span className="font-heading text-[14px] font-semibold">Clipping Path</span> },
+                          { role: "Body",    spec: "16px / 400", lead: "1.6",  usage: "Reading copy", preview: <span className="text-[13px] text-[#404040]">Pen tool paths at 300% zoom.</span> },
+                          { role: "Small",   spec: "14px / 400", lead: "1.5",  usage: "Helper hints", preview: <span className="text-[12px] text-[#595959]">Replies within 30 min.</span> },
+                          { role: "Tiny",    spec: "12px / 500", lead: "1.4",  usage: "Labels, badges", preview: <span className="text-[11px] font-medium tracking-wide text-[#737373] uppercase">SLA 12H</span> },
+                        ].map(({ role, spec, lead, usage, preview }) => (
+                          <tr key={role}>
+                            <td className="py-2.5 font-bold text-[#0A0A0B]">{role}</td>
+                            <td className="font-mono text-[12px] text-[#595959]">{spec}</td>
+                            <td className="font-mono text-[12px] text-[#595959]">{lead}</td>
+                            <td className="text-[12px] text-[#737373]">{usage}</td>
+                            <td className="py-2">{preview}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -568,146 +543,142 @@ export default function DesignSystemPage() {
                 </p>
               </div>
 
+              {/* Variant grid */}
               <Card>
                 <CardHeader>
                   <div className="flex flex-wrap items-center justify-between gap-4">
                     <div>
                       <CardTitle>Button Variants</CardTitle>
-                      <CardDescription>All 8 variants available via the &lt;Button variant="..."&gt; prop.</CardDescription>
+                      <CardDescription>10 variants via <code className="rounded bg-black/[0.06] px-1.5 py-0.5 font-mono text-[12px]">variant="…"</code> — all share the same size, shape and loading props.</CardDescription>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setBtnLoading((prev) => !prev)}
-                    >
+                    <Button variant="outline" size="sm" onClick={() => setBtnLoading((prev) => !prev)}>
                       {btnLoading ? "Stop Spinner" : "Test Loading State"}
                     </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Variants Row */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Button variant="default" loading={btnLoading}>
-                      Default (Onyx)
-                    </Button>
-                    <Button variant="brand" loading={btnLoading}>
-                      Brand Accent
-                    </Button>
-                    <Button variant="brandWhite" loading={btnLoading}>
-                      Brand White
-                    </Button>
-                    <Button variant="white" loading={btnLoading}>
-                      White Pill
-                    </Button>
-                    <Button variant="secondary" loading={btnLoading}>
-                      Secondary
-                    </Button>
-                    <Button variant="outline" loading={btnLoading}>
-                      Outline
-                    </Button>
-                    <Button variant="ghost" loading={btnLoading}>
-                      Ghost
-                    </Button>
-                    <Button variant="destructive" loading={btnLoading}>
-                      Destructive
-                    </Button>
-                    <Button variant="link">
-                      Link Button
-                    </Button>
-                  </div>
+                <CardContent className="space-y-7">
 
-                  {/* Sizes Row */}
-                  <div className="border-t border-black/8 pt-5">
-                    <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">Sizes Scale</div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <Button size="xs" variant="brand">XS Size</Button>
-                      <Button size="sm" variant="brand">Small (sm)</Button>
-                      <Button size="default" variant="brand">Default (md)</Button>
-                      <Button size="lg" variant="brand">Large (lg)</Button>
-                      <Button size="icon" variant="brand" aria-label="Quick Action">
-                        <Zap className="h-4 w-4" />
-                      </Button>
+                  {/* Filled group */}
+                  <div>
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Filled — high emphasis</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {([
+                        { v: "default",     label: "Default (Onyx)", desc: "Primary action" },
+                        { v: "brand",       label: "Brand Token",    desc: "Live ↕ token controller" },
+                        { v: "destructive", label: "Destructive",    desc: "Delete / remove" },
+                        { v: "success",     label: "Success",        desc: "Confirm / complete" },
+                      ] as const).map(({ v, label, desc }) => (
+                        <div key={v} className="flex flex-col items-start gap-2">
+                          <Button variant={v} loading={btnLoading} className="w-full justify-center">{label}</Button>
+                          <span className="text-[11.5px] text-[#737373]">{desc}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Icon and Composite Row */}
-                  <div className="border-t border-black/8 pt-5">
-                    <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">Icons & Composites</div>
+                  {/* Outlined / surface group */}
+                  <div className="border-t border-black/8 pt-6">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Outlined / surface — medium emphasis</div>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {([
+                        { v: "brandWhite", label: "Brand White",  desc: "Inverted CTA on dark bg" },
+                        { v: "white",      label: "White",        desc: "Elevated surface pill" },
+                        { v: "secondary",  label: "Secondary",    desc: "Supporting action" },
+                        { v: "outline",    label: "Outline",      desc: "Tertiary / filter" },
+                      ] as const).map(({ v, label, desc }) => (
+                        <div key={v} className="flex flex-col items-start gap-2">
+                          <Button variant={v} loading={btnLoading} className="w-full justify-center">{label}</Button>
+                          <span className="text-[11.5px] text-[#737373]">{desc}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Ghost / text group */}
+                  <div className="border-t border-black/8 pt-6">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Ghost / text — low emphasis</div>
+                    <div className="flex flex-wrap items-center gap-6">
+                      <div className="flex flex-col items-start gap-2">
+                        <Button variant="ghost" loading={btnLoading}>Ghost</Button>
+                        <span className="text-[11.5px] text-[#737373]">Dismiss / cancel</span>
+                      </div>
+                      <div className="flex flex-col items-start gap-2">
+                        <Button variant="link">Link Button</Button>
+                        <span className="text-[11.5px] text-[#737373]">Inline contextual</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sizes */}
+                  <div className="border-t border-black/8 pt-6">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Size Scale — xs · sm · default · lg · icon</div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <Button leftIcon={<Send className="h-4 w-4" />}>
-                        Send Order
-                      </Button>
-                      <Button variant="brand" rightIcon={<ArrowRight className="h-4 w-4" />}>
-                        Get 3 Free Edits
-                      </Button>
+                      <Button size="xs"      variant="default">XS</Button>
+                      <Button size="sm"      variant="default">Small (sm)</Button>
+                      <Button size="default" variant="default">Default (md)</Button>
+                      <Button size="lg"      variant="default">Large (lg)</Button>
+                      <Button size="icon"    variant="default" aria-label="Quick Action"><Zap className="h-4 w-4" /></Button>
+                    </div>
+                  </div>
+
+                  {/* Icons & composites */}
+                  <div className="border-t border-black/8 pt-6">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Icons & Composites</div>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Button leftIcon={<Send className="h-4 w-4" />}>Send Order</Button>
+                      <Button variant="brand" rightIcon={<ArrowRight className="h-4 w-4" />}>Get 3 Free Edits</Button>
                       <ButtonWithIcon label="Start Free Trial" />
+                      <Button variant="success" leftIcon={<Check className="h-4 w-4" />}>Order Confirmed</Button>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Button Anatomy & Usage Rules (Blog Standard Match) */}
+              {/* States + Usage rules */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Button Anatomy & Visual States</CardTitle>
-                    <CardDescription>Every button variant consistently supports these 5 interactive states.</CardDescription>
+                    <CardTitle>Interactive States</CardTitle>
+                    <CardDescription>Every variant exposes all 6 states; apply them consistently.</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center justify-between rounded-xl bg-black/[0.02] p-2.5 text-[13px]">
-                      <span className="font-semibold text-black/70">1. Default State</span>
-                      <Button size="sm" variant="default">Default State</Button>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-black/[0.02] p-2.5 text-[13px]">
-                      <span className="font-semibold text-black/70">2. Hover State</span>
-                      <Button size="sm" variant="brand" className="shadow-lg">Hovered</Button>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-black/[0.02] p-2.5 text-[13px]">
-                      <span className="font-semibold text-black/70">3. Active / Pressed</span>
-                      <Button size="sm" variant="default" className="scale-95">Pressed</Button>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-black/[0.02] p-2.5 text-[13px]">
-                      <span className="font-semibold text-black/70">4. Loading State</span>
-                      <Button size="sm" variant="brand" loading>Processing</Button>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-black/[0.02] p-2.5 text-[13px]">
-                      <span className="font-semibold text-black/70">5. Disabled State</span>
-                      <Button size="sm" variant="default" disabled>Unavailable</Button>
-                    </div>
+                  <CardContent className="space-y-2.5">
+                    {[
+                      { label: "1. Default",        btn: <Button size="sm" variant="default">Default</Button> },
+                      { label: "2. Hover (simulated)", btn: <Button size="sm" variant="default" className="!bg-[#1a1a1b] !shadow-[0_8px_24px_rgba(0,0,0,0.20)]">Hovered</Button> },
+                      { label: "3. Pressed (scale 0.98)", btn: <Button size="sm" variant="default" className="scale-[0.98]">Pressed</Button> },
+                      { label: "4. Focus ring",     btn: <Button size="sm" variant="outline" className="ring-2 ring-black/25 ring-offset-2">Focused</Button> },
+                      { label: "5. Loading",        btn: <Button size="sm" variant="brand" loading>Processing</Button> },
+                      { label: "6. Disabled (0.45 opacity)", btn: <Button size="sm" variant="default" disabled>Unavailable</Button> },
+                    ].map(({ label, btn }) => (
+                      <div key={label} className="flex items-center justify-between rounded-xl bg-black/[0.02] px-3 py-2 text-[12.5px]">
+                        <span className="font-medium text-[#595959]">{label}</span>
+                        {btn}
+                      </div>
+                    ))}
                   </CardContent>
                 </Card>
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Button Usage Rules & Hierarchy</CardTitle>
-                    <CardDescription>Strict rules prevent visual clutter and guide user actions.</CardDescription>
+                    <CardTitle>Hierarchy Rules</CardTitle>
+                    <CardDescription>Strictly one filled CTA per screen; support with outlined and ghost.</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4 text-[13px]">
-                    <div className="rounded-xl border border-emerald-500/20 bg-emerald-50/50 p-3">
-                      <div className="font-bold text-emerald-800 flex items-center gap-1.5 mb-1">
-                        <Check className="h-4 w-4" /> Primary Button (Filled)
-                      </div>
-                      <p className="text-emerald-900/80 leading-relaxed">
-                        <strong>Rule: Exactly one per screen</strong> for the primary conversion goal (e.g., "Start Free Trial" or "Submit Order").
-                      </p>
+                  <CardContent className="space-y-3 text-[13px]">
+                    <div className="rounded-xl border-l-[3px] border-emerald-500 bg-emerald-50 p-3">
+                      <div className="font-semibold text-emerald-800 mb-0.5">Primary — one per screen</div>
+                      <p className="text-emerald-900/75 leading-relaxed text-[12.5px]">The single highest-priority action: "Start Free Trial", "Submit Order", "Confirm Payment".</p>
                     </div>
-
-                    <div className="rounded-xl border border-blue-500/20 bg-blue-50/50 p-3">
-                      <div className="font-bold text-blue-800 flex items-center gap-1.5 mb-1">
-                        <Check className="h-4 w-4" /> Secondary Button (Outlined)
-                      </div>
-                      <p className="text-blue-900/80 leading-relaxed">
-                        Supporting actions alongside the primary (e.g., "View Pricing" or "Download Sample Specs").
-                      </p>
+                    <div className="rounded-xl border-l-[3px] border-blue-400 bg-blue-50 p-3">
+                      <div className="font-semibold text-blue-800 mb-0.5">Secondary — supporting action</div>
+                      <p className="text-blue-900/75 leading-relaxed text-[12.5px]">Alongside the primary: "View Pricing", "Download Specs", "Learn More".</p>
                     </div>
-
-                    <div className="rounded-xl border border-zinc-300 bg-zinc-50 p-3">
-                      <div className="font-bold text-zinc-800 flex items-center gap-1.5 mb-1">
-                        <Check className="h-4 w-4" /> Text / Ghost / Link Button
-                      </div>
-                      <p className="text-zinc-700 leading-relaxed">
-                        Tertiary low-emphasis actions, modal dismiss/cancel, and inline contextual links.
-                      </p>
+                    <div className="rounded-xl border-l-[3px] border-black/20 bg-black/[0.02] p-3">
+                      <div className="font-semibold text-black/75 mb-0.5">Tertiary — ghost / link</div>
+                      <p className="text-black/55 leading-relaxed text-[12.5px]">Dismiss, cancel, and inline navigation; zero visual weight to avoid competing with the CTA.</p>
+                    </div>
+                    <div className="rounded-xl border-l-[3px] border-rose-400 bg-rose-50 p-3">
+                      <div className="font-semibold text-rose-800 mb-0.5">Destructive — confirm first</div>
+                      <p className="text-rose-900/75 leading-relaxed text-[12.5px]">Always behind a confirmation dialog. Never the default action in a form submission.</p>
                     </div>
                   </CardContent>
                 </Card>

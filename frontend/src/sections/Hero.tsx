@@ -357,9 +357,9 @@ const Hero = () => {
               text={heroContent.subtitle || 'Hair, lace, and glass break every automated tool. Our editors trace each edge by hand. Try 3 images free, no minimum order.'}
               fontSize="clamp(13px, 1.4vw, 15px)"
               color="rgba(0,0,0,0.72)"
-              staggerDelay={0.05}
-              delay={0.3}
-              initial="hidden"
+              staggerDelay={shouldAnimate ? 0.025 : 0}
+              delay={shouldAnimate ? 0.15 : 0}
+              initial={shouldAnimate ? "hidden" : false}
               animate="visible"
               className="px-1 leading-[1.65] sm:px-4 sm:leading-[1.75] sm:short:leading-[1.5]"
             />

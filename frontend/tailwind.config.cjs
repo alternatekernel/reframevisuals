@@ -16,7 +16,7 @@ module.exports = {
       colors: {
         brand: {
           DEFAULT: 'var(--brand, #0A0A0B)',
-          hover: 'var(--brand-hover, #D66140)',
+          hover: 'var(--brand-hover, #1F1F1F)',
           rgb: '233, 116, 81',
         },
         // "Ink" token used across widgets/buttons (supports Tailwind opacity modifiers like /10)

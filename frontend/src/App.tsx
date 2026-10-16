@@ -49,6 +49,14 @@ const isLikelyCrawler = () => {
   return BOT_UA_PATTERN.test(navigator.userAgent || '');
 };
 
+// Synchronous check — computed before first render so showLoader can start true,
+// preventing the 1-frame flash of page content before the effect fires.
+const _initShowLoader = (() => {
+  if (typeof navigator === 'undefined') return false;
+  if (BOT_UA_PATTERN.test(navigator.userAgent || '')) return false;
+  try { return sessionStorage.getItem(BOOT_LOADER_SEEN_KEY) !== '1'; } catch { return true; }
+})();
+
 // Thin top-of-viewport progress bar shown during lazy route transitions
 const RouteLoader: React.FC = () => (
   <div className="fixed top-0 left-0 right-0 z-[110] h-[3px] overflow-hidden" style={{ background: 'transparent' }}>
@@ -202,7 +210,9 @@ const AppBootLoader: React.FC<{ exiting: boolean }> = ({ exiting }) => {
 // Internal component rendered inside providers to access real app state
 export const AppBootManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthChecking } = useContent();
-  const [showLoader, setShowLoader] = useState(false);
+  // Start true on first visit so the loader covers the page from the very first paint,
+  // preventing the FOUC where unstyled content flashes before the useEffect fires.
+  const [showLoader, setShowLoader] = useState(_initShowLoader);
   const [exiting, setExiting] = useState(false);
   // Track conditions that must be met before dismissing
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -211,13 +221,7 @@ export const AppBootManager: React.FC<{ children: React.ReactNode }> = ({ childr
   const allReady = fontsLoaded && minTimeElapsed && !isAuthChecking;
 
   useEffect(() => {
-    if (isLikelyCrawler()) return;
-
-    try {
-      if (sessionStorage.getItem(BOOT_LOADER_SEEN_KEY) === '1') return;
-    } catch { /* ignore */ }
-
-    setShowLoader(true);
+    if (!showLoader) return; // crawler or returning visitor — skip setup
 
     // Minimum visual time
     const minTimer = setTimeout(() => setMinTimeElapsed(true), BOOT_MIN_MS);
@@ -230,7 +234,7 @@ export const AppBootManager: React.FC<{ children: React.ReactNode }> = ({ childr
     }
 
     return () => clearTimeout(minTimer);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Dismiss when all conditions met — fade out then unmount
   useEffect(() => {

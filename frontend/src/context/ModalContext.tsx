@@ -51,7 +51,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       {children}
       <AnimatePresence>
         {modal && (
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          <div data-modal-root className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
             {/* Static blur layer — never animates, prevents jank on mid-range devices */}
             <div className="absolute inset-0 backdrop-blur-sm" />
             <motion.div

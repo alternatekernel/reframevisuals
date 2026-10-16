@@ -25,6 +25,9 @@ interface Props {
   hideBreadcrumb?: boolean;
   onCancel: () => void;
   onComplete: () => void;
+  /** Overrides the completion screen's support button outside the dashboard. */
+  onContactSupport?: () => void;
+  completeLabel?: string;
 }
 
 const STEPS = [
@@ -85,6 +88,8 @@ const OrderFlowUI = React.forwardRef<OrderFlowUIHandle, Props>(function OrderFlo
     hideBreadcrumb = false,
     onCancel,
     onComplete,
+    onContactSupport,
+    completeLabel = 'Track Progress',
   } = props;
   const { isTemplateMode, saveTemplate, setCurrentView, setIsTemplateMode } = useDashboard();
   const directionRef = useRef(1);
@@ -248,11 +253,11 @@ const OrderFlowUI = React.forwardRef<OrderFlowUIHandle, Props>(function OrderFlo
             onClick={isTemplateMode ? () => { setIsTemplateMode(false); setCurrentView('templates'); } : onComplete}
             className={`${orderPrimaryButtonClass} w-full sm:w-auto h-auto px-8 py-3 text-caption font-bold rounded-xl active:scale-[0.98] transition-[background-color,transform]`}
           >
-            {isTemplateMode ? 'Manage Templates' : 'Track Progress'}
+            {isTemplateMode ? 'Manage Templates' : completeLabel}
           </button>
           {!isTemplateMode && (
             <button
-              onClick={() => setCurrentView('chat')}
+              onClick={onContactSupport || (() => setCurrentView('chat'))}
               className={`${orderSecondaryButtonClass} w-full sm:w-auto h-auto px-8 py-3 text-caption font-bold rounded-xl active:scale-[0.98] transition-[background-color,border-color,transform]`}
             >
               Contact Support
