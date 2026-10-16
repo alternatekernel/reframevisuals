@@ -75,10 +75,10 @@
     --font-mono: 'JetBrains Mono', 'Fragment Mono', monospace;
 
     /* Theme colors (overridden by admin) */
-    --brand: #7C3AED;
-    --brand-rgb: 124, 58, 237;
-    --brand-hover: #6D28D9;
-    --brand-hover-rgb: 109, 40, 217;
+    --brand: #0A0A0B;
+    --brand-rgb: 10, 10, 11;
+    --brand-hover: #1F1F1F;
+    --brand-hover-rgb: 31, 31, 31;
     --surface: #FFFFFF;
     --onyx: #0A0A0B;
     --soft-black: #1F1F1F;

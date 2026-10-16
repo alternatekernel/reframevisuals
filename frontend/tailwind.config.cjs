@@ -15,7 +15,7 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: 'var(--brand, #E97451)',
+          DEFAULT: 'var(--brand, #0A0A0B)',
           hover: 'var(--brand-hover, #D66140)',
           rgb: '233, 116, 81',
         },
