@@ -23,7 +23,7 @@ import Testimonials from './Testimonials';
 const CompetitorComparison = lazy(() => import('./pricing/CompetitorComparison'));
 const Stats = lazy(() => import('./Stats'));
 const Pricing = lazy(() => import('./Pricing'));
-const InsightsPreview = lazy(() => import('./InsightsPreview'));
+const BlogPreview = lazy(() => import('./BlogPreview'));
 const Faq = lazy(() => import('./Faq'));
 const Integrations = lazy(() => import('./Integrations'));
 
@@ -175,7 +175,7 @@ const LandingPage = () => {
       <Suspense fallback={<SectionFallback />}>
         <ScrollReveal variant="fade-slide" y={40}><CompetitorComparison /></ScrollReveal>
         <ScrollReveal variant="spring-scale"><Stats /></ScrollReveal>
-        <ScrollReveal variant="fade-slide" y={30} className="hidden sm:block"><InsightsPreview /></ScrollReveal>
+        <ScrollReveal variant="fade-slide" y={30} className="hidden sm:block"><BlogPreview /></ScrollReveal>
         <ScrollReveal variant="spring-scale"><Pricing /></ScrollReveal>
         <ScrollReveal variant="fade-slide" y={30}><Integrations /></ScrollReveal>
         <ScrollReveal variant="fade"><Faq /></ScrollReveal>

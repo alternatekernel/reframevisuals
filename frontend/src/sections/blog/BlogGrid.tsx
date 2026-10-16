@@ -6,7 +6,7 @@ import { cx } from '../../utils/theme';
 import { getTopicPastel, topicLabel } from '../../utils/blog';
 import { useState, useMemo } from 'react';
 
-interface InsightsGridProps {
+interface BlogGridProps {
   allPosts: any[];
   gridPosts: any[];
   featuredPost?: any;
@@ -16,7 +16,7 @@ interface InsightsGridProps {
   canEditBlogs?: boolean;
 }
 
-const InsightsGrid: React.FC<InsightsGridProps> = ({
+const BlogGrid: React.FC<BlogGridProps> = ({
   allPosts,
   gridPosts,
   featuredPost,
@@ -227,4 +227,4 @@ const InsightsGrid: React.FC<InsightsGridProps> = ({
   );
 };
 
-export default React.memo(InsightsGrid);
+export default React.memo(BlogGrid);

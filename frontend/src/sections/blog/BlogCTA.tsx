@@ -3,7 +3,7 @@ import { cx, layout, typography } from '../../utils/theme';
 import Frame from '../../components/ui/Frame';
 import { NEWSLETTER_EMAIL } from '../../constants/contact';
 
-const InsightsCTA: React.FC = () => {
+const BlogCTA: React.FC = () => {
   const [submitState, setSubmitState] = React.useState<'idle' | 'submitting' | 'success'>('idle');
 
   return (
@@ -112,4 +112,4 @@ const InsightsCTA: React.FC = () => {
   );
 };
 
-export default InsightsCTA;
+export default BlogCTA;

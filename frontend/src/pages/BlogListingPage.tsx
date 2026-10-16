@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BookOpen, Scissors, Palette, TrendingUp, Search, X } from 'lucide-react';
 import { cx, layout, typography } from '../utils/theme';
-import InsightsHero from '../sections/insights/InsightsHero';
-import InsightsGrid from '../sections/insights/InsightsGrid';
-import InsightsCTA from '../sections/insights/InsightsCTA';
+import BlogHero from '../sections/blog/BlogHero';
+import BlogGrid from '../sections/blog/BlogGrid';
+import BlogCTA from '../sections/blog/BlogCTA';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 import { getReadingHistory, searchPosts, sortPosts, topicLabel, type BlogSort } from '../utils/blog';
 import { useContent } from '../context/ContentBase';
@@ -17,7 +17,7 @@ const CATEGORIES = [
   { id: 'industry', label: 'Industry', icon: TrendingUp, color: '#111111' },
 ];
 
-const InsightsPage = () => {
+const BlogListingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { currentUser } = useContent();
   const q = searchParams.get('q') || '';
@@ -97,7 +97,7 @@ const InsightsPage = () => {
           },
         })}</script>
       </Helmet>
-      <InsightsHero />
+      <BlogHero />
 
       {/* Search / topic / sort toolbar */}
       <section className="px-5 sm:px-6 py-4 sm:py-5 bg-white border-b border-black/5">
@@ -170,7 +170,7 @@ const InsightsPage = () => {
         </div>
       </section>
 
-      <InsightsGrid
+      <BlogGrid
         allPosts={BLOG_POSTS}
         gridPosts={gridPosts}
         featuredPost={hasActiveFilters ? undefined : featuredPost}
@@ -219,7 +219,7 @@ const InsightsPage = () => {
         </div>
       </section>
 
-      <InsightsCTA />
+      <BlogCTA />
 
       <section className="px-6 pb-10">
         <div className={cx(layout.compactShell)}>
@@ -249,4 +249,4 @@ const InsightsPage = () => {
   );
 };
 
-export default InsightsPage;
+export default BlogListingPage;

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { cx, layout, typography } from '../../utils/theme';
 
-const InsightsHero = () => {
+const BlogHero = () => {
   return (
     <section data-section="hero" className="px-5 sm:px-6 lg:px-12 pt-8 sm:pt-10 pb-8 sm:pb-12 bg-white relative overflow-hidden border-b border-[#f5f5f5]">
       {/* Background Watermark */}
@@ -30,4 +30,4 @@ const InsightsHero = () => {
   );
 };
 
-export default InsightsHero;
+export default BlogHero;

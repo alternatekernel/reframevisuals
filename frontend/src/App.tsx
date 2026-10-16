@@ -261,7 +261,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage').then(m => ({ default: m
 const AboutReframeVisualsPage = lazy(() => import('./pages/AboutReframeVisualsPage').then(m => ({ default: m.default })));
 const ReframeVisualsServicesPage = lazy(() => import('./pages/ReframeVisualsServicesPage').then(m => ({ default: m.default })));
 const AIProductVisualsPage = lazy(() => import('./pages/AIProductVisualsPage').then(m => ({ default: m.default })));
-const InsightsPage = lazy(() => import('./pages/InsightsPage').then(m => ({ default: m.default })));
+const BlogListingPage = lazy(() => import('./pages/BlogListingPage').then(m => ({ default: m.default })));
 const PortfolioPage = lazy(() => import('./pages/PortfolioPage').then(m => ({ default: m.default })));
 const FreeTrialPage = lazy(() => import('./pages/FreeTrialPage').then(m => ({ default: m.default })));
 const StartPage = lazy(() => import('./pages/StartPage').then(m => ({ default: m.default })));
@@ -274,7 +274,7 @@ const LoginPageUser = lazy(() => import('./pages/LoginPage').then(m => ({ defaul
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.default })));
 const ForgotPasswordPage = lazy(() => import('./pages/ForgotPasswordPage').then(m => ({ default: m.default })));
 const ResetPasswordPage = lazy(() => import('./pages/ResetPasswordPage').then(m => ({ default: m.default })));
-const InsightDetailPage = lazy(() => import('./pages/InsightDetailPage').then(m => ({ default: m.default })));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage').then(m => ({ default: m.default })));
 const BlogTopicPage = lazy(() => import('./pages/BlogTopicPage').then(m => ({ default: m.default })));
 const CmsPageView = lazy(() => import('./pages/CmsPageView').then(m => ({ default: m.default })));
 const BlogSeriesPage = lazy(() => import('./pages/BlogSeriesPage').then(m => ({ default: m.default })));
@@ -512,8 +512,8 @@ export const routes: RouteObject[] = [
           { path: 'reframe-visuals-services', element: <ReframeVisualsServicesPage /> },
           { path: 'ai-product-visuals', element: <AIProductVisualsPage /> },
           { path: 'portfolio', element: <PortfolioPage /> },
-          { path: 'blog', element: <InsightsPage /> },
-          { path: 'blog/:slug', element: <InsightDetailPage /> },
+          { path: 'blog', element: <BlogListingPage /> },
+          { path: 'blog/:slug', element: <BlogPostPage /> },
           { path: 'blog/topic/:topicSlug', element: <BlogTopicPage /> },
           { path: 'p/:slug', element: <Suspense fallback={<RouteLoader />}><CmsPageView /></Suspense> },
           { path: 'blog/series/:seriesSlug', element: <BlogSeriesPage /> },

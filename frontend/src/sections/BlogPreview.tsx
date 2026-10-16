@@ -4,7 +4,7 @@ import { ArrowRight, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useBlogPosts } from '../hooks/useBlogPosts';
 
-const InsightsPreview = () => {
+const BlogPreview = () => {
   const navigate = useNavigate();
   const blogPosts = useBlogPosts();
 
@@ -135,4 +135,4 @@ const InsightsPreview = () => {
   );
 };
 
-export default InsightsPreview;
+export default BlogPreview;

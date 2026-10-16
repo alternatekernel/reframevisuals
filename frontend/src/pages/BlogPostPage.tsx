@@ -34,7 +34,7 @@ const lineHeightClass: Record<ReaderPrefs['lineHeight'], string> = {
   relaxed: 'leading-[1.9] sm:leading-[2]',
 };
 
-const InsightDetailPage: React.FC = () => {
+const BlogPostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { posts: BLOG_POSTS, loaded } = useBlogFeed();
   const post = BLOG_POSTS.find((p) => p.slug === slug);
@@ -644,4 +644,4 @@ const InsightDetailPage: React.FC = () => {
   );
 };
 
-export default InsightDetailPage;
+export default BlogPostPage;
