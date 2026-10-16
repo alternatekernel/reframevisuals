@@ -75,7 +75,7 @@ import {
 
 // Predefined Brand Color Swatches for the Live Token Controller
 const BRAND_PRESETS = [
-  { name: "Reframe Orange", hex: "#E97451", rgb: "233, 116, 81" },
+  { name: "Onyx Black", hex: "#0A0A0B", rgb: "10, 10, 11" },
   { name: "Vibrant Violet", hex: "#7C3AED", rgb: "124, 58, 237" },
   { name: "Electric Blue", hex: "#2563EB", rgb: "37, 99, 235" },
   { name: "Emerald Green", hex: "#16A34A", rgb: "22, 163, 74" },
@@ -163,7 +163,7 @@ export default function DesignSystemPage() {
   )
 
   return (
-    <div className="min-h-screen bg-[var(--surface,#FFFFFF)] text-[var(--color-text-primary,#0A0A0B)] selection:bg-[var(--brand,#E97451)] selection:text-white pb-28">
+    <div className="min-h-screen bg-[var(--surface,#FFFFFF)] text-[var(--color-text-primary,#0A0A0B)] selection:bg-[var(--brand,#0A0A0B)] selection:text-white pb-28">
       <Helmet>
         <title>Design System & Mother Components | Reframe Visuals</title>
         <meta
@@ -178,7 +178,7 @@ export default function DesignSystemPage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3.5 py-1 text-[12px] font-semibold shadow-sm mb-5">
-                <span className="h-2 w-2 rounded-full bg-[var(--brand,#E97451)] animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-[var(--brand,#0A0A0B)] animate-pulse" />
                 <span>Single Source of Truth</span>
                 <span className="text-black/30">·</span>
                 <span className="text-black/60">Version 2.0.0</span>
@@ -206,7 +206,7 @@ export default function DesignSystemPage() {
               </div>
               <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm text-left">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Framework</div>
-                <div className="font-heading text-[22px] font-bold text-[var(--brand,#E97451)]">Tailwind + Radix</div>
+                <div className="font-heading text-[22px] font-bold text-[var(--brand,#0A0A0B)]">Tailwind + Radix</div>
               </div>
             </div>
           </div>
@@ -215,7 +215,7 @@ export default function DesignSystemPage() {
           <div className="mt-10 rounded-2xl border border-black/10 bg-white p-5 sm:p-6 shadow-[0_12px_32px_rgba(0,0,0,0.05)] text-left">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 border-b border-black/6 pb-5">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand,#E97451)]/10 text-[var(--brand,#E97451)]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand,#0A0A0B)]/10 text-[var(--brand,#0A0A0B)]">
                   <Sliders className="h-5 w-5" />
                 </div>
                 <div>
@@ -329,7 +329,7 @@ export default function DesignSystemPage() {
                   className="group flex items-center justify-between rounded-xl px-3 py-2 text-[13.5px] font-medium text-black/65 transition-colors hover:bg-black/[0.04] hover:text-black"
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="text-black/40 group-hover:text-[var(--brand,#E97451)] transition-colors">
+                    <span className="text-black/40 group-hover:text-[var(--brand,#0A0A0B)] transition-colors">
                       {sec.icon}
                     </span>
                     <span>{sec.title}</span>
@@ -339,8 +339,8 @@ export default function DesignSystemPage() {
             </div>
 
             <div className="mt-6 border-t border-black/8 pt-4">
-              <div className="rounded-xl bg-[var(--brand,#E97451)]/8 border border-[var(--brand,#E97451)]/20 p-3">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+              <div className="rounded-xl bg-[var(--brand,#0A0A0B)]/8 border border-[var(--brand,#0A0A0B)]/20 p-3">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   Developer Quickstart
                 </div>
                 <code className="mt-1 block font-mono text-[11px] text-black/75 break-all">
@@ -356,7 +356,7 @@ export default function DesignSystemPage() {
             <div className="rounded-2xl border border-black/10 bg-gradient-to-r from-black/[0.03] to-transparent p-5 sm:p-6 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                     Single-Page Quick Reference Architecture
                   </div>
                   <h3 className="font-heading text-[18px] sm:text-[20px] font-semibold text-[var(--color-text-primary,#0A0A0B)]">
@@ -384,7 +384,7 @@ export default function DesignSystemPage() {
                       <Check className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>{item.name}</span>
                     </div>
-                    <div className="mt-1 font-mono text-[10.5px] text-[var(--brand,#E97451)]">{item.file}</div>
+                    <div className="mt-1 font-mono text-[10.5px] text-[var(--brand,#0A0A0B)]">{item.file}</div>
                     <div className="text-[11px] text-black/50 truncate mt-0.5">{item.desc}</div>
                   </div>
                 ))}
@@ -394,7 +394,7 @@ export default function DesignSystemPage() {
             {/* 1. FOUNDATIONS & TOKENS */}
             <section id="tokens" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>01. Core Foundations</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -540,11 +540,11 @@ export default function DesignSystemPage() {
                     ].map((space) => (
                       <div key={space.size} className="rounded-xl border border-black/8 bg-black/[0.015] p-3 text-left">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-[13px] font-bold text-[var(--brand,#E97451)]">{space.size}</span>
+                          <span className="font-mono text-[13px] font-bold text-[var(--brand,#0A0A0B)]">{space.size}</span>
                           <span className="text-[12px] font-semibold text-black/70">{space.name}</span>
                         </div>
-                        <div className="h-2 rounded-full bg-[var(--brand,#E97451)]/30 overflow-hidden mb-2">
-                          <div className={`h-full bg-[var(--brand,#E97451)] ${space.barWidth}`} />
+                        <div className="h-2 rounded-full bg-[var(--brand,#0A0A0B)]/30 overflow-hidden mb-2">
+                          <div className={`h-full bg-[var(--brand,#0A0A0B)] ${space.barWidth}`} />
                         </div>
                         <p className="text-[11.5px] text-black/55 leading-tight">{space.role}</p>
                       </div>
@@ -557,7 +557,7 @@ export default function DesignSystemPage() {
             {/* 2. ACTIONS & BUTTONS */}
             <section id="buttons" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>02. Actions & Interaction</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -717,7 +717,7 @@ export default function DesignSystemPage() {
             {/* 3. BADGES & PILLS */}
             <section id="badges" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>03. Status & Tags</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -779,7 +779,7 @@ export default function DesignSystemPage() {
             {/* 4. FORM CONTROLS & INPUTS */}
             <section id="forms" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>04. User Input</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -864,7 +864,7 @@ export default function DesignSystemPage() {
             {/* 5. TOGGLES & SELECTION */}
             <section id="toggles" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>05. Toggles & Selection</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -950,7 +950,7 @@ export default function DesignSystemPage() {
             {/* 6. CARDS & SURFACES */}
             <section id="cards" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>06. Surfaces & Containers</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -983,7 +983,7 @@ export default function DesignSystemPage() {
                     <p className="text-[13px] text-black/60">Used for service offerings, case studies, and clickable items.</p>
                   </CardContent>
                   <CardFooter>
-                    <span className="text-[13px] font-semibold text-[var(--brand,#E97451)] flex items-center gap-1">
+                    <span className="text-[13px] font-semibold text-[var(--brand,#0A0A0B)] flex items-center gap-1">
                       Learn more <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </CardFooter>
@@ -1005,7 +1005,7 @@ export default function DesignSystemPage() {
             {/* 7. OVERLAYS & MODALS */}
             <section id="overlays" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>07. Overlays & Dialogs</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -1111,7 +1111,7 @@ export default function DesignSystemPage() {
             {/* 8. NAVIGATION & TABS */}
             <section id="navigation" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>08. Navigation & Structure</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -1182,7 +1182,7 @@ export default function DesignSystemPage() {
             {/* 9. FEEDBACK & ALERTS */}
             <section id="feedback" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>09. Feedback & Progress</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -1245,7 +1245,7 @@ export default function DesignSystemPage() {
             {/* 10. DATA DISPLAY & TABLES */}
             <section id="data" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>10. Data Representation</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
@@ -1311,7 +1311,7 @@ export default function DesignSystemPage() {
                           </Badge>
                         </TableCell>
                         <TableCell className="font-mono text-[13px]">{row.time}</TableCell>
-                        <TableCell className="font-heading font-bold text-[var(--brand,#E97451)]">{row.price}</TableCell>
+                        <TableCell className="font-heading font-bold text-[var(--brand,#0A0A0B)]">{row.price}</TableCell>
                         <TableCell>
                           <span className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold text-[12px]">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
@@ -1360,7 +1360,7 @@ export default function DesignSystemPage() {
             {/* 11. PLATFORM SIGNATURE TOOLS */}
             <section id="platform" className="scroll-mt-24 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#E97451)]">
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   <span>11. Reframe Platform Specials</span>
                 </div>
                 <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
