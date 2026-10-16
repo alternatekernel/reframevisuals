@@ -167,6 +167,7 @@ const FOOTER_DEFAULTS = {
         { label: 'All Services', path: '/services' },
         { label: 'Pricing', path: '/pricing' },
         { label: 'Free Trial', path: '/free-trial' },
+        { label: 'Design System', path: '/design-system' },
       ],
     },
     {

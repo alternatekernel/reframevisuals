@@ -297,6 +297,7 @@ const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then(m => ({ de
 const ComparisonPage = lazy(() => import('./pages/ComparisonPage').then(m => ({ default: m.default })));
 const PlatformPage = lazy(() => import('./pages/PlatformPage').then(m => ({ default: m.default })));
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage').then(m => ({ default: m.default })));
+const DesignSystemPage = lazy(() => import('./pages/DesignSystemPage').then(m => ({ default: m.default })));
 
 // Error Boundary Component
 export class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
@@ -575,6 +576,7 @@ export const routes: RouteObject[] = [
           { path: 'cookies', element: <PolicyPage /> },
           { path: 'security', element: <PolicyPage /> },
           { path: 'quote-builder', element: <QuoteBuilderPage /> },
+          { path: 'design-system', element: <DesignSystemPage /> },
 
           { path: 'signup', element: <SignUpPage /> },
           { path: 'login', element: <LoginPageUser /> },
