@@ -61,6 +61,13 @@ const verifyResendWebhook = (req: any): boolean => {
   const secrets = secretEnv.split(',').map((s) => s.trim());
 
   return secrets.some((secret) => {
+    // 1. Direct secret match (for custom forwarders, query params, or webhook relay services)
+    const querySecret = req.query?.secret || req.query?.key;
+    const headerSecret = req.get('x-webhook-secret') || req.get('x-api-key') || req.get('authorization')?.replace(/^Bearer\s+/i, '');
+    if ((querySecret && querySecret === secret) || (headerSecret && headerSecret === secret)) {
+      return true;
+    }
+
     const body = req.rawBody || Buffer.from(JSON.stringify(req.body || {}));
     const directSignature = req.get('resend-signature') || req.get('x-resend-signature');
 
