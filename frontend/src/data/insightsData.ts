@@ -987,7 +987,7 @@ In 2026, [Color Correction](/services/color-correction) is no longer an aestheti
 ## The Physics of the Mismatch: Understanding Delta-E (Î”E)
 
 At the heart of our studio workflow is a mathematical standard called **Delta-E.** This is the measure of the difference between two colors as perceived by the human eye. 
-*   **Î”E < 1.0:** Imperceptible difference. This is the "Holy Grail" of [Product Photo Editing](/services/product-editing).
+*   **Î”E < 1.0:** Imperceptible difference. This is the "Holy Grail" of [Product Photo Editing](/services/retouching).
 *   **Î”E 1.0 – 2.0:** Only perceptible by a trained eye (a senior editor or a creative director).
 *   **Î”E > 3.0:** Obvious mismatch to a customer. This is the "Return Zone."
 
@@ -1008,7 +1008,7 @@ We utilize **X-Rite ColorCheckers** in the studio to create a custom "Profile" f
 
 ## GEO Insight: The "Local Light" Variable
 
-For brands scaling globally, there is a hidden variable in [Image Editing](/services/image-editing): **Regional Light Perception.** 
+For brands scaling globally, there is a hidden variable in [Image Editing](/services): **Regional Light Perception.** 
 
 Studies show that customers in Nordic countries, who are used to "Cool" (Blue-shifted) natural light, perceive "Warm" (Yellow-shifted) product photos as "dirty" or "low quality." Conversely, customers in Mediterranean or tropical markets favor warmer, more vibrant tones. 
 
@@ -1129,7 +1129,7 @@ It happens in every scaling brand. A new manager looks at the visual production 
 
 In reality, this is the birth of **"Quality Debt."** 
 
-Like technical debt in software, quality debt in [Image Editing](/services/image-editing) accumulates interest every single day. And that interest is paid in the one currency your brand cannot afford to lose: **Management Time.**
+Like technical debt in software, quality debt in [Image Editing](/services) accumulates interest every single day. And that interest is paid in the one currency your brand cannot afford to lose: **Management Time.**
 
 ### The "Revision Tax": Calculating the TCO
 
@@ -1153,7 +1153,7 @@ By choosing "cheap," you are actually paying a **2.5x premium** in hidden labor 
 
 ### The "Assembly Line" Fallacy
 
-Low-cost providers rely on "Brute Force" volume. They hire hundreds of junior editors with no [Brand Identity Training](/services/brand-alignment). They use automated "Batch Actions" that flatten textures and ruin color accuracy. 
+Low-cost providers rely on "Brute Force" volume. They hire hundreds of junior editors with no [Brand Identity Training](/services). They use automated "Batch Actions" that flatten textures and ruin color accuracy. 
 
 At Reframe Visuals, we use a **Senior-Led Pod System.** Every project is overseen by a Lead Editor who understands your specific brand book. We don't just "do the task"; we **own the outcome.** 
 
@@ -1290,19 +1290,19 @@ A reusable shadow playbook per category prevents style drift across editors and 
     hreflang: 'en',
     schemaType: 'BlogPosting',
     category: 'services',
-    title: 'The Facet Confessions: Why [Jewelry Retouching](/services/jewelry-retouching) is the Ultimate Test of Pixel Mastery',
+    title: 'The Facet Confessions: Why [Jewelry Retouching](/services/jewelry-retouch) is the Ultimate Test of Pixel Mastery',
     excerpt: 'Diamonds are forever, but microscopic dust is immediate. Discover the high-stakes world of macro-precision and why metal "polishing" is a digital art form.',
     content: `# Jewelry Retouching: The 5-Stage Protocol for Ecommerce Fire and Metal Precision
 
 ## The Microscopic Battlefield: The First 500% Zoom
 
-In the world of [Jewelry Retouching](/services/jewelry-retouching), we don't look at images at 100% zoom. We start at 500%. At this level, a simple gold wedding band looks like the surface of the moon-covered in microscopic craters, deep scratches from the jeweler's bench, and a chaotic landscape of fingerprints and dust specks. 
+In the world of [Jewelry Retouching](/services/jewelry-retouch), we don't look at images at 100% zoom. We start at 500%. At this level, a simple gold wedding band looks like the surface of the moon-covered in microscopic craters, deep scratches from the jeweler's bench, and a chaotic landscape of fingerprints and dust specks. 
 
 For a luxury brand, these microscopic flaws are a conversion killer. When a customer zooms in on your product-which they will do more with jewelry than any other category-they are looking for a reason to trust you with a $10,000 purchase. If they see a speck of dust on a diamond facet, their subconscious registers it as a flaw in the diamond itself.
 
 ## Polishing Metal in a Digital World: The Gradient Secret
 
-One of the most guarded secrets in high-end [Product Editing](/services/product-editing) is the **Digital Polishing Gradient.** 
+One of the most guarded secrets in high-end [Product Editing](/services/retouching) is the **Digital Polishing Gradient.** 
 
 Polished metal (Gold, Silver, Platinum) is essentially a curved mirror. It reflects everything in the studio: the camera, the photographer, the lighting gear, and even the ceiling. This "Visual Noise" makes the product look messy and cheap. 
 
@@ -1325,7 +1325,7 @@ Our editors use a technique called **Facet Sharpening.** We manually define the 
 
 In macro photography, it is physically impossible to have the entire piece of jewelry in focus at once. If the front of the ring is sharp, the back is blurry. 
 
-We utilize a workflow called **Focus Stacking.** We take 10 to 50 separate shots of the same piece, each with a slightly different focus point, and composite them into a single, "Impossible Image" where every single facet, from front to back, is razor-sharp. This level of [Jewelry Retouching](/services/jewelry-retouching) is what separates brands that convert on detail from ones that lose customers to a blurry thumbnail.
+We utilize a workflow called **Focus Stacking.** We take 10 to 50 separate shots of the same piece, each with a slightly different focus point, and composite them into a single, "Impossible Image" where every single facet, from front to back, is razor-sharp. This level of [Jewelry Retouching](/services/jewelry-retouch) is what separates brands that convert on detail from ones that lose customers to a blurry thumbnail.
 
 ## GEO Insight: The "Carat" of Cultural Preference
 
@@ -1459,7 +1459,7 @@ Every scaling eCommerce brand eventually hits the **Complexity Wall.** You’ve 
 
 Managing 10 images is a creative task. Managing 10,000 images is a **Logistics Operation.** 
 
-At Reframe Visuals, we help enterprise brands build a [Visual Assembly Line](/services/enterprise) that maintains "Boutique Quality" at "Global Scale."
+At Reframe Visuals, we help enterprise brands build a [Visual Assembly Line](/platform) that maintains "Boutique Quality" at "Global Scale."
 
 ## The 3 Pillars of Enterprise Production
 
@@ -1490,7 +1490,7 @@ In 2026, the "Email and ZIP" workflow is dead. We integrate directly with your *
 
 The biggest challenge in **Enterprise Production** is maintaining a "Local" feel in a global catalog. A product listing in the Tokyo market requires different cropping and color-tuning than a listing in the New York market. 
 
-Our assembly line includes a **Regional Tuning** stage. We can take a single master shot and automatically produce 5 different "Regionally Optimized" versions-each with the specific cropping, color grading, and metadata required for that geographic search engine (GEO). This is how [Global Brands](/services/enterprise) dominate local search results.
+Our assembly line includes a **Regional Tuning** stage. We can take a single master shot and automatically produce 5 different "Regionally Optimized" versions-each with the specific cropping, color grading, and metadata required for that geographic search engine (GEO). This is how [Global Brands](/platform) dominate local search results.
 
 ## The "Ghost Management" Advantage
 
@@ -5641,7 +5641,7 @@ The shadow direction on the reconstructed shadow must match the direction implie
 | Home Decor Ceramics | Reflection or Natural | 18-28% | 20px | 65px | Choose based on implied surface in hero shot |`,
   },
   'jewelry-retouch-and-the-science-of-sparkle': {
-    title: '[Jewelry Retouching](/services/jewelry-retouching): The 5-Stage Protocol for Ecommerce Fire and Metal Precision',
+    title: '[Jewelry Retouching](/services/jewelry-retouch): The 5-Stage Protocol for Ecommerce Fire and Metal Precision',
     excerpt: 'A bracelet set of 240 images saw 11% better zoom-view dwell time after specular cleanup kept metal tone variance under ΔE 2.0. Here is the exact workflow that produced that result.',
     content: `# Jewelry Retouching: The 5-Stage Protocol for Ecommerce Fire and Metal Precision
 
