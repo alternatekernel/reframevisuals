@@ -270,6 +270,7 @@
     0 0 0 1px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* Legacy class name (brand was amethyst/purple; now onyx/black via --brand). Kept for backwards compat. */
 .amethyst-liquid {
   background: var(--brand) !important;
   box-shadow:
@@ -405,6 +406,7 @@ html.lenis body {
       0 8px 24px -8px rgba(0,0,0,0.08);
   }
 
+  /* Legacy class name; carries black primary via --brand */
   .amethyst-hover {
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   }
