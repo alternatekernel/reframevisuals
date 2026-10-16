@@ -1,4 +1,5 @@
 import { prisma } from '../database';
+import { isExcludedService } from '../controllers/sectionController';
 
 interface CachedKnowledge {
   context: string;
@@ -49,6 +50,7 @@ export const getPlatformKnowledge = async (isGuest: boolean, tenantId: string) =
   let startingPrices: Record<string, number> = {};
   if (servicesData?.items && Array.isArray(servicesData.items)) {
     for (const svc of servicesData.items) {
+      if (isExcludedService(svc)) continue;
       const price = getNumericPrice(svc.price ?? svc.basePrice ?? svc.startingPrice);
       if (svc.name && price !== null) {
         startingPrices[svc.name] = price;
@@ -59,6 +61,7 @@ export const getPlatformKnowledge = async (isGuest: boolean, tenantId: string) =
   // Secondary DB source if the website services section is missing or malformed.
   if (Object.keys(startingPrices).length === 0 && dbServices.length > 0) {
     for (const svc of dbServices) {
+      if (isExcludedService(svc)) continue;
       startingPrices[svc.name] = svc.basePrice;
     }
   }
@@ -73,16 +76,12 @@ export const getPlatformKnowledge = async (isGuest: boolean, tenantId: string) =
       'Color Change': 0.30,
       'Pattern Change': 1.25,
       'Shadow Creation': 0.35,
-      'Raster to Vector': 4.99,
       'Manipulation': 3.99,
       'Advanced Retouching': 0.55,
       'Jewelry Retouch': 0.80,
       'Garment Retouch': 0.55,
       'Model Retouch': 1.20,
       'Ghost Mannequin': 0.85,
-      'Sketch to Reality': 3.50,
-      'AI Product Photography': 0.99,
-      'AI Video Generation': 4.99,
     };
   }
 
@@ -97,19 +96,15 @@ export const getPlatformKnowledge = async (isGuest: boolean, tenantId: string) =
     },
     'Enhancement': {
       desc: 'Color accuracy, vibrancy, and natural shadow effects.',
-      items: categorize(['shadow', 'raster', 'manipulation', 'pattern'])
+      items: categorize(['shadow', 'manipulation', 'pattern'])
     },
     'Retouch': {
       desc: 'Model, product, and architectural cleanup for hero-quality assets.',
       items: categorize(['retouch', 'retouching', 'jewelry', 'jewellery', 'garment', 'model'])
     },
-    'AI-Driven': {
-      desc: 'Next-gen intelligence for asset refinement, virtual photography, and video generation.',
-      items: categorize(['ai ', 'sketch', 'reality', 'video'])
-    },
     'Advanced': {
       desc: 'Specialized workflows and complex compositing.',
-      items: categorize(['ghost', 'mannequin', 'multi', 'vector', 'clipping'])
+      items: categorize(['ghost', 'mannequin', 'multi', 'clipping', 'manipulation'])
     }
   };
 
@@ -165,18 +160,13 @@ ${faqData}
 
 [INDUSTRY CONFLICT RESOLUTION]
 - SHADOWS: If "Add/Create/Natural" -> Shadow Creation. If "Remove/Fix Glare/Delete" -> Advanced Retouching.
-- BACKGROUNDS: If "Transparent/White/Cutout" -> Background Removal. If "Blur/Clean/Fix" -> Background Retouching (part of Advanced Retouching). If "Generate Scene/Lifestyle" -> AI Product Photography.
+- BACKGROUNDS: If "Transparent/White/Cutout" -> Background Removal. If "Blur/Clean/Fix" -> Background Retouching (part of Advanced Retouching).
 - COLOR: If "Match/Fix/Accuracy" -> Color Correction. If "Swap/Change/Variants" -> Color Change.
 - APPAREL: For "3D/Hollow" -> Ghost Mannequin. For "Wrinkles/Symmetry" -> Garment Retouch. For "Change Fabric/Print" -> Pattern Change.
-- LOGOS: If "Blurry/Scalable/Vector" -> Raster to Vector.
 
 [E-COMMERCE OUTCOME MAPPING]
 - Amazon/Marketplace Compliance (RGB 255) -> Background Removal.
-- TikTok/Reels/Motion -> AI Video Generation.
 - Logo/Graphic Mapping (Mockups) -> Pattern Change.
-- AI Artifact Fixing (Melted hands/Midjourney fix) -> AI Product Photography.
-- CAD/Tech Pack Visualization -> Sketch to Reality.
-- Infinitely Scalable Graphics -> Raster to Vector.
 - Digital Steamer/Wrinkle Removal -> Garment Retouching.
 `;
 

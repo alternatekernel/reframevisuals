@@ -299,7 +299,6 @@ const SERVICE_SLUGS = [
   { id: 'color-correction',             name: 'Color Correction' },
   { id: 'color-change',                 name: 'Color Change' },
   { id: 'shadow-creation',              name: 'Shadow Creation' },
-  { id: 'raster-to-vector',             name: 'Raster to Vector' },
   { id: 'manipulation',                 name: 'Photo Manipulation' },
   { id: 'pattern-change',               name: 'Pattern Change' },
   { id: 'retouching',                   name: 'Photo Retouching' },
@@ -307,9 +306,6 @@ const SERVICE_SLUGS = [
   { id: 'garment-retouch',              name: 'Garment Retouching' },
   { id: 'model-retouch',                name: 'Model Retouching' },
   { id: 'ghost-mannequin',              name: 'Ghost Mannequin' },
-  { id: 'sketch-to-reality',            name: 'Sketch to Reality' },
-  { id: 'ai-product-photography',       name: 'AI Product Photography' },
-  { id: 'ai-video-generation',          name: 'AI Video Generation' },
 ];
 
 const STATIC_PAGES_DEF: Array<Omit<EnhancedPage, 'seoScore' | 'seoIssues' | 'geoScope' | 'geoRegions' | 'wordCount' | 'hasImage' | 'schemaType' | 'inboundCount' | 'brokenLinks' | 'conversions'>> = [

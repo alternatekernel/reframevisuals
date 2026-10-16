@@ -66,11 +66,7 @@ export const SERVICE_DISPLAY_ORDER: string[] = [
   'color-change',
   'color-correction',
   'pattern-change',
-  'raster-to-vector',
-  'ai-product-photography',
-  'ai-video-generation',
   'manipulation',
-  'sketch-to-reality',
 ];
 
 const SERVICE_ORDER_INDEX = new Map(SERVICE_DISPLAY_ORDER.map((id, index) => [id, index]));

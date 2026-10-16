@@ -14,9 +14,48 @@ interface ServicesContextType {
 
 const ServicesContext = createContext<ServicesContextType | null>(null);
 
+// Services retired from public display & pricing
+const EXCLUDED_SERVICE_IDS = new Set([
+  'raster-to-vector',
+  'raster-vector',
+  'ai-product-photography',
+  'ai-product-photo',
+  'ai-video-generation',
+  'ai-video-gen',
+  'sketch-to-reality',
+  'sketch-to-image',
+  'sketch-reality',
+  'ai-generated-image-refinement',
+  'ai-refinement',
+  'ai-editing-fixing',
+]);
+
+const EXCLUDED_SERVICE_NAMES = new Set([
+  'raster to vector',
+  'ai product photography',
+  'ai video generation',
+  'sketch to image',
+  'sketch to reality',
+  'ai-generated image refinement',
+  'ai generated image refinement',
+  'ai-assisted image refinement',
+  'ai refinement',
+]);
+
+export const isExcludedService = (item: any): boolean => {
+  if (!item) return false;
+  const id = typeof item.id === 'string' ? item.id.toLowerCase().trim() : '';
+  const name = typeof item.name === 'string' ? item.name.toLowerCase().trim() : '';
+  if (id && EXCLUDED_SERVICE_IDS.has(id)) return true;
+  if (name && EXCLUDED_SERVICE_NAMES.has(name)) return true;
+  return false;
+};
+
 // Initialize with fallback data immediately
 const getFallbackServices = (): DynamicService[] => {
-  return ORDERED_SERVICES.map((svc: Service) => {
+  return ORDERED_SERVICES
+    .filter((svc: Service) => !isExcludedService(svc))
+    .map((svc: Service) => {
     const pricingData = PRICING_MATRIX.find(p => p.id === svc.id);
     const tiers = pricingData?.tiers?.map(t => ({
       complexity: t.complexity,
@@ -71,7 +110,8 @@ export const ServicesProvider: React.FC<{ children: ReactNode }> = ({ children }
               : result.data.content;
             
             if (content.items && Array.isArray(content.items)) {
-              const mapped = content.items.map((item: any) => {
+              const activeItems = content.items.filter((item: any) => !isExcludedService(item));
+              const mapped = activeItems.map((item: any) => {
                 // Normalize ID from 'basic-retouch' to 'retouching'
                 const isLegacyRetouch = item.id === 'basic-retouch';
                 const normalizedId = isLegacyRetouch ? 'retouching' : item.id;

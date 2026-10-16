@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, FileText, List, Hash, ChevronDown } from 'lucide-react';
 import { cx, tokens } from '../utils/theme';
 import { SERVICES, sortServicesByDisplayOrder } from '../data/services';
+import { isExcludedService } from '../context/ServicesContext';
 import { useCurrency } from '../context/CurrencyContext';
 import { formatCurrency } from '../utils/currency';
 import { motion } from 'framer-motion';
@@ -37,7 +38,7 @@ const ServiceTable: React.FC = () => {
   const tableRef = useRef<HTMLDivElement>(null);
 
   const orderedServices = useMemo(() => {
-    return sortServicesByDisplayOrder(SERVICES.filter(s => !s.hidden));
+    return sortServicesByDisplayOrder(SERVICES.filter(s => !s.hidden && !isExcludedService(s)));
   }, []);
 
   const firstThreeServices = useMemo(() => orderedServices.slice(0, 3), [orderedServices]);

@@ -233,9 +233,10 @@ export const getLocalResponse = (msg: string, isGuest: boolean = false): { conte
       keywords: ['need an eps', 'svg format', 'make it high res', 'infinitely scalable', 'blurry logo', 'pixelated logo', 'make it bigger without losing quality', 'ready for print'],
       excludeKeywords: ['transparent png', 'jpg', 'photo'],
       response: {
-        content: "Sounds like you need your image converted to a scalable format! Our **Raster to Vector** service hand-traces your pixelated logos into perfect, infinitely scalable SVG or EPS files.",
+        content: "Need vector files or high-resolution graphics for print? For specialized vector work or custom image requests, get in touch for a custom project quote.",
         suggestedActions: [
-          { text: "View Raster to Vector", url: "/services/raster-to-vector" }
+          { text: "Request a Quote", url: "/free-trial" },
+          { text: "Browse Services", url: "/services" }
         ]
       },
       priority: 60
@@ -290,7 +291,7 @@ export const getLocalResponse = (msg: string, isGuest: boolean = false): { conte
       keywords: ['price', 'pricing', 'pricing bundles', 'how much', 'cost', 'rate', 'rates', 'fees', 'quote', 'see rates'],
       response: {
         content: [
-          "Our pricing is transparent and volume-based. Basic edits start at **$0.39**, with premium retouching and creative work ranging up to **$4.99** depending on complexity and turnaround speed.",
+          "Our pricing is transparent and volume-based. Basic edits start at **$0.39**, with premium retouching and creative work ranging up to **$4.00** depending on complexity and turnaround speed.",
           "We offer competitive, scale-based pricing. Whether you have 10 images or 10,000, we have a tier that fits. Check our full interactive matrix below."
         ],
         suggestedActions: [
@@ -494,22 +495,22 @@ export const getLocalResponse = (msg: string, isGuest: boolean = false): { conte
       keywords: ['raster to vector', 'vectorize', 'convert to vector', 'trace logo', 'make it scalable', 'svg conversion', 'redraw logo', 'vectorise', 'make vector', 'convert to ai', 'convert to eps', 'recreate logo', 'fix pixelated logo', 'high res logo', 'manual tracing', 'vector redraw', 'png to vector', 'jpg to vector', 'ai file', 'eps'],
       excludeKeywords: ['photo', 'blurry face', 'upscale photo', 'ai hands'],
       response: {
-        content: `**Raster to Vector** starts at **$4.99/image**.\n\nManual vectorization of logos and illustrations into scalable AI, EPS, or SVG formats. Perfect for large-scale printing.\n\n[Start Order](/dashboard?view=new-project) | [View Examples](/services/raster-to-vector)`,
+        content: `Need vector conversion or logo tracing? For specialized vector artwork and custom graphic tasks, submit a project brief and our team will provide a tailored quote.\n\n[Request a Quote](/free-trial) | [Browse Core Services](/services)`,
         suggestedActions: [
-          { text: "Start Order", url: "/dashboard?view=new-project" },
-          { text: "View Details", url: "/services/raster-to-vector" }
+          { text: "Request a Quote", url: "/free-trial" },
+          { text: "Browse Services", url: "/services" }
         ]
       },
       priority: 60
     },
     {
-      keywords: ['ai fixing', 'fix ai', 'artifact removal', 'ai backgrounds', 'generate scene', 'virtual staging', 'animate photo', 'image to video', 'ai video', 'midjourney', 'fix ai hands', 'fix midjourney', 'clean up ai', 'generate background', 'ai lifestyle', 'ai product photo', 'make it a video', 'animate image', 'ai video maker', 'ai render', 'sketch to reality', 'sketch to image', 'render from sketch', 'turn drawing into photo', 'ai fix', 'fix blurry', 'remove artifacts', 'melted fingers', 'weird ai', 'upscale photo'],
+      keywords: ['ai fixing', 'fix ai', 'artifact removal', 'ai backgrounds', 'generate scene', 'virtual staging', 'midjourney', 'fix ai hands', 'fix midjourney', 'clean up ai', 'generate background', 'ai lifestyle', 'ai product photo', 'sketch to reality', 'sketch to image', 'render from sketch', 'turn drawing into photo', 'ai fix', 'fix blurry', 'remove artifacts', 'melted fingers', 'weird ai'],
       excludeKeywords: ['vector', 'svg', 'logo', 'trace'],
       response: {
-        content: `**AI-Driven Services** start at **$0.55/image**.\n\nFrom fixing AI artifacts and "Midjourney hands" to generating photorealistic product photography from sketches or text prompts.\n\n[Start Order](/dashboard?view=new-project) | [View AI Catalog](/services)`,
+        content: `Looking for custom image enhancement or creative editing? We provide expert human Photoshop editing and compositing for catalog and campaign imagery.\n\n[Start Free Trial](/free-trial) | [Browse Services](/services)`,
         suggestedActions: [
-          { text: "Start Order", url: "/dashboard?view=new-project" },
-          { text: "Browse AI Services", url: "/services" }
+          { text: "Start Free Trial", url: "/free-trial" },
+          { text: "Browse Services", url: "/services" }
         ]
       },
       priority: 60
@@ -522,18 +523,6 @@ export const getLocalResponse = (msg: string, isGuest: boolean = false): { conte
         suggestedActions: [
           { text: "Start Order", url: "/dashboard?view=new-project" },
           { text: "View Details", url: "/services/retouching" }
-        ]
-      },
-      priority: 60
-    },
-    {
-      keywords: ['lifestyle background', 'generate scene', 'put on a table', 'ai background', 'virtual staging'],
-      excludeKeywords: ['transparent', 'white background', 'remove', 'clean'],
-      response: {
-        content: `**AI Lifestyle Photography** starts at **$0.99/image**.\n\nWe place your product in a photorealistic "lifestyle" scene—like a kitchen counter or a modern living room—without the need for an expensive studio shoot.\n\n[Start Order](/dashboard?view=new-project) | [View AI Services](/services)`,
-        suggestedActions: [
-          { text: "Start Order", url: "/dashboard?view=new-project" },
-          { text: "View Details", url: "/services/ai-product-photography" }
         ]
       },
       priority: 60

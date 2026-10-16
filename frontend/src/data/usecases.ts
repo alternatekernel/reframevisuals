@@ -27,7 +27,7 @@ export const USE_CASES: UseCase[] = [
     tagline: 'Lifestyle, beauty & magazine-quality work',
     description: 'High-end retouching for fashion, beauty, and publications.',
     recommended: ['Retouching', 'Color Correction', 'Model Retouch'],
-    optional: ['Manipulation', 'Shadow Creation', 'Sketch to Reality'],
+    optional: ['Manipulation', 'Shadow Creation'],
   },
   {
     id: 'photography',
@@ -36,7 +36,7 @@ export const USE_CASES: UseCase[] = [
     tagline: 'Portraits, events & commercial work',
     description: 'Professional photo editing for photographers and studios.',
     recommended: ['Retouching', 'Color Correction', 'Background Removal'],
-    optional: ['Shadow Creation', 'Manipulation', 'Raster to Vector'],
+    optional: ['Shadow Creation', 'Manipulation'],
   },
   {
     id: 'apparel',
@@ -56,8 +56,6 @@ export const SERVICE_DESCRIPTIONS: Record<string, string> = {
   'Color Correction': 'Match colors across product shots for consistent brand appearance.',
   'Color Change': 'Change product colors to show different variants.',
   'Shadow Creation': 'Add natural-looking shadows for depth and realism.',
-  'Raster to Vector': 'Convert pixel-based images to scalable vector graphics.',
-
   'Manipulation': 'Creative compositing and image manipulation.',
   'Pattern Change': 'Swap patterns, textures, or materials on products.',
   'Retouching': 'Skin smoothing, blemish removal, and detail enhancement.',
@@ -65,7 +63,6 @@ export const SERVICE_DESCRIPTIONS: Record<string, string> = {
   'Garment Retouch': 'Wrinkle removal, color fix, and fit adjustments for clothing.',
   'Model Retouch': 'Professional portrait and model photo retouching.',
   'Ghost Mannequin': 'Create invisible mannequin effect for apparel photography.',
-  'Sketch to Reality': 'Transform sketches and drawings into photorealistic images.',
 };
 
 export const TIER_DESCRIPTIONS: Record<string, string> = {

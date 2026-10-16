@@ -46,13 +46,6 @@ const pricingMatrix = {
       { complexity: 'C', time: '10-20 min', prices: { '12h': 1.29, '24h': 0.99, '48h': 0.89, '72h': 0.84, '7d': 0.79 } },
     ]
   },
-  'raster-to-vector': {
-    tiers: [
-      { complexity: 'S', time: '20-30 min', prices: { '12h': 6.49, '24h': 4.99, '48h': 4.49, '72h': 4.24, '7d': 3.99 } },
-      { complexity: 'M', time: '30-1h', prices: { '12h': 19.49, '24h': 14.99, '48h': 13.49, '72h': 12.74, '7d': 11.99 } },
-      { complexity: 'C', time: '1h-3h', prices: { '12h': 32.49, '24h': 24.99, '48h': 22.49, '72h': 21.24, '7d': 19.99 } },
-    ]
-  },
 
   'manipulation': {
     tiers: [
@@ -100,26 +93,23 @@ const pricingMatrix = {
       { complexity: 'M', time: '20-40 min', prices: { '12h': 2.46, '24h': 1.89, '48h': 1.70, '72h': 1.61, '7d': 1.51 } },
       { complexity: 'C', time: '40min-1h 20m', prices: { '12h': 5.19, '24h': 3.99, '48h': 3.59, '72h': 3.39, '7d': 3.19 } },
     ]
-  },
-  'sketch-to-image': {
-    tiers: [
-      { complexity: 'S', time: '30min-1h', prices: { '12h': 4.55, '24h': 3.50, '48h': 3.15, '72h': 2.98, '7d': 2.80 } },
-      { complexity: 'C', time: '1h 30m-2h 30m', prices: { '12h': 8.45, '24h': 6.50, '48h': 5.85, '72h': 5.53, '7d': 5.20 } },
-    ]
-  },
-  'ai-product-photography': {
-    tiers: [
-      { complexity: 'S', time: '10-20 min', prices: { '12h': 6.49, '24h': 4.99, '48h': 4.49, '72h': 4.24, '7d': 3.99 } },
-      { complexity: 'C', time: '20-40 min', prices: { '12h': 12.99, '24h': 9.99, '48h': 8.99, '72h': 8.49, '7d': 7.99 } },
-    ]
-  },
-  'ai-video-generation': {
-    tiers: [
-      { complexity: 'S', time: '1h-2h', prices: { '12h': 25.99, '24h': 19.99, '48h': 17.99, '72h': 16.99, '7d': 15.99 } },
-      { complexity: 'C', time: '2h-4h', prices: { '12h': 51.99, '24h': 39.99, '48h': 35.99, '72h': 33.99, '7d': 31.99 } },
-    ]
   }
 };
+
+const EXCLUDED_IDS = new Set([
+  'raster-to-vector',
+  'raster-vector',
+  'ai-product-photography',
+  'ai-product-photo',
+  'ai-video-generation',
+  'ai-video-gen',
+  'sketch-to-reality',
+  'sketch-to-image',
+  'sketch-reality',
+  'ai-generated-image-refinement',
+  'ai-refinement',
+  'ai-editing-fixing',
+]);
 
 async function updateServicesPricing() {
   const section = await prisma.section.findFirst({
@@ -133,8 +123,9 @@ async function updateServicesPricing() {
   
   const currentContent = JSON.parse(section.content);
   
-  // Update each service with pricing tiers
-  const updatedItems = currentContent.items.map((item: any) => {
+  // Filter out retired services and update each remaining service with pricing tiers
+  const remainingItems = (currentContent.items || []).filter((item: any) => !EXCLUDED_IDS.has(item.id));
+  const updatedItems = remainingItems.map((item: any) => {
     const pricing = pricingMatrix[item.id];
     if (pricing) {
       return {

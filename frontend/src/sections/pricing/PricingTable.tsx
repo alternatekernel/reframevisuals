@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { FileText, List, Hash, ArrowRight } from 'lucide-react';
 import { cx, layout, tokens, typography } from '../../utils/theme';
-import { useServicesContext } from '../../context/ServicesContext';
+import { useServicesContext, isExcludedService } from '../../context/ServicesContext';
 import { sortServicesByDisplayOrder } from '../../data/services';
 import { useCurrency } from '../../context/CurrencyContext';
 import { formatCurrency } from '../../utils/currency';
@@ -36,7 +36,10 @@ const PricingTable: React.FC = () => {
   const navigate = useNavigate();
   const { services, isLoading } = useServicesContext();
   const { currency, convertFromUsd } = useCurrency();
-  const orderedServices = sortServicesByDisplayOrder(services as any[]);
+  const orderedServices = useMemo(
+    () => sortServicesByDisplayOrder((services as any[]).filter(s => !isExcludedService(s))),
+    [services]
+  );
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);

@@ -2,6 +2,62 @@ import { Response } from 'express';
 import { prisma } from '../database';
 import { AuthRequest } from '../middleware/auth';
 
+// Services retired from public display & pricing
+const EXCLUDED_SERVICE_IDS = new Set([
+  'raster-to-vector',
+  'raster-vector',
+  'ai-product-photography',
+  'ai-product-photo',
+  'ai-video-generation',
+  'ai-video-gen',
+  'sketch-to-reality',
+  'sketch-to-image',
+  'sketch-reality',
+  'ai-generated-image-refinement',
+  'ai-refinement',
+  'ai-editing-fixing',
+]);
+
+const EXCLUDED_SERVICE_NAMES = new Set([
+  'raster to vector',
+  'ai product photography',
+  'ai video generation',
+  'sketch to image',
+  'sketch to reality',
+  'ai-generated image refinement',
+  'ai generated image refinement',
+  'ai-assisted image refinement',
+  'ai refinement',
+]);
+
+export const isExcludedService = (item: any): boolean => {
+  if (!item) return false;
+  const id = typeof item.id === 'string' ? item.id.toLowerCase().trim() : '';
+  const name = typeof item.name === 'string' ? item.name.toLowerCase().trim() : '';
+  if (id && EXCLUDED_SERVICE_IDS.has(id)) return true;
+  if (name && EXCLUDED_SERVICE_NAMES.has(name)) return true;
+  return false;
+};
+
+const sanitizeSectionContent = (sectionId: string, content: any): any => {
+  if (!content) return content;
+  if (sectionId === 'services') {
+    if (Array.isArray(content.items)) {
+      return {
+        ...content,
+        items: content.items.filter((item: any) => !isExcludedService(item)),
+      };
+    }
+    if (Array.isArray(content.services)) {
+      return {
+        ...content,
+        services: content.services.filter((item: any) => !isExcludedService(item)),
+      };
+    }
+  }
+  return content;
+};
+
 // Get all sections
 export const getAllSections = async (req: AuthRequest, res: Response) => {
   try {
@@ -14,11 +70,14 @@ export const getAllSections = async (req: AuthRequest, res: Response) => {
       },
     });
 
-    // Parse content JSON strings
-    const parsedSections = sections.map(section => ({
-      ...section,
-      content: JSON.parse(section.content as string) || {},
-    }));
+    // Parse content JSON strings and strip retired services
+    const parsedSections = sections.map(section => {
+      const parsedContent = JSON.parse(section.content as string) || {};
+      return {
+        ...section,
+        content: sanitizeSectionContent(section.sectionId, parsedContent),
+      };
+    });
 
     return res.json({
       success: true,
@@ -53,11 +112,13 @@ export const getSection = async (req: AuthRequest, res: Response) => {
       });
     }
 
+    const parsedContent = JSON.parse(section.content as string) || {};
+
     return res.json({
       success: true,
       data: {
         ...section,
-        content: JSON.parse(section.content as string) || {},
+        content: sanitizeSectionContent(section.sectionId, parsedContent),
       },
     });
   } catch (error: any) {
@@ -90,6 +151,9 @@ export const upsertSection = async (req: AuthRequest, res: Response) => {
       });
     }
 
+    const sanitized = sanitizeSectionContent(sectionId, content);
+    const contentString = JSON.stringify(sanitized);
+
     const section = await prisma.section.upsert({
       where: {
         sectionId_userId: {
@@ -99,12 +163,12 @@ export const upsertSection = async (req: AuthRequest, res: Response) => {
       },
       update: {
         ...(label && { label }),
-        content: JSON.stringify(content),
+        content: contentString,
       },
       create: {
         sectionId,
         label: label || sectionId,
-        content: JSON.stringify(content),
+        content: contentString,
         userId: req.user.id,
       },
     });

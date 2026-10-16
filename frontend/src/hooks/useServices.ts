@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { SERVICES as HARDCODED_SERVICES } from '../data/services';
 import { getApiEndpoint } from '../lib/apiConfig';
+import { isExcludedService } from '../context/ServicesContext';
 
 interface ServiceTier {
   complexity: string;
@@ -78,8 +79,10 @@ export const useServices = (): UseServicesResult => {
           : result.data.content;
         
         if (content.items && Array.isArray(content.items)) {
-          // Map DB format to frontend format
-          const mapped = content.items.map((item: DbService) => ({
+          // Map DB format to frontend format, filtering out retired services
+          const mapped = content.items
+            .filter((item: DbService) => !isExcludedService(item))
+            .map((item: DbService) => ({
             id: item.id,
             name: item.name,
             price: item.startingPrice || item.price,
@@ -111,10 +114,10 @@ export const useServices = (): UseServicesResult => {
   // Memoize the result - use DB if available, fallback to hardcoded
   const services = useMemo(() => {
     if (dbServices.length > 0) {
-      return dbServices;
+      return dbServices.filter(s => !isExcludedService(s));
     }
     // Fallback to hardcoded
-    return HARDCODED_SERVICES as DynamicService[];
+    return (HARDCODED_SERVICES as DynamicService[]).filter(s => !(s as any).hidden && !isExcludedService(s));
   }, [dbServices]);
 
   return {

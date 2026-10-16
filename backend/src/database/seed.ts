@@ -18,11 +18,7 @@ const SERVICES = [
   { id: 'color-change', name: 'Color Change', price: 0.30, description: 'Change product colors without reshooting.' },
   { id: 'color-correction', name: 'Color Correction', price: 0.35, description: 'Accurate color matching across your entire catalog.' },
   { id: 'pattern-change', name: 'Pattern Change', price: 1.25, description: 'Swap fabric patterns and textures seamlessly.' },
-  { id: 'raster-to-vector', name: 'Raster to Vector', price: 4.99, description: 'Convert pixel images to scalable vector artwork.' },
-  { id: 'ai-product-photography', name: 'AI Product Photography', price: 0.99, description: 'Generate stunning product lifestyle photos using AI.' },
-  { id: 'ai-video-generation', name: 'AI Video Generation', price: 4.99, description: 'Create engaging video content using AI.' },
   { id: 'manipulation', name: 'Image Manipulation', price: 3.99, description: 'Creative compositing and image manipulation.' },
-  { id: 'sketch-to-reality', name: 'Sketch to Image', price: 3.50, description: 'Transform sketches and wireframes into photorealistic images.' },
 ];
 
 const BUNDLES = [
@@ -160,14 +156,6 @@ async function main() {
             "C": { "12h": 1.29, "24h": 0.99, "48h": 0.89, "72h": 0.84, "7d": 0.79 }
           }
         },
-        "Raster to Vector": {
-          "tiers": { "S": "Simple", "M": "Medium", "C": "Complex" },
-          "prices": {
-            "S": { "12h": 6.49, "24h": 4.99, "48h": 4.49, "72h": 4.24, "7d": 3.99 },
-            "M": { "12h": 19.49, "24h": 14.99, "48h": 13.49, "72h": 12.74, "7d": 11.99 },
-            "C": { "12h": 32.49, "24h": 24.99, "48h": 22.49, "72h": 21.24, "7d": 19.99 }
-          }
-        },
         "Manipulation": {
           "tiers": { "S": "Simple", "C": "Complex" },
           "prices": {
@@ -213,28 +201,6 @@ async function main() {
             "S": { "12h": 1.11, "24h": 0.85, "48h": 0.77, "72h": 0.72, "7d": 0.68 },
             "M": { "12h": 2.46, "24h": 1.89, "48h": 1.70, "72h": 1.61, "7d": 1.51 },
             "C": { "12h": 5.19, "24h": 3.99, "48h": 3.59, "72h": 3.39, "7d": 3.19 }
-          }
-        },
-        },
-        "Sketch to Image": {
-          "tiers": { "S": "Simple", "C": "Complex" },
-          "prices": {
-            "S": { "12h": 4.55, "24h": 3.50, "48h": 3.15, "72h": 2.98, "7d": 2.80 },
-            "C": { "12h": 8.45, "24h": 6.50, "48h": 5.85, "72h": 5.53, "7d": 5.20 }
-          }
-        },
-        "AI Product Photography": {
-          "tiers": { "S": "Simple", "C": "Complex" },
-          "prices": {
-            "S": { "12h": 1.29, "24h": 0.99, "48h": 0.89, "72h": 0.84, "7d": 0.79 },
-            "C": { "12h": 3.25, "24h": 2.50, "48h": 2.25, "72h": 2.13, "7d": 2.00 }
-          }
-        },
-        "AI Video Generation": {
-          "tiers": { "S": "Simple", "C": "Complex" },
-          "prices": {
-            "S": { "12h": 6.49, "24h": 4.99, "48h": 4.99, "72h": 4.99, "7d": 4.99 },
-            "C": { "12h": 12.99, "24h": 9.99, "48h": 9.99, "72h": 9.99, "7d": 9.99 }
           }
         }
       })

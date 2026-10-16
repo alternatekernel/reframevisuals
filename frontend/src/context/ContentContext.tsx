@@ -3,6 +3,7 @@ import { ContentContext } from './ContentBase';
 import { AdminSectionMeta, ThemeSettings, DEFAULT_THEME } from '../admin/types';
 import { sectionsAPI, themeAPI, authAPI } from '../services/api';
 import { portalApi } from '../services/portalApi';
+import { isExcludedService } from './ServicesContext';
 
 // ─── Default content for all sections ───
 
@@ -256,7 +257,6 @@ const SERVICES_DEFAULTS = {
     { id: 'color-correction', name: 'Color Correction', categoryId: 'Foundation', price: 0.32, description: 'Accurate color matching and white balance' },
     { id: 'color-change', name: 'Color Change', categoryId: 'Foundation', price: 0.27, description: 'Product color variations from a single shot' },
     { id: 'shadow-creation', name: 'Shadow Creation', categoryId: 'Enhancement', price: 0.32, description: 'Natural shadows that ground your products' },
-    { id: 'raster-vector', name: 'Raster to Vector', categoryId: 'Enhancement', price: 4.49, description: 'Convert images to scalable vector graphics' },
     { id: 'manipulation', name: 'Manipulation', categoryId: 'Enhancement', price: 3.59, description: 'Creative image manipulation and compositing' },
     { id: 'pattern-change', name: 'Pattern Change', categoryId: 'Enhancement', price: 1.13, description: 'Swap textures and patterns on products' },
     { id: 'retouching', name: 'Retouching', categoryId: 'Retouch', price: 0.50, description: 'Professional photo retouching and cleanup' },
@@ -264,7 +264,6 @@ const SERVICES_DEFAULTS = {
     { id: 'garment-retouch', name: 'Garment Retouch', categoryId: 'Retouch', price: 0.50, description: 'Fabric smoothing and wrinkle removal' },
     { id: 'model-retouch', name: 'Model Retouch', categoryId: 'Retouch', price: 1.08, description: 'Portrait retouching for model photography' },
     { id: 'ghost-mannequin', name: 'Ghost Mannequin', categoryId: 'Advanced', price: 0.77, description: 'Invisible mannequin effect for apparel' },
-    { id: 'sketch-reality', name: 'Sketch to Reality', categoryId: 'Advanced', price: 3.15, description: 'Transform sketches into photorealistic images' },
   ],
 };
 
@@ -313,11 +312,6 @@ const PRICING_MATRIX_DEFAULTS = {
     { service: '', tier: 'M', tierLabel: 'Medium', procMin: '5', procMax: '10', '12h': 0.77, '24h': 0.59, '48h': 0.53, '72h': 0.50, '7d': 0.47 },
     { service: '', tier: 'C', tierLabel: 'Complex', procMin: '10', procMax: '20', '12h': 1.29, '24h': 0.99, '48h': 0.89, '72h': 0.84, '7d': 0.79 },
 
-    { service: 'Raster to Vector', tier: 'S', tierLabel: 'Simple', procMin: '20', procMax: '30', '12h': 6.49, '24h': 4.99, '48h': 4.49, '72h': 4.24, '7d': 3.99 },
-    { service: '', tier: 'M', tierLabel: 'Medium', procMin: '30', procMax: '1h', '12h': 19.49, '24h': 14.99, '48h': 13.49, '72h': 12.74, '7d': 11.99 },
-    { service: '', tier: 'C', tierLabel: 'Complex', procMin: '1h', procMax: '3h', '12h': 32.49, '24h': 24.99, '48h': 22.49, '72h': 21.24, '7d': 19.99 },
-
-
     { service: 'Manipulation', tier: 'S', tierLabel: 'Simple', procMin: '30', procMax: '1h', '12h': 5.19, '24h': 3.99, '48h': 3.59, '72h': 3.39, '7d': 3.19 },
     { service: '', tier: 'C', tierLabel: 'Complex', procMin: '1h', procMax: '2h 30m', '12h': 11.69, '24h': 8.99, '48h': 8.09, '72h': 7.64, '7d': 7.19 },
 
@@ -340,11 +334,6 @@ const PRICING_MATRIX_DEFAULTS = {
     { service: 'Ghost Mannequin', tier: 'S', tierLabel: 'Simple', procMin: '10', procMax: '20', '12h': 1.11, '24h': 0.85, '48h': 0.77, '72h': 0.72, '7d': 0.68 },
     { service: '', tier: 'M', tierLabel: 'Medium', procMin: '20', procMax: '40', '12h': 2.46, '24h': 1.89, '48h': 1.70, '72h': 1.61, '7d': 1.51 },
     { service: '', tier: 'C', tierLabel: 'Complex', procMin: '40', procMax: '1h 20m', '12h': 5.19, '24h': 3.99, '48h': 3.59, '72h': 3.39, '7d': 3.19 },
-
-    { service: '', tier: 'C', tierLabel: 'Complex', procMin: '10', procMax: '30', '12h': 2.59, '24h': 1.99, '48h': 1.79, '72h': 1.69, '7d': 1.59 },
-
-    { service: 'Sketch to Reality', tier: 'S', tierLabel: 'Simple', procMin: '30', procMax: '1h', '12h': 4.55, '24h': 3.50, '48h': 3.15, '72h': 2.98, '7d': 2.80 },
-    { service: '', tier: 'C', tierLabel: 'Complex', procMin: '1h 30m', procMax: '2h 30m', '12h': 8.45, '24h': 6.50, '48h': 5.85, '72h': 5.53, '7d': 5.20 },
   ],
 };
 
@@ -567,6 +556,16 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         if (merged.hero?.cta1Label === 'Get 3 Image Edits Free' || merged.hero?.cta1Label === 'Get your Free trial') {
           merged.hero.cta1Label = 'Get Your Free Trial';
         }
+        if (merged.services?.services && Array.isArray(merged.services.services)) {
+          merged.services.services = merged.services.services.filter((s: any) => !isExcludedService(s));
+        }
+        if (merged.pricingMatrix?.rows && Array.isArray(merged.pricingMatrix.rows)) {
+          let currentService = '';
+          merged.pricingMatrix.rows = merged.pricingMatrix.rows.filter((row: any) => {
+            if (row.service) currentService = row.service;
+            return !isExcludedService({ name: currentService });
+          });
+        }
         return merged;
       }
     } catch (e) {
@@ -788,6 +787,16 @@ export const ContentProvider: React.FC<{ children: React.ReactNode }> = ({ child
         const merged: Record<string, Record<string, any>> = {};
         for (const [key, defaults] of Object.entries(ALL_SECTION_DEFAULTS)) {
           merged[key] = { ...defaults, ...(backendSections[key] || {}) };
+        }
+        if (merged.services?.services && Array.isArray(merged.services.services)) {
+          merged.services.services = merged.services.services.filter((s: any) => !isExcludedService(s));
+        }
+        if (merged.pricingMatrix?.rows && Array.isArray(merged.pricingMatrix.rows)) {
+          let currentService = '';
+          merged.pricingMatrix.rows = merged.pricingMatrix.rows.filter((row: any) => {
+            if (row.service) currentService = row.service;
+            return !isExcludedService({ name: currentService });
+          });
         }
         setSections(merged);
       }
