@@ -10,7 +10,7 @@
     <link rel="canonical" href="https://reframevisuals.com/" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. 12h turnaround. AI-ready workflow. Try 3 images free." />
+    <meta name="description" content="Outsourced ecommerce photo editing from $0.39/image. Manual Pen Tool clipping, ghost mannequin, and retouching with 12h turnaround. Try 3 images free." />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Reframe Visuals" />
 
@@ -32,7 +32,10 @@
     <meta name="twitter:description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. AI-ready workflow. Try 3 images free." />
     <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
 
-    <!-- Organization JSON-LD (static fallback for crawlers that don't execute JS) -->
+    <!-- All JSON-LD schemas (Organization, FAQPage, WebSite, HowTo, Service, SoftwareApplication)
+         are injected by the React app via react-helmet-async (src/sections/landing/landingSchemas.ts).
+         Only the ItemList below is kept here as a no-JS static fallback; it has no Helmet counterpart. -->
+    <!-- Organization: no-JS static fallback — Helmet injects a richer version for JS crawlers -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -219,66 +222,7 @@
       @keyframes shell-progress { 0%{width:0;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0;margin-left:100%} }
     </style>
     
-    <!-- Organization schema is injected server-side to keep a single source of truth. -->
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is the turnaround time for image editing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Standard turnaround is 24-72 hours depending on service type and volume. Express 12-hour turnaround is available for urgent orders."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What file formats do you accept?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We accept all major formats including JPEG, PNG, TIFF, PSD, and RAW files. Output can be delivered in any format you need."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is there a minimum order quantity?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No minimum order quantity. We handle single images to bulk orders of thousands. Bulk pricing is available for orders over 100 images."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer a free trial?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, we offer a free trial for new customers. Upload up to 3 images and we'll process them at no charge to demonstrate our quality."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What makes Reframe Visuals different from AI editing tools?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Human editors trace clipping paths with the Pen Tool and review each image manually. Automated tools tend to fail on hair, lace, glass, and reflective surfaces; manual editing handles these cases and keeps color and lighting consistent across a catalog."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do bulk pricing discounts work?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We offer volume discounts starting at 100+ images per order. Bundle pricing combines multiple services at discounted rates. Contact us for custom enterprise pricing."
-          }
-        }
-      ]
-    }
-    </script>
-
-    <!-- Product Schema for Services -->
+    <!-- Product Schema for Services (ItemList) — no Helmet counterpart; kept as static fallback -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -390,117 +334,7 @@
     }
     </script>
 
-    <!-- WebSite Schema for Search -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://reframevisuals.com/#website",
-      "name": "Reframe Visuals",
-      "url": "https://reframevisuals.com",
-      "description": "Professional photo editing services for e-commerce brands",
-      "publisher": { "@id": "https://reframevisuals.com/#organization" },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://reframevisuals.com/blog?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-
-    <!-- HowTo Schema — Workflow steps (static fallback for crawlers) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "How to Get Your Product Images Edited by Reframe Visuals",
-      "description": "Upload your product images, receive catalog-ready edits with human QA review, and download within 12–72 hours.",
-      "totalTime": "PT12H",
-      "supply": [{ "@type": "HowToSupply", "name": "Product photos (RAW, JPEG, or PNG)" }],
-      "tool": [{ "@type": "HowToTool", "name": "Reframe Visuals platform" }],
-      "step": [
-        { "@type": "HowToStep", "position": 1, "name": "Upload Your Images", "text": "Connect via Google Drive, Dropbox, Amazon, or Zapier and upload your raw product images." },
-        { "@type": "HowToStep", "position": 2, "name": "Set Your Brief", "text": "Specify background style, turnaround window, and service type. Human editors follow your exact brief." },
-        { "@type": "HowToStep", "position": 3, "name": "QA Review", "text": "Senior editors inspect every image against quality checklists before delivery." },
-        { "@type": "HowToStep", "position": 4, "name": "Download Catalog-Ready Files", "text": "Receive finished images within your selected turnaround window: 12h, 24h, 48h, or 72h." }
-      ]
-    }
-    </script>
-
-    <!-- Service + Pricing Schema (static fallback for crawlers) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "name": "Ecommerce Photo Editing",
-      "serviceType": "Ecommerce photo editing and post-production",
-      "description": "Manual and AI-assisted ecommerce image editing services with human Photoshop editor review, free sample edits, and flexible 12h, 24h, 48h, or 72h turnaround options.",
-      "provider": { "@type": "Organization", "name": "Reframe Visuals", "url": "https://reframevisuals.com" },
-      "areaServed": "Worldwide",
-      "termsOfService": "https://reframevisuals.com/pricing",
-      "offers": {
-        "@type": "AggregateOffer",
-        "priceCurrency": "USD",
-        "lowPrice": "0.35",
-        "highPrice": "4.00",
-        "offerCount": "9",
-        "availability": "https://schema.org/InStock"
-      },
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Photo Editing Services",
-        "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Background Removal" }, "price": "0.39", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Clipping Path" }, "price": "0.39", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ghost Mannequin Editing" }, "price": "0.85", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Jewelry Retouching" }, "price": "0.80", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Color Correction" }, "price": "0.35", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Shadow Creation" }, "price": "0.35", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Garment Retouching" }, "price": "0.55", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Model Retouching" }, "price": "1.20", "priceCurrency": "USD" },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "High-End Retouching" }, "price": "4.00", "priceCurrency": "USD" }
-        ]
-      }
-    }
-    </script>
-
-    <!-- SoftwareApplication Schema — Customer Portal Platform -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Reframe Visuals Customer Portal",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "url": "https://reframevisuals.com/dashboard",
-      "description": "A proprietary SaaS customer portal for managing photo editing orders end-to-end. Features include real-time order tracking via Server-Sent Events, in-portal image delivery and review, revision request workflow, pricing proposal approval, ZIP download of completed assets, billing history, and direct messaging with editors.",
-      "featureList": [
-        "Real-time order status updates (Server-Sent Events)",
-        "Order tracking from submission to delivery",
-        "In-portal image review and approval",
-        "Revision request with notes",
-        "Pricing proposal review and approval",
-        "Order cancellation for pending orders",
-        "ZIP download of completed asset batches",
-        "Order history and billing dashboard",
-        "Email notification preferences",
-        "Brand guidelines and order templates",
-        "Direct messaging with editing team",
-        "3-step guided onboarding for new customers"
-      ],
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "description": "Free customer portal included with all orders. No subscription required."
-      },
-      "provider": {
-        "@type": "Organization",
-        "name": "Reframe Visuals",
-        "url": "https://reframevisuals.com"
-      }
-    }
-    </script>
+    <!-- WebSite, HowTo, Service, SoftwareApplication schemas are injected by Helmet (landingSchemas.ts) -->
   </head>
   <body>
     <a href="#main-content" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;" onfocus="this.style.position='fixed';this.style.top='10px';this.style.left='10px';this.style.width='auto';this.style.height='auto';this.style.padding='10px 20px';this.style.margin='0';this.style.overflow='visible';this.style.clip='auto';this.style.whiteSpace='normal';this.style.background='#000';this.style.color='#fff';this.style.zIndex='9999';this.style.borderRadius='8px';this.style.fontWeight='bold';" tabindex="0">

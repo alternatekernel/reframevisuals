@@ -35,16 +35,21 @@ const LandingPage = () => {
   return (
     <div className="bg-surface pb-12 lg:pb-14">
       <Helmet>
-        <title>Ecommerce Photo Editing Service from $0.39 | Reframe</title>
+        <title>Ecommerce Photo Editing from $0.39/Image | Reframe Visuals</title>
         <meta
-          name="description" content="Outsourced ecommerce photo editing starting at $0.39. Human editors handle background removal, ghost mannequin, and retouching with 12h turnaround."
+          name="description" content="Outsourced ecommerce photo editing from $0.39/image. Manual Pen Tool clipping, ghost mannequin, and retouching with 12h turnaround. Try 3 images free."
         />
         <link rel="canonical" href="https://reframevisuals.com/" />
-        <meta property="og:title" content="Ecommerce Photo Editing Service from $0.39 | Reframe" />
+        <meta property="og:title" content="Ecommerce Photo Editing from $0.39/Image | Reframe Visuals" />
         <meta
-          property="og:description" content="Outsourced ecommerce photo editing starting at $0.39. Human editors handle background removal, ghost mannequin, and retouching with 12h turnaround."
+          property="og:description" content="Outsourced ecommerce photo editing from $0.39/image. Manual Pen Tool clipping, ghost mannequin, and retouching with 12h turnaround. Try 3 images free."
         />
         <meta property="og:url" content="https://reframevisuals.com/" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ecommerce Photo Editing from $0.39/Image | Reframe Visuals" />
+        <meta name="twitter:description" content="Manual Pen Tool clipping, ghost mannequin, retouching from $0.39/image. AI-ready workflow. Try 3 images free." />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>

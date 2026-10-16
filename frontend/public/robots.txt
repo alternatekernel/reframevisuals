@@ -13,4 +13,7 @@ Disallow: /signup
 Disallow: /forgot-password
 Disallow: /reset-password
 
+# Block prototype/internal files
+Disallow: /chat-prototype-demo.html
+
 Sitemap: https://reframevisuals.com/sitemap.xml

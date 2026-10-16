@@ -37,8 +37,8 @@ const Hero = () => {
   
   const headlines = useMemo(() => [
     {
-      line1: "Ecommerce & Amazon sellers:",
-      line2: "bad images cost you clicks and sales.",
+      line1: "Ecommerce photo editing",
+      line2: "that actually matches your brief.",
       tag: "Human editors. 12h turnaround. No subscription.",
     },
     {
