@@ -112,19 +112,23 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           onPaste={handlePaste}
           onFocus={() => { if (!isExpanded) onExpand(); }}
           aria-label="Message Reframe CS"
-          placeholder={isListening ? 'Listening…' : replyPreview ? `New reply: ${replyPreview}` : ''}
-          className={`min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-[13px] leading-[1.35] text-black outline-none placeholder:text-[#A1A1AA] ${
-            replyPreview && !hasText ? 'placeholder:font-medium placeholder:text-[#171717]' : ''
-          }`}
+          placeholder={isListening ? 'Listening…' : ''}
+          className="min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-[13px] leading-[1.35] text-black outline-none placeholder:text-[#A1A1AA]"
         />
+        {replyPreview && !hasText && !isListening && (
+          <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-1.5 text-[13px]">
+            <span className="shrink-0 font-semibold text-[#171717]">New reply:</span>
+            <span className="truncate text-[#555]">{replyPreview}</span>
+          </span>
+        )}
         {showIdlePhrase && (
           <span
             aria-hidden
-            className={`pointer-events-none absolute inset-0 flex items-center truncate text-[13px] text-[#A1A1AA] transition-opacity duration-200 ${
+            className={`pointer-events-none absolute inset-0 flex min-w-0 items-center text-[13px] text-[#A1A1AA] transition-opacity duration-200 ${
               isExpanded ? 'justify-start' : 'justify-center'
             } ${idlePhraseVisible ? 'opacity-100' : 'opacity-0'}`}
           >
-            {isExpanded ? 'Type a message…' : idlePhrase}
+            <span className="min-w-0 truncate">{isExpanded ? 'Type a message…' : idlePhrase}</span>
           </span>
         )}
       </div>

@@ -408,7 +408,7 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
 
       <input ref={fileInputRef} type="file" multiple className="hidden" onChange={handleFilesPicked} />
 
-      <div className="relative flex h-full w-full overflow-hidden rounded-[inherit]">
+      <div data-lenis-prevent className="relative flex h-full w-full overflow-hidden rounded-[inherit]">
         <AnimatePresence initial={false}>
           {isExpanded && !isCompact && (
             <Sidebar

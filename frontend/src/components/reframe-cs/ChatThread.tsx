@@ -62,13 +62,12 @@ const ChatThread = ({ session, guestId, onAction, onOpenActions, onNavigate }: P
     if (atBottom) setUnseenCount(0);
   };
 
+  // Instant on purpose: the site's Lenis smooth-scroll swallows native smooth scrolling.
   const jumpToLatest = () => {
-    const el = scrollRef.current;
-    if (!el) return;
     atBottomRef.current = true;
     setShowJump(false);
     setUnseenCount(0);
-    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    stick();
   };
 
   useLayoutEffect(() => {
@@ -104,6 +103,7 @@ const ChatThread = ({ session, guestId, onAction, onOpenActions, onNavigate }: P
     <div
       ref={scrollRef}
       onScroll={handleScroll}
+      data-lenis-prevent
       className="relative h-full overflow-y-auto overscroll-contain"
       role="log"
       aria-live="polite"

@@ -182,7 +182,7 @@ export const useChatSession = ({ guestId, identity, isGuest, isOpenOnChat, notif
       }
 
       setMessages(prev => {
-        const failed = prev.filter(message => message.failed);
+        const failed = prev.filter(message => message.failed && message.failedIn === convId);
         const next = failed.length ? [...thread, ...failed] : thread;
         return sameThread(prev, next) ? prev : next;
       });
@@ -299,8 +299,8 @@ export const useChatSession = ({ guestId, identity, isGuest, isOpenOnChat, notif
         : prev.filter(message => message.clientId !== replyClientId)
     ));
 
+    const sentFrom = conversationIdRef.current;
     try {
-      const sentFrom = conversationIdRef.current;
       const data: any = await sendConversationMessage({
         content,
         conversationId: sentFrom || undefined,
@@ -354,7 +354,7 @@ export const useChatSession = ({ guestId, identity, isGuest, isOpenOnChat, notif
     } catch {
       // Keep the instant local answer so the visitor isn't left empty-handed, and let them retry.
       setMessages(prev => prev.map(message => {
-        if (message.clientId === userClientId) return { ...message, failed: true };
+        if (message.clientId === userClientId) return { ...message, failed: true, failedIn: sentFrom };
         if (message.clientId === replyClientId) return { ...message, pending: false };
         return message;
       }));

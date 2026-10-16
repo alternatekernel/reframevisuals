@@ -86,7 +86,7 @@ export const sameThread = (a: ChatMessage[], b: ChatMessage[]) => {
 };
 
 export const cacheMessages = (messages: ChatMessage[]) => {
-  const durable = messages.filter(message => !message.pending);
+  const durable = messages.filter(message => !message.pending && !message.failed);
   const capped = durable.length > MAX_CACHED_MESSAGES ? durable.slice(-MAX_CACHED_MESSAGES) : durable;
   try {
     localStorage.setItem(STORAGE.messages, JSON.stringify(capped));
