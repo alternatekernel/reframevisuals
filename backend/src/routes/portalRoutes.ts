@@ -402,10 +402,11 @@ router.get('/conversations/:id/realtime', optionalPortalAuth, async (req: any, r
     });
     if (!conversation) return res.status(404).json({ success: false, message: 'Conversation not found' });
 
-    await prisma.message.updateMany({
+    // Non-blocking status update: mark messages delivered without stalling the poll response
+    prisma.message.updateMany({
       where: { conversationId: id, role: 'assistant', status: 'sent' },
       data: buildDeliveredStatusPatch(),
-    });
+    }).catch(() => {});
 
     return res.json({ success: true, data: await getConversationRealtimeState(id) });
   } catch (error: any) {

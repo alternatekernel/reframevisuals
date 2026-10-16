@@ -219,6 +219,11 @@ export interface SlackStatus {
   botTokenConfigured: boolean;
   signingSecretConfigured: boolean;
   defaultChannelConfigured: boolean;
+  customersChannelConfigured?: boolean;
+  opsChannelConfigured?: boolean;
+  customersChannel?: string;
+  opsChannel?: string;
+  channels?: Record<string, boolean>;
 }
 
 export interface SlackStatusResponse {
@@ -659,6 +664,11 @@ export const adminApi = {
       method: 'POST',
       body: JSON.stringify({ topic }),
     }),
+    sendTestEmail: (payload?: { subject?: string; body?: string; name?: string; email?: string }) =>
+      fetchApi<{ success: boolean; message: string }>('/slack/test-email', {
+        method: 'POST',
+        body: JSON.stringify(payload || {}),
+      }),
   },
 
   // ─── Search ────────────────────────────────────────────────

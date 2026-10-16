@@ -50,7 +50,13 @@ const createSupportMessageId = () => `<support-${Date.now()}-${crypto.randomByte
 
 const verifyResendWebhook = (req: any): boolean => {
   const secretEnv = process.env.RESEND_WEBHOOK_SECRET;
-  if (!secretEnv) return process.env.NODE_ENV !== 'production';
+  if (!secretEnv) {
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('[ResendWebhook] RESEND_WEBHOOK_SECRET is not configured in production. Webhook rejected with 401.');
+      return false;
+    }
+    return true;
+  }
 
   const secrets = secretEnv.split(',').map((s) => s.trim());
 
@@ -137,6 +143,7 @@ const getPagination = (query: any) => {
 };
 
 // ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // POST /api/support/delivery-webhook
 // Receive delivery events (delivered, bounced, opened, complained) from Resend and sync status.
 // ─────────────────────────────────────────────────────────────
@@ -147,8 +154,14 @@ router.post('/delivery-webhook', async (req: any, res) => {
     }
 
     const payload = req.body;
-    const type = payload.type; // e.g. "email.delivered", "email.opened", "email.bounced", "email.complained"
-    const data = payload.data;
+    const type = payload?.type; // e.g. "email.delivered", "email.opened", "email.bounced", "email.complained", "email.received"
+    const data = payload?.data;
+
+    // If Resend routed inbound email.received event to this webhook endpoint, handle it as an inbound email
+    if (type === 'email.received') {
+      return await handleInboundEmailPayload(req, res, data || payload, false);
+    }
+
     if (!data) {
       return res.json({ success: true, message: 'No data payload' });
     }
@@ -213,9 +226,182 @@ router.post('/delivery-webhook', async (req: any, res) => {
   }
 });
 
+/**
+ * Core processor for inbound support emails from Resend or Mailgun.
+ */
+async function handleInboundEmailPayload(req: any, res: any, payload: any, isMailgun: boolean) {
+  // Mailgun sends form fields with different names than Resend
+  const mgHeaders = isMailgun ? parseMailgunHeaders(payload['message-headers']) : null;
+  const fromEmail = normalizeEmailAddress(payload.from || payload.sender);
+  const subject = String(payload.subject || 'No Subject').trim() || 'No Subject';
+  const headers = mgHeaders || payload.headers || payload.email?.headers;
+  const messageId = (isMailgun ? mgHeaders?.['message-id'] : undefined)
+    || getHeader(headers, 'message-id') || payload['Message-Id'] || payload.messageId || payload.message_id || payload.id;
+  const inReplyTo = (isMailgun ? mgHeaders?.['in-reply-to'] : undefined)
+    || getHeader(headers, 'in-reply-to') || payload.inReplyTo || payload.in_reply_to;
+  const references = (isMailgun ? mgHeaders?.['references'] : undefined)
+    || getHeader(headers, 'references') || payload.references;
+
+  let textBody = String(payload['body-plain'] || payload.text || payload.textBody || payload.email?.text || '').trim();
+  let htmlBody = String(payload['body-html'] || payload.html || payload.htmlBody || payload.email?.html || '').trim();
+
+  // If Resend email.received webhook metadata without body, fetch the full content from Resend Receiving API
+  const resendEmailId = payload.email_id || (!isMailgun && payload.id ? payload.id : undefined);
+  if (!textBody && !htmlBody && resendEmailId && process.env.RESEND_API_KEY) {
+    try {
+      const fetchRes = await fetch(`https://api.resend.com/emails/receiving/${resendEmailId}`, {
+        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` }
+      });
+      const emailDetails: any = await fetchRes.json().catch(() => ({}));
+      if (emailDetails?.html || emailDetails?.text) {
+        htmlBody = String(emailDetails.html || '').trim();
+        textBody = String(emailDetails.text || '').trim();
+      }
+    } catch (err: any) {
+      console.warn(`[ResendInbound] Failed to fetch email body for ${resendEmailId}:`, err?.message || err);
+    }
+  }
+
+  const rawContent = textBody || htmlBody || '(No message body)';
+  const content = sanitize(rawContent.replace(/\n/g, '<br/>'));
+
+  if (!fromEmail || !fromEmail.includes('@')) {
+    return res.status(400).json({ error: { code: 'INVALID_FROM', message: 'Webhook payload is missing a valid sender email' } });
+  }
+
+  if (messageId) {
+    try {
+      const existingMessage = await prisma.supportMessage.findFirst({ where: { smtpMessageId: messageId } });
+      if (existingMessage) return res.status(200).json({ success: true, duplicate: true });
+    } catch (dedupErr: any) {
+      // P2002 unique constraint on concurrent retry — treat as duplicate
+      if (dedupErr?.code === 'P2002') return res.status(200).json({ success: true, duplicate: true });
+      throw dedupErr;
+    }
+  }
+
+  let customer = await prisma.customer.findFirst({
+    where: {
+      OR: [
+        { email: fromEmail },
+        { contactEmail: fromEmail },
+      ],
+    },
+  });
+
+  if (!customer) {
+    const tenantSeed = crypto.createHash('sha1').update(fromEmail).digest('hex').slice(0, 12);
+    customer = await prisma.customer.create({
+      data: {
+        email: fromEmail,
+        contactEmail: fromEmail,
+        name: fromEmail.split('@')[0],
+        isGuest: true,
+        tenantId: `email-${tenantSeed}`,
+      },
+    });
+  }
+
+  let ticket: any = null;
+  const referenceIds = [inReplyTo, ...(typeof references === 'string' ? references.split(/\s+/) : [])]
+    .map((value) => String(value || '').trim())
+    .filter(Boolean);
+
+  if (referenceIds.length) {
+    const referencedMessage = await prisma.supportMessage.findFirst({
+      where: { smtpMessageId: { in: referenceIds } },
+      include: { ticket: true },
+    });
+    ticket = referencedMessage?.ticket || null;
+  }
+
+  if (!ticket && referenceIds.length) {
+    ticket = await prisma.supportTicket.findFirst({
+      where: { threadId: { in: referenceIds } },
+    });
+  }
+
+  if (!ticket) {
+    const normalizedSubject = stripReplyPrefix(subject);
+    ticket = await prisma.supportTicket.findFirst({
+      where: {
+        customerId: customer.id,
+        status: { in: ['open', 'in_progress'] },
+        subject: { contains: normalizedSubject || subject, mode: 'insensitive' },
+      },
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
+
+  if (ticket) {
+    const savedMessage = await prisma.supportMessage.create({
+      data: {
+        ticketId: ticket.id,
+        content,
+        senderId: customer.id,
+        senderRole: 'customer',
+        smtpMessageId: messageId || null,
+      },
+    });
+
+    const updatedTicket = await prisma.supportTicket.update({
+      where: { id: ticket.id },
+      data: { status: 'open', updatedAt: new Date() },
+      include: { customer: true },
+    });
+
+    sendSupportTicketSlackNotification(updatedTicket, savedMessage, false).then((slackRes) => {
+      if (slackRes?.ok) {
+        console.log(`[SlackSupportWebhook] Reply notification sent to Slack for ticket #${ticket.id}`);
+      } else {
+        console.warn(`[SlackSupportWebhook] Reply notification to Slack failed:`, slackRes?.error);
+      }
+    }).catch((err) =>
+      console.error('[SlackSupportWebhook] Reply notification failed:', err.message || err)
+    );
+
+    return res.status(200).json({ success: true, ticketId: ticket.id, appended: true });
+  }
+
+  const createdTicket = await prisma.supportTicket.create({
+    data: {
+      tenantId: customer.tenantId,
+      customerId: customer.id,
+      subject,
+      message: content,
+      status: 'open',
+      threadId: messageId || null,
+      messages: {
+        create: {
+          senderId: customer.id,
+          senderRole: 'customer',
+          content,
+          smtpMessageId: messageId || null,
+        },
+      },
+    },
+    include: {
+      customer: true,
+      messages: true,
+    },
+  });
+
+  sendSupportTicketSlackNotification(createdTicket, createdTicket.messages[0], true).then((slackRes) => {
+    if (slackRes?.ok) {
+      console.log(`[SlackSupportWebhook] Ticket notification sent to Slack for ticket #${createdTicket.id}`);
+    } else {
+      console.warn(`[SlackSupportWebhook] Ticket notification to Slack failed:`, slackRes?.error);
+    }
+  }).catch((err) =>
+    console.error('[SlackSupportWebhook] Ticket notification failed:', err.message || err)
+  );
+
+  return res.status(200).json({ success: true, ticketId: createdTicket.id, created: true });
+}
+
 // ─────────────────────────────────────────────────────────────
 // POST /api/support/inbound-webhook
-// Receive inbound support emails from Resend and sync them into Support Hub.
+// Receive inbound support emails from Resend or Mailgun and sync them into Support Hub.
 // ─────────────────────────────────────────────────────────────
 
 router.post('/inbound-webhook', async (req: any, res) => {
@@ -232,143 +418,7 @@ router.post('/inbound-webhook', async (req: any, res) => {
     }
 
     const payload = req.body?.data || req.body;
-
-    // Mailgun sends form fields with different names than Resend
-    const mgHeaders = isMailgun ? parseMailgunHeaders(payload['message-headers']) : null;
-    const fromEmail = normalizeEmailAddress(payload.from || payload.sender);
-    const subject = String(payload.subject || 'No Subject').trim() || 'No Subject';
-    const headers = mgHeaders || payload.headers || payload.email?.headers;
-    const messageId = (isMailgun ? mgHeaders?.['message-id'] : undefined)
-      || getHeader(headers, 'message-id') || payload['Message-Id'] || payload.messageId || payload.message_id || payload.id;
-    const inReplyTo = (isMailgun ? mgHeaders?.['in-reply-to'] : undefined)
-      || getHeader(headers, 'in-reply-to') || payload.inReplyTo || payload.in_reply_to;
-    const references = (isMailgun ? mgHeaders?.['references'] : undefined)
-      || getHeader(headers, 'references') || payload.references;
-    const textBody = String(payload['body-plain'] || payload.text || payload.textBody || payload.email?.text || '').trim();
-    const htmlBody = String(payload['body-html'] || payload.html || payload.htmlBody || payload.email?.html || '').trim();
-    const rawContent = textBody || htmlBody || '(No message body)';
-    const content = sanitize(rawContent.replace(/\n/g, '<br/>'));
-
-    if (!fromEmail || !fromEmail.includes('@')) {
-      return res.status(400).json({ error: { code: 'INVALID_FROM', message: 'Webhook payload is missing a valid sender email' } });
-    }
-
-    if (messageId) {
-      try {
-        const existingMessage = await prisma.supportMessage.findFirst({ where: { smtpMessageId: messageId } });
-        if (existingMessage) return res.status(200).json({ success: true, duplicate: true });
-      } catch (dedupErr: any) {
-        // P2002 unique constraint on concurrent retry — treat as duplicate
-        if (dedupErr?.code === 'P2002') return res.status(200).json({ success: true, duplicate: true });
-        throw dedupErr;
-      }
-    }
-
-    let customer = await prisma.customer.findFirst({
-      where: {
-        OR: [
-          { email: fromEmail },
-          { contactEmail: fromEmail },
-        ],
-      },
-    });
-
-    if (!customer) {
-      const tenantSeed = crypto.createHash('sha1').update(fromEmail).digest('hex').slice(0, 12);
-      customer = await prisma.customer.create({
-        data: {
-          email: fromEmail,
-          contactEmail: fromEmail,
-          name: fromEmail.split('@')[0],
-          isGuest: true,
-          tenantId: `email-${tenantSeed}`,
-        },
-      });
-    }
-
-    let ticket: any = null;
-    const referenceIds = [inReplyTo, ...(typeof references === 'string' ? references.split(/\s+/) : [])]
-      .map((value) => String(value || '').trim())
-      .filter(Boolean);
-
-    if (referenceIds.length) {
-      const referencedMessage = await prisma.supportMessage.findFirst({
-        where: { smtpMessageId: { in: referenceIds } },
-        include: { ticket: true },
-      });
-      ticket = referencedMessage?.ticket || null;
-    }
-
-    if (!ticket && referenceIds.length) {
-      ticket = await prisma.supportTicket.findFirst({
-        where: { threadId: { in: referenceIds } },
-      });
-    }
-
-    if (!ticket) {
-      const normalizedSubject = stripReplyPrefix(subject);
-      ticket = await prisma.supportTicket.findFirst({
-        where: {
-          customerId: customer.id,
-          status: { in: ['open', 'in_progress'] },
-          subject: { contains: normalizedSubject || subject, mode: 'insensitive' },
-        },
-        orderBy: { updatedAt: 'desc' },
-      });
-    }
-
-    if (ticket) {
-      const savedMessage = await prisma.supportMessage.create({
-        data: {
-          ticketId: ticket.id,
-          content,
-          senderId: customer.id,
-          senderRole: 'customer',
-          smtpMessageId: messageId || null,
-        },
-      });
-
-      const updatedTicket = await prisma.supportTicket.update({
-        where: { id: ticket.id },
-        data: { status: 'open', updatedAt: new Date() },
-        include: { customer: true },
-      });
-
-      sendSupportTicketSlackNotification(updatedTicket, savedMessage, false).catch((err) =>
-        console.error('[SlackSupportWebhook] Reply notification failed:', err.message || err)
-      );
-
-      return res.status(200).json({ success: true, ticketId: ticket.id, appended: true });
-    }
-
-    const createdTicket = await prisma.supportTicket.create({
-      data: {
-        tenantId: customer.tenantId,
-        customerId: customer.id,
-        subject,
-        message: content,
-        status: 'open',
-        threadId: messageId || null,
-        messages: {
-          create: {
-            senderId: customer.id,
-            senderRole: 'customer',
-            content,
-            smtpMessageId: messageId || null,
-          },
-        },
-      },
-      include: {
-        customer: true,
-        messages: true,
-      },
-    });
-
-    sendSupportTicketSlackNotification(createdTicket, createdTicket.messages[0], true).catch((err) =>
-      console.error('[SlackSupportWebhook] Ticket notification failed:', err.message || err)
-    );
-
-    return res.status(200).json({ success: true, ticketId: createdTicket.id, created: true });
+    return await handleInboundEmailPayload(req, res, payload, isMailgun);
   } catch (error: any) {
     console.error('[Resend Inbound Error]:', error.message || error);
     return res.status(500).json({ error: { code: 'INBOUND_EMAIL_ERROR', message: 'Failed to process inbound email' } });
@@ -592,6 +642,11 @@ router.post('/tickets/:id/reply', authenticate, async (req: any, res) => {
       } else {
         console.error('[Support Reply] Email failed to send');
       }
+    } else if (!isPlatform) {
+      // Customer replied from portal — surface in Slack support thread
+      sendSupportTicketSlackNotification(ticket, reply, false).catch((err) =>
+        console.error('[SlackSupport] Portal reply notification failed:', err?.message || err)
+      );
     }
     
     return res.status(201).json({ reply, message: 'Reply sent' });

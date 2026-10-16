@@ -968,7 +968,7 @@ const ReframeCS = ({ variant = 'floating', defaultExpanded = false, showLauncher
     fetchCurrentConversationMessages(true);
     const poll = window.setInterval(() => {
       fetchCurrentConversationMessages(true);
-    }, isExpanded && activeTab === 'chats' ? 3000 : 12000);
+    }, isExpanded && activeTab === 'chats' ? 6000 : 15000);
 
     return () => window.clearInterval(poll);
   }, [activeTab, fetchCurrentConversationMessages, isExpanded]);

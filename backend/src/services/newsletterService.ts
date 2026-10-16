@@ -1,7 +1,6 @@
 import { Resend } from 'resend';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../database';
 
-const prisma = new PrismaClient();
 const FROM = process.env.EMAIL_FROM || 'Reframe Visuals <hello@reframevisuals.com>';
 const BASE_URL = process.env.BASE_URL || 'https://reframevisuals.com';
 

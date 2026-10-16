@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../database';
 
-const prisma = new PrismaClient();
 const router = Router();
 
 function monthLabel(date: Date): string {

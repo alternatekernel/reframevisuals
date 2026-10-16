@@ -174,7 +174,7 @@ export const IntegrationsPage: React.FC = () => {
     showToast('Telegram test sent', 'Check the admin Telegram group for the test notification.', 'success');
   };
 
-  const handleSlackTest = async (topic = 'system') => {
+  const handleSlackTest = async (topic = 'ops') => {
     setTestingSlack(topic);
     const res = await adminApi.slack.sendTest(topic);
     setTestingSlack(null);
@@ -183,6 +183,17 @@ export const IntegrationsPage: React.FC = () => {
       return;
     }
     showToast('Slack test sent', 'Check your Slack channel for the test notification.', 'success');
+  };
+
+  const handleSlackTestEmail = async () => {
+    setTestingSlack('email');
+    const res = await adminApi.slack.sendTestEmail();
+    setTestingSlack(null);
+    if (res.error) {
+      showToast('Slack email test failed', res.error.message || 'Could not send email test notification', 'error');
+      return;
+    }
+    showToast('Slack email test sent', 'Check your Slack channel for the inbound email notification.', 'success');
   };
 
   return (
@@ -246,6 +257,22 @@ export const IntegrationsPage: React.FC = () => {
                 <span className={`an-badge ${slackStatus.botTokenConfigured ? 'an-badge-green' : 'an-badge-gray'}`}>Bot token</span>
                 <span className={`an-badge ${slackStatus.signingSecretConfigured ? 'an-badge-green' : 'an-badge-gray'}`}>Signing secret</span>
                 <span className={`an-badge ${slackStatus.defaultChannelConfigured ? 'an-badge-green' : 'an-badge-gray'}`}>Channel</span>
+                <div style={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 4 }}>
+                  <button
+                    className="an-btn an-btn-ghost an-btn-sm"
+                    onClick={() => handleSlackTest('ops')}
+                    disabled={!int.connected || Boolean(testingSlack)}
+                  >
+                    {testingSlack === 'ops' ? 'Sending...' : 'Test Ops Alert'}
+                  </button>
+                  <button
+                    className="an-btn an-btn-ghost an-btn-sm"
+                    onClick={handleSlackTestEmail}
+                    disabled={!int.connected || Boolean(testingSlack)}
+                  >
+                    {testingSlack === 'email' ? 'Sending...' : 'Test Email Notification'}
+                  </button>
+                </div>
               </div>
             )}
             <div className="an-int-foot">
@@ -264,10 +291,10 @@ export const IntegrationsPage: React.FC = () => {
               ) : int.name === 'Slack' ? (
                 <button
                   className="an-btn an-btn-ghost an-btn-sm"
-                  onClick={() => handleSlackTest('system')}
+                  onClick={() => handleSlackTest('ops')}
                   disabled={!int.connected || Boolean(testingSlack)}
                 >
-                  {testingSlack === 'system' ? 'Sending...' : 'Send test'}
+                  {testingSlack === 'ops' ? 'Sending...' : 'Send test'}
                 </button>
               ) : (
                 <button

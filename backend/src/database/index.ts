@@ -13,12 +13,13 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
 };
 
-// Ensure the connection pool is large enough for concurrent users.
-// Default Prisma pool is 5 — far too small for production. Append
-// connection_limit if the DATABASE_URL doesn't already set one.
+// Optimize connection pool size based on runtime.
+// On serverless (Vercel), each container should keep a small pool (default 5) to avoid exhausting Supabase.
+// In standalone server mode (Docker/VPS), allow a larger pool (default 25).
 const rawUrl = process.env.DATABASE_URL || '';
+const defaultLimit = process.env.VERCEL ? '5' : '25';
 const pooledUrl = rawUrl && !rawUrl.includes('connection_limit')
-  ? `${rawUrl}${rawUrl.includes('?') ? '&' : '?'}connection_limit=25`
+  ? `${rawUrl}${rawUrl.includes('?') ? '&' : '?'}connection_limit=${defaultLimit}`
   : rawUrl;
 
 export const prisma =
@@ -31,6 +32,7 @@ export const prisma =
     }
   });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+// Always store on globalThis so serverless warm execution reuses the connection
+globalForPrisma.prisma = prisma;
 
 export default prisma;

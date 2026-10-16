@@ -108,6 +108,7 @@ export const handlePortalChat = async (req: any, res: Response) => {
 
     // 1. Sync Customer/Guest Identity — ensure a DB record exists
     // Always ensure a customer record exists for this guest ID
+    let customerRecord: any = req.customer || null;
     
     if (effectiveGuestId) {
       try {
@@ -128,11 +129,13 @@ export const handlePortalChat = async (req: any, res: Response) => {
           });
         }
         customerId = guest.id;
+        customerRecord = guest;
       } catch (syncError: any) {
         console.error("[PortalChat] Guest sync failed:", syncError.message);
         // Last resort: try to find by id again (race condition safe)
         const existing = await prisma.customer.findUnique({ where: { id: effectiveGuestId } }).catch(() => null);
         customerId = existing?.id || null;
+        customerRecord = existing;
       }
     }
 
@@ -216,9 +219,14 @@ export const handlePortalChat = async (req: any, res: Response) => {
 
       const msgAttachments = safeAttachments.length ? safeAttachments : undefined;
       if (isFirstMessage) {
-        const geo = await getGeoLocation(userIp);
-        forwardUserToSlack(conversation.id, content || '', clientLabel, { ip: userIp, ...geo }, msgAttachments)
-          .catch(err => console.error('[Slack] New session forward failed:', err.message));
+        // Non-blocking background dispatch: do NOT await external ipapi.co lookup in chat response path
+        getGeoLocation(userIp)
+          .then((geo) => forwardUserToSlack(conversation.id, content || '', clientLabel, { ip: userIp, ...geo }, msgAttachments))
+          .catch((err) => {
+            console.error('[Slack] Geolocation lookup failed:', err?.message || err);
+            return forwardUserToSlack(conversation.id, content || '', clientLabel, { ip: userIp }, msgAttachments);
+          })
+          .catch((err) => console.error('[Slack] New session forward failed:', err?.message || err));
       } else {
         forwardUserToSlack(conversation.id, content || '', clientLabel, undefined, msgAttachments)
           .catch(err => console.error('[Slack] Follow-up forward failed:', err?.message || err));
@@ -297,7 +305,9 @@ export const handlePortalChat = async (req: any, res: Response) => {
       // Guests without a real email also get prompted to share it.
       // If the guest's message contains an email address, capture it silently and acknowledge.
 
-      const customerRecord = await prisma.customer.findUnique({ where: { id: customerId } });
+      if (!customerRecord) {
+        customerRecord = await prisma.customer.findUnique({ where: { id: customerId } });
+      }
       const hasRealEmail = !isPlaceholderEmail(customerRecord?.email);
 
       // Email capture: if guest sends their email, store it and confirm receipt.

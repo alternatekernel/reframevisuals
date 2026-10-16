@@ -31,14 +31,25 @@ const router = Router();
  * Admin-only health check for the unified Slack notification bot.
  */
 router.get('/status', authenticate, requireAdmin, (_req, res) => {
+  const defaultChannel = process.env.SLACK_DEFAULT_CHANNEL || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL_ID;
+  const customersChannel = getSlackChannel('customers');
+  const opsChannel = getSlackChannel('ops');
+
   return res.json({
     success: true,
     data: {
       configured: isSlackConfigured(),
       botTokenConfigured: Boolean(process.env.SLACK_BOT_TOKEN),
       signingSecretConfigured: Boolean(process.env.SLACK_SIGNING_SECRET),
-      customersChannelConfigured: Boolean(getSlackChannel('customers')),
-      opsChannelConfigured: Boolean(getSlackChannel('ops')),
+      defaultChannelConfigured: Boolean(defaultChannel || process.env.SLACK_CHANNEL_CUSTOMERS || process.env.SLACK_CHANNEL_OPS),
+      customersChannelConfigured: Boolean(process.env.SLACK_CHANNEL_CUSTOMERS || defaultChannel),
+      opsChannelConfigured: Boolean(process.env.SLACK_CHANNEL_OPS || defaultChannel),
+      customersChannel,
+      opsChannel,
+      channels: {
+        customers: Boolean(customersChannel),
+        ops: Boolean(opsChannel),
+      },
     },
   });
 });
@@ -49,9 +60,11 @@ router.get('/status', authenticate, requireAdmin, (_req, res) => {
  */
 router.post('/test', authenticate, requireAdmin, async (req: any, res) => {
   try {
-    const topic = (req.body?.topic || 'ops') as SlackTopicKey;
+    const rawTopic = req.body?.topic || 'ops';
+    const topic = (rawTopic === 'system' ? 'ops' : rawTopic) as SlackTopicKey;
     await sendSlackTestNotification(req.user?.email, topic);
-    return res.json({ success: true, message: 'Slack test notification sent.' });
+    const resolvedChannel = getSlackChannel(topic);
+    return res.json({ success: true, message: `Slack test notification sent to channel (${resolvedChannel || 'default'}).` });
   } catch (err: any) {
     console.error('[SlackTest] Failed:', err.message || err);
     return res.status(500).json({ success: false, message: err.message || 'Slack test failed.' });
@@ -77,8 +90,21 @@ router.post('/test-email', authenticate, requireAdmin, async (req: any, res) => 
     const mockMessage = {
       content: req.body?.body || 'Hi there,\n\nThis is a <b>sample inbound email</b> sent to verify the Slack notification pipeline.\n\nCheers,\nTest Customer',
     };
-    await sendSupportTicketSlackNotification(mockTicket, mockMessage, true);
-    return res.json({ success: true, message: 'Test email notification sent to Slack #customers channel.' });
+    const result = await sendSupportTicketSlackNotification(mockTicket, mockMessage, true);
+    if (!result?.ok) {
+      return res.status(400).json({
+        success: false,
+        message: `Slack test email failed: ${result?.error || 'Unknown error'}. Check SLACK_BOT_TOKEN and channel permissions.`,
+        error: result?.error,
+        channel: result?.channel || getSlackChannel('customers'),
+      });
+    }
+    return res.json({
+      success: true,
+      message: `Test email notification sent to Slack channel (${result.channel || getSlackChannel('customers')}).`,
+      ts: result.ts,
+      channel: result.channel,
+    });
   } catch (err: any) {
     console.error('[SlackTestEmail] Failed:', err.message || err);
     return res.status(500).json({ success: false, message: err.message || 'Test email notification failed.' });

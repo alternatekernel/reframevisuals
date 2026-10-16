@@ -11,15 +11,9 @@ import { prisma } from '../database';
 // is routed back to the customer by slackRoutes → sendAdminReplyToUser.
 // ─────────────────────────────────────────────────────────────
 
+export type SlackTopicKey = 'customers' | 'ops' | 'system';
+
 const BASE_URL = process.env.BASE_URL || 'https://reframevisuals.com';
-
-export type SlackTopicKey = 'customers' | 'ops';
-
-const TOPIC_CHANNEL: Record<SlackTopicKey, string> = {
-  customers: process.env.SLACK_CHANNEL_CUSTOMERS || 'C0BHMFAGQV6',
-  ops:       process.env.SLACK_CHANNEL_OPS       || 'C0BGERF0W5R',
-};
-
 const SLACK_POST_URL = 'https://slack.com/api/chat.postMessage';
 
 // ─────────────────────────────────────────────────────────────
@@ -30,13 +24,100 @@ function getBotToken(): string | undefined {
   return process.env.SLACK_BOT_TOKEN || undefined;
 }
 
-/** Resolve the channel ID for a topic. */
-export function getSlackChannel(topic: SlackTopicKey): string | undefined {
-  return TOPIC_CHANNEL[topic] || undefined;
+/**
+ * Resolve the channel ID for a topic with fallback to SLACK_DEFAULT_CHANNEL.
+ * Supports:
+ * - customers: SLACK_CHANNEL_CUSTOMERS -> SLACK_DEFAULT_CHANNEL -> SLACK_CHANNEL -> SLACK_CHANNEL_OPS -> fallback
+ * - ops/system: SLACK_CHANNEL_OPS -> SLACK_DEFAULT_CHANNEL -> SLACK_CHANNEL -> SLACK_CHANNEL_CUSTOMERS -> fallback
+ */
+export function getSlackChannel(topic: SlackTopicKey | string = 'customers'): string | undefined {
+  const norm = String(topic || '').toLowerCase().trim();
+  const defaultChannel = process.env.SLACK_DEFAULT_CHANNEL || process.env.SLACK_CHANNEL || process.env.SLACK_CHANNEL_ID;
+
+  let channel: string | undefined;
+  if (norm === 'customers') {
+    channel = process.env.SLACK_CHANNEL_CUSTOMERS || defaultChannel || process.env.SLACK_CHANNEL_OPS || 'C0BHMFAGQV6';
+  } else if (norm === 'ops' || norm === 'system') {
+    channel = process.env.SLACK_CHANNEL_OPS || defaultChannel || process.env.SLACK_CHANNEL_CUSTOMERS || 'C0BGERF0W5R';
+  } else {
+    channel = defaultChannel || process.env.SLACK_CHANNEL_CUSTOMERS || process.env.SLACK_CHANNEL_OPS;
+  }
+
+  return channel ? channel.trim() : undefined;
 }
 
 export function isSlackConfigured(): boolean {
-  return Boolean(getBotToken() && (TOPIC_CHANNEL.customers || TOPIC_CHANNEL.ops));
+  return Boolean(getBotToken() && (getSlackChannel('customers') || getSlackChannel('ops')));
+}
+
+const channelIdCache = new Map<string, string>();
+
+/**
+ * Clean a channel string and resolve channel names (e.g. '#general' or 'customers')
+ * to actual Slack channel IDs (e.g. 'C0123456789') via conversations.list when needed.
+ */
+export async function resolveSlackChannelId(channelOrName: string): Promise<string> {
+  if (!channelOrName) return channelOrName;
+  const raw = channelOrName.trim();
+
+  // If it already looks like a Slack ID (C/D/G/U followed by alphanumeric), strip # and return
+  const stripped = raw.replace(/^#/, '').trim();
+  if (/^[CDGU][A-Z0-9]{8,14}$/i.test(stripped)) {
+    return stripped.toUpperCase();
+  }
+
+  // Check memory cache
+  const cached = channelIdCache.get(stripped.toLowerCase());
+  if (cached) return cached;
+
+  const token = getBotToken();
+  if (!token) return stripped;
+
+  try {
+    const res = await fetch('https://slack.com/api/conversations.list?types=public_channel,private_channel&limit=200', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data: any = await res.json().catch(() => ({}));
+    if (data.ok && Array.isArray(data.channels)) {
+      for (const ch of data.channels) {
+        if (ch.id && ch.name) {
+          channelIdCache.set(ch.name.toLowerCase(), ch.id);
+        }
+      }
+      const found = channelIdCache.get(stripped.toLowerCase());
+      if (found) return found;
+    }
+  } catch (err) {
+    console.warn('[Slack] Failed to resolve channel name via conversations.list:', err);
+  }
+
+  return stripped;
+}
+
+/**
+ * Attempt to join a public Slack channel if not_in_channel error is encountered.
+ */
+async function tryJoinSlackChannel(token: string, channelId: string): Promise<boolean> {
+  try {
+    const res = await fetch('https://slack.com/api/conversations.join', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ channel: channelId }),
+    });
+    const data: any = await res.json().catch(() => ({}));
+    if (data.ok) {
+      console.log(`[Slack] Successfully joined channel ${channelId}`);
+      return true;
+    }
+    console.warn(`[Slack] conversations.join for ${channelId} returned:`, data.error);
+    return false;
+  } catch (err) {
+    console.error(`[Slack] Failed to join channel ${channelId}:`, err);
+    return false;
+  }
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -44,8 +125,8 @@ export function isSlackConfigured(): boolean {
 // ─────────────────────────────────────────────────────────────
 
 /** Strip HTML tags and decode common entities for plain-text Slack display. */
-function stripHtml(html: string): string {
-  return html
+function stripHtml(html: unknown): string {
+  return String(html ?? '')
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/p>/gi, '\n')
     .replace(/<[^>]+>/g, '')
@@ -162,36 +243,76 @@ export async function postSlack(
   opts: { text: string; blocks?: any[]; threadTs?: string; replyBroadcast?: boolean }
 ): Promise<SlackPostResult | null> {
   const token = getBotToken();
-  const channel = getSlackChannel(topic);
-  if (!token || !channel) return null;
+  const rawChannel = getSlackChannel(topic);
+  if (!token || !rawChannel) {
+    console.warn(`[Slack] Cannot post to "${topic}": missing token or channel.`);
+    return null;
+  }
+
+  const channel = await resolveSlackChannelId(rawChannel);
 
   try {
-    const res = await fetch(SLACK_POST_URL, {
+    const payload: any = {
+      channel,
+      text: opts.text,
+      ...(opts.blocks ? { blocks: opts.blocks } : {}),
+      ...(opts.threadTs ? { thread_ts: opts.threadTs } : {}),
+      ...(opts.replyBroadcast ? { reply_broadcast: true } : {}),
+      unfurl_links: false,
+      unfurl_media: false,
+    };
+
+    let res = await fetch(SLACK_POST_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        channel,
-        text: opts.text,
-        ...(opts.blocks ? { blocks: opts.blocks } : {}),
-        ...(opts.threadTs ? { thread_ts: opts.threadTs } : {}),
-        ...(opts.replyBroadcast ? { reply_broadcast: true } : {}),
-        unfurl_links: false,
-        unfurl_media: false,
-      }),
+      body: JSON.stringify(payload),
     });
 
-    const data: any = await res.json().catch(() => ({}));
-    if (!data.ok) {
-      console.error(`[Slack] ${topic} postMessage failed:`, data.error || res.status);
-      return { ok: false, error: data.error || `http_${res.status}` };
+    let data: any = await res.json().catch(() => ({}));
+
+    // Auto-join if bot is not in the channel (public channels)
+    if (!data.ok && data.error === 'not_in_channel') {
+      const joined = await tryJoinSlackChannel(token, channel);
+      if (joined) {
+        res = await fetch(SLACK_POST_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        data = await res.json().catch(() => ({}));
+      }
     }
-    console.log(`[Slack] ${topic} notification sent.`);
-    return { ok: true, ts: data.ts, channel: data.channel };
-  } catch (err) {
-    console.error(`[Slack] Failed to send ${topic} notification:`, err);
+
+    // If thread was not found (e.g. stale thread or channel migrated), retry as new channel message
+    if (!data.ok && data.error === 'thread_not_found' && payload.thread_ts) {
+      console.warn(`[Slack] Thread ${payload.thread_ts} not found in ${channel}. Retrying as top-level message.`);
+      delete payload.thread_ts;
+      delete payload.reply_broadcast;
+      res = await fetch(SLACK_POST_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      data = await res.json().catch(() => ({}));
+    }
+
+    if (!data.ok) {
+      console.error(`[Slack] ${topic} postMessage failed:`, data.error || res.status, `(channel: ${channel})`);
+      return { ok: false, error: data.error || `http_${res.status}`, channel };
+    }
+    console.log(`[Slack] ${topic} notification sent to ${channel}.`);
+    return { ok: true, ts: data.ts, channel: data.channel || channel };
+  } catch (err: any) {
+    console.error(`[Slack] Failed to send ${topic} notification:`, err?.message || err);
     return null;
   }
 }
@@ -207,31 +328,65 @@ export async function postSlackRaw(
   const token = getBotToken();
   if (!token || !channelId) return null;
 
+  const channel = await resolveSlackChannelId(channelId);
+
   try {
-    const res = await fetch(SLACK_POST_URL, {
+    const payload: any = {
+      channel,
+      text: opts.text,
+      ...(opts.blocks ? { blocks: opts.blocks } : {}),
+      ...(opts.threadTs ? { thread_ts: opts.threadTs } : {}),
+      unfurl_links: false,
+      unfurl_media: false,
+    };
+
+    let res = await fetch(SLACK_POST_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        channel: channelId,
-        text: opts.text,
-        ...(opts.blocks ? { blocks: opts.blocks } : {}),
-        ...(opts.threadTs ? { thread_ts: opts.threadTs } : {}),
-        unfurl_links: false,
-        unfurl_media: false,
-      }),
+      body: JSON.stringify(payload),
     });
 
-    const data: any = await res.json().catch(() => ({}));
-    if (!data.ok) {
-      console.error(`[Slack] postSlackRaw to ${channelId} failed:`, data.error || res.status);
-      return { ok: false, error: data.error || `http_${res.status}` };
+    let data: any = await res.json().catch(() => ({}));
+
+    if (!data.ok && data.error === 'not_in_channel') {
+      const joined = await tryJoinSlackChannel(token, channel);
+      if (joined) {
+        res = await fetch(SLACK_POST_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        data = await res.json().catch(() => ({}));
+      }
     }
-    return { ok: true, ts: data.ts, channel: data.channel };
-  } catch (err) {
-    console.error(`[Slack] postSlackRaw to ${channelId} failed:`, err);
+
+    if (!data.ok && data.error === 'thread_not_found' && payload.thread_ts) {
+      console.warn(`[Slack] Thread ${payload.thread_ts} not found in ${channel}. Retrying as top-level message.`);
+      delete payload.thread_ts;
+      res = await fetch(SLACK_POST_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      data = await res.json().catch(() => ({}));
+    }
+
+    if (!data.ok) {
+      console.error(`[Slack] postSlackRaw to ${channel} failed:`, data.error || res.status);
+      return { ok: false, error: data.error || `http_${res.status}`, channel };
+    }
+    return { ok: true, ts: data.ts, channel: data.channel || channel };
+  } catch (err: any) {
+    console.error(`[Slack] postSlackRaw to ${channel} failed:`, err?.message || err);
     return null;
   }
 }
@@ -668,21 +823,24 @@ export async function addSlackReaction(channel: string, ts: string, emoji: strin
 // Test Notification
 // ─────────────────────────────────────────────────────────────
 
-export async function sendSlackTestNotification(triggeredBy?: string, topic: SlackTopicKey = 'ops'): Promise<void> {
+export async function sendSlackTestNotification(triggeredBy?: string, topic: SlackTopicKey | string = 'ops'): Promise<void> {
+  const normTopic = (topic === 'system' ? 'ops' : topic) as SlackTopicKey;
   if (!isSlackConfigured()) {
     throw new Error('Slack is not configured. Missing SLACK_BOT_TOKEN or a channel.');
   }
-  if (!getSlackChannel(topic)) {
-    throw new Error(`No Slack channel configured for topic "${topic}".`);
+  const channel = getSlackChannel(normTopic);
+  if (!channel) {
+    throw new Error(`No Slack channel configured for topic "${normTopic}". Please set SLACK_DEFAULT_CHANNEL or SLACK_CHANNEL_${normTopic.toUpperCase()} in your environment variables.`);
   }
 
-  const result = await postSlack(topic, {
+  const result = await postSlack(normTopic, {
     text: 'Slack notifications test',
     blocks: buildBlocks({
       title: '✅ SLACK NOTIFICATIONS TEST',
       fields: [
         { label: 'Status', value: 'Connected' },
-        { label: 'Topic', value: topic },
+        { label: 'Topic', value: normTopic },
+        { label: 'Target Channel', value: `\`${channel}\`` },
         { label: 'Source', value: 'Reframe Visuals platform' },
         ...(triggeredBy ? [{ label: 'User', value: triggeredBy }] : []),
       ],
@@ -691,7 +849,7 @@ export async function sendSlackTestNotification(triggeredBy?: string, topic: Sla
   });
 
   if (!result?.ok) {
-    throw new Error(`Slack test failed: ${result?.error || 'unknown error'}`);
+    throw new Error(`Slack test failed: ${result?.error || 'unknown error'} (channel: ${channel})`);
   }
 }
 
@@ -702,51 +860,67 @@ export async function sendSupportTicketSlackNotification(
   ticket: any,
   message: any,
   isNew: boolean
-): Promise<void> {
+): Promise<SlackPostResult> {
   const topic: SlackTopicKey = 'customers';
-  if (!isSlackConfigured() || !getSlackChannel(topic)) return;
+  if (!isSlackConfigured()) {
+    console.warn('[SlackSupport] Slack is not configured (missing bot token or channel).');
+    return { ok: false, error: 'slack_not_configured' };
+  }
+  const channel = getSlackChannel(topic);
+  if (!channel) {
+    console.warn('[SlackSupport] No Slack channel resolved for support tickets.');
+    return { ok: false, error: 'no_channel_configured' };
+  }
 
-  const existingThreadTs = ticket.slackThreadTs;
+  const existingThreadTs = ticket?.slackThreadTs;
+  const rawMsg = typeof message === 'string' ? message : (message?.content || message?.text || '');
+  const plainContent = stripHtml(rawMsg);
 
-  const plainContent = stripHtml(message.content);
+  let result: SlackPostResult | null = null;
 
   if (isNew || !existingThreadTs) {
-    const ticketIdSuffix = ticket.id ? `#${ticket.id.slice(-6).toUpperCase()}` : '';
+    const isMock = !ticket?.id || String(ticket.id).startsWith('test-');
+    const ticketIdSuffix = !isMock ? `#${String(ticket.id).slice(-6).toUpperCase()}` : (ticket?.id ? `(${ticket.id})` : '');
     const fields: SlackField[] = [
-      { label: 'Client', value: `${escTrunc(ticket.customer?.name || 'Customer')}\n${esc(ticket.customer?.email || 'N/A')}` },
-      { label: 'Subject', value: escTrunc(ticket.subject) },
-      { label: 'Message', value: escTrunc(plainContent) },
+      { label: 'Client', value: `${escTrunc(ticket?.customer?.name || 'Customer')}\n${esc(ticket?.customer?.email || 'N/A')}` },
+      { label: 'Subject', value: escTrunc(ticket?.subject || 'Support Request') },
+      { label: 'Message', value: escTrunc(plainContent || '(No message body)') },
       { label: 'Dashboard', value: link(`${BASE_URL}/admin/support`, 'Open Support Hub') },
     ];
 
-    const result = await postSlack(topic, {
-      text: `Support Ticket ${ticketIdSuffix}: ${ticket.subject}`.slice(0, 250),
+    result = await postSlack(topic, {
+      text: `Support Ticket ${ticketIdSuffix}: ${ticket?.subject || 'New Support Ticket'}`.slice(0, 250),
       blocks: buildBlocks({
-        title: `📬 SUPPORT TICKET ${ticketIdSuffix}`,
+        title: `📬 SUPPORT TICKET ${ticketIdSuffix}`.trim(),
         titleUrl: `${BASE_URL}/admin/support`,
         fields,
         footer: `Reply to this thread to email the customer • ${new Date().toISOString()}`,
       }),
     });
 
-    if (result?.ok && result.ts) {
-      await prisma.supportTicket.update({
-        where: { id: ticket.id },
-        data: { slackThreadTs: result.ts },
-      });
+    if (result?.ok && result.ts && ticket?.id && !isMock) {
+      try {
+        await prisma.supportTicket.update({
+          where: { id: ticket.id },
+          data: { slackThreadTs: result.ts },
+        });
+      } catch (dbErr: any) {
+        console.error('[SlackSupport] Failed to persist thread ts to DB:', dbErr?.message || dbErr);
+      }
     }
   } else {
     // Append threaded reply — replyBroadcast surfaces it in the main channel too
-    const clientName = ticket.customer?.name || 'Customer';
-    const ticketIdSuffix = ticket.id ? `#${ticket.id.slice(-6).toUpperCase()}` : '';
-    await postSlack(topic, {
+    const clientName = ticket?.customer?.name || 'Customer';
+    const isMock = !ticket?.id || String(ticket.id).startsWith('test-');
+    const ticketIdSuffix = !isMock ? `#${String(ticket.id).slice(-6).toUpperCase()}` : '';
+    result = await postSlack(topic, {
       text: `Reply from ${clientName} on ticket ${ticketIdSuffix}`,
       blocks: buildBlocks({
-        title: `📧 REPLY ${ticketIdSuffix}`,
+        title: `📧 REPLY ${ticketIdSuffix}`.trim(),
         fields: [
-          { label: 'From', value: `${escTrunc(clientName)}\n${esc(ticket.customer?.email || 'N/A')}` },
-          { label: 'Subject', value: escTrunc(ticket.subject) },
-          { label: 'Message', value: escTrunc(plainContent) },
+          { label: 'From', value: `${escTrunc(clientName)}\n${esc(ticket?.customer?.email || 'N/A')}` },
+          { label: 'Subject', value: escTrunc(ticket?.subject || 'No Subject') },
+          { label: 'Message', value: escTrunc(plainContent || '(Empty reply)') },
         ],
         footer: new Date().toISOString(),
       }),
@@ -754,6 +928,13 @@ export async function sendSupportTicketSlackNotification(
       replyBroadcast: true,
     });
   }
+
+  if (!result?.ok) {
+    console.error('[SlackSupport] Support ticket notification failed:', result?.error || 'unknown');
+    return result || { ok: false, error: 'post_failed' };
+  }
+
+  return result;
 }
 
 /**
