@@ -226,7 +226,9 @@ const InsightAndTrustPage = () => {
         <meta name="description" content={page.description} />
         <link rel="canonical" href={canonical} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       <section className="max-w-4xl mx-auto px-6 py-20">
         <h1 className="text-4xl font-semibold tracking-tight mb-4">{page.h1}</h1>

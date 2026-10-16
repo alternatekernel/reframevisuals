@@ -76,7 +76,9 @@ const AIProductVisualsPage = () => {
         <meta name="description" content="Generate PDP images, fashion photoshoots, lifestyle scenes, UGC-style ads, product videos, and catalog visuals from existing product assets with human-reviewed AI production." />
         <link rel="canonical" href={canonicalUrl} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       <section className={cx('relative overflow-hidden min-h-[calc(100vh-64px)] py-16 bg-white', layout.sectionGutter)}>
         <div className="absolute top-1/4 left-0 -translate-y-1/2 opacity-[0.02] pointer-events-none">

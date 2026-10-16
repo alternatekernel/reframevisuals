@@ -45,7 +45,7 @@ const HowItWorksPage: React.FC = () => {
         <title>How Reframe Visuals Works | Enterprise Photo Editing Workflow</title>
         <meta
           name="description"
-          content="Step-by-step: how we handle your images from upload to delivery, including editing, QA review, and revisions."
+          content="Step-by-step guide: upload raw files, brief the team on requirements, receive QA-reviewed catalog-ready product images in 12–72 hours with free revisions included."
         />
         <link rel="canonical" href="https://reframevisuals.com/how-it-works" />
         <meta property="og:title" content="How Reframe Visuals Works | Photo Editing Workflow" />

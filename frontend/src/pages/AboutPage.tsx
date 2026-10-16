@@ -71,6 +71,8 @@ const AboutPage = () => {
         <meta property="og:title" content="About Reframe Visuals | Ecommerce Photo Editing Studio" />
         <meta property="og:description" content="Reframe Visuals is a leading ecommerce photo editing studio. Expert human editors handle background removal, ghost mannequin, and jewelry retouching." />
         <meta property="og:url" content="https://reframevisuals.com/about" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="About Reframe Visuals | Ecommerce Photo Editing Studio" />

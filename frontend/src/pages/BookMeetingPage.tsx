@@ -81,7 +81,9 @@ const BookMeetingPage: React.FC = () => {
         <title>Book Strategy Call & Consultation | Reframe</title>
         <meta name="description" content="Book strategy call with our workflow consultants to discuss catalog scaling, bulk SLAs, integrations, custom rules, and pilot batches." />
         <link rel="canonical" href="https://reframevisuals.com/book-meeting" />
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       {/* Subtle Ambient Glow Blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

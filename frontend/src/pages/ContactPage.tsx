@@ -190,6 +190,8 @@ const ContactPage: React.FC = () => {
         <meta property="og:title" content="Help and Contact - Reframe Visuals | Reply in 30 Minutes" />
         <meta property="og:description" content="Chat now or send a message. Answers on orders, pricing, and revisions. Human reply within 30 minutes, 24/7." />
         <meta property="og:url" content="https://reframevisuals.com/contact" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Help and Contact - Reframe Visuals | Reply in 30 Minutes" />

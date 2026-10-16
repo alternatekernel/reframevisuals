@@ -13,7 +13,9 @@ const ReframeVisualsServicesPage = () => {
           content="Reframe Visuals services include background removal, retouching, color correction, ghost mannequin, clipping path, and high-volume post-production."
         />
         <link rel="canonical" href="https://reframevisuals.com/reframe-visuals-services" />
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       <section className="max-w-5xl mx-auto px-6 lg:px-10 py-16 lg:py-24">
         <p className="text-xs font-black tracking-[0.2em] uppercase text-black/40 mb-3">Service overview</p>

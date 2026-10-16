@@ -137,12 +137,13 @@ const ServiceDetailPage: React.FC = () => {
         <meta property="og:title" content={service.metaTitle || `${service.name} Service | Reframe Visuals`} />
         <meta property="og:description" content={service.metaDescription || service.description} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={service.beforeImage || service.afterImage || "https://reframevisuals.com/logo.svg"} />
-        
+        <meta property="og:image" content={service.afterImage || service.beforeImage || "https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png"} />
+
         {/* Twitter Card Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={service.metaTitle || `${service.name} Service | Reframe Visuals`} />
         <meta name="twitter:description" content={service.metaDescription || service.description} />
+        <meta name="twitter:image" content={service.afterImage || service.beforeImage || "https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png"} />
         
         {/* Canonical Link */}
         <link rel="canonical" href={absoluteCanonicalUrl(`/services/${service.id}`)} />

@@ -87,6 +87,8 @@ const ServiceIntentPage: React.FC = () => {
         <meta name="description" content={descriptionMap[intent]} />
         <link rel="canonical" href={canonical} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <meta property="og:title" content={titleMap[intent]} />
         <meta property="og:description" content={descriptionMap[intent]} />
         <meta property="og:url" content={canonical} />

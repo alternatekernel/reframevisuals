@@ -81,6 +81,8 @@ const InsightsPage = () => {
         <meta property="og:title" content="Ecommerce Photo Editing Guides & Tutorials | Reframe Blog" />
         <meta property="og:description" content="Read the latest photo editing guides and tutorials on product photography, background removal, ghost mannequin workflows, and jewelry retouching." />
         <meta property="og:url" content="https://reframevisuals.com/blog" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',

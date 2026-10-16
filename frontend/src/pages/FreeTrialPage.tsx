@@ -250,7 +250,9 @@ const FreeTrialPage: React.FC = () => {
         <title>Get 3 Free Sample Edits | Reframe Visuals</title>
         <meta name="description" content="Get 3 free sample edits with our product photo editing trial. Evaluate our clipping path, background removal, or retouching quality with no card required." />
         <link rel="canonical" href="https://reframevisuals.com/free-trial" />
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[200px] right-[-50px] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-emerald-100/20 to-teal-200/20 blur-[80px] opacity-70" />

@@ -119,7 +119,9 @@ const PlatformPage = () => (
       />
       <link rel="canonical" href="https://reframevisuals.com/platform" />
       <script type="application/ld+json">{JSON.stringify(platformSchema)}</script>
-    </Helmet>
+            <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
     {/* Hero */}
     <section className="relative pt-[120px] pb-16 lg:pt-[180px] lg:pb-24 overflow-hidden">

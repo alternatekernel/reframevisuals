@@ -197,6 +197,8 @@ const SupportPage: React.FC = () => {
         <meta property="og:title" content="Support - Reframe Visuals | Live Chat and Help 24/7" />
         <meta property="og:description" content="Live chat support for orders, revisions, pricing, and specifications. AI answers instantly. Human teammates reply within 30 minutes, 24/7." />
         <meta property="og:url" content="https://reframevisuals.com/support" />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Support - Reframe Visuals | Live Chat and Help 24/7" />

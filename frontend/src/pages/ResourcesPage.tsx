@@ -29,6 +29,8 @@ const ResourcesPage = () => (
         content="Practical guides on background removal, clipping path, ghost mannequin editing, jewelry retouching, and ecommerce image production workflows."
       />
       <meta property="og:url" content={canonical} />
+        <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
       <meta property="og:type" content="website" />
       <script type="application/ld+json">{JSON.stringify(breadcrumb)}</script>
     </Helmet>

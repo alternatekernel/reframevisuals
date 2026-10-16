@@ -114,7 +114,9 @@ const QuoteBuilderPage: React.FC = () => {
         <title>Interactive Quote Builder | Reframe Visuals</title>
         <meta name="description" content="Build an instant price estimate for your product image editing project based on service selection, image volume, and turnaround SLA requirements." />
         <link rel="canonical" href="https://reframevisuals.com/quote-builder" />
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       {/* Subtle Ambient Glow Blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

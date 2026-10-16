@@ -12,7 +12,9 @@ const AboutReframeVisualsPage = () => {
           content="Learn what Reframe Visuals does: e-commerce photo editing, retouching, and post-production for brands. Not a video reframing tool."
         />
         <link rel="canonical" href="https://reframevisuals.com/about-reframe-visuals" />
-      </Helmet>
+              <meta property="og:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dnmj4altq/image/upload/v1781548471/reframe-visuals-your-editing-partner_xzvgbl.png" />
+        </Helmet>
 
       <section className="max-w-4xl mx-auto px-6 lg:px-10 py-16 lg:py-24">
         <p className="text-xs font-black tracking-[0.2em] uppercase text-black/40 mb-3">Brand clarity</p>
