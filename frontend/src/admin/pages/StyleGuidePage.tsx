@@ -1,12 +1,6 @@
 import React from 'react';
 import { BookOpen, Search, Video, Download } from 'lucide-react';
 
-const colors = {
-  bgPrimary: '#FFFFFF', bgSecondary: '#F7F7F5', bgTertiary: '#EFEFEF', bgHover: '#EAEAE5',
-  textPrimary: '#37352F', textSecondary: '#787774', textTertiary: '#9B9A97',
-  borderLight: '#E9E9E8', accentBlue: '#0066FF',
-};
-
 export const StyleGuidePage: React.FC = () => {
   const guides = [
     { id: '1', title: 'Shadow & Reflection Standards', category: 'shadows', version: '2.3', updated: '2026-03-20', views: 234, approved: 'Priya Sharma' },
@@ -23,47 +17,55 @@ export const StyleGuidePage: React.FC = () => {
   const filteredGuides = activeCategory === 'all' ? guides : guides.filter(g => g.category === activeCategory);
 
   return (
-    <div className="p-4 max-w-[1400px] mx-auto">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h1 className="text-[20px] font-bold" style={{ color: colors.textPrimary }}>Style Guide Documentation</h1>
-          <p className="text-[14px]" style={{ color: colors.textTertiary }}>Editing standards, examples, and best practices</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2" style={{ color: colors.textTertiary }} />
-            <input type="text" placeholder="Search guides..." className="pl-8 pr-3 py-1.5 text-[15px] rounded-md border focus:outline-none w-64" style={{ background: colors.bgSecondary, borderColor: colors.borderLight, color: colors.textPrimary }} />
+    <div className="an-content" style={{ maxWidth: 1400 }}>
+      <div className="an-page-header">
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="an-page-title">Style Guide Documentation</h1>
+            <p className="an-page-desc">Editing standards, examples, and best practices</p>
           </div>
-          <button className="px-4 py-2 text-[15px] font-medium rounded-md" style={{ background: colors.textPrimary, color: '#FFF' }}>New Guide</button>
+          <div className="an-page-actions">
+            <div className="an-search-wrap">
+              <Search size={13} />
+              <input type="text" placeholder="Search guides..." className="an-search-input" style={{ width: 240 }} />
+            </div>
+            <button className="an-btn an-btn-primary">New Guide</button>
+          </div>
         </div>
       </div>
 
       {/* Categories */}
-      <div className="flex items-center gap-2 mb-4">
+      <div className="an-tabs-pill mb-4" style={{ width: 'fit-content' }}>
         {categories.map(cat => (
-          <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 text-[14px] font-medium rounded-full capitalize ${activeCategory === cat ? 'font-semibold' : ''}`} style={{ background: activeCategory === cat ? colors.textPrimary : colors.bgSecondary, color: activeCategory === cat ? '#FFF' : colors.textSecondary }}>{cat}</button>
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`an-tab-pill capitalize${activeCategory === cat ? ' active' : ''}`}
+          >
+            {cat}
+          </button>
         ))}
       </div>
 
       {/* Guides Grid */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="an-grid3">
         {filteredGuides.map(guide => (
-          <div key={guide.id} className="p-4 rounded-md border hover:shadow-md transition-shadow" style={{ background: colors.bgPrimary, borderColor: colors.borderLight }}>
+          <div key={guide.id} className="an-card">
             <div className="flex items-center gap-2 mb-3">
-              <BookOpen size={16} style={{ color: colors.textSecondary }} />
-              <span className="text-[14px] uppercase font-medium px-2 py-0.5 rounded" style={{ background: colors.bgTertiary, color: colors.textSecondary }}>{guide.category}</span>
+              <BookOpen size={14} style={{ color: 'var(--an-text3)' }} />
+              <span className="an-badge an-badge-gray uppercase">{guide.category}</span>
             </div>
-            <h3 className="text-[14px] font-semibold mb-2" style={{ color: colors.textPrimary }}>{guide.title}</h3>
-            <div className="flex items-center justify-between text-[14px] mb-3" style={{ color: colors.textTertiary }}>
+            <h3 style={{ fontSize: 'var(--an-text-md)', fontWeight: 600, color: 'var(--an-text)', marginBottom: 6 }}>{guide.title}</h3>
+            <div className="flex items-center justify-between" style={{ fontSize: 'var(--an-text-sm)', color: 'var(--an-text3)', marginBottom: 12 }}>
               <span>v{guide.version}</span>
               <span>Updated {guide.updated}</span>
             </div>
-            <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: colors.borderLight }}>
+            <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid var(--an-border)' }}>
               <div className="flex items-center gap-3">
-                <button className="flex items-center gap-1 text-[14px] hover:underline" style={{ color: colors.accentBlue }}><Video size={12} /> Tutorial</button>
-                <button className="flex items-center gap-1 text-[14px] hover:underline" style={{ color: colors.accentBlue }}><Download size={12} /> PDF</button>
+                <button className="an-btn an-btn-ghost an-btn-sm flex items-center gap-1"><Video size={11} /> Tutorial</button>
+                <button className="an-btn an-btn-ghost an-btn-sm flex items-center gap-1"><Download size={11} /> PDF</button>
               </div>
-              <span className="text-[14px]" style={{ color: colors.textTertiary }}>{guide.views} views</span>
+              <span style={{ fontSize: 'var(--an-text-sm)', color: 'var(--an-text3)' }}>{guide.views} views</span>
             </div>
           </div>
         ))}

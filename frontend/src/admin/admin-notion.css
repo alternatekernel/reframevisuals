@@ -45,7 +45,7 @@
 
   --an-sidebar-w:    240px;
   --an-topbar-h:     48px;
-  --an-font:         'Google Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --an-font:         'Instrument Sans', 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   /* ── Border radius scale (5 canonical values) ── */
   --an-r-xs:   4px;   /* badges, tight UI */

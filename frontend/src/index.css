@@ -122,6 +122,15 @@
     --radius-lg: 2rem;     /* 32px */
     --radius-xl: 4rem;     /* 64px */
 
+    /* Spacing scale (4px grid) — consumed by tailwind.config.cjs spacing tokens */
+    --spacing-xs:  4px;
+    --spacing-sm:  8px;
+    --spacing-md:  16px;
+    --spacing-lg:  24px;
+    --spacing-xl:  32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+
     /* Reframe Admin Redesign (Demo / Refractive V2) */
     --admin-bg: #0C0D0F;
     --admin-surface: #131416;
@@ -145,8 +154,10 @@
     --admin-red-dim: rgba(248, 113, 113, 0.1);
     --admin-blue: #60A5FA;
     --admin-blue-dim: rgba(96, 165, 250, 0.1);
-    --admin-purple: #F5B060;
-    --admin-purple-dim: rgba(245, 176, 96, 0.1);
+    --admin-amber: #F5B060;
+    --admin-amber-dim: rgba(245, 176, 96, 0.1);
+    --admin-purple: var(--admin-amber); /* alias: value is amber/orange — use --admin-amber for new code */
+    --admin-purple-dim: var(--admin-amber-dim);
     --admin-yellow: #FBBF24;
 
     --admin-font-display: 'Syne', sans-serif;

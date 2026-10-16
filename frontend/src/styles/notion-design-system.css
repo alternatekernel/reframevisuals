@@ -71,11 +71,8 @@
   --space-6: 24px;
   --space-8: 32px;
 
-  /* Border Radius (admin-scale: tight/compact) */
-  --radius-sm: 3px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  /* Border Radius: use --an-r-* tokens from admin-notion.css instead of redefining --radius-* here.
+     The global --radius-sm/md/lg/xl from index.css are for the public site (8px/16px/32px/64px). */
 
   /* Shadows */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -134,7 +131,7 @@
   line-height: var(--line-height-normal);
 }
 
-.text-body {
+.admin-shell .text-body {
   font-size: var(--text-base);
   font-weight: var(--font-regular);
   line-height: var(--line-height-relaxed);
