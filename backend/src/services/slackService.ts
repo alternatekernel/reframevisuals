@@ -43,6 +43,22 @@ export function isSlackConfigured(): boolean {
 // Formatting helpers
 // ─────────────────────────────────────────────────────────────
 
+/** Strip HTML tags and decode common entities for plain-text Slack display. */
+function stripHtml(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 /** Escape the three characters Slack mrkdwn treats specially. */
 function esc(value: unknown): string {
   return String(value ?? 'N/A')
@@ -692,15 +708,17 @@ export async function sendSupportTicketSlackNotification(
 
   const existingThreadTs = ticket.slackThreadTs;
 
+  const plainContent = stripHtml(message.content);
+
   if (isNew || !existingThreadTs) {
+    const ticketIdSuffix = ticket.id ? `#${ticket.id.slice(-6).toUpperCase()}` : '';
     const fields: SlackField[] = [
       { label: 'Client', value: `${escTrunc(ticket.customer?.name || 'Customer')}\n${esc(ticket.customer?.email || 'N/A')}` },
       { label: 'Subject', value: escTrunc(ticket.subject) },
-      { label: 'Message', value: escTrunc(message.content) },
+      { label: 'Message', value: escTrunc(plainContent) },
       { label: 'Dashboard', value: link(`${BASE_URL}/admin/support`, 'Open Support Hub') },
     ];
 
-    const ticketIdSuffix = ticket.id ? `#${ticket.id.slice(-6).toUpperCase()}` : '';
     const result = await postSlack(topic, {
       text: `Support Ticket ${ticketIdSuffix}: ${ticket.subject}`.slice(0, 250),
       blocks: buildBlocks({
@@ -718,11 +736,22 @@ export async function sendSupportTicketSlackNotification(
       });
     }
   } else {
-    // Append threaded reply in Slack
+    // Append threaded reply — replyBroadcast surfaces it in the main channel too
     const clientName = ticket.customer?.name || 'Customer';
+    const ticketIdSuffix = ticket.id ? `#${ticket.id.slice(-6).toUpperCase()}` : '';
     await postSlack(topic, {
-      text: `*Reply from ${clientName}:*\n${message.content}`.slice(0, 1000),
+      text: `Reply from ${clientName} on ticket ${ticketIdSuffix}`,
+      blocks: buildBlocks({
+        title: `📧 REPLY ${ticketIdSuffix}`,
+        fields: [
+          { label: 'From', value: `${escTrunc(clientName)}\n${esc(ticket.customer?.email || 'N/A')}` },
+          { label: 'Subject', value: escTrunc(ticket.subject) },
+          { label: 'Message', value: escTrunc(plainContent) },
+        ],
+        footer: new Date().toISOString(),
+      }),
       threadTs: existingThreadTs,
+      replyBroadcast: true,
     });
   }
 }

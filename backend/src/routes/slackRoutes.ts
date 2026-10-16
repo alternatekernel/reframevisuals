@@ -4,6 +4,7 @@ import {
   isSlackConfigured,
   getSlackChannel,
   sendSlackTestNotification,
+  sendSupportTicketSlackNotification,
   resolveConversationBySlackThread,
   SlackTopicKey,
   postSlackRaw,
@@ -54,6 +55,33 @@ router.post('/test', authenticate, requireAdmin, async (req: any, res) => {
   } catch (err: any) {
     console.error('[SlackTest] Failed:', err.message || err);
     return res.status(500).json({ success: false, message: err.message || 'Slack test failed.' });
+  }
+});
+
+/**
+ * POST /api/slack/test-email
+ * Admin-only endpoint to send a mock inbound-email notification to the customers channel.
+ * Useful for verifying the email→Slack pipeline without waiting for a real inbound email.
+ */
+router.post('/test-email', authenticate, requireAdmin, async (req: any, res) => {
+  try {
+    const mockTicket = {
+      id: 'test-000000',
+      subject: req.body?.subject || 'Sample inbound email test',
+      slackThreadTs: null,
+      customer: {
+        name: req.body?.name || 'Test Customer',
+        email: req.body?.email || 'customer@example.com',
+      },
+    };
+    const mockMessage = {
+      content: req.body?.body || 'Hi there,\n\nThis is a <b>sample inbound email</b> sent to verify the Slack notification pipeline.\n\nCheers,\nTest Customer',
+    };
+    await sendSupportTicketSlackNotification(mockTicket, mockMessage, true);
+    return res.json({ success: true, message: 'Test email notification sent to Slack #customers channel.' });
+  } catch (err: any) {
+    console.error('[SlackTestEmail] Failed:', err.message || err);
+    return res.status(500).json({ success: false, message: err.message || 'Test email notification failed.' });
   }
 });
 
