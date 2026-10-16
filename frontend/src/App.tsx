@@ -296,6 +296,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage').then(m => ({ defa
 const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then(m => ({ default: m.default })));
 const ComparisonPage = lazy(() => import('./pages/ComparisonPage').then(m => ({ default: m.default })));
 const PlatformPage = lazy(() => import('./pages/PlatformPage').then(m => ({ default: m.default })));
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage').then(m => ({ default: m.default })));
 
 // Error Boundary Component
 export class ErrorBoundary extends React.Component<{ children: React.ReactNode }, { hasError: boolean; error: Error | null }> {
@@ -512,6 +513,7 @@ export const routes: RouteObject[] = [
           { path: 'reframe-visuals-services', element: <ReframeVisualsServicesPage /> },
           { path: 'ai-product-visuals', element: <AIProductVisualsPage /> },
           { path: 'portfolio', element: <PortfolioPage /> },
+          { path: 'testimonials', element: <TestimonialsPage /> },
           { path: 'blog', element: <BlogListingPage /> },
           { path: 'blog/:slug', element: <BlogPostPage /> },
           { path: 'blog/topic/:topicSlug', element: <BlogTopicPage /> },

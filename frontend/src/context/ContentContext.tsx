@@ -173,6 +173,7 @@ const FOOTER_DEFAULTS = {
       links: [
         { label: 'About', path: '/about' },
         { label: 'Portfolio', path: '/portfolio' },
+        { label: 'Testimonials', path: '/testimonials' },
         { label: 'Blog', path: '/blog' },
         { label: 'Book Meeting', path: '/book-meeting' },
         { label: 'Careers', path: '#' },
