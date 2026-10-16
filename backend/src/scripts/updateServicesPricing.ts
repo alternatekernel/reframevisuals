@@ -101,12 +101,6 @@ const pricingMatrix = {
       { complexity: 'C', time: '40min-1h 20m', prices: { '12h': 5.19, '24h': 3.99, '48h': 3.59, '72h': 3.39, '7d': 3.19 } },
     ]
   },
-  'ai-generated-image-refinement': {
-    tiers: [
-      { complexity: 'S', time: '5-10 min', prices: { '12h': 0.72, '24h': 0.55, '48h': 0.50, '72h': 0.47, '7d': 0.44 } },
-      { complexity: 'C', time: '10-30 min', prices: { '12h': 2.59, '24h': 1.99, '48h': 1.79, '72h': 1.69, '7d': 1.59 } },
-    ]
-  },
   'sketch-to-image': {
     tiers: [
       { complexity: 'S', time: '30min-1h', prices: { '12h': 4.55, '24h': 3.50, '48h': 3.15, '72h': 2.98, '7d': 2.80 } },

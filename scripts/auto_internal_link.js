@@ -13,7 +13,6 @@ const LINKS = [
   { keyword: 'jewelry retouching', url: '/services/jewelry-retouching' },
   { keyword: 'fashion retouching', url: '/services/fashion-retouching' },
   { keyword: 'AI product photography', url: '/services/ai-product-visuals' },
-  { keyword: 'AI image refinement', url: '/services/ai-image-refinement' },
   { keyword: 'bulk product photo editing', url: '/services/bulk-product-photo-editing' },
 ];
 

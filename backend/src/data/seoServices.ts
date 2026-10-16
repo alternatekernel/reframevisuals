@@ -517,29 +517,6 @@ export const SEO_SERVICES: SeoService[] = [
     ]
   },
   {
-    "id": "ai-generated-image-refinement",
-    "name": "AI-Generated Image Refinement",
-    "price": 0.55,
-    "description": "Polish and perfect your AI-generated assets.",
-    "detail": "Take your AI-generated outputs to the next level with professional human oversight and refinement.",
-    "bestFor": "Marketing assets, social media, ad creative",
-    "metaTitle": "AI Image Refinement Service | Professional AI Polish",
-    "metaDescription": "Take your AI-generated images to the next level. Professional refinement, artifact removal, and upscaling for AI assets.",
-    "keywords": [
-      "ai",
-      "refine",
-      "polish",
-      "perfect",
-      "upscale"
-    ],
-    "faqs": [
-      {
-        "q": "What is AI image refinement?",
-        "a": "AI image refinement takes your base AI outputs and polishes them to professional standards, ensuring they are ready for high-end marketing use."
-      }
-    ]
-  },
-  {
     "id": "sketch-to-reality",
     "name": "Sketch to Reality",
     "price": 3.5,

@@ -178,17 +178,6 @@ export const PRICING_MATRIX: ServicePricing[] = [
     ],
   },
   
-  // AI-Generated Image Refinement
-  {
-    id: 'ai-generated-image-refinement',
-    name: 'AI-Generated Image Refinement',
-    categoryId: 'advanced',
-    tiers: [
-      { complexity: 'S', processingTime: '5-10 min', price12h: 0.72, price24h: 0.55, price48h: 0.50, price72h: 0.47, price7d: 0.44 },
-      { complexity: 'C', processingTime: '10-30 min', price12h: 2.59, price24h: 1.99, price48h: 1.79, price72h: 1.69, price7d: 1.59 },
-    ],
-  },
-  
 ];
 
 // Turnaround multipliers (based on 24h as baseline)

@@ -43,10 +43,6 @@ export const CATEGORIES: Record<string, { services: string[]; color: string }> =
     services: ['Manipulation', 'Pattern Change'],
     color: '#7C3AED'
   },
-  'AI-Driven': {
-    services: ['AI-Generated Image Refinement'],
-    color: '#A855F7'
-  },
 };
 
 export interface ServicePricing {
@@ -173,14 +169,6 @@ export const SERVICES: Record<string, ServicePricing> = {
       S: { '12h': 1.11, '24h': 0.85, '48h': 0.77, '72h': 0.72, '7d': 0.68 },
       M: { '12h': 2.46, '24h': 1.89, '48h': 1.70, '72h': 1.61, '7d': 1.51 },
       C: { '12h': 5.19, '24h': 3.99, '48h': 3.59, '72h': 3.39, '7d': 3.19 },
-    },
-  },
-  'AI-Generated Image Refinement': {
-    icon: MagicWandIcon,
-    tiers: { S: 'Simple', C: 'Complex' },
-    prices: {
-      S: { '12h': 0.72, '24h': 0.55, '48h': 0.50, '72h': 0.47, '7d': 0.44 },
-      C: { '12h': 2.59, '24h': 1.99, '48h': 1.79, '72h': 1.69, '7d': 1.59 },
     },
   },
 };

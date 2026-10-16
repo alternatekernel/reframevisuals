@@ -2,7 +2,7 @@ import json, re, pathlib
 SRC=pathlib.Path('/root/.hermes-private/cache/documents/all_service_pages_extracted')
 OUT=pathlib.Path('/root/reframvevisuals/frontend/src/data/servicePageContent.ts')
 FILES={
-'AI Product Photography':'ai-product-photography','AI Video Generation':'ai-video-generation','AI-Generated Image Refinement':'ai-generated-image-refinement','Background Removal':'background-removal','Clipping path':'clipping-path','Color Change':'color-change','Color Correction':'color-correction','Garment Retouch':'garment-retouch','Ghost Mannequin':'ghost-mannequin','Image Manipulation':'manipulation','Jewelry Retouch':'jewelry-retouch','Model Retouch':'model-retouch','Multi-Clipping Path':'multi-clipping-path','Pattern Change':'pattern-change','Raster to Vector':'raster-to-vector','Retouching':'retouching','Shadow Creation':'shadow-creation','Sketch to Image':'sketch-to-reality'}
+'AI Product Photography':'ai-product-photography','AI Video Generation':'ai-video-generation','Background Removal':'background-removal','Clipping path':'clipping-path','Color Change':'color-change','Color Correction':'color-correction','Garment Retouch':'garment-retouch','Ghost Mannequin':'ghost-mannequin','Image Manipulation':'manipulation','Jewelry Retouch':'jewelry-retouch','Model Retouch':'model-retouch','Multi-Clipping Path':'multi-clipping-path','Pattern Change':'pattern-change','Raster to Vector':'raster-to-vector','Retouching':'retouching','Shadow Creation':'shadow-creation','Sketch to Image':'sketch-to-reality'}
 
 def lines_for(stem):
     return (SRC/(stem+'.txt')).read_text(encoding='utf-8').splitlines()

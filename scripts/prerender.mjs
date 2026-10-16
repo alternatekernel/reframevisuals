@@ -265,7 +265,6 @@ async function runPrerender() {
     '/services/raster-to-vector',
     '/services/manipulation',
     '/services/pattern-change',
-    '/services/ai-generated-image-refinement',
     '/services/ai-product-photography',
     // High-value service intent pages
     '/services/background-removal/best-for-ecommerce',

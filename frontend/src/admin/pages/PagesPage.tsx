@@ -307,7 +307,6 @@ const SERVICE_SLUGS = [
   { id: 'garment-retouch',              name: 'Garment Retouching' },
   { id: 'model-retouch',                name: 'Model Retouching' },
   { id: 'ghost-mannequin',              name: 'Ghost Mannequin' },
-  { id: 'ai-generated-image-refinement',name: 'AI Image Refinement' },
   { id: 'sketch-to-reality',            name: 'Sketch to Reality' },
   { id: 'ai-product-photography',       name: 'AI Product Photography' },
   { id: 'ai-video-generation',          name: 'AI Video Generation' },

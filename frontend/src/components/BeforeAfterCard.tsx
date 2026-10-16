@@ -180,6 +180,16 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({
         setAnimLabel('AFTER');
         setIsAnimationComplete(true);
         if (onAnimationComplete) onAnimationComplete();
+        // Loop: restart after a short pause unless hovering/dragging
+        setTimeout(() => {
+          if (!isHoveringRef.current && !isDraggingRef.current) {
+            hasAnimatedRef.current = false;
+            setIsAnimationComplete(false);
+            setSeqIndex(0);
+            animStartTimeRef.current = performance.now();
+            rafRef.current = requestAnimationFrame(animate);
+          }
+        }, 1500);
         return;
       }
 

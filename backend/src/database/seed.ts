@@ -19,7 +19,6 @@ const SERVICES = [
   { id: 'color-correction', name: 'Color Correction', price: 0.35, description: 'Accurate color matching across your entire catalog.' },
   { id: 'pattern-change', name: 'Pattern Change', price: 1.25, description: 'Swap fabric patterns and textures seamlessly.' },
   { id: 'raster-to-vector', name: 'Raster to Vector', price: 4.99, description: 'Convert pixel images to scalable vector artwork.' },
-  { id: 'ai-generated-image-refinement', name: 'AI-Generated Image Refinement', price: 0.55, description: 'Fix and refine AI-generated or edited images.' },
   { id: 'ai-product-photography', name: 'AI Product Photography', price: 0.99, description: 'Generate stunning product lifestyle photos using AI.' },
   { id: 'ai-video-generation', name: 'AI Video Generation', price: 4.99, description: 'Create engaging video content using AI.' },
   { id: 'manipulation', name: 'Image Manipulation', price: 3.99, description: 'Creative compositing and image manipulation.' },
@@ -216,12 +215,6 @@ async function main() {
             "C": { "12h": 5.19, "24h": 3.99, "48h": 3.59, "72h": 3.39, "7d": 3.19 }
           }
         },
-        "AI-Generated Image Refinement": {
-          "tiers": { "S": "Simple", "C": "Complex" },
-          "prices": {
-            "S": { "12h": 0.72, "24h": 0.55, "48h": 0.50, "72h": 0.47, "7d": 0.44 },
-            "C": { "12h": 2.59, "24h": 1.99, "48h": 1.79, "72h": 1.69, "7d": 1.59 }
-          }
         },
         "Sketch to Image": {
           "tiers": { "S": "Simple", "C": "Complex" },

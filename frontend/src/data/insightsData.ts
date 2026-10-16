@@ -294,7 +294,7 @@ Reframe Visuals treats Inclip files as production support files, not random extr
 
 The goal is to use the best parts of each support image while keeping the final image natural, accurate, and ecommerce-ready. The process can include focus merging, detail replacement, exposure blending, shadow correction, color balancing, texture preservation, and complex retouching.
 
-This helps when one product image needs more information than a single shot can hold. For ecommerce teams, it cuts editing friction, because the editor works from better source material. Instead of forcing one imperfect image to carry the full result, the final image is built from the strongest available parts. That makes complex retouching more controlled, and it protects the product's real look. When a shot is missing entirely, we would rather rebuild it from real support frames than lean on [AI-generated image refinement](/services/ai-generated-image-refinement) to invent it.
+This helps when one product image needs more information than a single shot can hold. For ecommerce teams, it cuts editing friction, because the editor works from better source material. Instead of forcing one imperfect image to carry the full result, the final image is built from the strongest available parts. That makes complex retouching more controlled, and it protects the product's real look. When a shot is missing entirely, we would rather rebuild it from real support frames than lean on AI-generated image refinement to invent it.
 
 Have a set of support shots you want merged into one clean image? [Request sample pricing](/quote-builder) and send the frames — we will tell you which ones earn their place.
 
