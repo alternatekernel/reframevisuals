@@ -140,6 +140,32 @@ function stripHtml(html: unknown): string {
     .trim();
 }
 
+function findQuoteStart(text: string): number {
+  return text.search(
+    /^(On .{5,120}\n?.*wrote:\s*$|[-_]{3,}[\s\S]*?(?:Original|Forwarded) Message|From:\s.+\nSent:\s|>{1})/im
+  );
+}
+
+/**
+ * Remove quoted email history so only the new message is shown.
+ */
+function stripEmailQuotes(text: string): string {
+  if (!text) return text;
+  const cutAt = findQuoteStart(text);
+  const clean = cutAt > 0 ? text.slice(0, cutAt) : text;
+  return clean.replace(/\n{3,}/g, '\n\n').trim();
+}
+
+/**
+ * Return the quoted email history portion (everything stripped by stripEmailQuotes).
+ */
+function extractEmailQuote(text: string): string {
+  if (!text) return '';
+  const cutAt = findQuoteStart(text);
+  if (cutAt <= 0) return '';
+  return text.slice(cutAt).replace(/\n{3,}/g, '\n\n').trim();
+}
+
 /** Escape the three characters Slack mrkdwn treats specially. */
 function esc(value: unknown): string {
   return String(value ?? 'N/A')
@@ -881,31 +907,68 @@ export async function sendSupportTicketSlackNotification(
   if (isNew || !existingThreadTs) {
     const isMock = !ticket?.id || String(ticket.id).startsWith('test-');
     const ticketIdSuffix = !isMock ? `#${String(ticket.id).slice(-6).toUpperCase()}` : (ticket?.id ? `(${ticket.id})` : '');
-    const fields: SlackField[] = [
-      { label: 'Client', value: `${escTrunc(ticket?.customer?.name || 'Customer')}\n${esc(ticket?.customer?.email || 'N/A')}` },
-      { label: 'Subject', value: escTrunc(ticket?.subject || 'Support Request') },
-      { label: 'Message', value: escTrunc(plainContent || '(No message body)') },
-      { label: 'Dashboard', value: link(`${BASE_URL}/admin/support`, 'Open Support Hub') },
-    ];
+    const clientName = ticket?.customer?.name || 'Customer';
+    const clientEmail = ticket?.customer?.email || 'N/A';
+    const subject = ticket?.subject || 'Support Request';
+    const messagePreview = truncate(stripEmailQuotes(plainContent) || '(No message body)', 600);
 
     result = await postSlack(topic, {
-      text: `Support Ticket ${ticketIdSuffix}: ${ticket?.subject || 'New Support Ticket'}`.slice(0, 250),
-      blocks: buildBlocks({
-        title: `📬 SUPPORT TICKET ${ticketIdSuffix}`.trim(),
-        titleUrl: `${BASE_URL}/admin/support`,
-        fields,
-        footer: `Reply to this thread to email the customer • ${new Date().toISOString()}`,
-      }),
+      text: `${clientName} — ${subject}`.slice(0, 250),
+      blocks: [
+        {
+          type: 'header',
+          text: { type: 'plain_text', text: `📬 SUPPORT TICKET ${ticketIdSuffix}`.trim().slice(0, 150), emoji: true },
+        },
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: `*${esc(clientName)}* — ${esc(clientEmail)}\n*Subject:* ${esc(subject)}`,
+          },
+          accessory: {
+            type: 'button',
+            text: { type: 'plain_text', text: 'Open Support Hub', emoji: true },
+            url: `${BASE_URL}/admin/support`,
+            action_id: 'open_support_hub',
+          },
+        },
+        { type: 'divider' },
+        {
+          type: 'section',
+          text: { type: 'mrkdwn', text: messagePreview },
+        },
+        {
+          type: 'context',
+          elements: [{ type: 'mrkdwn', text: `Reply to this thread to email the customer • ${new Date(ticket?.createdAt || Date.now()).toISOString()}` }],
+        },
+      ],
     });
 
-    if (result?.ok && result.ts && ticket?.id && !isMock) {
-      try {
-        await prisma.supportTicket.update({
-          where: { id: ticket.id },
-          data: { slackThreadTs: result.ts },
+    if (result?.ok && result.ts) {
+      if (ticket?.id && !isMock) {
+        try {
+          await prisma.supportTicket.update({
+            where: { id: ticket.id },
+            data: { slackThreadTs: result.ts },
+          });
+        } catch (dbErr: any) {
+          console.error('[SlackSupport] Failed to persist thread ts to DB:', dbErr?.message || dbErr);
+        }
+      }
+
+      // Post the quoted conversation history as a collapsed thread reply for context
+      const quoteHistory = extractEmailQuote(plainContent);
+      if (quoteHistory) {
+        await postSlack(topic, {
+          text: 'Previous conversation',
+          blocks: [
+            {
+              type: 'section',
+              text: { type: 'mrkdwn', text: `*Previous conversation:*\n${truncate(quoteHistory, 2800)}` },
+            },
+          ],
+          threadTs: result.ts,
         });
-      } catch (dbErr: any) {
-        console.error('[SlackSupport] Failed to persist thread ts to DB:', dbErr?.message || dbErr);
       }
     }
   } else {
@@ -913,17 +976,19 @@ export async function sendSupportTicketSlackNotification(
     const clientName = ticket?.customer?.name || 'Customer';
     const isMock = !ticket?.id || String(ticket.id).startsWith('test-');
     const ticketIdSuffix = !isMock ? `#${String(ticket.id).slice(-6).toUpperCase()}` : '';
+    const replyPreview = truncate(stripEmailQuotes(plainContent) || '(Empty reply)', 600);
     result = await postSlack(topic, {
-      text: `Reply from ${clientName} on ticket ${ticketIdSuffix}`,
-      blocks: buildBlocks({
-        title: `📧 REPLY ${ticketIdSuffix}`.trim(),
-        fields: [
-          { label: 'From', value: `${escTrunc(clientName)}\n${esc(ticket?.customer?.email || 'N/A')}` },
-          { label: 'Subject', value: escTrunc(ticket?.subject || 'No Subject') },
-          { label: 'Message', value: escTrunc(plainContent || '(Empty reply)') },
-        ],
-        footer: new Date().toISOString(),
-      }),
+      text: `${clientName}: ${replyPreview}`.slice(0, 250),
+      blocks: [
+        {
+          type: 'section',
+          text: { type: 'mrkdwn', text: `*${esc(clientName)}* ${ticketIdSuffix}\n${replyPreview}` },
+        },
+        {
+          type: 'context',
+          elements: [{ type: 'mrkdwn', text: new Date().toISOString() }],
+        },
+      ],
       threadTs: existingThreadTs,
       replyBroadcast: true,
     });

@@ -125,22 +125,32 @@ function verifySlackSignature(req: any): boolean {
 
   const timestamp = req.headers['x-slack-request-timestamp'];
   const signature = req.headers['x-slack-signature'];
-  if (!timestamp || !signature) return false;
+  if (!timestamp || !signature) {
+    console.warn('[SlackSig] Missing timestamp or signature header.');
+    return false;
+  }
 
   // Reject requests older than 5 minutes (replay protection).
   const age = Math.abs(Date.now() / 1000 - Number(timestamp));
-  if (!Number.isFinite(age) || age > 60 * 5) return false;
+  if (!Number.isFinite(age) || age > 60 * 5) {
+    console.warn(`[SlackSig] Request too old (age=${Math.round(age)}s). Rejecting.`);
+    return false;
+  }
 
   const rawBody: Buffer | undefined = req.rawBody;
   const body = rawBody ? rawBody.toString('utf8') : JSON.stringify(req.body);
+  if (!rawBody) console.warn('[SlackSig] rawBody missing — falling back to re-serialised JSON; signature may fail.');
   const basestring = `v0:${timestamp}:${body}`;
   const expected = `v0=${crypto.createHmac('sha256', signingSecret).update(basestring).digest('hex')}`;
 
   try {
     const a = Buffer.from(expected);
     const b = Buffer.from(String(signature));
-    return a.length === b.length && crypto.timingSafeEqual(a, b);
+    const ok = a.length === b.length && crypto.timingSafeEqual(a, b);
+    if (!ok) console.warn('[SlackSig] Signature mismatch. Check SLACK_SIGNING_SECRET matches your Slack app.');
+    return ok;
   } catch {
+    console.warn('[SlackSig] timingSafeEqual threw — buffer length mismatch?');
     return false;
   }
 }
@@ -264,10 +274,12 @@ async function handleSlackEvent(body: any): Promise<void> {
   if (body.type !== 'event_callback' || !body.event) return;
   const event = body.event;
 
+  console.log(`[SlackEvent] type=${event.type} subtype=${event.subtype || 'none'} channel=${event.channel} thread_ts=${event.thread_ts || 'none'} bot_id=${event.bot_id || 'none'}`);
+
   // Handle bot mentions (app_mention or messages containing bot user ID)
   const isAppMention = event.type === 'app_mention';
   const isMessageWithBotMention = event.type === 'message' && event.text && event.text.includes(`<@${body.authorizations?.[0]?.user_id || ''}>`);
-  
+
   if (isAppMention || isMessageWithBotMention) {
     if (event.bot_id) return;
     await handleBotMention(event);
@@ -275,11 +287,11 @@ async function handleSlackEvent(body: any): Promise<void> {
   }
 
   // Only handle plain user messages that are threaded replies.
-  if (event.type !== 'message') return;
-  if (event.bot_id) return;
-  if (event.subtype && event.subtype !== 'file_share') return; // allow file_share, block bot echoes/edits/joins
-  if (!event.thread_ts || event.thread_ts === event.ts) return; // must be an in-thread reply
-  if (!event.text && !(event.files?.length)) return;
+  if (event.type !== 'message') { console.log('[SlackEvent] Ignoring: not a message event.'); return; }
+  if (event.bot_id) { console.log('[SlackEvent] Ignoring: bot message.'); return; }
+  if (event.subtype && event.subtype !== 'file_share') { console.log(`[SlackEvent] Ignoring: subtype=${event.subtype}`); return; }
+  if (!event.thread_ts || event.thread_ts === event.ts) { console.log('[SlackEvent] Ignoring: not a thread reply (top-level message).'); return; }
+  if (!event.text && !(event.files?.length)) { console.log('[SlackEvent] Ignoring: no text or files.'); return; }
 
   // Verify the event channel is one of our configured channels.
   const configuredChannels = new Set(
@@ -288,7 +300,12 @@ async function handleSlackEvent(body: any): Promise<void> {
       .filter(Boolean)
   );
 
-  if (event.channel && !configuredChannels.has(event.channel)) return;
+  console.log(`[SlackEvent] Configured channels: ${[...configuredChannels].join(', ')}`);
+
+  if (event.channel && !configuredChannels.has(event.channel)) {
+    console.warn(`[SlackEvent] Ignoring: channel ${event.channel} is not a configured channel.`);
+    return;
+  }
 
   // Download any attached files so we can forward them to the customer
   const slackFileAttachments = event.files?.length
@@ -328,6 +345,7 @@ async function handleSlackEvent(body: any): Promise<void> {
   }
 
   // Check if this thread TS belongs to a SupportTicket
+  console.log(`[SlackEvent] Looking up support ticket for thread_ts=${event.thread_ts}`);
   const ticket = await prisma.supportTicket.findFirst({
     where: { slackThreadTs: event.thread_ts },
     include: {
@@ -337,11 +355,13 @@ async function handleSlackEvent(body: any): Promise<void> {
   });
 
   if (ticket) {
+    console.log(`[SlackEvent] Found ticket id=${ticket.id} subject="${ticket.subject}" customer=${ticket.customer?.email}`);
     const toEmail = ticket.customer?.contactEmail || ticket.customer?.email;
     if (!toEmail) {
       console.warn(`[SlackWebhook] No contact email for ticket customer on thread ${event.thread_ts}`);
       return;
     }
+    console.log(`[SlackEvent] Will send email reply to ${toEmail}`);
 
     const cleanText = (event.text || '').trim();
 
@@ -506,7 +526,7 @@ async function handleSlackEvent(body: any): Promise<void> {
     return;
   }
 
-  console.warn(`[SlackWebhook] No conversation or support ticket matched thread ${event.thread_ts}`);
+  console.warn(`[SlackWebhook] No conversation or support ticket matched thread_ts=${event.thread_ts}. The ticket's slackThreadTs may not have been saved — check the DB.`);
 }
 
 /**
