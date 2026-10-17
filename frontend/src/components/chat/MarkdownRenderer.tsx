@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useNavigate } from 'react-router-dom';
@@ -28,15 +28,15 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onNavigate
       components={{
         // Minimalist Tables
         table: ({ children }) => (
-          <div className="my-3 overflow-x-auto rounded-lg border border-black/5">
+          <div className="my-3 overflow-x-auto rounded-lg border border-black/[0.12]">
             <table className="min-w-full text-xs">{children}</table>
           </div>
         ),
         thead: ({ children }) => (
-          <thead className="bg-[#f9f9f9] border-b border-black/5">{children}</thead>
+          <thead className="bg-[#f9f9f9] border-b border-black/[0.12]">{children}</thead>
         ),
         tr: ({ children }) => (
-          <tr className="border-b border-black/5 last:border-0">{children}</tr>
+          <tr className="border-b border-black/[0.12] last:border-0">{children}</tr>
         ),
         th: ({ children }) => (
           <th className="px-3 py-2 text-left text-[#171717] font-semibold uppercase tracking-wider text-[10px]">

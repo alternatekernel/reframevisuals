@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Cookie } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -55,7 +55,7 @@ const CookieConsent: React.FC = () => {
           exit={{ y: 20, opacity: 0 }}
           className="fixed bottom-4 left-4 right-4 sm:right-auto z-[9999] max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-[360px]"
         >
-          <div className="bg-[#fcfcfc] border border-black/5 rounded-[12px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col gap-3">
+          <div className="bg-[#fcfcfc] border border-black/[0.12] rounded-[12px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <Cookie className="text-black/80 w-[16px] h-[16px]" />
               <h3 className="text-[14px] font-bold text-black tracking-tight">

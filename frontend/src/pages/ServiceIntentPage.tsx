@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { getServiceById } from '../data/services';
@@ -108,7 +108,7 @@ const ServiceIntentPage: React.FC = () => {
           <p><strong>Operational focus:</strong> predictable quality, production-safe turnaround, and ecommerce-ready outputs across US/UK/AU/EU markets.</p>
         </div>
 
-        <div className="mt-10 rounded-xl border border-black/10 p-5">
+        <div className="mt-10 rounded-xl border border-black/[0.18] p-5">
           <h2 className="text-xl font-semibold text-black">Related Pages</h2>
           <div className="mt-3 flex flex-col gap-2 text-sm">
             <Link to={`/services/${service.id}`} className="text-[#7C3AED] hover:underline">View {service.name} service page</Link>

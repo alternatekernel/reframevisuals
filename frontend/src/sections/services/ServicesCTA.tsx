@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components/ui/button';
 
@@ -10,7 +10,7 @@ const ServicesCTA: React.FC<ServicesCTAProps> = ({ isUserAuthenticated }) => {
   return (
     <section className="px-6 py-24 lg:py-32 bg-white">
       <div className="max-w-5xl mx-auto">
-        <div className="relative overflow-hidden rounded-[28px] border border-black/10 bg-[var(--color-bg-secondary)] px-6 py-16 sm:px-10 lg:px-16 lg:py-20 shadow-sm">
+        <div className="relative overflow-hidden rounded-[28px] border border-black/[0.18] bg-[var(--color-bg-secondary)] px-6 py-16 sm:px-10 lg:px-16 lg:py-20 shadow-sm">
           <div className="pointer-events-none absolute -top-20 -right-16 h-56 w-56 rounded-full bg-[var(--color-brand-primary)]/10 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-16 -left-10 h-52 w-52 rounded-full bg-[var(--color-brand-accent)]/10 blur-3xl" />
 

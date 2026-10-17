@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+﻿import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { adminFetch } from '../utils/api';
 import { useToast } from '../ToastContext';
@@ -1008,7 +1008,7 @@ export const ChatsPage: React.FC = () => {
   return (
     <div className={`an-chat-page h-[calc(100dvh-64px)] flex flex-col ${activeConvDetails ? 'has-active-chat' : ''}`}>
       {!showMobileConversationMode && (
-      <div className="shrink-0 border-b border-black/10 bg-white px-4 py-3 space-y-2">
+      <div className="shrink-0 border-b border-black/[0.18] bg-white px-4 py-3 space-y-2">
         {/* Row 1 — title + action controls */}
         <div className="flex items-center justify-between">
           <span className="text-[13px] font-semibold text-[#171717]">
@@ -1098,11 +1098,11 @@ export const ChatsPage: React.FC = () => {
         </div>
         {/* Row 2 — search + filter + sort */}
         <div className="flex flex-wrap items-center gap-2">
-          <label className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-black/10 bg-white px-3 py-[7px] text-xs text-[#777] focus-within:border-black/25">
+          <label className="flex min-w-0 flex-1 items-center gap-2 rounded-lg border border-black/[0.18] bg-white px-3 py-[7px] text-xs text-[#777] focus-within:border-black/25">
             <Search size={13} className="shrink-0" />
             <input value={searchInput} onChange={(e) => setSearchInput(e.target.value)} placeholder="Search chats..." className="min-w-0 flex-1 bg-transparent text-[#171717] outline-none text-[12px]" />
           </label>
-          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value as any)} className="h-[32px] shrink-0 rounded-lg border border-black/10 bg-white px-2 text-[11px] text-[#333] outline-none">
+          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value as any)} className="h-[32px] shrink-0 rounded-lg border border-black/[0.18] bg-white px-2 text-[11px] text-[#333] outline-none">
             <option value="all">All chats</option>
             <option value="open">Open</option>
             <option value="unread">Unread</option>
@@ -1114,7 +1114,7 @@ export const ChatsPage: React.FC = () => {
             <option value="archived">Archived</option>
             <option value="assigned">Assigned to me</option>
           </select>
-          <select value={sortMode} onChange={(e) => setSortMode(e.target.value as any)} className="h-[32px] shrink-0 rounded-lg border border-black/10 bg-white px-2 text-[11px] text-[#333] outline-none">
+          <select value={sortMode} onChange={(e) => setSortMode(e.target.value as any)} className="h-[32px] shrink-0 rounded-lg border border-black/[0.18] bg-white px-2 text-[11px] text-[#333] outline-none">
             <option value="newest">Newest</option>
             <option value="unread">Unread first</option>
             <option value="active">Active first</option>
@@ -1125,7 +1125,7 @@ export const ChatsPage: React.FC = () => {
 
       <div className="an-inbox-wrap an-chat-shell flex-1 min-h-0 flex flex-col lg:flex-row">
         {!showMobileConversationMode && (
-        <div className={`an-inbox-list an-chat-list w-full flex-1 lg:flex-none lg:w-[360px] overflow-y-auto border-r border-black/10 ${activeConvDetails ? 'has-mobile-selection' : ''}`}>
+        <div className={`an-inbox-list an-chat-list w-full flex-1 lg:flex-none lg:w-[360px] overflow-y-auto border-r border-black/[0.18] ${activeConvDetails ? 'has-mobile-selection' : ''}`}>
           <div className="an-inbox-body p-0">
             {isLoading && conversations.length === 0 ? (
               <div className="p-8 text-center text-xs text-[#999]">Loading chats...</div>
@@ -1215,7 +1215,7 @@ export const ChatsPage: React.FC = () => {
         {(!isMobileViewport || activeConvDetails) && <div className={`an-inbox-detail an-chat-detail flex flex-col flex-1 h-full bg-[#FAFAFA] min-w-0 ${activeConvDetails ? 'has-mobile-selection' : ''}`}>
           {activeConvDetails ? (
             <>
-              <div className={`an-detail-head sticky top-0 z-10 shrink-0 bg-white border-b border-black/5 ${showMobileConversationMode ? 'px-3 py-2' : ''}`} style={{ padding: showMobileConversationMode ? undefined : '10px 16px' }}>
+              <div className={`an-detail-head sticky top-0 z-10 shrink-0 bg-white border-b border-black/[0.12] ${showMobileConversationMode ? 'px-3 py-2' : ''}`} style={{ padding: showMobileConversationMode ? undefined : '10px 16px' }}>
                 {showMobileConversationMode ? (
                   <div className="flex items-center gap-2">
                     <button className="inline-flex h-11 w-11 -ml-1 items-center justify-center text-[20px] font-bold text-[#333]" onClick={handleBackToChats} aria-label="Back to chats">
@@ -1233,8 +1233,8 @@ export const ChatsPage: React.FC = () => {
                         {unreadCount > 0 && <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-500" />}
                       </button>
                       {showInChatNotifications && (
-                        <div className="absolute right-0 top-full z-[260] mt-2 w-72 overflow-hidden rounded-xl border border-black/10 bg-white shadow-xl">
-                          <div className="border-b border-black/10 px-3 py-2 text-[12px] font-semibold">Notifications</div>
+                        <div className="absolute right-0 top-full z-[260] mt-2 w-72 overflow-hidden rounded-xl border border-black/[0.18] bg-white shadow-xl">
+                          <div className="border-b border-black/[0.18] px-3 py-2 text-[12px] font-semibold">Notifications</div>
                           <div className="max-h-72 overflow-y-auto">
                             {conversations.filter((conv) => getUnreadForConversation(conv)).slice(0, 8).map((conv) => {
                               const latestMsg = latestMessage(conv);
@@ -1242,7 +1242,7 @@ export const ChatsPage: React.FC = () => {
                                 <button
                                   key={conv.id}
                                   type="button"
-                                  className="block w-full border-b border-black/5 px-3 py-2 text-left last:border-b-0 hover:bg-black/[0.03]"
+                                  className="block w-full border-b border-black/[0.12] px-3 py-2 text-left last:border-b-0 hover:bg-black/[0.05]"
                                   onClick={() => {
                                     setShowInChatNotifications(false);
                                     selectConversation(conv);
@@ -1285,7 +1285,7 @@ export const ChatsPage: React.FC = () => {
                   <div className="an-chat-actions flex shrink-0 items-center gap-1.5">
                     <button
                       onClick={() => setProfileConversation(activeConvDetails)}
-                      className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white p-2 text-[#555] hover:border-black/30"
+                      className="inline-flex items-center justify-center rounded-full border border-black/[0.18] bg-white p-2 text-[#555] hover:border-black/30"
                       aria-label="Customer info"
                     >
                       <Info size={13} />
@@ -1331,9 +1331,9 @@ export const ChatsPage: React.FC = () => {
                           <div
                             className={`max-w-[92%] md:max-w-[70%] rounded-2xl text-[14px] ${
                             isUser
-                              ? 'px-4 py-3 bg-white border border-black/10 text-[#171717] shadow-sm'
+                              ? 'px-4 py-3 bg-white border border-black/[0.18] text-[#171717] shadow-sm'
                               : isAiSupport
-                                ? 'overflow-hidden bg-white border border-black/[0.08] text-[#171717] shadow-sm'
+                                ? 'overflow-hidden bg-white border border-black/[0.16] text-[#171717] shadow-sm'
                                 : 'px-4 py-3 bg-[#171717] text-white'
                           }`}
                             onContextMenu={(e) => {
@@ -1343,7 +1343,7 @@ export const ChatsPage: React.FC = () => {
                             }}
                           >
                             {isAiSupport && (
-                              <div className="flex items-center gap-1.5 px-4 py-2 border-b border-black/[0.06]">
+                              <div className="flex items-center gap-1.5 px-4 py-2 border-b border-black/[0.14]">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#171717] shrink-0" />
                                 <span className="text-[10px] font-semibold text-[#171717] tracking-tight">Reframe CS</span>
                                 <span className="ml-auto text-[9px] font-bold uppercase tracking-widest text-[#aaa]">AI</span>
@@ -1352,7 +1352,7 @@ export const ChatsPage: React.FC = () => {
                             <div className={isAiSupport ? 'px-4 py-3' : ''}>
                               {msg.content && (isUser ? <div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>{linkifyText(msg.content)}</div> : <MarkdownRenderer content={msg.content} />)}
                               {orderCard && (
-                                <a href={orderCard.customerLink} target="_blank" rel="noreferrer" className={`mt-3 block rounded-xl border p-3 text-xs ${(isUser || isAiSupport) ? 'border-black/10 bg-black/[0.03]' : 'border-white/20 bg-white/10'}`}>
+                                <a href={orderCard.customerLink} target="_blank" rel="noreferrer" className={`mt-3 block rounded-xl border p-3 text-xs ${(isUser || isAiSupport) ? 'border-black/[0.18] bg-black/[0.05]' : 'border-white/20 bg-white/10'}`}>
                                   <div className="font-semibold">{orderCard.code || orderCard.orderId}</div>
                                   <div className="mt-1">{orderCard.title || 'Order details'}</div>
                                   <div className="mt-1 opacity-70">Status: {orderCard.status || 'new'}</div>
@@ -1364,7 +1364,7 @@ export const ChatsPage: React.FC = () => {
                                   {attachments.map((attachment) => {
                                     const isImage = attachment.type?.startsWith('image/') || /\.(png|jpe?g|gif|webp|tiff?)$/i.test(attachment.filename);
                                     return (
-                                      <div key={attachment.url} className={`rounded-xl border p-2 ${(isUser || isAiSupport) ? 'border-black/10 bg-black/[0.03]' : 'border-white/20 bg-white/10'}`}>
+                                      <div key={attachment.url} className={`rounded-xl border p-2 ${(isUser || isAiSupport) ? 'border-black/[0.18] bg-black/[0.05]' : 'border-white/20 bg-white/10'}`}>
                                         {isImage && <button type="button" onClick={() => setPreviewImage(attachment)} className="mb-2 block overflow-hidden rounded-lg"><img src={attachment.url} alt={attachment.filename} className="max-h-48 max-w-full object-cover" /></button>}
                                         <div className="flex items-center gap-2">
                                           {isImage ? <ImageIcon size={15} /> : <FileText size={15} />}
@@ -1405,7 +1405,7 @@ export const ChatsPage: React.FC = () => {
                 })}
                 {Boolean(activeRealtime?.customerTyping) && (
                   <div className="flex justify-start">
-                    <div className="rounded-2xl border border-black/10 bg-white px-4 py-2 text-[12px] text-[#666] shadow-sm">
+                    <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-2 text-[12px] text-[#666] shadow-sm">
                       Customer is typing...
                     </div>
                   </div>
@@ -1426,7 +1426,7 @@ export const ChatsPage: React.FC = () => {
               </div>
 
               <div
-                className={`an-chat-composer bg-white border-t border-black/5 shrink-0 ${showMobileConversationMode ? 'sticky bottom-0 p-3' : 'p-4'}`}
+                className={`an-chat-composer bg-white border-t border-black/[0.12] shrink-0 ${showMobileConversationMode ? 'sticky bottom-0 p-3' : 'p-4'}`}
                 style={showMobileConversationMode ? { paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 12px)' } : undefined}
               >
                 <div
@@ -1443,7 +1443,7 @@ export const ChatsPage: React.FC = () => {
                 >
                   <input ref={adminFileInputRef} type="file" multiple className="hidden" onChange={handleAdminFileSelect} />
                   {replyAttachments.length > 0 && (
-                    <div className="flex flex-wrap gap-2 border-b border-black/5 p-2">
+                    <div className="flex flex-wrap gap-2 border-b border-black/[0.12] p-2">
                       {replyAttachments.map((attachment) => (
                         <div key={attachment.url} className="inline-flex max-w-full items-center gap-2 rounded-full bg-black/[0.05] px-3 py-1.5 text-[11px] font-semibold text-[#333]">
                           <Paperclip size={12} />
@@ -1482,7 +1482,7 @@ export const ChatsPage: React.FC = () => {
             </>
           ) : (
             <div className="flex-1 flex items-center justify-center p-6 text-center">
-              <div className="max-w-sm rounded-2xl border border-black/5 bg-white p-8 shadow-sm">
+              <div className="max-w-sm rounded-2xl border border-black/[0.12] bg-white p-8 shadow-sm">
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-black/[0.04]">
                   {staleTicketId ? <AlertCircle size={20} className="text-amber-600" /> : <MessageSquare size={20} className="text-[#777]" />}
                 </div>
@@ -1507,7 +1507,7 @@ export const ChatsPage: React.FC = () => {
       </div>
       {menuConversation && openMenuPosition && (
         <div
-          className="fixed z-[250] w-48 overflow-hidden rounded-xl border border-black/10 bg-white py-1 text-left text-[12px] shadow-xl"
+          className="fixed z-[250] w-48 overflow-hidden rounded-xl border border-black/[0.18] bg-white py-1 text-left text-[12px] shadow-xl"
           style={{ top: openMenuPosition.top, left: openMenuPosition.left }}
         >
           <button type="button" onClick={(e) => { e.stopPropagation(); window.open(`${window.location.origin}/admin/chats/${menuConversation.id}`, '_blank', 'noopener,noreferrer'); setOpenMenuId(null); setOpenMenuPosition(null); }} className="flex w-full items-center gap-2 px-3 py-2 hover:bg-black/[0.04]"><UserCircle size={14} /> Open in new window</button>
@@ -1540,7 +1540,7 @@ export const ChatsPage: React.FC = () => {
       {profileConversation && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/30 p-4" onClick={() => setProfileConversation(null)}>
           <div className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b border-black/10 px-4 py-3">
+            <div className="border-b border-black/[0.18] px-4 py-3">
               <div className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-[11px] font-bold text-white">{customerLabel(profileConversation).slice(0, 2).toUpperCase()}</div>
                 <div className="min-w-0 flex-1">
@@ -1551,14 +1551,14 @@ export const ChatsPage: React.FC = () => {
             </div>
             <div className="max-h-[62vh] overflow-y-auto px-4 py-2 md:max-h-[58vh]">
               {profileFields.map(([label, value]) => (
-                <div key={label} className="grid grid-cols-[110px_1fr] items-start gap-2 border-b border-black/5 py-2.5 text-[13px] last:border-b-0">
+                <div key={label} className="grid grid-cols-[110px_1fr] items-start gap-2 border-b border-black/[0.12] py-2.5 text-[13px] last:border-b-0">
                   <div className="text-[10px] font-semibold uppercase tracking-wide text-[#8a8a8a]">{label}</div>
                   <div className="break-words font-medium text-[#171717]">{value}</div>
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-2 gap-2 border-t border-black/10 p-3">
-              <button onClick={copyTicketLink} className="rounded-lg border border-black/10 bg-white px-3 py-2 text-[12px] font-semibold text-[#171717] hover:border-black/30">Copy link</button>
+            <div className="grid grid-cols-2 gap-2 border-t border-black/[0.18] p-3">
+              <button onClick={copyTicketLink} className="rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[12px] font-semibold text-[#171717] hover:border-black/30">Copy link</button>
               <button onClick={() => setProfileConversation(null)} className="rounded-lg bg-black px-3 py-2 text-[12px] font-semibold text-white">Close</button>
             </div>
           </div>

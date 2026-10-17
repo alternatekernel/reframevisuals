@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, XCircle, RefreshCw } from 'lucide-react';
 import { cx, layout, tokens, typography } from '../../utils/theme';
@@ -131,11 +131,11 @@ const ServiceScope: React.FC<ServiceScopeProps> = ({ service }) => {
                 <p className="font-bold text-[var(--color-text-primary)]">14-Day Window</p>
                 <p className="text-black/60 mt-1">Submit adjustment requests within 2 weeks of raw file delivery.</p>
               </div>
-              <div className="border-t border-black/5 pt-4">
+              <div className="border-t border-black/[0.12] pt-4">
                 <p className="font-bold text-[var(--color-text-primary)]">Dashboard Markup</p>
                 <p className="text-black/60 mt-1">Open your project dashboard, select the image, and mark revisions directly.</p>
               </div>
-              <div className="border-t border-black/5 pt-4">
+              <div className="border-t border-black/[0.12] pt-4">
                 <p className="font-bold text-[var(--color-text-primary)]">SLA Matching</p>
                 <p className="text-black/60 mt-1">Adjustments are returned matching the speed of your original order.</p>
               </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
@@ -51,7 +51,7 @@ const FloatingCurrencySelector: React.FC = () => {
       <button
         type="button"
         onClick={() => setOpen((next) => !next)}
-        className="relative min-h-11 rounded-full border border-black/10 bg-white pl-3 pr-9 text-[12px] font-semibold text-[#171717] hover:bg-black/[0.02] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 shadow-[0_12px_30px_rgba(0,0,0,0.12)]"
+        className="relative min-h-11 rounded-full border border-black/[0.18] bg-white pl-3 pr-9 text-[12px] font-semibold text-[#171717] hover:bg-black/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 shadow-[0_12px_30px_rgba(0,0,0,0.12)]"
         aria-label="Select currency"
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -60,7 +60,7 @@ const FloatingCurrencySelector: React.FC = () => {
           <img
             src={CURRENCY_FLAGS[currency].src}
             alt={CURRENCY_FLAGS[currency].alt}
-            className="w-4 h-4 rounded-full object-cover border border-black/10"
+            className="w-4 h-4 rounded-full object-cover border border-black/[0.18]"
             loading="lazy"
           />
           <span>{currency}</span>
@@ -82,7 +82,7 @@ const FloatingCurrencySelector: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.98 }}
             transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-full left-0 mb-2 w-36 overflow-hidden rounded-2xl border border-black/10 bg-white/95 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.14)] backdrop-blur-xl z-[320]"
+            className="absolute bottom-full left-0 mb-2 w-36 overflow-hidden rounded-2xl border border-black/[0.18] bg-white/95 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.14)] backdrop-blur-xl z-[320]"
             role="listbox"
             aria-label="Currency options"
           >
@@ -107,7 +107,7 @@ const FloatingCurrencySelector: React.FC = () => {
                   <img
                     src={CURRENCY_FLAGS[code].src}
                     alt={CURRENCY_FLAGS[code].alt}
-                    className="w-4 h-4 rounded-full object-cover border border-black/10"
+                    className="w-4 h-4 rounded-full object-cover border border-black/[0.18]"
                     loading="lazy"
                   />
                   <span>{code}</span>

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 import { SERVICES } from '../data/services';
 import PortfolioHero from '../sections/portfolio/PortfolioHero';
 import { Link } from 'react-router-dom';
@@ -72,9 +72,9 @@ const PortfolioPage = () => {
           <article
             key={service.id}
             aria-label={`${service.name} — client work before and after example`}
-            className="group rounded-[24px] border border-black/10 bg-white p-1 shadow-[0_14px_40px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_24px_60px_rgba(15,23,42,0.08)]"
+            className="group rounded-[24px] border border-black/[0.18] bg-white p-1 shadow-[0_14px_40px_rgba(0,0,0,0.11)] transition-shadow duration-300 hover:shadow-[0_24px_60px_rgba(15,23,42,0.14)]"
           >
-            <div className="grid grid-cols-2 rounded-[20px] overflow-hidden border border-black/5">
+            <div className="grid grid-cols-2 rounded-[20px] overflow-hidden border border-black/[0.12]">
               <div className="relative">
                 <img
                   src={service.beforeImage}

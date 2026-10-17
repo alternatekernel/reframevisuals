@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cx } from "../../utils/theme"
 import { X, ChevronDown, AlertCircle } from "lucide-react"
 
@@ -8,7 +8,7 @@ const fieldBase =
   "placeholder:text-black/30 " +
   "border-black/[0.13] hover:border-black/25 " +
   "focus:border-[var(--brand,#0A0A0B)]/35 focus:ring-2 focus:ring-[var(--brand,#0A0A0B)]/8 " +
-  "disabled:cursor-not-allowed disabled:bg-black/[0.02] disabled:opacity-60"
+  "disabled:cursor-not-allowed disabled:bg-black/[0.04] disabled:opacity-60"
 
 const fieldError =
   "border-rose-400 hover:border-rose-500 focus:border-rose-500 focus:ring-2 focus:ring-rose-500/15"

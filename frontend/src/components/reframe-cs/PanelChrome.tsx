@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { ArrowRight, MessageSquare, Minus, Plus } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { conversationTitle, sortConversations, type WidgetNavItem } from './Sidebar';
@@ -21,7 +21,7 @@ const roundButton = 'flex h-8 w-8 shrink-0 items-center justify-center rounded-f
 export const PanelHeader = ({
   title, showIntro, introTitle, showSignUp, showCollapse, showDashboard, onSignUp, onCollapse, onDashboard,
 }: HeaderProps) => (
-  <header className={`flex shrink-0 justify-between gap-3 border-b border-black/[0.08] bg-white px-4 sm:px-6 ${showIntro ? 'items-start py-3' : 'h-14 items-center sm:h-12'}`}>
+  <header className={`flex shrink-0 justify-between gap-3 border-b border-black/[0.16] bg-white px-4 sm:px-6 ${showIntro ? 'items-start py-3' : 'h-14 items-center sm:h-12'}`}>
     <div className="min-w-0 flex-1">
       {showIntro ? (
         <>
@@ -73,7 +73,7 @@ interface MobileTabsProps {
 const pill = 'flex min-h-[40px] shrink-0 items-center gap-1.5 rounded-full px-3 text-[12px] font-semibold transition-colors';
 
 export const MobileTabs = ({ orderLabel, orderActive, orderHighlighted, onOrderAction, chatActive, onChats, navItems }: MobileTabsProps) => (
-  <div className="shrink-0 overflow-x-auto border-b border-black/[0.08] bg-white px-4 py-2 scrollbar-hide">
+  <div className="shrink-0 overflow-x-auto border-b border-black/[0.16] bg-white px-4 py-2 scrollbar-hide">
     <div className="flex min-w-max items-center gap-2">
       <button
         type="button"
@@ -108,7 +108,7 @@ interface ChipsProps {
 export const ConversationChips = ({ conversations, activeId, pinnedIds, onSelect, onNewChat }: ChipsProps) => {
   if (!conversations.length) return null;
   return (
-    <div className="flex shrink-0 gap-2 overflow-x-auto border-b border-black/[0.05] bg-white px-4 py-2 scrollbar-hide">
+    <div className="flex shrink-0 gap-2 overflow-x-auto border-b border-black/[0.20] bg-white px-4 py-2 scrollbar-hide">
       <button type="button" onClick={onNewChat} className={`min-h-9 shrink-0 rounded-full border px-3 text-[11px] font-semibold ${!activeId ? 'border-[var(--research-blue)] bg-[var(--research-blue-light)] text-[#171717]' : 'border-dashed border-black/15 text-[#555]'}`}>
         + New
       </button>
@@ -118,7 +118,7 @@ export const ConversationChips = ({ conversations, activeId, pinnedIds, onSelect
           type="button"
           onClick={() => onSelect(conversation.id)}
           className={`min-h-9 max-w-[160px] shrink-0 rounded-full border px-3 text-left text-[11px] font-semibold ${
-            conversation.id === activeId ? 'border-[var(--research-blue)] bg-[var(--research-blue-light)] text-[#171717]' : 'border-black/10 bg-white text-[#555]'
+            conversation.id === activeId ? 'border-[var(--research-blue)] bg-[var(--research-blue-light)] text-[#171717]' : 'border-black/[0.18] bg-white text-[#555]'
           }`}
         >
           <span className="block truncate">{conversationTitle(conversation)}</span>
@@ -131,7 +131,7 @@ export const ConversationChips = ({ conversations, activeId, pinnedIds, onSelect
 const statusTone = (status: string) => (
   status === 'processing' ? 'bg-[var(--research-blue-light)] border-[var(--research-blue)]/30'
     : status === 'review' ? 'bg-[var(--research-peach-light)] border-[var(--research-peach)]/30'
-      : 'bg-white border-black/10'
+      : 'bg-white border-black/[0.18]'
 );
 
 const EmptyState = ({ text, actionLabel, onAction }: { text: string; actionLabel?: string; onAction?: () => void }) => (
@@ -161,7 +161,7 @@ export const AccountTab = ({ tab, onStartOrder, onOpenPath }: {
           <ul className="space-y-3">
             {active.map(job => (
               <li key={job.id}>
-                <button type="button" onClick={() => onOpenPath('/dashboard')} className="relative w-full overflow-hidden rounded-xl border border-black/10 bg-white p-4 text-left transition-colors hover:border-black/20">
+                <button type="button" onClick={() => onOpenPath('/dashboard')} className="relative w-full overflow-hidden rounded-xl border border-black/[0.18] bg-white p-4 text-left transition-colors hover:border-black/20">
                   <div className="mb-2 flex items-center justify-between gap-2">
                     <span className="flex min-w-0 items-center gap-2">
                       <span className="truncate text-[13px] font-semibold text-[#171717]">{job.title}</span>
@@ -179,7 +179,7 @@ export const AccountTab = ({ tab, onStartOrder, onOpenPath }: {
         {tab === 'orders' && (delivered.length ? (
           <ul className="space-y-3">
             {delivered.map(order => (
-              <li key={order.id} className="flex items-center justify-between gap-3 rounded-xl border border-black/10 bg-white p-4">
+              <li key={order.id} className="flex items-center justify-between gap-3 rounded-xl border border-black/[0.18] bg-white p-4">
                 <div className="min-w-0">
                   <p className="truncate text-[13px] font-semibold text-[#171717]">{order.title}</p>
                   <p className="mt-1 text-[11px] text-[#808080]">ID {String(order.id).slice(0, 8)} · ${order.totalPrice}</p>
@@ -197,7 +197,7 @@ export const AccountTab = ({ tab, onStartOrder, onOpenPath }: {
           return files.length ? (
             <div className="grid grid-cols-3 gap-3">
               {files.map((file: any) => (
-                <a key={file.url} href={file.url} target="_blank" rel="noreferrer" download className="group relative aspect-square overflow-hidden rounded-xl border border-black/10 bg-white">
+                <a key={file.url} href={file.url} target="_blank" rel="noreferrer" download className="group relative aspect-square overflow-hidden rounded-xl border border-black/[0.18] bg-white">
                   <img src={file.url} alt={file.name || 'Delivered image'} loading="lazy" className="h-full w-full object-cover" />
                   <span className="absolute inset-0 flex items-center justify-center bg-black/0 text-[10px] font-bold uppercase tracking-wider text-white opacity-0 transition-all group-hover:bg-black/40 group-hover:opacity-100">Download</span>
                 </a>

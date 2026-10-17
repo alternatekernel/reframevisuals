@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -63,7 +63,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
 
   return (
     <div className="bg-[var(--color-bg-secondary)]">
-      <section className="px-5 sm:px-6 border-b border-black/5 sticky top-[64px] sm:top-[72px] bg-white/90 backdrop-blur-xl z-20">
+      <section className="px-5 sm:px-6 border-b border-black/[0.12] sticky top-[64px] sm:top-[72px] bg-white/90 backdrop-blur-xl z-20">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center gap-4 sm:gap-10 overflow-x-auto no-scrollbar py-2.5 sm:py-4">
             {categories.map((cat) => {
@@ -98,7 +98,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
             >
               <Link
                 to={`/blog/${featuredPost.slug}`}
-                className="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch rounded-3xl border border-black/10 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch rounded-3xl border border-black/[0.18] bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="md:w-[46%] shrink-0">
                   <div className="h-full min-h-[220px] md:min-h-[300px] overflow-hidden bg-black/5">
@@ -168,7 +168,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                   <div className="flex-1 space-y-2.5 sm:space-y-3">
                     <div className="flex items-center gap-2 text-[10px] font-bold text-black/30 uppercase tracking-[0.08em] sm:tracking-widest flex-wrap">
                       {post.category && categoryLabelMap[post.category] && (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-black/5 border border-black/10 text-black/50">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-black/5 border border-black/[0.18] text-black/50">
                           {categoryLabelMap[post.category]}
                         </span>
                       )}
@@ -209,7 +209,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                   <div className="pt-5 sm:pt-8 flex justify-center">
                     <button
                       onClick={() => handleLoadMore(viewKey)}
-                      className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-black/10 hover:border-black/30 hover:bg-black/5 transition-all"
+                      className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-black/[0.18] hover:border-black/30 hover:bg-black/5 transition-all"
                     >
                       <span className="text-[11px] sm:text-[12px] font-black uppercase tracking-[0.08em] sm:tracking-widest">Load More Articles</span>
                       <div className="w-5 h-5 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">

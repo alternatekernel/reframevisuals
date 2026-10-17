@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Bot, Box, Cloud, ExternalLink, Share2, Zap } from 'lucide-react';
 import { cx, layout, typography } from '../utils/theme';
 
@@ -26,7 +26,7 @@ const Integrations = () => {
             </p>
           </div>
 
-          <div className="rounded-[28px] border border-black/10 bg-white p-3 shadow-[0_18px_60px_-50px_rgba(0,0,0,0.5)]">
+          <div className="rounded-[28px] border border-black/[0.18] bg-white p-3 shadow-[0_18px_60px_-50px_rgba(0,0,0,0.5)]">
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-3">
               {INTEGRATIONS.map((item, index) => (
                 <motion.article
@@ -37,11 +37,11 @@ const Integrations = () => {
                   viewport={{ once: true, margin: '-80px' }}
                   className={cx(
                     'group flex items-center gap-3 rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white lg:min-h-[150px] lg:flex-col lg:justify-center lg:text-center',
-                    'border-black/10 bg-white hover:border-black/18'
+                    'border-black/[0.18] bg-white hover:border-black/18'
                   )}
                 >
                   <div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-black/10 bg-white transition-transform group-hover:scale-105"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-black/[0.18] bg-white transition-transform group-hover:scale-105"
                     style={{ color: item.color }}
                   >
                     <item.icon size={20} strokeWidth={1.8} />

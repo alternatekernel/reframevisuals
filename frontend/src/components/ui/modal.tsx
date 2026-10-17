@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { cx } from "../../utils/theme"
@@ -73,7 +73,7 @@ export const Modal: React.FC<ModalProps> = ({
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
             className={cx(
-              "relative z-10 w-full overflow-hidden rounded-2xl border border-black/10 bg-white p-6 sm:p-7 shadow-[0_24px_64px_rgba(0,0,0,0.2)] text-left",
+              "relative z-10 w-full overflow-hidden rounded-2xl border border-black/[0.18] bg-white p-6 sm:p-7 shadow-[0_24px_64px_rgba(0,0,0,0.2)] text-left",
               sizeClasses,
               className,
             )}
@@ -130,7 +130,7 @@ export const ModalFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => (
   <div
     className={cx(
-      "mt-6 flex flex-wrap items-center justify-end gap-3 border-t border-black/8 pt-4",
+      "mt-6 flex flex-wrap items-center justify-end gap-3 border-t border-black/[0.16] pt-4",
       className,
     )}
     {...props}

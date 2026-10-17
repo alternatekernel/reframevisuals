@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
@@ -55,7 +55,7 @@ const ServiceHoverCard: React.FC<ServiceHoverCardProps> = ({
           }}
         >
           <Link to={`/services/${service.id}`} className="block">
-            <div className="bg-white rounded-[24px] border-[0.5px] border-black/10 p-1 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2)] overflow-hidden">
+            <div className="bg-white rounded-[24px] border-[0.5px] border-black/[0.18] p-1 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.2)] overflow-hidden">
               {/* Image area - Explicit 4:5 Aspect Ratio */}
               <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] bg-gray-50/50 flex items-center justify-center">
                 {service.afterImage ? (

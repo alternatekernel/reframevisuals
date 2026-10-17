@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useContent } from '../context/ContentBase';
@@ -73,7 +73,7 @@ const ResetPasswordPage = () => {
       </div>
 
       <div className="mx-auto w-full max-w-5xl relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+        <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
           
           {/* Logo Watermark Overlay */}
           <div className="pointer-events-none absolute inset-0">
@@ -82,7 +82,7 @@ const ResetPasswordPage = () => {
           </div>
 
           {/* LEFT PANEL: Form / Success content */}
-          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             {isSuccess ? (
               <div className="space-y-6 py-4">
                 <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center border border-green-100 shadow-sm">
@@ -124,7 +124,7 @@ const ResetPasswordPage = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="••••••••"
-                          className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[14px] font-medium outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-black/30 focus:bg-white focus:ring-1 focus:ring-black/5 pr-10"
+                          className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[14px] font-medium outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-black/30 focus:bg-white focus:ring-1 focus:ring-black/5 pr-10"
                           required
                         />
                         <button
@@ -145,7 +145,7 @@ const ResetPasswordPage = () => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[14px] font-medium outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-black/30 focus:bg-white focus:ring-1 focus:ring-black/5"
+                        className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[14px] font-medium outline-none transition-[border-color,box-shadow,background-color] duration-200 focus:border-black/30 focus:bg-white focus:ring-1 focus:ring-black/5"
                         required
                       />
                     </div>
@@ -172,7 +172,7 @@ const ResetPasswordPage = () => {
           </div>
 
           {/* RIGHT PANEL: Info content */}
-          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
             <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Password Guidelines</h3>
             <div className="space-y-8">
               <div>

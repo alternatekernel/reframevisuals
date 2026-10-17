@@ -1,4 +1,4 @@
-import ScrollReveal from '../components/common/ScrollReveal';
+﻿import ScrollReveal from '../components/common/ScrollReveal';
 
 // Named clients — add logoUrl (Cloudinary or absolute URL) when available
 const NAMED_CLIENTS = [
@@ -30,7 +30,7 @@ const ClientLogoRow = () => (
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Visit ${client.name} website`}
-          className="flex min-w-[150px] items-center justify-center rounded-2xl px-4 py-2 transition duration-200 hover:bg-black/[0.03] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+          className="flex min-w-[150px] items-center justify-center rounded-2xl px-4 py-2 transition duration-200 hover:bg-black/[0.05] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
           itemScope
           itemType="https://schema.org/Organization"
         >

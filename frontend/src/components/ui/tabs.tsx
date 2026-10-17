@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { motion } from "framer-motion"
 import { cx } from "../../utils/theme"
 
@@ -38,7 +38,7 @@ export const Tabs: React.FC<TabsProps> = ({
       <div
         role="tablist"
         className={cx(
-          "inline-flex items-center rounded-xl bg-black/[0.05] p-1 border border-black/5 select-none",
+          "inline-flex items-center rounded-xl bg-black/[0.05] p-1 border border-black/[0.12] select-none",
           className,
         )}
       >
@@ -84,7 +84,7 @@ export const Tabs: React.FC<TabsProps> = ({
       <div
         role="tablist"
         className={cx(
-          "flex items-center border-b border-black/10 select-none space-x-1 sm:space-x-2",
+          "flex items-center border-b border-black/[0.18] select-none space-x-1 sm:space-x-2",
           className,
         )}
       >

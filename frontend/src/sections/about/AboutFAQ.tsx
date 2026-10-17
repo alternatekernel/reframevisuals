@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { cx, layout, tokens, typography } from '../../utils/theme';
 
@@ -64,7 +64,7 @@ const AboutFAQ = () => {
               viewport={{ once: true }}
               transition={{ delay: i * 0.05, duration: 0.5 }}
               className={cx(
-                "p-5 sm:p-6 bg-white border border-black/10",
+                "p-5 sm:p-6 bg-white border border-black/[0.18]",
                 tokens.radiusCard
               )}
               style={{ boxShadow: tokens.shadowStandard }}

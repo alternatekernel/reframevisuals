@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cx } from "../../utils/theme"
 import { X } from "lucide-react"
@@ -15,7 +15,7 @@ const badgeVariants = cva(
         subtle:
           "border border-[var(--brand,#E97451)]/20 bg-[var(--brand,#E97451)]/10 text-[var(--brand,#E97451)]",
         secondary:
-          "border border-black/10 bg-black/[0.04] text-[var(--color-text-primary,#0A0A0B)]",
+          "border border-black/[0.18] bg-black/[0.04] text-[var(--color-text-primary,#0A0A0B)]",
         outline:
           "border border-black/15 bg-transparent text-[var(--color-text-primary,#0A0A0B)]",
         white:

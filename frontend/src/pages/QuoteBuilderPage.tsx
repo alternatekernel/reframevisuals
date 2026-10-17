@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Check, ShieldCheck, Calculator } from 'lucide-react';
 
@@ -125,7 +125,7 @@ const QuoteBuilderPage: React.FC = () => {
       </div>
 
       <div className="mx-auto w-full max-w-5xl relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+        <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
           
           {/* Logo Watermark Overlay */}
           <div className="pointer-events-none absolute inset-0">
@@ -134,7 +134,7 @@ const QuoteBuilderPage: React.FC = () => {
           </div>
 
           {/* LEFT PANEL: Form / Calculator */}
-          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             {submitted ? (
               <div className="space-y-6 py-4">
                 <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center border border-green-100 shadow-sm">
@@ -148,7 +148,7 @@ const QuoteBuilderPage: React.FC = () => {
                 </div>
                 <button 
                   onClick={() => setSubmitted(false)}
-                  className="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full border border-black/10 bg-white px-6 text-[14px] font-semibold text-[var(--color-text-primary)] shadow-sm hover:bg-[var(--color-bg-secondary)] transition-all duration-300"
+                  className="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full border border-black/[0.18] bg-white px-6 text-[14px] font-semibold text-[var(--color-text-primary)] shadow-sm hover:bg-[var(--color-bg-secondary)] transition-all duration-300"
                 >
                   Build another quote
                 </button>
@@ -179,7 +179,7 @@ const QuoteBuilderPage: React.FC = () => {
                             className={`flex items-center justify-between p-3 rounded-xl border transition-all text-left text-[13px] font-semibold ${
                               isSelected
                                 ? 'bg-black text-white border-transparent'
-                                : 'bg-[var(--color-bg-secondary)] border-black/10 text-black/70 hover:border-black/30'
+                                : 'bg-[var(--color-bg-secondary)] border-black/[0.18] text-black/70 hover:border-black/30'
                             }`}
                           >
                             <span>{service.name}</span>
@@ -203,7 +203,7 @@ const QuoteBuilderPage: React.FC = () => {
                         max={50000}
                         value={volume}
                         onChange={(e) => setVolume(Math.max(1, parseInt(e.target.value) || 0))}
-                        className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                        className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                         required
                       />
                       {discountPercent > 0 && (
@@ -218,7 +218,7 @@ const QuoteBuilderPage: React.FC = () => {
                         id="quote-turnaround"
                         value={turnaround}
                         onChange={(e) => setTurnaround(e.target.value)}
-                        className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[46px]"
+                        className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[46px]"
                       >
                         <option value="48">48h Relaxed (Base)</option>
                         <option value="24">24h Standard (+25%)</option>
@@ -228,7 +228,7 @@ const QuoteBuilderPage: React.FC = () => {
                   </div>
 
                   {/* Pricing metrics panel */}
-                  <div className="rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-4 sm:p-5 space-y-2.5">
+                  <div className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 space-y-2.5">
                     <div className="flex justify-between text-[13px] text-black/60 font-semibold">
                       <span>Rate per image</span>
                       <span>${selectedBaseRate.toFixed(2)}</span>
@@ -245,7 +245,7 @@ const QuoteBuilderPage: React.FC = () => {
                         <span>x{turnaroundMultiplier}</span>
                       </div>
                     )}
-                    <div className="border-t border-black/5 pt-2 flex justify-between items-center">
+                    <div className="border-t border-black/[0.12] pt-2 flex justify-between items-center">
                       <div className="flex items-center gap-1.5 text-[14px] font-bold text-black/80">
                         <Calculator size={16} />
                         <span>Estimated Total</span>
@@ -257,7 +257,7 @@ const QuoteBuilderPage: React.FC = () => {
                   </div>
 
                   {/* Lead Submission Form */}
-                  <div className="border-t border-black/5 pt-4 space-y-4">
+                  <div className="border-t border-black/[0.12] pt-4 space-y-4">
                     <h4 className="text-[14px] font-semibold text-black/70">4. Request Formal Proposal</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -267,7 +267,7 @@ const QuoteBuilderPage: React.FC = () => {
                           type="text"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                           required
                         />
                       </div>
@@ -278,7 +278,7 @@ const QuoteBuilderPage: React.FC = () => {
                           type="text"
                           value={company}
                           onChange={(e) => setCompany(e.target.value)}
-                          className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                          className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                           required
                         />
                       </div>
@@ -290,7 +290,7 @@ const QuoteBuilderPage: React.FC = () => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                        className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                         required
                       />
                     </div>
@@ -317,7 +317,7 @@ const QuoteBuilderPage: React.FC = () => {
           </div>
 
           {/* RIGHT PANEL: Pricing Standards */}
-          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
             <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Pricing Standards</h3>
             <div className="space-y-8">
               <div>
@@ -338,7 +338,7 @@ const QuoteBuilderPage: React.FC = () => {
                   The larger your catalog, the more you save. Discount tiers apply automatically to bulk orders over 100 images.
                 </p>
               </div>
-              <div className="pt-4 border-t border-black/5 flex items-center gap-2">
+              <div className="pt-4 border-t border-black/[0.12] flex items-center gap-2">
                 <ShieldCheck size={16} className="text-black/40" />
                 <span className="text-[12px] text-black/40 font-semibold tracking-wide">SOC2 & Transit Encrypted</span>
               </div>

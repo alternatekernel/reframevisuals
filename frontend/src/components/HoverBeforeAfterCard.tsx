@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+﻿import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1680&h=2100&auto=format&fit=crop';
@@ -137,7 +137,7 @@ const HoverBeforeAfterCard: React.FC<HoverBeforeAfterCardProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`bg-white aspect-[4/5] border border-black/5 relative overflow-hidden select-none ${isDragging ? 'cursor-col-resize' : 'cursor-pointer'} ${className}`}
+      className={`bg-white aspect-[4/5] border border-black/[0.12] relative overflow-hidden select-none ${isDragging ? 'cursor-col-resize' : 'cursor-pointer'} ${className}`}
       onPointerDown={handlePointerDown}
       itemScope
       itemType="https://schema.org/VisualArtwork"

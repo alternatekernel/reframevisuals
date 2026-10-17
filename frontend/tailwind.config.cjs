@@ -30,6 +30,10 @@ module.exports = {
         'text-muted': 'var(--color-text-muted)',
         'bg-primary': 'var(--color-bg-primary)',
         'bg-secondary': 'var(--color-bg-secondary)',
+        // Design system surface tokens — must match dashboard-primitives.tsx usage
+        'borderSubtle': 'rgba(0,0,0,0.12)',
+        'borderLight': 'rgba(0,0,0,0.18)',
+        'surfaceMuted': '#F0F0F0',
         // Notion-style Admin colors
         'notion': {
           DEFAULT: '#37352F',

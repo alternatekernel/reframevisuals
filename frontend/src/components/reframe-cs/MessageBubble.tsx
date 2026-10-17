@@ -1,4 +1,4 @@
-import { memo, useRef, type ReactNode } from 'react';
+﻿import { memo, useRef, type ReactNode } from 'react';
 import { Check, Paperclip, RotateCw, Users } from 'lucide-react';
 import MarkdownRenderer from '../chat/MarkdownRenderer';
 import SuggestedActions from '../chat/SuggestedActions';
@@ -46,7 +46,7 @@ const MessageExtras = ({ message, onNavigate }: { message: ChatMessage; onNaviga
           href={orderCard.customerLink}
           target="_blank"
           rel="noreferrer"
-          className="mt-2 block rounded-xl border border-black/10 bg-white p-3 text-[12px] text-[#171717] shadow-sm"
+          className="mt-2 block rounded-xl border border-black/[0.18] bg-white p-3 text-[12px] text-[#171717] shadow-sm"
         >
           <div className="flex items-start justify-between gap-2">
             <span className="font-bold">{orderCard.code || orderCard.orderId || 'Order'}</span>
@@ -61,7 +61,7 @@ const MessageExtras = ({ message, onNavigate }: { message: ChatMessage; onNaviga
       {attachments.length > 0 && (
         <div className="mt-2 space-y-2">
           {attachments.map(attachment => (
-            <div key={attachment.url} className="rounded-xl border border-black/10 bg-white/80 p-2 text-[#171717]">
+            <div key={attachment.url} className="rounded-xl border border-black/[0.18] bg-white/80 p-2 text-[#171717]">
               {isImageAttachment(attachment) && (
                 <a href={attachment.url} target="_blank" rel="noreferrer" className="mb-2 block overflow-hidden rounded-lg">
                   <img src={attachment.url} alt={attachment.filename} loading="lazy" className="max-h-40 max-w-full object-cover" />
@@ -106,7 +106,7 @@ const MessageBubble = ({
     <button
       type="button"
       onClick={onRequestHuman}
-      className="mt-3 flex items-center gap-2 rounded-lg border border-black/[0.08] bg-black/[0.04] px-3 py-1.5 text-[12px] font-semibold text-[#171717] transition-colors hover:bg-black/[0.08]"
+      className="mt-3 flex items-center gap-2 rounded-lg border border-black/[0.16] bg-black/[0.04] px-3 py-1.5 text-[12px] font-semibold text-[#171717] transition-colors hover:bg-black/[0.08]"
     >
       <Users size={12} />
       Talk to a human
@@ -140,8 +140,8 @@ const MessageBubble = ({
             {handoff}
           </div>
         ) : (
-          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.08] bg-white text-[13px] text-[#171717] shadow-sm">
-            <div className="flex items-center gap-2 border-b border-black/[0.05] px-4 py-2">
+          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.16] bg-white text-[13px] text-[#171717] shadow-sm">
+            <div className="flex items-center gap-2 border-b border-black/[0.20] px-4 py-2">
               <span className="h-2 w-2 shrink-0 rounded-full bg-[#171717]" />
               <span className="text-[11px] font-semibold tracking-tight">Reframe CS</span>
               {message.pending ? (
@@ -155,7 +155,7 @@ const MessageBubble = ({
               {handoff}
             </div>
             {actions.length > 0 && (
-              <div className="border-t border-black/[0.04] px-4 pb-3 pt-1">
+              <div className="border-t border-black/[0.20] px-4 pb-3 pt-1">
                 <SuggestedActions actions={actions} onActionClick={onAction} />
               </div>
             )}

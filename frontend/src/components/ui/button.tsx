@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cx } from "../../utils/theme"
@@ -24,11 +24,11 @@ const buttonVariants = cva(
           // Inverted brand: white bg, brand-colored border + text; fills with brand on hover
           "border border-[var(--brand,#0A0A0B)] bg-white text-[var(--brand,#0A0A0B)] shadow-sm hover:bg-[var(--brand,#0A0A0B)] hover:text-white transition-colors duration-200",
         white:
-          "border border-black/10 bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:border-black/20 hover:bg-[var(--color-bg-secondary,#F8F9FD)]",
+          "border border-black/[0.18] bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_2px_8px_rgba(0,0,0,0.09)] hover:border-black/20 hover:bg-[var(--color-bg-secondary,#F8F9FD)]",
         secondary:
-          "border border-black/12 bg-white text-[var(--color-text-primary,#0A0A0B)] hover:border-black/22 hover:bg-black/[0.025] shadow-sm",
+          "border border-black/[0.20] bg-white text-[var(--color-text-primary,#0A0A0B)] hover:border-black/22 hover:bg-black/[0.05] shadow-sm",
         outline:
-          "border border-black/15 bg-transparent text-[var(--color-text-primary,#0A0A0B)] hover:border-black/30 hover:bg-black/[0.03]",
+          "border border-black/15 bg-transparent text-[var(--color-text-primary,#0A0A0B)] hover:border-black/30 hover:bg-black/[0.05]",
 
         // ── Low-emphasis ────────────────────────────────────────────────
         ghost:

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+﻿import { useEffect, useState, useRef } from 'react';
 import { Monitor, MessageSquare, PackageCheck, UploadCloud, Headphones, Bot } from 'lucide-react';
 import ReframeCS from '../components/ReframeCS';
 import { motion } from 'framer-motion';
@@ -10,7 +10,7 @@ const featureItems = [
     title: 'Skip email loops',
     text: 'Direct support chat without inbox delays.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
   {
@@ -18,7 +18,7 @@ const featureItems = [
     title: 'Place and manage orders',
     text: 'Start new orders and track progress live.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
   {
@@ -26,7 +26,7 @@ const featureItems = [
     title: 'Upload files',
     text: 'Drag & drop images, briefs, and references.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
   {
@@ -34,7 +34,7 @@ const featureItems = [
     title: 'Support anytime',
     text: 'Instant human help for any project updates.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
   {
@@ -42,7 +42,7 @@ const featureItems = [
     title: 'Desktop app coming soon',
     text: 'Stay connected with native apps for macOS and Windows.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
   {
@@ -50,7 +50,7 @@ const featureItems = [
     title: 'AI Agent Ready',
     text: 'Your AI agent can interact and manage orders.',
     bg: 'bg-white',
-    border: 'border border-black/10 hover:border-black/20 hover:shadow-md shadow-sm',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
     iconColor: 'text-black/80',
   },
 ];
@@ -155,10 +155,10 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
         >
           <div className={cx(
             "rounded-[16px] border bg-white shadow-[0_24px_72px_rgba(0,0,0,0.09)] overflow-hidden transition-all duration-700",
-            showGlow ? "border-[#3b82f6] ring-4 ring-[#3b82f6]/20 scale-[1.015]" : "border-black/10 scale-100"
+            showGlow ? "border-[#3b82f6] ring-4 ring-[#3b82f6]/20 scale-[1.015]" : "border-black/[0.18] scale-100"
           )}>
             {/* Minimal Top Bar */}
-            <div className="flex items-center gap-4 px-4 py-2.5 bg-[#f6f6f6] border-b border-black/[0.05] select-none">
+            <div className="flex items-center gap-4 px-4 py-2.5 bg-[#f6f6f6] border-b border-black/[0.20] select-none">
               {/* Traffic lights */}
               <div className="flex items-center gap-1.5 shrink-0">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57] block" />

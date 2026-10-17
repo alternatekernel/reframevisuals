@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+﻿import { Suspense, lazy } from 'react';
 import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import ScrollReveal from '../components/common/ScrollReveal';
 import { Helmet } from 'react-helmet-async';
@@ -67,7 +67,7 @@ const LandingPage = () => {
         <div className="grid gap-5 lg:gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
           <ScrollReveal variant="fade-slide" y={30}>
           <div 
-            className="flex flex-col justify-center rounded-2xl border border-black/10 bg-[var(--color-text-primary)] p-6 text-white shadow-[0_18px_48px_rgba(0,0,0,0.12)] sm:p-9 lg:p-12"
+            className="flex flex-col justify-center rounded-2xl border border-black/[0.18] bg-[var(--color-text-primary)] p-6 text-white shadow-[0_18px_48px_rgba(0,0,0,0.12)] sm:p-9 lg:p-12"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -97,28 +97,28 @@ const LandingPage = () => {
                 title: 'Human Photoshop editors',
                 body: 'Every image traced and reviewed by hand before it ships.',
                 bg: 'bg-white',
-                border: 'border-2 border-black/10 hover:border-black/20',
+                border: 'border-2 border-black/[0.18] hover:border-black/20',
                 icon: 'text-black/80',
               },
               {
                 title: 'AI-assisted workflow',
                 body: 'AI handles routine steps. Editors check and correct every image.',
                 bg: 'bg-white',
-                border: 'border-2 border-black/10 hover:border-black/20',
+                border: 'border-2 border-black/[0.18] hover:border-black/20',
                 icon: 'text-black/80',
               },
               {
                 title: 'Built for ecommerce teams',
                 body: 'Amazon, jewelry, apparel, agencies. Any ecommerce seller, any size.',
                 bg: 'bg-white',
-                border: 'border-2 border-black/10 hover:border-black/20',
+                border: 'border-2 border-black/[0.18] hover:border-black/20',
                 icon: 'text-black/80',
               },
               {
                 title: 'Flexible turnaround',
                 body: '12h, 24h, 48h, or 72h. Choose what fits your deadline.',
                 bg: 'bg-white',
-                border: 'border-2 border-black/10 hover:border-black/20',
+                border: 'border-2 border-black/[0.18] hover:border-black/20',
                 icon: 'text-black/80',
               },
             ].map(({ title, body, icon }, i) => (
@@ -183,7 +183,7 @@ const LandingPage = () => {
 
       <ScrollReveal variant="fade-slide" y={25}>
       <section className="max-w-5xl mx-auto px-6 lg:px-10 pt-6 lg:pt-8">
-        <div className="relative overflow-hidden rounded-2xl border border-black/10 animate-card-bg p-5 shadow-sm sm:p-7">
+        <div className="relative overflow-hidden rounded-2xl border border-black/[0.18] animate-card-bg p-5 shadow-sm sm:p-7">
           <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-black/5 blur-2xl hidden sm:block" />
           <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/5 blur-2xl hidden sm:block" />
           <div className="relative z-10 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:gap-8">
@@ -198,14 +198,14 @@ const LandingPage = () => {
             <div className="flex flex-col gap-2.5">
               <Link
                 to="/about"
-                className="group flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 text-[16px] font-medium text-black shadow-sm transition-all duration-300 hover:border-black/20 hover:bg-black/[0.02] active:scale-95"
+                className="group flex items-center justify-between rounded-2xl border border-black/[0.18] bg-white px-4 py-3 text-[16px] font-medium text-black shadow-sm transition-all duration-300 hover:border-black/20 hover:bg-black/[0.04] active:scale-95"
               >
                 <span>About Reframe Visuals</span>
                 <ArrowRight size={14} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/75" />
               </Link>
               <Link
                 to="/reframe-visuals-services"
-                className="group flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 text-[16px] font-medium text-black shadow-sm transition-all duration-300 hover:border-black/20 hover:bg-black/[0.02] active:scale-95"
+                className="group flex items-center justify-between rounded-2xl border border-black/[0.18] bg-white px-4 py-3 text-[16px] font-medium text-black shadow-sm transition-all duration-300 hover:border-black/20 hover:bg-black/[0.04] active:scale-95"
               >
                 <span>Reframe Visuals Services</span>
                 <ArrowRight size={14} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/75" />

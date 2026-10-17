@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CalendarDays, Clock3, Check, ShieldCheck } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
@@ -92,7 +92,7 @@ const BookMeetingPage: React.FC = () => {
       </div>
 
       <div className="mx-auto w-full max-w-5xl relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+        <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
           
           {/* Logo Watermark Overlay */}
           <div className="pointer-events-none absolute inset-0">
@@ -101,7 +101,7 @@ const BookMeetingPage: React.FC = () => {
           </div>
 
           {/* LEFT PANEL: Form and Date Time Picker */}
-          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
               <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Walkthrough</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Schedule call</h1>
@@ -113,7 +113,7 @@ const BookMeetingPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
               
               {/* Date & Time Picker */}
-              <div className="rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-3 sm:p-4 space-y-3">
+              <div className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-3 sm:p-4 space-y-3">
                 <div className="flex items-center gap-2 text-[13px] font-bold text-black/70">
                   <CalendarDays size={16} />
                   <span>Choose preferred slot</span>
@@ -127,7 +127,7 @@ const BookMeetingPage: React.FC = () => {
                       value={formData.meetingDate}
                       min={new Date().toISOString().slice(0, 10)}
                       onChange={(e) => setFormData({ ...formData, meetingDate: e.target.value })}
-                      className="h-[38px] w-full rounded-lg border border-black/10 bg-white px-3 text-[16px] font-medium text-[var(--color-text-primary)] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                      className="h-[38px] w-full rounded-lg border border-black/[0.18] bg-white px-3 text-[16px] font-medium text-[var(--color-text-primary)] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                       required
                     />
                   </div>
@@ -145,7 +145,7 @@ const BookMeetingPage: React.FC = () => {
                           className={`h-[38px] rounded-lg text-[12px] font-bold transition-all border ${
                             formData.meetingTime === slot
                               ? 'bg-[var(--color-text-primary)] text-white border-transparent'
-                              : 'bg-white text-black/70 border-black/10 hover:border-black/30'
+                              : 'bg-white text-black/70 border-black/[0.18] hover:border-black/30'
                           }`}
                         >
                           {slot}
@@ -166,7 +166,7 @@ const BookMeetingPage: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Jane Cooper"
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                     required
                   />
                 </div>
@@ -178,7 +178,7 @@ const BookMeetingPage: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="jane@company.com"
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                     required
                   />
                 </div>
@@ -193,7 +193,7 @@ const BookMeetingPage: React.FC = () => {
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     placeholder="Acme Studios"
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                     required
                   />
                 </div>
@@ -203,7 +203,7 @@ const BookMeetingPage: React.FC = () => {
                     id="meeting-type"
                     value={formData.meetingType}
                     onChange={(e) => setFormData({ ...formData, meetingType: e.target.value })}
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[38px]"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[38px]"
                   >
                     <option>Strategy call</option>
                     <option>Project discussion</option>
@@ -219,7 +219,7 @@ const BookMeetingPage: React.FC = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Tell us about your project needs..."
-                  className="h-16 w-full resize-none rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                  className="h-16 w-full resize-none rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                   required
                 />
               </div>
@@ -243,7 +243,7 @@ const BookMeetingPage: React.FC = () => {
           </div>
 
           {/* RIGHT PANEL: Walkthrough Details */}
-          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
             <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-6">Meeting Details</h3>
             
             <div className="space-y-6">
@@ -275,11 +275,11 @@ const BookMeetingPage: React.FC = () => {
               </div>
 
               {/* Next Steps */}
-              <div className="border-t border-black/5 pt-6 space-y-4">
+              <div className="border-t border-black/[0.12] pt-6 space-y-4">
                 <p className="text-[12px] font-bold text-black/40 uppercase tracking-[0.14em]">What happens next</p>
                 <div className="grid grid-cols-3 gap-2">
                   {nextSteps.map((step, index) => (
-                    <div key={step} className="rounded-lg bg-white p-3 border border-black/5 shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+                    <div key={step} className="rounded-lg bg-white p-3 border border-black/[0.12] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
                       <span className="text-[10px] font-bold text-black/30">0{index + 1}</span>
                       <p className="mt-1 text-[11px] font-bold text-[var(--color-text-primary)] leading-tight">{step}</p>
                     </div>
@@ -288,7 +288,7 @@ const BookMeetingPage: React.FC = () => {
               </div>
 
               {/* QA Note */}
-              <div className="rounded-xl border border-black/10 bg-[var(--color-text-primary)] p-4 text-white shadow-sm space-y-2">
+              <div className="rounded-xl border border-black/[0.18] bg-[var(--color-text-primary)] p-4 text-white shadow-sm space-y-2">
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={16} className="text-white/60" />
                   <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/60">QA Control</p>

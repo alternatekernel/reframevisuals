@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Plus, Image, MoreHorizontal, Search, Download, Loader2, Eye, Star, ArrowRight, ChevronRight } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
@@ -145,7 +145,7 @@ const JobsListView = () => {
                   className={`flex-1 md:flex-none px-4 py-2.5 min-h-[44px] rounded-lg text-[13px] font-medium transition-all ${activeTab === tab ? 'text-text-primary' : 'text-text-secondary'}`}
                   style={{
                     backgroundColor: activeTab === tab ? '#ffffff' : 'transparent',
-                    boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.06)' : 'none'
+                    boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.11)' : 'none'
                   }}
                 >
                   {tab}
@@ -243,7 +243,7 @@ const JobsListView = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-end gap-2 border-t border-black/5 pt-3 md:col-span-1 md:border-t-0 md:pt-0">
+                    <div className="flex items-center justify-end gap-2 border-t border-black/[0.12] pt-3 md:col-span-1 md:border-t-0 md:pt-0">
                       {job.status === 'Complete' && (
                         <button
                           className="p-2 rounded-lg flex items-center justify-center transition-all bg-gray-100 hover:bg-gray-200"
@@ -266,7 +266,7 @@ const JobsListView = () => {
             </div>
           ) : (
             <div className={`${dashboardPanelClass} flex flex-col items-center justify-center py-20 text-center`}>
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6" style={{ backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6" style={{ backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.10)' }}>
                 <Plus size={32} className="text-text-primary" />
               </div>
               <h2 className="text-[20px] font-semibold text-text-primary">No jobs yet</h2>

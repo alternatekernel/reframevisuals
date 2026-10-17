@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -16,9 +16,9 @@ const PricingPilot: React.FC = () => {
   ];
 
   return (
-    <section className="px-6 lg:px-12 py-16 bg-white border-t border-black/5 relative overflow-hidden">
+    <section className="px-6 lg:px-12 py-16 bg-white border-t border-black/[0.12] relative overflow-hidden">
       <div className={cx(layout.compactShell, 'relative z-10')}>
-        <div className={cx('max-w-4xl mx-auto rounded-3xl p-8 lg:p-12 flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch', tokens.surfaceMuted, 'shadow-[0_16px_50px_rgba(0,0,0,0.03)]')}>
+        <div className={cx('max-w-4xl mx-auto rounded-3xl p-8 lg:p-12 flex flex-col md:flex-row gap-8 lg:gap-12 items-stretch', tokens.surfaceMuted, 'shadow-[0_16px_50px_rgba(0,0,0,0.08)]')}>
           
           {/* Left Block: The Offer */}
           <div className="flex-1 flex flex-col justify-between">
@@ -32,7 +32,7 @@ const PricingPilot: React.FC = () => {
               </p>
             </div>
 
-            <div className="border-t border-black/5 pt-6 mt-6">
+            <div className="border-t border-black/[0.12] pt-6 mt-6">
               <div className="flex items-baseline gap-2 mb-4">
                 <span className="text-[36px] font-black text-[var(--color-text-primary)] tracking-tight">$19</span>
                 <span className="text-[14px] text-black/45 font-medium">/ 15 standard images</span>

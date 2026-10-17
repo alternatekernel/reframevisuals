@@ -15,6 +15,8 @@ export const useComposerDraft = (conversationId: string | null) => {
     idRef.current = conversationId;
     // A brand-new chat that just got its server id keeps what the visitor is typing.
     if (previous === 'new' && conversationId) {
+      const migrateDraft = loadDraft('new');
+      if (migrateDraft) saveDraft(draftId(conversationId), migrateDraft);
       clearDraft('new');
       return;
     }

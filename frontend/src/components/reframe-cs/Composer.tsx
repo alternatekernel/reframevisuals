@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useLayoutEffect, useImperativeHandle, useRef } from 'react';
+﻿import { forwardRef, useCallback, useLayoutEffect, useImperativeHandle, useRef } from 'react';
 import { ArrowUp, AudioLines, ChevronUp, Paperclip } from 'lucide-react';
 
 interface Props {
@@ -90,7 +90,7 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 sm:h-10 sm:w-10 ${
             isListening
               ? 'border-red-100 bg-red-50 text-red-500 ring-2 ring-red-200'
-              : 'border-black/[0.12] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:border-black/[0.18] hover:bg-white'
+              : 'border-black/[0.20] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:border-black/[0.18] hover:bg-white'
           }`}
         >
           <AudioLines size={14} className={isListening ? 'animate-pulse' : ''} />
@@ -146,8 +146,8 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           canSend
             ? 'border-black/80 bg-[#171717] text-white hover:-translate-y-0.5 hover:bg-black'
             : !isExpanded
-              ? 'border-black/[0.12] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:bg-white'
-              : 'cursor-not-allowed border-black/[0.05] bg-black/[0.06] text-black/30'
+              ? 'border-black/[0.20] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:bg-white'
+              : 'cursor-not-allowed border-black/[0.20] bg-black/[0.06] text-black/30'
         }`}
       >
         {!isExpanded && !hasText ? <ChevronUp size={16} /> : <ArrowUp size={16} />}

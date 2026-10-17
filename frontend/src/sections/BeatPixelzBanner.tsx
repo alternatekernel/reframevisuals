@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -11,10 +11,10 @@ const BeatPixelzBanner = () => {
       className="relative overflow-hidden"
     >
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-7 sm:px-8 sm:py-8 lg:px-10 lg:py-9">
-        <div className="relative overflow-hidden rounded-[28px] border border-black/[0.08] animate-card-bg px-5 py-6 shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] sm:px-6 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-8 lg:py-7">
+        <div className="relative overflow-hidden rounded-[28px] border border-black/[0.16] animate-card-bg px-5 py-6 shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] sm:px-6 lg:flex lg:items-center lg:justify-between lg:gap-10 lg:px-8 lg:py-7">
           {/* Decorative blurs */}
           <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-white/55 blur-2xl" />
-          <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/[0.03] blur-2xl" />
+          <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/[0.05] blur-2xl" />
 
           {/* Left: Copy */}
           <div className="relative z-10 flex flex-col gap-1.5">
@@ -40,7 +40,7 @@ const BeatPixelzBanner = () => {
             </Link>
             <Link
               to="/pricing"
-              className="inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-6 text-[16px] font-bold text-[var(--color-text-primary)] transition-all hover:bg-black/[0.03] active:scale-95"
+              className="inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-full border border-black/[0.18] bg-white px-6 text-[16px] font-bold text-[var(--color-text-primary)] transition-all hover:bg-black/[0.05] active:scale-95"
             >
               See pricing
             </Link>

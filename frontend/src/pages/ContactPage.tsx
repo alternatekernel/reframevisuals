@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { tokens } from '../utils/theme';
 import ReframeCSShowcase from '../sections/ReframeCSShowcase';
@@ -215,14 +215,14 @@ const ContactPage: React.FC = () => {
         <div className="mx-auto w-full max-w-5xl relative z-10 space-y-6">
 
           {/* Contact form card */}
-          <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+          <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
             <div className="pointer-events-none absolute inset-0">
               <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" className="absolute -right-24 top-10 h-72 w-72 opacity-[0.035]" />
               <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/40" />
             </div>
 
             {/* Form */}
-            <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+            <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
               <div className="space-y-3 sm:space-y-4">
                 <h1 className="text-[36px] sm:text-[40px] lg:text-[48px] font-bold leading-[1.05] tracking-tight text-[var(--color-text-primary)]">Send a message</h1>
                 <p className="text-[16px] text-black/60 leading-relaxed">
@@ -238,26 +238,26 @@ const ContactPage: React.FC = () => {
                 <form onSubmit={onSubmit} noValidate className="mt-8 space-y-4" aria-describedby={error ? 'contact-form-error' : undefined}>
                   <div>
                     <label htmlFor="contact-name" className="mb-1.5 block text-[14px] font-semibold text-black/70">Name <span className="text-red-600">*</span></label>
-                    <input id="contact-name" name="name" required autoComplete="name" className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Your name" value={form.name} onChange={(e) => updateField('name', e.target.value)} />
+                    <input id="contact-name" name="name" required autoComplete="name" className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Your name" value={form.name} onChange={(e) => updateField('name', e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor="contact-email" className="mb-1.5 block text-[14px] font-semibold text-black/70">Work email <span className="text-red-600">*</span></label>
-                    <input id="contact-email" name="email" type="email" required autoComplete="email" className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="you@company.com" value={form.email} onChange={(e) => updateField('email', e.target.value)} />
+                    <input id="contact-email" name="email" type="email" required autoComplete="email" className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="you@company.com" value={form.email} onChange={(e) => updateField('email', e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor="contact-company" className="mb-1.5 block text-[14px] font-semibold text-black/70">Company</label>
-                    <input id="contact-company" name="company" autoComplete="organization" className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Company name" value={form.company} onChange={(e) => updateField('company', e.target.value)} />
+                    <input id="contact-company" name="company" autoComplete="organization" className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Company name" value={form.company} onChange={(e) => updateField('company', e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor="contact-message" className="mb-1.5 block text-[14px] font-semibold text-black/70">How can we help? <span className="text-red-600">*</span></label>
-                    <textarea id="contact-message" name="message" required minLength={10} className="h-28 w-full resize-none rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Tell us about your images, volume, deadline, or editing needs." value={form.message} onChange={(e) => updateField('message', e.target.value)} />
+                    <textarea id="contact-message" name="message" required minLength={10} className="h-28 w-full resize-none rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white" placeholder="Tell us about your images, volume, deadline, or editing needs." value={form.message} onChange={(e) => updateField('message', e.target.value)} />
                   </div>
                   {error && <p id="contact-form-error" role="alert" className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-[14px] font-semibold text-red-700">{error}</p>}
                   <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
                     <button type="submit" disabled={isSubmitting} className="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full bg-[var(--color-text-primary)] px-8 text-[15px] font-bold text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-95 disabled:opacity-60">
                       {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
-                    <a href="/book-meeting" className="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full border border-black/10 bg-white px-6 text-[15px] font-semibold text-[var(--color-text-primary)] shadow-sm transition-all duration-300 hover:bg-[var(--color-bg-secondary)]">Book 15-min Call</a>
+                    <a href="/book-meeting" className="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full border border-black/[0.18] bg-white px-6 text-[15px] font-semibold text-[var(--color-text-primary)] shadow-sm transition-all duration-300 hover:bg-[var(--color-bg-secondary)]">Book 15-min Call</a>
                   </div>
                 </form>
               ) : (
@@ -271,7 +271,7 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* Sidebar */}
-            <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+            <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
               <h2 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">What to expect</h2>
               <div className="space-y-8">
                 <div>
@@ -291,18 +291,18 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* How to ask tips */}
-          <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.04)] p-8 sm:p-10">
+          <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.09)] p-8 sm:p-10">
             <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">Get a faster reply</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-              <div className="border-l-2 border-black/10 pl-4">
+              <div className="border-l-2 border-black/[0.18] pl-4">
                 <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1.5">Include your order ID</p>
                 <p className="text-[14px] text-black/50 leading-relaxed italic">"Order #RV-00492: delivery ETA and clipping paths included?"</p>
               </div>
-              <div className="border-l-2 border-black/10 pl-4">
+              <div className="border-l-2 border-black/[0.18] pl-4">
                 <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1.5">Name the service</p>
                 <p className="text-[14px] text-black/50 leading-relaxed italic">"Ghost mannequin on 50 jackets, neck join only. What do you need?"</p>
               </div>
-              <div className="border-l-2 border-black/10 pl-4">
+              <div className="border-l-2 border-black/[0.18] pl-4">
                 <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1.5">Lead with your deadline</p>
                 <p className="text-[14px] text-black/50 leading-relaxed italic">"340 SKUs, background removal, deadline Friday 18:00 UTC. Price?"</p>
               </div>

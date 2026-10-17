@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { CASE_STUDIES } from '../data/expansionPages';
 
@@ -48,7 +48,7 @@ const CaseStudiesHubPage = () => {
         <p className="text-black/70 max-w-3xl mb-10">Evidence-focused case stories from ecommerce image production programs.</p>
         <div className="grid md:grid-cols-2 gap-5">
           {CASE_STUDIES.map((c) => (
-            <Link key={c.slug} to={c.path} className="border border-black/10 rounded-2xl p-5 hover:border-black/20 transition-colors">
+            <Link key={c.slug} to={c.path} className="border border-black/[0.18] rounded-2xl p-5 hover:border-black/20 transition-colors">
               <h2 className="font-semibold text-[20px] mb-2">{c.h1}</h2>
               <p className="text-[16px] text-black/65">{c.description}</p>
               <p className="mt-3 text-[16px] text-black font-semibold">Outcome: {c.outcome}</p>

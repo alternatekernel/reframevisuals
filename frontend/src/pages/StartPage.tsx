@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Upload, X, Plus, Clock, Sparkles, CreditCard, ShieldCheck, AlertTriangle, ArrowRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
@@ -223,8 +223,8 @@ const StartPage: React.FC = () => {
               'relative rounded-[24px] border-2 border-dashed transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-black/30',
               isDragging
                 ? 'border-[var(--brand)] bg-orange-50/40 scale-[0.995] shadow-[0_14px_40px_rgba(233,116,81,0.12)]'
-                : 'border-black/15 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.05)]',
-              !hasFiles && 'cursor-pointer hover:border-black/40 hover:bg-black/[0.01]'
+                : 'border-black/15 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.10)]',
+              !hasFiles && 'cursor-pointer hover:border-black/40 hover:bg-black/[0.04]'
             )}
           >
             {!hasFiles ? (
@@ -248,13 +248,13 @@ const StartPage: React.FC = () => {
               <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {projectAssets.map((asset, i) => (
-                    <div key={`${asset.file.name}-${i}`} className="relative group rounded-2xl overflow-hidden border border-black/10 bg-black/[0.02] aspect-square">
+                    <div key={`${asset.file.name}-${i}`} className="relative group rounded-2xl overflow-hidden border border-black/[0.18] bg-black/[0.04] aspect-square">
                       <img src={asset.preview} alt={asset.file.name} className="w-full h-full object-cover" />
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); removeFile(i); }}
                         aria-label={`Remove ${asset.file.name}`}
-                        className="absolute top-2 right-2 p-1.5 bg-white text-black rounded-full border border-black/10 shadow-sm hover:bg-black hover:text-white transition-all"
+                        className="absolute top-2 right-2 p-1.5 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black hover:text-white transition-all"
                       >
                         <X size={12} />
                       </button>
@@ -267,7 +267,7 @@ const StartPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                      className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-black/20 aspect-square text-black/50 hover:border-black hover:text-black hover:bg-black/[0.01] transition-all"
+                      className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-black/20 aspect-square text-black/50 hover:border-black hover:text-black hover:bg-black/[0.04] transition-all"
                     >
                       <Plus size={20} />
                       <span className="text-[12px] font-semibold">Add more</span>
@@ -288,7 +288,7 @@ const StartPage: React.FC = () => {
           )}
 
           {hasFiles && (
-            <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-[20px] border border-black/10 bg-[var(--color-bg-secondary)] p-4 sm:p-5 shadow-[0_8px_28px_rgba(0,0,0,0.05)]">
+            <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-[20px] border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 shadow-[0_8px_28px_rgba(0,0,0,0.10)]">
               <p className="text-[13px] font-bold text-[var(--color-text-primary)] mb-3">
                 Last step — where do we send your edited images?
               </p>
@@ -301,7 +301,7 @@ const StartPage: React.FC = () => {
                   placeholder="Your name"
                   aria-label="Full name"
                   required
-                  className="flex-1 rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                  className="flex-1 rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                 />
                 <input
                   type="email"
@@ -310,7 +310,7 @@ const StartPage: React.FC = () => {
                   placeholder="Work email"
                   aria-label="Work email"
                   required
-                  className="flex-1 rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                  className="flex-1 rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                 />
                 <button
                   type="submit"
@@ -330,7 +330,7 @@ const StartPage: React.FC = () => {
                   aria-label="Editing instructions"
                   rows={3}
                   maxLength={4000}
-                  className="w-full resize-y rounded-[20px] border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                  className="w-full resize-y rounded-[20px] border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                 />
                 <input
                   type="url"
@@ -338,7 +338,7 @@ const StartPage: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, sourceLink: e.target.value })}
                   placeholder="Drive / Dropbox / WeTransfer link to more files (optional)"
                   aria-label="Link to additional files"
-                  className="w-full rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                  className="w-full rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                 />
               </div>
 
@@ -364,7 +364,7 @@ const StartPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-black/5 bg-white/70 backdrop-blur-sm">
+      <div className="relative z-10 border-t border-black/[0.12] bg-white/70 backdrop-blur-sm">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {TRUST_ITEMS.map(({ icon: Icon, label }) => (

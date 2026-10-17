@@ -1,11 +1,11 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Camera, Video, Sparkles, UserCheck, Upload } from 'lucide-react';
 import { cx, typography } from '../utils/theme';
 
 const PlaceholderImage = ({ className, icon: Icon, label, imageUrl, alt }: { className?: string, icon?: any, label?: string, imageUrl?: string, alt?: string }) => (
-  <div className={`bg-black/[0.02] rounded-xl border border-black/[0.03] flex flex-col items-center justify-center text-black/40 overflow-hidden relative ${className}`}>
+  <div className={`bg-black/[0.04] rounded-xl border border-black/[0.18] flex flex-col items-center justify-center text-black/40 overflow-hidden relative ${className}`}>
     {imageUrl ? (
       <img src={imageUrl} alt={alt || label} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
     ) : (
@@ -71,7 +71,7 @@ const AIProductShowcase = () => {
                 viewport={{ once: true, margin: "-100px" }}
                 className="space-y-5"
               >
-                <div className="flex items-center justify-between border-b border-black/[0.03] pb-4">
+                <div className="flex items-center justify-between border-b border-black/[0.18] pb-4">
                   <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
                     <Sparkles size={20} className="text-brand" /> Our AI Product Photography service
                   </h3>
@@ -106,7 +106,7 @@ const AIProductShowcase = () => {
                 transition={{ delay: 0.1 }}
                 className="space-y-5"
               >
-                <div className="flex items-center justify-between border-b border-black/[0.03] pb-4">
+                <div className="flex items-center justify-between border-b border-black/[0.18] pb-4">
                   <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
                     <UserCheck size={22} className="text-green-600" /> After Human Editors Retouching
                   </h3>
@@ -136,7 +136,7 @@ const AIProductShowcase = () => {
         </div>
 
         {/* Videography Showcase */}
-        <div className="space-y-16 pt-20 border-t border-black/10">
+        <div className="space-y-16 pt-20 border-t border-black/[0.18]">
           <div className="text-center">
             <h2 className={cx(typography.displayLg, "text-[var(--color-text-primary)]")}>
               Cinematic motion.<br />
@@ -176,7 +176,7 @@ const AIProductShowcase = () => {
               <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
                 <Video size={20} className="text-brand" /> Our AI Product Videography service
               </h3>
-              <div className="w-full aspect-video rounded-xl shadow-lg bg-white border border-black/[0.03] overflow-hidden relative">
+              <div className="w-full aspect-video rounded-xl shadow-lg bg-white border border-black/[0.18] overflow-hidden relative">
                 <video 
                   autoPlay
                   loop

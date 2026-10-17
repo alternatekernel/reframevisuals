@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cx, layout, tokens, typography } from '../utils/theme';
 import { Activity, ArrowRight } from 'lucide-react';
@@ -17,12 +17,12 @@ const PricingCard = React.memo(({ p, index }: { p: { name: string; price: number
   const tone = p.highlight
     ? null
     : {
-        shell: "bg-white border border-black/10 shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
+        shell: "bg-white border border-black/[0.18] shadow-[0_4px_12px_rgba(0,0,0,0.02)]",
         title: "text-black/80",
         sub: "text-black/45",
         dot: "bg-black/20",
         text: "text-black/65 group-hover/item:text-black",
-        chip: "bg-black/5 text-black/75 border border-black/10",
+        chip: "bg-black/5 text-black/75 border border-black/[0.18]",
       };
 
   return (
@@ -40,7 +40,7 @@ const PricingCard = React.memo(({ p, index }: { p: { name: string; price: number
         "absolute inset-0 overflow-hidden border transition-all duration-300",
         tokens.radiusLargeCard,
         p.highlight ? "bg-[var(--color-text-primary)]" : tone?.shell,
-        isHovered && !p.highlight ? `${tokens.shadowShowcase} border-black/10` : ""
+        isHovered && !p.highlight ? `${tokens.shadowShowcase} border-black/[0.18]` : ""
       )}>
         {!p.highlight && <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]" />}
       </div>
@@ -132,7 +132,7 @@ const TrustProofRow = () => {
 
   return (
     <div className="mt-10 md:mt-14 lg:mt-20">
-      <div className="rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] px-6 py-5 sm:px-8 sm:py-6">
+      <div className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-6 py-5 sm:px-8 sm:py-6">
         <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-0 sm:divide-x sm:divide-black/[0.07]">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-1 flex-col items-center gap-1 sm:px-8">
@@ -165,9 +165,9 @@ const MobilePricingCard = React.memo(({ p, index }: { p: { name: string; price: 
   const tone = p.highlight
     ? null
     : {
-        shell: "bg-white border border-black/10 shadow-sm",
+        shell: "bg-white border border-black/[0.18] shadow-sm",
         title: "text-black/80",
-        chip: "bg-black/5 text-black/75 border border-black/10",
+        chip: "bg-black/5 text-black/75 border border-black/[0.18]",
         button: "bg-[var(--color-text-primary)] text-white",
         sub: "text-black/45",
       };
@@ -276,7 +276,7 @@ const Pricing = () => {
 
       {/* Trust stat strip */}
       <div className="mt-10 md:mt-14 max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-black/[0.06] rounded-2xl border border-black/10 bg-white overflow-hidden">
+        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-black/[0.06] rounded-2xl border border-black/[0.18] bg-white overflow-hidden">
           {[
             { value: '12–72h', label: 'Turnaround' },
             { value: '100%', label: 'QA reviewed' },

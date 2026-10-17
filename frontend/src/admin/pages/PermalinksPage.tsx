@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+﻿import React, { useCallback, useEffect, useState } from 'react';
 import { Link2, Save } from 'lucide-react';
 import { adminFetch } from '../utils/api';
 import { useToast } from '../ToastContext';
@@ -76,7 +76,7 @@ export const PermalinksPage: React.FC = () => {
             <span className="mb-2 block text-[11px] font-semibold uppercase tracking-wide text-[#777]">Structure</span>
             <div className="space-y-2">
               {STRUCTURES.map((s) => (
-                <label key={s.value} className="flex items-center gap-3 rounded-lg border border-[var(--an-border)] px-3 py-2.5 cursor-pointer hover:bg-black/[0.02]">
+                <label key={s.value} className="flex items-center gap-3 rounded-lg border border-[var(--an-border)] px-3 py-2.5 cursor-pointer hover:bg-black/[0.04]">
                   <input type="radio" name="structure" checked={structure === s.value} onChange={() => setStructure(s.value)} />
                   <span className="text-[13px] font-medium text-[var(--an-text)]">{s.label}</span>
                   <code className="ml-auto text-[12px] text-[var(--an-text2)]">{s.example}</code>
@@ -85,7 +85,7 @@ export const PermalinksPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-lg bg-black/[0.03] px-4 py-3">
+          <div className="rounded-lg bg-black/[0.05] px-4 py-3">
             <div className="text-[11px] uppercase tracking-wide text-[#777] mb-1">Preview</div>
             <code className="text-[13px] text-[var(--an-text)]">{preview}</code>
           </div>

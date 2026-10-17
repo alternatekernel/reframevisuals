@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cx, layout, typography } from '../../utils/theme';
 
 const defaultSteps = [
@@ -18,7 +18,7 @@ const ServiceProcessSteps: React.FC<ServiceProcessStepsProps> = ({ service }) =>
   return (
     <section className="py-12 lg:py-20 bg-white">
       <div className={cx(layout.compactShell, 'px-5 sm:px-6 lg:px-10')}>
-        <div className={cx('rounded-[28px] p-8 lg:p-16 border border-black/10 bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.05)]')}>
+        <div className={cx('rounded-[28px] p-8 lg:p-16 border border-black/[0.18] bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.10)]')}>
           <h2 className={cx('text-[32px] lg:text-[40px] font-bold tracking-tight', typography.sectionTitleInk)}>How It’s Done</h2>
           {service?.servicePageContent?.seoParagraph && (
             <p className="mt-4 max-w-3xl text-[16px] lg:text-[18px] font-medium leading-relaxed text-black/60">

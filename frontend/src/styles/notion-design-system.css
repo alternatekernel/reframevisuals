@@ -1,4 +1,4 @@
-/* Notion-Inspired Design System with Satoshi */
+﻿/* Notion-Inspired Design System with Satoshi */
 
 /* ─── TYPOGRAPHY ─── */
 /* Satoshi is loaded via Fontshare in index.html */
@@ -78,7 +78,7 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --shadow-popover: 0 0 0 1px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-popover: 0 0 0 1px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.1);
 
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -279,7 +279,7 @@
 .input-notion:focus {
   outline: none;
   border-color: var(--text-primary);
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.10);
 }
 
 /* Sidebar */

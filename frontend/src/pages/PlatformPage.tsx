@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cx, layout } from '../utils/theme';
@@ -132,7 +132,7 @@ const PlatformPage = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2 bg-black/[0.04] border border-black/[0.08] rounded-full px-4 py-1.5 text-[13px] font-medium text-black/60 mb-6">
+            <div className="inline-flex items-center gap-2 bg-black/[0.04] border border-black/[0.16] rounded-full px-4 py-1.5 text-[13px] font-medium text-black/60 mb-6">
               Included free with every order
             </div>
             <h1 className="text-[44px] sm:text-[56px] lg:text-[72px] font-semibold tracking-[-0.04em] leading-[1.05] text-[var(--color-text-primary)] mb-6">
@@ -152,7 +152,7 @@ const PlatformPage = () => (
               </Link>
               <Link
                 to="/dashboard"
-                className="inline-flex items-center gap-2 border border-black/10 bg-white text-black px-6 py-3.5 rounded-full font-semibold text-[15px] hover:bg-black/[0.03] transition-colors"
+                className="inline-flex items-center gap-2 border border-black/[0.18] bg-white text-black px-6 py-3.5 rounded-full font-semibold text-[15px] hover:bg-black/[0.05] transition-colors"
               >
                 Open dashboard
               </Link>
@@ -163,7 +163,7 @@ const PlatformPage = () => (
     </section>
 
     {/* Platform snapshot stats */}
-    <section className="py-12 border-y border-black/[0.06] bg-[#FAFAFA]">
+    <section className="py-12 border-y border-black/[0.14] bg-[#FAFAFA]">
       <div className={cx(layout.compactShell, 'px-5 sm:px-6 lg:px-10')}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
@@ -203,7 +203,7 @@ const PlatformPage = () => (
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: (idx % 3) * 0.08 }}
-                className="bg-white border border-black/[0.07] rounded-2xl p-7 flex flex-col gap-4 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.10)] transition-shadow"
+                className="bg-white border border-black/[0.14] rounded-2xl p-7 flex flex-col gap-4 hover:shadow-[0_8px_40px_-8px_rgba(0,0,0,0.10)] transition-shadow"
               >
                 <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center">
                   <Icon size={18} className="text-white" strokeWidth={1.8} />
@@ -212,7 +212,7 @@ const PlatformPage = () => (
                   <h3 className="text-[17px] font-semibold text-black tracking-[-0.02em] mb-2">{f.title}</h3>
                   <p className="text-[14px] text-black/55 leading-relaxed">{f.description}</p>
                 </div>
-                <div className="mt-auto pt-3 border-t border-black/[0.06]">
+                <div className="mt-auto pt-3 border-t border-black/[0.14]">
                   <span className="text-[12px] font-medium text-black/40">{f.detail}</span>
                 </div>
               </motion.div>
@@ -238,7 +238,7 @@ const PlatformPage = () => (
             { step: '04', title: 'Review delivered assets', body: 'Inspect every edited image at full resolution. Submit revision notes if anything needs adjusting — included at no extra cost.' },
             { step: '05', title: 'Approve and download', body: 'One click approves the delivery. Download all finished files as a ZIP instantly.' },
           ].map(({ step, title, body }) => (
-            <div key={step} className="flex gap-5 items-start bg-white rounded-2xl border border-black/[0.07] p-6">
+            <div key={step} className="flex gap-5 items-start bg-white rounded-2xl border border-black/[0.14] p-6">
               <span className="text-[28px] font-bold text-black/10 leading-none tracking-tighter shrink-0 mt-0.5">{step}</span>
               <div>
                 <div className="text-[16px] font-semibold text-black mb-1">{title}</div>
@@ -261,7 +261,7 @@ const PlatformPage = () => (
         <div className="max-w-[720px] mx-auto overflow-x-auto">
           <table className="w-full text-[14px] border-collapse">
             <thead>
-              <tr className="border-b border-black/[0.08]">
+              <tr className="border-b border-black/[0.16]">
                 <th className="text-left py-3 pr-6 font-semibold text-black/50 w-1/2">Feature</th>
                 <th className="py-3 px-4 font-bold text-black text-center">Reframe Visuals</th>
                 <th className="py-3 px-4 font-semibold text-black/40 text-center">Typical competitor</th>
@@ -279,7 +279,7 @@ const PlatformPage = () => (
                 ['Free trial (3 images)', true, false],
                 ['No subscription required', true, false],
               ].map(([label, ours, theirs]) => (
-                <tr key={label as string} className="border-b border-black/[0.05]">
+                <tr key={label as string} className="border-b border-black/[0.20]">
                   <td className="py-3 pr-6 text-black/70">{label as string}</td>
                   <td className="py-3 px-4 text-center">
                     {ours ? <CheckCircle2 size={18} className="text-black mx-auto" strokeWidth={2} /> : <span className="text-black/20">—</span>}

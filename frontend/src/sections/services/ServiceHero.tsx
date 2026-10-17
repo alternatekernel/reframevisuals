@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { cx, layout, tokens, typography } from '../../utils/theme';
@@ -86,7 +86,7 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({ service, isUserAuthenticated 
               />
               <Link
                 to="/pricing"
-                className="flex h-[50px] lg:h-[56px] items-center justify-center rounded-full border border-black/10 bg-white px-8 text-[15px] lg:text-[16px] font-bold text-[var(--color-text-primary)] transition-all hover:bg-black/5 active:scale-95 w-full sm:w-auto"
+                className="flex h-[50px] lg:h-[56px] items-center justify-center rounded-full border border-black/[0.18] bg-white px-8 text-[15px] lg:text-[16px] font-bold text-[var(--color-text-primary)] transition-all hover:bg-black/5 active:scale-95 w-full sm:w-auto"
               >
                 View Pricing
               </Link>
@@ -96,13 +96,13 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({ service, isUserAuthenticated 
           {/* Right Side: Visual */}
           <div className="lg:col-span-5 relative w-full max-w-sm lg:max-w-md mx-auto">
             {/* Abstract geometric frame behind the image */}
-            <div className="absolute -inset-3 lg:-inset-4 bg-white/40 backdrop-blur-3xl rounded-[32px] lg:rounded-[40px] border border-white/60 shadow-[0_20px_40px_rgba(0,0,0,0.04)] lg:shadow-[0_40px_80px_rgba(0,0,0,0.05)] rotate-[-2deg] scale-[0.98] transition-transform duration-700 hover:rotate-0" />
+            <div className="absolute -inset-3 lg:-inset-4 bg-white/40 backdrop-blur-3xl rounded-[32px] lg:rounded-[40px] border border-white/60 shadow-[0_20px_40px_rgba(0,0,0,0.09)] lg:shadow-[0_40px_80px_rgba(0,0,0,0.10)] rotate-[-2deg] scale-[0.98] transition-transform duration-700 hover:rotate-0" />
             
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-              className="relative aspect-square lg:aspect-[4/5] bg-[var(--color-text-primary)] rounded-[24px] lg:rounded-[32px] border border-black/[0.08] overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.16)]"
+              className="relative aspect-square lg:aspect-[4/5] bg-[var(--color-text-primary)] rounded-[24px] lg:rounded-[32px] border border-black/[0.16] overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.16)]"
             >
               {service.beforeImage && service.afterImage ? (
                 <BeforeAfterCard
@@ -127,7 +127,7 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({ service, isUserAuthenticated 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 bg-white border border-black/10 shadow-xl rounded-xl lg:rounded-2xl p-3 lg:p-4 flex items-center gap-3 lg:gap-4 z-20"
+              className="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-6 bg-white border border-black/[0.18] shadow-xl rounded-xl lg:rounded-2xl p-3 lg:p-4 flex items-center gap-3 lg:gap-4 z-20"
             >
               <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-brand/10 flex items-center justify-center">
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--color-brand-primary)]"></span>

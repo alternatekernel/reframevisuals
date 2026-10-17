@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { UserRound, Save, KeyRound, Lock } from 'lucide-react';
 import { adminFetch } from '../utils/api';
 import { useAuthProfile } from '../hooks/useAdminData';
@@ -91,7 +91,7 @@ export const ProfilePage: React.FC = () => {
       </div>
 
       <div className="an-card p-5 max-w-2xl">
-        <div className="flex items-start gap-3 rounded-xl bg-black/[0.03] p-3">
+        <div className="flex items-start gap-3 rounded-xl bg-black/[0.05] p-3">
           <KeyRound size={15} className="mt-0.5 shrink-0 text-[var(--an-text2)]" />
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-medium text-[var(--an-text)]">Change your password</div>

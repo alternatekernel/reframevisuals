@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BadgeCheck, Box, ChevronDown, Clapperboard, Layers3, Megaphone, PackageCheck, ScanSearch, ShieldCheck, Shirt, Sparkles, Upload, Wand2 } from 'lucide-react';
@@ -100,7 +100,7 @@ const AIProductVisualsPage = () => {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/free-trial" className={cx(tokens.radiusBtn, tokens.primaryCTA, 'inline-flex min-h-12 items-center justify-center gap-2 px-5 text-[15px] font-bold tracking-wide shadow-sm active:scale-95')}>Start a project <ArrowRight size={16} /></Link>
-              <Link to="/services" className={cx(tokens.radiusBtn, tokens.secondaryCTA, 'inline-flex min-h-12 items-center justify-center gap-2 border border-black/10 px-5 text-[15px] font-bold tracking-wide shadow-sm active:scale-95')}>View services</Link>
+              <Link to="/services" className={cx(tokens.radiusBtn, tokens.secondaryCTA, 'inline-flex min-h-12 items-center justify-center gap-2 border border-black/[0.18] px-5 text-[15px] font-bold tracking-wide shadow-sm active:scale-95')}>View services</Link>
             </div>
           </motion.div>
 
@@ -117,7 +117,7 @@ const AIProductVisualsPage = () => {
 
             <motion.div initial={{opacity:0}} whileInView={{opacity:1}} viewport={{once:true}} className="flex justify-center lg:rotate-0 rotate-90 py-4 lg:py-0">
                <div className="flex flex-col items-center gap-3">
-                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-black/10 bg-white shadow-sm">
+                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-black/[0.18] bg-white shadow-sm">
                    <Wand2 size={24} className="text-black/70" />
                  </div>
                  <ArrowRight size={24} className="text-black/20" />
@@ -125,7 +125,7 @@ const AIProductVisualsPage = () => {
             </motion.div>
 
             <motion.div initial={{opacity:0, x:20}} whileInView={{opacity:1, x:0}} viewport={{once:true}} className="space-y-4 lg:rotate-2">
-               <div className={cx(tokens.surfacePanel, 'overflow-hidden p-5 shadow-[0_24px_60px_rgba(15,23,42,0.08)]')}>
+               <div className={cx(tokens.surfacePanel, 'overflow-hidden p-5 shadow-[0_24px_60px_rgba(15,23,42,0.14)]')}>
                   <img src={asset('hero-product-set.svg')} alt="AI-generated ecommerce campaign visuals - professional product images from Reframe Visuals AI workflow" className="aspect-[4/3] w-full bg-[#F3F4F6] object-cover rounded-2xl" />
                  <div className="mt-4 flex items-center justify-between px-2 pb-1">
                    <div className="flex items-center gap-2">
@@ -155,10 +155,10 @@ const AIProductVisualsPage = () => {
         </div>
       </section>
 
-      <section className={cx('border-y border-black/[0.06] bg-white py-8', layout.sectionGutter)}>
+      <section className={cx('border-y border-black/[0.14] bg-white py-8', layout.sectionGutter)}>
         <div className={cx(layout.compactShell, 'flex flex-wrap items-center justify-center gap-3 text-[11px] font-heading font-black uppercase tracking-[0.16em]')}>
           {['PDP images', 'Fashion shots', 'Lifestyle scenes', 'UGC visuals', 'Product videos', 'Ads', 'Stories', 'Marketplace assets'].map((item, i) => {
-            return <span key={item} className={cx("px-3 py-1.5 rounded-full border border-black/10 bg-white text-black/70 shadow-sm")}>{item}</span>;
+            return <span key={item} className={cx("px-3 py-1.5 rounded-full border border-black/[0.18] bg-white text-black/70 shadow-sm")}>{item}</span>;
           })}
         </div>
       </section>
@@ -174,7 +174,7 @@ const AIProductVisualsPage = () => {
         <div className={cx(layout.compactShell, 'mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3')}>
           {outputs.map(({ title, copy, icon: Icon }, i) => {
             return (
-              <article key={title} className="rounded-[20px] border border-black/10 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.06)] shadow-sm">
+              <article key={title} className="rounded-[20px] border border-black/[0.18] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)] shadow-sm">
                 <Icon size={24} className="mb-8 text-black/70" strokeWidth={1.5} />
                 <h3 className="text-[18px] font-bold tracking-tight text-[var(--color-text-primary)]">{title}</h3>
                 <p className="mt-3 text-[14px] leading-relaxed text-[var(--color-text-primary)]/60">{copy}</p>
@@ -213,7 +213,7 @@ const AIProductVisualsPage = () => {
           <div className="grid gap-3 sm:grid-cols-2">
             {quality.map((item, i) => {
               return (
-                <div key={item} className="flex items-center gap-3 rounded-2xl border border-black/10 bg-white px-5 py-4 text-[14px] font-bold transition-all duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_18px_36px_rgba(0,0,0,0.06)]">
+                <div key={item} className="flex items-center gap-3 rounded-2xl border border-black/[0.18] bg-white px-5 py-4 text-[14px] font-bold transition-all duration-300 hover:-translate-y-1 shadow-[0_4px_12px_rgba(0,0,0,0.02)] hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)]">
                   <BadgeCheck size={18} className="text-black/70" />
                   <span className="text-[var(--color-text-primary)]">{item}</span>
                 </div>
@@ -247,7 +247,7 @@ const AIProductVisualsPage = () => {
                 transition={{ delay: i * 0.035, duration: 0.25 }}
                 className={cx(
                   'group overflow-hidden rounded-2xl border transition-all duration-300',
-                  activeFaq === i ? 'border-black/15 bg-white' : 'border-black/[0.07] bg-[#FAFAFA] hover:border-black/15'
+                  activeFaq === i ? 'border-black/15 bg-white' : 'border-black/[0.14] bg-[#FAFAFA] hover:border-black/15'
                 )}
               >
                 <button
@@ -277,7 +277,7 @@ const AIProductVisualsPage = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.24, ease: 'easeOut' }}
                     >
-                      <div className="border-t border-black/8 px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
+                      <div className="border-t border-black/[0.16] px-4 pb-4 pt-3 sm:px-5 sm:pb-5">
                         <p className="text-[14px] font-medium leading-relaxed text-black/65 lg:text-[15px]">{a}</p>
                       </div>
                     </motion.div>
@@ -293,18 +293,18 @@ const AIProductVisualsPage = () => {
 };
 
 const VisualCard = ({ label, img }: { label: string; img: string }) => (
-  <div className={cx(tokens.surfaceCard, 'overflow-hidden p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.06)]')}>
+  <div className={cx(tokens.surfaceCard, 'overflow-hidden p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)]')}>
     <img src={asset(img)} alt={label} className="aspect-square w-full bg-[#F3F4F6] object-cover" />
     <div className="flex items-center justify-between px-2 py-3 text-[11px] font-heading font-black uppercase tracking-[0.16em] text-black/45"><span>{label}</span><span>Reframe</span></div>
   </div>
 );
 
 const MiniProof = ({ label }: { label: string }) => (
-  <div className="border border-black/10 bg-white px-5 py-4 text-center text-[11px] font-heading font-black uppercase tracking-[0.16em] text-black/45 shadow-sm">{label}</div>
+  <div className="border border-black/[0.18] bg-white px-5 py-4 text-center text-[11px] font-heading font-black uppercase tracking-[0.16em] text-black/45 shadow-sm">{label}</div>
 );
 
 const ShowcaseCard = ({ title, img, copy }: { title: string; img: string; copy: string }) => (
-  <article className={cx(tokens.surfacePanel, 'overflow-hidden bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.06)]')}>
+  <article className={cx(tokens.surfacePanel, 'overflow-hidden bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)]')}>
     <img src={asset(img)} alt={title} className="aspect-[4/3] w-full bg-[#F3F4F6] object-cover" />
     <div className="p-3 sm:p-5">
       <h3 className="text-[22px] font-bold tracking-tight">{title}</h3>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Image as ImageIcon, RefreshCw, Upload, X, Copy, Check, Trash2, List, LayoutGrid, AlertTriangle } from 'lucide-react';
 import { adminFetch, API_BASE_URL } from '../utils/api';
 
@@ -216,7 +216,7 @@ export const MediaLibraryPage: React.FC = () => {
                 {media.map((item) => (
                   <tr
                     key={item.id}
-                    className="border-b border-[var(--an-border)] hover:bg-black/[0.01] transition-colors cursor-pointer"
+                    className="border-b border-[var(--an-border)] hover:bg-black/[0.04] transition-colors cursor-pointer"
                     onClick={() => setSelected(item)}
                   >
                     {/* Thumbnail */}

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { cx, layout, typography } from '../utils/theme';
@@ -113,7 +113,7 @@ const HowItWorksPage: React.FC = () => {
                   </div>
                   
                   <div className="md:w-2/3 md:pt-[20px]">
-                    <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-[0_16px_60px_-15px_rgba(0,0,0,0.05)] border border-black/5 relative overflow-hidden">
+                    <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-[0_16px_60px_-15px_rgba(0,0,0,0.10)] border border-black/[0.12] relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-brand/5 to-transparent rounded-bl-full pointer-events-none" />
                       <Icon size={32} className="text-brand mb-6" strokeWidth={1.5} />
                       <p className="text-[18px] lg:text-[20px] leading-[1.6] text-black/70 font-medium">

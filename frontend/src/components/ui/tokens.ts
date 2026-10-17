@@ -21,10 +21,10 @@ export const designTokens = {
       surface: 'var(--surface, #FFFFFF)',
       surfaceSecondary: 'var(--color-bg-secondary, #F8F9FD)',
       surfaceTertiary: '#F1F2F6',
-      borderSubtle: 'rgba(0, 0, 0, 0.06)',
-      borderLight: 'rgba(0, 0, 0, 0.10)',
-      borderMedium: 'rgba(0, 0, 0, 0.18)',
-      borderDark: 'rgba(0, 0, 0, 0.35)',
+      borderSubtle: 'rgba(0, 0, 0, 0.12)',
+      borderLight: 'rgba(0, 0, 0, 0.18)',
+      borderMedium: 'rgba(0, 0, 0, 0.28)',
+      borderDark: 'rgba(0, 0, 0, 0.45)',
     },
     text: {
       primary: 'var(--color-text-primary, #0A0A0B)',
@@ -142,10 +142,10 @@ export const designTokens = {
 
   // Standard Elevations & Box Shadows
   shadows: {
-    subtle: '0 1px 2px rgba(0, 0, 0, 0.04)',
-    standard: '0 8px 24px rgba(0, 0, 0, 0.05)',
-    showcase: '0 16px 40px rgba(0, 0, 0, 0.08)',
-    conversion: '0 24px 64px rgba(15, 23, 42, 0.12)',
+    subtle: '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05)',
+    standard: '0 8px 24px rgba(0, 0, 0, 0.09)',
+    showcase: '0 16px 40px rgba(0, 0, 0, 0.13)',
+    conversion: '0 24px 64px rgba(15, 23, 42, 0.18)',
     insetGlass: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.06)',
     glowBrand: '0 0 28px -4px rgba(var(--brand-rgb, 233, 116, 81), 0.35)',
   },

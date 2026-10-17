@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { CASE_STUDIES } from '../data/expansionPages';
 import { Button } from '../components/ui/button';
@@ -41,9 +41,9 @@ const CaseStudyDetailPage = () => {
         <h1 className="text-4xl font-semibold tracking-tight mb-4">{page.h1}</h1>
         <p className="text-black/70 mb-6">{page.description}</p>
         <div className="grid md:grid-cols-3 gap-4 mb-8">
-          <div className="border border-black/10 rounded-xl p-4"><p className="text-xs uppercase text-black/50">Client Type</p><p className="font-semibold">Ecommerce Brand</p></div>
-          <div className="border border-black/10 rounded-xl p-4"><p className="text-xs uppercase text-black/50">Primary Goal</p><p className="font-semibold">Scale image production</p></div>
-          <div className="border border-black/10 rounded-xl p-4"><p className="text-xs uppercase text-black/50">Outcome</p><p className="font-semibold">{page.outcome}</p></div>
+          <div className="border border-black/[0.18] rounded-xl p-4"><p className="text-xs uppercase text-black/50">Client Type</p><p className="font-semibold">Ecommerce Brand</p></div>
+          <div className="border border-black/[0.18] rounded-xl p-4"><p className="text-xs uppercase text-black/50">Primary Goal</p><p className="font-semibold">Scale image production</p></div>
+          <div className="border border-black/[0.18] rounded-xl p-4"><p className="text-xs uppercase text-black/50">Outcome</p><p className="font-semibold">{page.outcome}</p></div>
         </div>
 
         <div className="prose prose-lg text-black/75 mb-12">

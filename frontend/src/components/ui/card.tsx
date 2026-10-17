@@ -8,17 +8,17 @@ const cardVariants = cva(
     variants: {
       variant: {
         default:
-          "border border-black/10 bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_24px_rgba(0,0,0,0.04)]",
+          "border border-black/[0.16] bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_24px_rgba(0,0,0,0.09)]",
         bordered:
-          "border border-black/12 bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-none",
+          "border border-black/[0.20] bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-none",
         elevated:
-          "border border-black/8 bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_16px_40px_rgba(0,0,0,0.08)]",
+          "border border-black/[0.14] bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_16px_40px_rgba(0,0,0,0.13)]",
         interactive:
-          "border border-black/10 bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_24px_rgba(0,0,0,0.04)] hover:-translate-y-1 hover:border-black/20 hover:shadow-[0_20px_48px_rgba(0,0,0,0.09)] cursor-pointer",
+          "border border-black/[0.16] bg-white text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_24px_rgba(0,0,0,0.09)] hover:-translate-y-1 hover:border-black/[0.28] hover:shadow-[0_20px_48px_rgba(0,0,0,0.14)] cursor-pointer",
         glass:
-          "border border-white/60 bg-white/70 backdrop-blur-md text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_32px_rgba(0,0,0,0.05)]",
+          "border border-white/60 bg-white/70 backdrop-blur-md text-[var(--color-text-primary,#0A0A0B)] shadow-[0_8px_32px_rgba(0,0,0,0.10)]",
         inset:
-          "border border-black/8 bg-[var(--color-bg-secondary,#F8F9FD)] text-[var(--color-text-primary,#0A0A0B)]",
+          "border border-black/[0.14] bg-[var(--color-bg-secondary,#F8F9FD)] text-[var(--color-text-primary,#0A0A0B)]",
         dark:
           "border border-white/10 bg-[#0A0A0B] text-white shadow-[0_18px_48px_rgba(0,0,0,0.25)]",
       },

@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { cx } from '../../utils/theme';
 
 const fieldLabelClass = 'block text-[12px] font-semibold text-[var(--color-text-primary)]';
@@ -59,7 +59,7 @@ export const SelectInput = React.forwardRef<HTMLSelectElement, SelectInputProps>
 );
 SelectInput.displayName = 'SelectInput';
 
-export const publicInputClass = 'w-full border border-black/10 bg-white px-5 text-[15px] text-[var(--color-text-primary)] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-[var(--color-text-tertiary)] focus:border-black/25 focus:bg-white focus:ring-2 focus:ring-black/10 disabled:cursor-not-allowed disabled:opacity-50';
+export const publicInputClass = 'w-full border border-black/[0.18] bg-white px-5 text-[15px] text-[var(--color-text-primary)] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-[var(--color-text-tertiary)] focus:border-black/25 focus:bg-white focus:ring-2 focus:ring-black/10 disabled:cursor-not-allowed disabled:opacity-50';
 
 export const publicPillInputClass = cx(publicInputClass, 'min-h-12 rounded-full py-3.5');
 export const publicRoundedInputClass = cx(publicInputClass, 'min-h-11 rounded-xl py-3 shadow-sm');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { ShoppingBag, CheckCircle2, AlertCircle, ExternalLink } from 'lucide-react';
 
 interface ShopifyCardProps {
@@ -23,7 +23,7 @@ const ShopifyCard: React.FC<ShopifyCardProps> = ({
       style={{ 
         border: '1px solid var(--color-border-subtle)',
         backgroundColor: isHovered ? 'var(--color-surface-muted)' : '#ffffff',
-        boxShadow: isHovered ? '0 8px 24px rgba(0,0,0,0.04)' : 'none'
+        boxShadow: isHovered ? '0 8px 24px rgba(0,0,0,0.09)' : 'none'
       }}
     >
       <div className="flex items-start justify-between mb-6">

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cx, layout } from '../../utils/theme';
 import ServiceDetail from '../../components/ServiceDetail';
 import { useServicesContext } from '../../context/ServicesContext';
@@ -52,7 +52,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ services: propServices }) =
 
   if (isLoading) {
     return (
-      <section className="bg-white border-t border-black/5">
+      <section className="bg-white border-t border-black/[0.12]">
         <div className={cx(layout.compactShell, "py-32 px-6")}>
           <div className="flex items-center justify-center py-20">
             <p className="text-[#666666]">Loading services...</p>
@@ -64,7 +64,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ services: propServices }) =
 
   if (!services || services.length === 0) {
     return (
-      <section className="bg-white border-t border-black/5">
+      <section className="bg-white border-t border-black/[0.12]">
         <div className={cx(layout.compactShell, "py-32 px-6")}>
           <div className="flex items-center justify-center py-20">
             <p className="text-[#666666]">No services available</p>
@@ -75,7 +75,7 @@ const ServicesList: React.FC<ServicesListProps> = ({ services: propServices }) =
   }
 
   return (
-    <section className="bg-white border-t border-black/5">
+    <section className="bg-white border-t border-black/[0.12]">
       <div className={cx(layout.compactShell, "py-16 px-6")}>
         {/* SERVICE LIST */}
         <div className="flex flex-col gap-16">

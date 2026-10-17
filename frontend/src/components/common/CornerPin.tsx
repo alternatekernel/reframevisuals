@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface CornerPinProps {
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
@@ -20,7 +20,7 @@ const CornerPin: React.FC<CornerPinProps> = ({ position, className = '' }) => {
       {/* Ring base */}
       <div className="absolute inset-0.5 rounded-full bg-gradient-to-br from-white via-gray-100 to-gray-200 shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)]" />
       {/* Inner ring */}
-      <div className="absolute inset-1.5 rounded-full border border-black/10" />
+      <div className="absolute inset-1.5 rounded-full border border-black/[0.18]" />
       {/* Center hole */}
       <div className="absolute inset-3 rounded-full bg-gradient-to-b from-black/40 to-black/60 shadow-inner" />
       {/* Top shine highlight */}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useContent } from '../context/ContentBase';
@@ -62,7 +62,7 @@ const SignUpPage = () => {
       </div>
 
       <div className="mx-auto w-full max-w-5xl relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+        <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
           
           {/* Logo Watermark Overlay */}
           <div className="pointer-events-none absolute inset-0">
@@ -71,7 +71,7 @@ const SignUpPage = () => {
           </div>
 
           {/* LEFT PANEL: SignUp Form */}
-          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
               <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Account Deployment</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Join the platform</h1>
@@ -89,7 +89,7 @@ const SignUpPage = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Jane Cooper"
-                  className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                  className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                   required
                 />
               </div>
@@ -102,7 +102,7 @@ const SignUpPage = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="jane@company.com"
-                  className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                  className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                   required
                 />
               </div>
@@ -115,7 +115,7 @@ const SignUpPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="At least 8 characters"
-                  className="w-full rounded-xl border border-black/10 bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                  className="w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3.5 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                   required
                 />
               </div>
@@ -152,7 +152,7 @@ const SignUpPage = () => {
                 />
               )}
 
-              <div className="mt-6 text-center border-t border-black/10 pt-5 sm:text-left">
+              <div className="mt-6 text-center border-t border-black/[0.18] pt-5 sm:text-left">
                 <p className="text-[14px] text-black/60">
                   Already have an account?{' '}
                   <Link to="/login" className="text-[var(--color-text-primary)] font-bold underline transition-all">
@@ -164,7 +164,7 @@ const SignUpPage = () => {
           </div>
 
           {/* RIGHT PANEL: What's included */}
-          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
             <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">What's Included</h3>
             <div className="space-y-6">
               {[

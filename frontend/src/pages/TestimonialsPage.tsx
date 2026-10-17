@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Testimonials from '../sections/Testimonials';
@@ -88,7 +88,7 @@ const TestimonialsPage: React.FC = () => {
             {STATS.map((s) => (
               <div
                 key={s.label}
-                className="flex flex-col items-start rounded-2xl border border-black/[0.08] bg-black/[0.02] px-5 py-4"
+                className="flex flex-col items-start rounded-2xl border border-black/[0.16] bg-black/[0.04] px-5 py-4"
               >
                 <span className="text-[22px] font-bold leading-none tracking-[-0.04em] text-[var(--color-text-primary)]">
                   {s.value}

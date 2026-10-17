@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { BadgeDollarSign, Headset, Package, Sparkles, Zap } from 'lucide-react';
 
 interface QuickRepliesProps {
@@ -15,7 +15,7 @@ const DEFAULT_QUICK_REPLIES = [
 
 const QuickReplies: React.FC<QuickRepliesProps> = ({ onQuickReply, disabled }) => {
   return (
-    <div className="border-t border-black/5 px-4 py-1.5">
+    <div className="border-t border-black/[0.12] px-4 py-1.5">
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center">
         <span className="mb-0.5 flex w-full items-center justify-center gap-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[#999]">
           <Zap size={12} />

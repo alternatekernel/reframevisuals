@@ -1,4 +1,4 @@
-import type { BlogPost } from '../data/insightsData';
+﻿import type { BlogPost } from '../data/insightsData';
 
 export type BlogSort = 'latest' | 'popular' | 'updated';
 export type BlogCtaType = 'audit' | 'trial' | 'quote';
@@ -39,7 +39,7 @@ export const topicLabel = (topic: string): string =>
     .join(' ');
 
 export const getTopicPastel = (topic: string): string => {
-  return 'border-black/10 bg-white text-black/70 shadow-sm';
+  return 'border-black/[0.18] bg-white text-black/70 shadow-sm';
 };
 
 export const deriveTags = (post: BlogPost): string[] => {

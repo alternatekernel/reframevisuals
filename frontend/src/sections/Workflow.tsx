@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+﻿import { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Download, User } from 'lucide-react';
 import { cx, layout, typography } from '../utils/theme';
@@ -652,7 +652,7 @@ const Workflow = ({
                 transition={{ delay: 1.1 + i * 0.08, duration: 0.35 }}
                 className={cx(
                   "flex gap-4 items-start",
-                  !isLast && "lg:border-r lg:border-black/[0.05] lg:pr-6"
+                  !isLast && "lg:border-r lg:border-black/[0.20] lg:pr-6"
                 )}
               >
                 <Icon size={20} className="shrink-0 mt-0.5 sm:size-6" style={{ color: node.iconColor }} strokeWidth={1.5} />

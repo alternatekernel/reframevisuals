@@ -1,4 +1,4 @@
-export const cx = (...classes: (string | boolean | undefined | null)[]): string => classes.filter(Boolean).join(' ');
+﻿export const cx = (...classes: (string | boolean | undefined | null)[]): string => classes.filter(Boolean).join(' ');
 
 export const layout = {
   compactShell: "max-w-[1280px] mx-auto w-full",
@@ -71,13 +71,13 @@ export const tokens = {
   },
 
   // Shadows (Standardized Global System)
-  shadowBorder: "0 0 0 1px rgba(0,0,0,0.08)",
-  shadowStandard: "0 8px 24px rgba(0,0,0,0.04)",       // Low elevation: 16px content cards
-  shadowShowcase: "0 14px 40px rgba(0,0,0,0.06)",      // Medium elevation: 24px showcase/service cards
-  shadowConversion: "0 24px 60px rgba(15,23,42,0.08)", // High elevation: 28px CTA/conversion cards
+  shadowBorder: "0 0 0 1px rgba(0,0,0,0.14)",
+  shadowStandard: "0 8px 24px rgba(0,0,0,0.09)",       // Low elevation: 16px content cards
+  shadowShowcase: "0 14px 40px rgba(0,0,0,0.12)",      // Medium elevation: 24px showcase/service cards
+  shadowConversion: "0 24px 60px rgba(15,23,42,0.14)", // High elevation: 28px CTA/conversion cards
   
   // Specialty/Inset shadows
-  shadowInsetGlass: "inset 0 1px 0 rgba(255,255,255,0.92), 0 2px 3px rgba(0,0,0,0.04), 0 18px 48px rgba(0,0,0,0.10)",
+  shadowInsetGlass: "inset 0 1px 0 rgba(255,255,255,0.92), 0 2px 3px rgba(0,0,0,0.09), 0 18px 48px rgba(0,0,0,0.10)",
 
   // Radius
   radiusAction: "rounded-xl",       // 12px — small action buttons/icon buttons
@@ -88,18 +88,18 @@ export const tokens = {
   radiusPill: "rounded-full",
 
   // Borders
-  borderSubtle: "border border-black/[0.04]",
-  borderLight: "border border-black/10",
-  borderMedium: "border border-black/20",
+  borderSubtle: "border border-black/[0.20]",
+  borderLight: "border border-black/[0.18]",
+  borderMedium: "border border-black/[0.28]",
 
   // Surface primitives
-  surfaceCard: "rounded-2xl border border-black/10 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.04)]",
-  surfaceCardSoft: "rounded-2xl border border-black/5 bg-white shadow-sm",
+  surfaceCard: "rounded-2xl border border-black/[0.16] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.09)]",
+  surfaceCardSoft: "rounded-2xl border border-black/[0.18] bg-white shadow-sm",
   surfacePanel: "rounded-[28px] border border-neutral-300/90 bg-white shadow-[0_22px_70px_rgba(15,23,42,0.09)]",
   surfaceMuted: "bg-[var(--color-bg-secondary)] border-neutral-300/80",
   heroCarouselCardSurface: "rounded-none border bg-[var(--color-bg-secondary)]",
-  heroCarouselCardMedia: "rounded-none border border-black/[0.08] bg-white",
-  heroCarouselCardFooter: "rounded-none border-t border-black/[0.08] bg-[var(--color-bg-secondary)]",
+  heroCarouselCardMedia: "rounded-none border border-black/[0.16] bg-white",
+  heroCarouselCardFooter: "rounded-none border-t border-black/[0.16] bg-[var(--color-bg-secondary)]",
 
   // Motion primitives
   motionInteractive: "transition-[background-color,border-color,color,box-shadow,transform] duration-200",

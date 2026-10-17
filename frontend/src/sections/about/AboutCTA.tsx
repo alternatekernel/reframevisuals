@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+﻿import { useNavigate, Link } from 'react-router-dom';
 import { cx, layout, typography } from '../../utils/theme';
 import { ButtonWithIcon } from '../../components/ui/button-with-icon';
 import { useContent } from '../../context/ContentBase';
@@ -11,7 +11,7 @@ const AboutCTA = () => {
   return (
     <section className="px-5 sm:px-6 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-white">
       <div className={cx(layout.compactShell)}>
-          <div className="bg-[var(--color-text-primary)] rounded-[28px] p-10 sm:p-14 lg:p-20 text-center relative overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.08)]">
+          <div className="bg-[var(--color-text-primary)] rounded-[28px] p-10 sm:p-14 lg:p-20 text-center relative overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
 
             <div className="relative z-10">
               <h2 className={cx(typography.vercelSection, 'text-white mb-4 sm:mb-6 lg:mb-8')}>
@@ -49,49 +49,49 @@ const AboutCTA = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <Link
             to="/services"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Services
           </Link>
           <Link
             to="/pricing"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Pricing
           </Link>
           <Link
             to="/free-trial"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Free Trial
           </Link>
           <Link
             to="/blog"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Blog
           </Link>
           <Link
             to="/case-studies"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Case Studies
           </Link>
           <Link
             to="/contact"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Contact
           </Link>
           <Link
             to="/who-is-reframe-visuals"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Who We Are
           </Link>
           <Link
             to="/reframe-visuals-brand-facts"
-            className="rounded-full border border-black/10 px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+            className="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
           >
             Brand Facts
           </Link>

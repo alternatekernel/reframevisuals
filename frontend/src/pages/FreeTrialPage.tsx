@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Upload, X, Image as ImageIcon, Check, AlertTriangle } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
@@ -260,13 +260,13 @@ const FreeTrialPage: React.FC = () => {
       </div>
 
       <div className="mx-auto w-full max-w-5xl relative z-10">
-        <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] flex flex-col md:flex-row">
+        <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
           <div className="pointer-events-none absolute inset-0">
             <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" className="absolute -right-24 top-10 h-72 w-72 opacity-[0.035]" />
             <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/40" />
           </div>
 
-          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/5">
+          <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
               <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Free Evaluation</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">
@@ -283,14 +283,14 @@ const FreeTrialPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="mt-4 space-y-3" noValidate>
               <div className="space-y-2">
                 {serviceRows.map((row, idx) => (
-                  <div key={idx} className="relative rounded-xl border border-black/5 bg-black/[0.015] p-3">
+                  <div key={idx} className="relative rounded-xl border border-black/[0.12] bg-black/[0.04] p-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="mb-1 block text-[14px] font-semibold text-black/70">Product Category <span className="text-black/35">(optional)</span></label>
                         <select
                           value={row.category}
                           onChange={(e) => updateRow(idx, 'category', e.target.value)}
-                          className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
+                          className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
                         >
                           <option value="">Select category (optional)</option>
                           {CATEGORY_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
@@ -301,7 +301,7 @@ const FreeTrialPage: React.FC = () => {
                             value={row.customCategory}
                             onChange={(e) => updateRow(idx, 'customCategory', e.target.value)}
                             placeholder="Enter category"
-                            className="mt-2 w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[15px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+                            className="mt-2 w-full rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[15px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-black/30"
                           />
                         )}
                       </div>
@@ -310,7 +310,7 @@ const FreeTrialPage: React.FC = () => {
                         <select
                           value={formData.platform}
                           onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
-                          className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
+                          className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
                           required
                         >
                           <option value="">Select platform</option>
@@ -325,7 +325,7 @@ const FreeTrialPage: React.FC = () => {
                         <select
                           value={formData.volume}
                           onChange={(e) => setFormData({ ...formData, volume: e.target.value, customVolume: e.target.value === 'custom' ? formData.customVolume : '' })}
-                          className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
+                          className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
                           required
                         >
                           <option value="">Select volume</option>
@@ -343,7 +343,7 @@ const FreeTrialPage: React.FC = () => {
                             value={formData.customVolume}
                             onChange={(e) => setFormData({ ...formData, customVolume: e.target.value })}
                             placeholder="e.g. 750"
-                            className="mt-2 w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[15px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+                            className="mt-2 w-full rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[15px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-black/30"
                           />
                         )}
                       </div>
@@ -353,7 +353,7 @@ const FreeTrialPage: React.FC = () => {
                           <select
                             value={row.serviceType}
                             onChange={(e) => updateRow(idx, 'serviceType', e.target.value)}
-                            className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
+                            className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]"
                           >
                             <option value="">Select service (optional)</option>
                             {SERVICE_OPTIONS.map(option => <option key={option} value={option}>{option}</option>)}
@@ -382,7 +382,7 @@ const FreeTrialPage: React.FC = () => {
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   placeholder="Tell us the edit style, background, color, format, or reference direction..."
-                  className="w-full min-h-[120px] max-h-[320px] resize-y rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                  className="w-full min-h-[120px] max-h-[320px] resize-y rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                 />
               </div>
 
@@ -395,7 +395,7 @@ const FreeTrialPage: React.FC = () => {
                   onClick={() => fileInputRef.current?.click()}
                   className={cx(
                     'cursor-pointer p-4 border border-dashed rounded-lg flex flex-col items-center justify-center gap-1 transition-all text-center',
-                    isDragging ? 'bg-black/[0.02] border-black scale-[0.99]' : 'border-black/20 hover:border-black hover:bg-black/[0.01]'
+                    isDragging ? 'bg-black/[0.04] border-black scale-[0.99]' : 'border-black/20 hover:border-black hover:bg-black/[0.04]'
                   )}
                 >
                   <Upload size={16} className="text-black/60" />
@@ -421,7 +421,7 @@ const FreeTrialPage: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => removeFile(i)}
-                            className="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/10 shadow-sm hover:bg-black/5 transition-all"
+                            className="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black/5 transition-all"
                           >
                             <X size={10} />
                           </button>
@@ -453,7 +453,7 @@ const FreeTrialPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => removeSupportFile(i)}
-                          className="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/10 shadow-sm hover:bg-black/5 transition-all"
+                          className="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black/5 transition-all"
                         >
                           <X size={10} />
                         </button>
@@ -465,7 +465,7 @@ const FreeTrialPage: React.FC = () => {
                 )}
               </div>
 
-              <div className="border-t border-black/5 pt-3 mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="border-t border-black/[0.12] pt-3 mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="mb-1 block text-[14px] font-semibold text-black/70">Full Name <span className="text-red-600">*</span></label>
                   <input
@@ -473,7 +473,7 @@ const FreeTrialPage: React.FC = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Jane Cooper"
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                     required
                   />
                 </div>
@@ -484,7 +484,7 @@ const FreeTrialPage: React.FC = () => {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="jane@company.com"
-                    className="w-full rounded-lg border border-black/10 bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
+                    className="w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white"
                     required
                   />
                 </div>
@@ -520,7 +520,7 @@ const FreeTrialPage: React.FC = () => {
             </form>
           </div>
 
-          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/5">
+          <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
             <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Trial Standards</h3>
             <div className="space-y-8">
               <div>
@@ -535,7 +535,7 @@ const FreeTrialPage: React.FC = () => {
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Secure Asset Handling</p>
                 <p className="text-[14px] text-black/60 mt-1">Your source files are fully protected and never shared or used without your permission.</p>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
                 <div className="flex gap-3 items-start">
                   <div className="w-5 h-5 rounded-full bg-green-50 border border-green-100 flex items-center justify-center shrink-0 mt-0.5">
                     <Check size={11} className="text-green-600" />

@@ -1,4 +1,4 @@
-import React, { useState, lazy, useEffect, Suspense } from 'react';
+﻿import React, { useState, lazy, useEffect, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation, Outlet, RouteObject } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -151,7 +151,7 @@ const AppBootLoader: React.FC<{ exiting: boolean }> = ({ exiting }) => {
             background: 'rgba(255,255,255,0.58)',
             backdropFilter: 'blur(18px)',
             border: '1px solid rgba(255,255,255,0.75)',
-            boxShadow: '0 4px 28px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)',
+            boxShadow: '0 4px 28px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.9)',
             animation: 'boot-fade-up 0.55s 0.45s cubic-bezier(0.16,1,0.3,1) both',
             opacity: 0,
           }}
@@ -160,7 +160,7 @@ const AppBootLoader: React.FC<{ exiting: boolean }> = ({ exiting }) => {
             <div
               key={s.value}
               className="flex-1 flex flex-col items-center justify-center py-6 px-3"
-              style={{ borderLeft: i > 0 ? '1px solid rgba(0,0,0,0.06)' : 'none' }}
+              style={{ borderLeft: i > 0 ? '1px solid rgba(0,0,0,0.11)' : 'none' }}
             >
               <span className="font-bold tracking-[-0.04em] text-gray-900 leading-none" style={{ fontSize: 'clamp(22px, 2.8vw, 36px)' }}>{s.value}</span>
               <span className="mt-2 text-gray-400 text-center font-medium leading-tight" style={{ fontSize: 'clamp(10px, 0.82vw, 12px)', letterSpacing: '0.01em' }}>{s.label}</span>
@@ -177,7 +177,7 @@ const AppBootLoader: React.FC<{ exiting: boolean }> = ({ exiting }) => {
             <span
               key={s}
               className="px-3 py-1 rounded-full font-medium text-gray-400"
-              style={{ fontSize: 'clamp(10px, 0.78vw, 12px)', background: 'rgba(255,255,255,0.5)', border: '1px solid rgba(0,0,0,0.07)' }}
+              style={{ fontSize: 'clamp(10px, 0.78vw, 12px)', background: 'rgba(255,255,255,0.5)', border: '1px solid rgba(0,0,0,0.12)' }}
             >
               {s}
             </span>

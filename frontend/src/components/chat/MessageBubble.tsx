@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Message, AiData } from '../../types/dashboard';
 import MarkdownRenderer from './MarkdownRenderer';
 import SuggestedActions from './SuggestedActions';
@@ -63,7 +63,7 @@ const AttachmentList: React.FC<{ attachments: ReturnType<typeof getAttachments>;
               href={a.url}
               target="_blank"
               rel="noreferrer"
-              className={`flex items-center gap-2 rounded-lg px-3 py-2 text-[12px] font-medium border ${dark ? 'bg-white/10 border-white/15 text-white' : 'bg-black/5 border-black/10 text-text-primary'}`}
+              className={`flex items-center gap-2 rounded-lg px-3 py-2 text-[12px] font-medium border ${dark ? 'bg-white/10 border-white/15 text-white' : 'bg-black/5 border-black/[0.18] text-text-primary'}`}
             >
               <FileText size={14} className="shrink-0" />
               <span className="truncate max-w-[200px]">{a.filename}</span>
@@ -137,7 +137,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
         <div className={`flex flex-row-reverse items-end gap-2 ${sharedWidthClass}`}>
           {showAvatar && (
             currentUser?.avatarUrl ? (
-              <img src={currentUser.avatarUrl} alt="User" className="h-7 w-7 rounded-full object-cover shrink-0 mb-0.5 border border-black/5 shadow-sm" />
+              <img src={currentUser.avatarUrl} alt="User" className="h-7 w-7 rounded-full object-cover shrink-0 mb-0.5 border border-black/[0.12] shadow-sm" />
             ) : (
               <div className="h-7 w-7 rounded-full bg-brand-ink text-white flex items-center justify-center font-bold text-[10px] shrink-0 mb-0.5 shadow-sm">
                 {currentUser?.name?.[0]?.toUpperCase() || 'U'}
@@ -187,13 +187,13 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
             data-msg-bubble
             className={
               isRichContent
-                ? 'bg-white border border-black/10 shadow-md rounded-2xl overflow-hidden w-full'
-                : 'bg-black/[0.03] border border-black/5 rounded-[20px] overflow-hidden w-full'
+                ? 'bg-white border border-black/[0.18] shadow-md rounded-2xl overflow-hidden w-full'
+                : 'bg-black/[0.05] border border-black/[0.12] rounded-[20px] overflow-hidden w-full'
             }
           >
             {/* Header for rich content */}
             {isRichContent && (
-              <div className="px-4 py-2.5 border-b border-black/5 bg-gradient-to-r from-black/[0.02] to-transparent">
+              <div className="px-4 py-2.5 border-b border-black/[0.12] bg-gradient-to-r from-black/[0.02] to-transparent">
                 <div className="flex items-center gap-2">
                   <span className="text-[13px] font-semibold text-[#171717]">Reframe CS</span>
                   <span className="px-1.5 py-0.5 bg-[#171717] text-white text-[9px] font-medium rounded">Support</span>
@@ -210,7 +210,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
               )}
               {attachments.length > 0 && <AttachmentList attachments={attachments} />}
               {orderCard && (
-                <a href={orderCard.customerLink} target="_blank" rel="noreferrer" className="mt-3 block rounded-2xl border border-black/10 bg-white p-3 text-[12px] text-[#171717] shadow-sm">
+                <a href={orderCard.customerLink} target="_blank" rel="noreferrer" className="mt-3 block rounded-2xl border border-black/[0.18] bg-white p-3 text-[12px] text-[#171717] shadow-sm">
                   <span className="block font-bold">{orderCard.code || orderCard.orderId || 'Order'}</span>
                   <span className="mt-1 block font-semibold">{orderCard.title || 'Order details'}</span>
                   <span className="mt-1 block text-[#777]">Status: {orderCard.status || 'new'}</span>

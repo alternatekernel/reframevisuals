@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { FileText, List, Hash, ArrowRight } from 'lucide-react';
@@ -175,7 +175,7 @@ const PricingTable: React.FC = () => {
                 className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 ${
                   label === 'Standard'
                     ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white'
-                    : 'border-black/10 bg-white text-[var(--color-text-primary)]'
+                    : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]'
                 }`}
               >
                 <span className="text-[14px] font-bold">{time}</span>
@@ -234,7 +234,7 @@ const PricingTable: React.FC = () => {
                         className={cx(
                           "group border-b border-neutral-200/80 last:border-b-0 grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch transition-all duration-200 cursor-pointer text-[14px]",
                           style.hoverClass,
-                          isSelected ? "bg-black/[0.03] sm:bg-black/[0.015]" : "hover:bg-black/[0.015]"
+                          isSelected ? "bg-black/[0.05] sm:bg-black/[0.04]" : "hover:bg-black/[0.04]"
                         )}
                       >
                         {/* Column 1: Service Name */}

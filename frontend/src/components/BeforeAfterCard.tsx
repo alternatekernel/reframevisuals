@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+﻿import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import { motion } from 'framer-motion';
 
@@ -304,7 +304,7 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({
   const content = (
     <div
       ref={containerRef}
-      className={`bg-white ${aspectRatio} border border-black/5 relative overflow-hidden select-none ${isHovering || isDragging ? 'cursor-col-resize' : ''}`}
+      className={`bg-white ${aspectRatio} border border-black/[0.12] relative overflow-hidden select-none ${isHovering || isDragging ? 'cursor-col-resize' : ''}`}
       style={{ touchAction: 'pan-y' }}
       onPointerDown={handlePointerDown}
       onPointerEnter={() => !disableHoverInteraction && setIsHovering(true)}
@@ -399,7 +399,7 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({
       {/* State label */}
       {!hideLabels && (
         <div className={`absolute bottom-5 right-5 z-10 transition-opacity duration-500 ${(isActive || isAnimationComplete || (!hideInteractionUI && (isHovering || isDragging))) ? 'opacity-100' : 'opacity-0'}`}>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-white border border-black/10 shadow-sm">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-full bg-white border border-black/[0.18] shadow-sm">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500 ${animLabel === 'BEFORE' ? 'bg-brand' : 'bg-black'}`}>
                 <svg width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   {animLabel === 'BEFORE' ? (
@@ -417,7 +417,7 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({
       {/* Caption pill */}
       {caption && (
         <div className="absolute bottom-6 left-6 right-6 z-10">
-          <div className="px-4 py-2 lg:px-5 lg:py-2.5 rounded-full bg-white border border-black/5 shadow-md">
+          <div className="px-4 py-2 lg:px-5 lg:py-2.5 rounded-full bg-white border border-black/[0.12] shadow-md">
             <p className="text-[12px] font-black text-black tracking-[0.2em]">{caption}</p>
           </div>
         </div>

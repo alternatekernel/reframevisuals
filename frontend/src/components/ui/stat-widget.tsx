@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { ArrowUpRight, ArrowDownRight } from "lucide-react"
 import { cx } from "../../utils/theme"
 
@@ -24,8 +24,8 @@ export const StatWidget: React.FC<StatWidgetProps> = ({
   className,
 }) => {
   const variantStyles = {
-    card: "rounded-2xl border border-black/10 bg-white p-5 sm:p-6 shadow-[0_8px_24px_rgba(0,0,0,0.04)]",
-    bordered: "rounded-2xl border border-black/12 bg-white p-5 sm:p-6",
+    card: "rounded-2xl border border-black/[0.18] bg-white p-5 sm:p-6 shadow-[0_8px_24px_rgba(0,0,0,0.09)]",
+    bordered: "rounded-2xl border border-black/[0.20] bg-white p-5 sm:p-6",
     minimal: "p-2",
   }[variant]
 

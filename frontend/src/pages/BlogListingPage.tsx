@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+﻿import { useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useSearchParams } from 'react-router-dom';
 import { BookOpen, Scissors, Palette, TrendingUp, Search, X } from 'lucide-react';
@@ -100,7 +100,7 @@ const BlogListingPage = () => {
       <BlogHero />
 
       {/* Search / topic / sort toolbar */}
-      <section className="px-5 sm:px-6 py-4 sm:py-5 bg-white border-b border-black/5">
+      <section className="px-5 sm:px-6 py-4 sm:py-5 bg-white border-b border-black/[0.12]">
         <div className="max-w-5xl mx-auto space-y-3">
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             <div className="relative flex-1 max-w-md">
@@ -109,7 +109,7 @@ const BlogListingPage = () => {
                 value={q}
                 onChange={(e) => setParam('q', e.target.value)}
                 placeholder="Search guides, techniques, topics…"
-                className="w-full rounded-full border border-black/10 bg-white py-2.5 pl-10 pr-9 text-[14px] outline-none transition-colors focus:border-black/40"
+                className="w-full rounded-full border border-black/[0.18] bg-white py-2.5 pl-10 pr-9 text-[14px] outline-none transition-colors focus:border-black/40"
               />
               {q && (
                 <button
@@ -124,7 +124,7 @@ const BlogListingPage = () => {
             <select
               value={sort}
               onChange={(e) => setParam('sort', e.target.value)}
-              className="rounded-full border border-black/10 bg-white px-4 py-2.5 text-[13px] font-semibold outline-none cursor-pointer focus:border-black/40"
+              className="rounded-full border border-black/[0.18] bg-white px-4 py-2.5 text-[13px] font-semibold outline-none cursor-pointer focus:border-black/40"
               aria-label="Sort articles"
             >
               <option value="latest">Newest first</option>
@@ -152,7 +152,7 @@ const BlogListingPage = () => {
                     className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] transition-all ${
                       isActive
                         ? 'border-black bg-black text-white'
-                        : 'border-black/10 bg-white text-black/50 hover:border-black/25 hover:text-black'
+                        : 'border-black/[0.18] bg-white text-black/50 hover:border-black/25 hover:text-black'
                     }`}
                   >
                     {t === 'all' ? 'All topics' : topicLabel(t)}
@@ -182,7 +182,7 @@ const BlogListingPage = () => {
 
       <section className="px-6 pt-16 sm:pt-20 pb-16 lg:pb-24">
         <div className={cx(layout.compactShell, 'grid grid-cols-1 gap-4 lg:grid-cols-3')}>
-          <div className="rounded-xl border border-black/10 bg-white p-4">
+          <div className="rounded-xl border border-black/[0.18] bg-white p-4">
             <h3 className="mb-3 text-[14px] font-bold">Editor's picks</h3>
             <div className="space-y-2">
               {popularPosts.map((post) => (
@@ -192,7 +192,7 @@ const BlogListingPage = () => {
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-black/10 bg-white p-4">
+          <div className="rounded-xl border border-black/[0.18] bg-white p-4">
             <h3 className="mb-3 text-[14px] font-bold">Recently updated</h3>
             <div className="space-y-2">
               {updatedPosts.map((post) => (
@@ -202,7 +202,7 @@ const BlogListingPage = () => {
               ))}
             </div>
           </div>
-          <div className="rounded-xl border border-black/10 bg-white p-4">
+          <div className="rounded-xl border border-black/[0.18] bg-white p-4">
             <h3 className="mb-3 text-[14px] font-bold">Continue reading</h3>
             {readingHistory.length === 0 ? (
               <p className="text-[13px] text-black/50">Your reading history appears here after opening articles.</p>
@@ -229,7 +229,7 @@ const BlogListingPage = () => {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
-                className="rounded-lg border border-black/10 px-4 py-3 text-sm font-medium transition-colors hover:bg-black hover:text-white"
+                className="rounded-lg border border-black/[0.18] px-4 py-3 text-sm font-medium transition-colors hover:bg-black hover:text-white"
               >
                 {post.title}
               </Link>

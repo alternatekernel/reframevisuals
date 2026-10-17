@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PublicInput } from '../components/ui/form-controls';
@@ -16,7 +16,7 @@ const TrialAuditCta = () => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full space-y-4 overflow-hidden rounded-[28px] border border-[#BAE6FD]/80 animate-card-bg p-5 shadow-[0_18px_48px_rgba(15,23,42,0.08)] sm:p-7"
+          className="relative w-full space-y-4 overflow-hidden rounded-[28px] border border-[#BAE6FD]/80 animate-card-bg p-5 shadow-[0_18px_48px_rgba(15,23,42,0.14)] sm:p-7"
         >
           <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-white/55 blur-2xl" />
           <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-[#BFDBFE]/35 blur-2xl" />

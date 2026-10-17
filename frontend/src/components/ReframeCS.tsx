@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useContent } from '../context/ContentBase';
@@ -93,12 +93,20 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
     isExpanded || dictation.isListening || Boolean(draft.trim()) || Boolean(session.latestPreview),
   );
 
+  const focusTimerRef = useRef<number | null>(null);
   const focusComposer = useCallback((delay = 250) => {
-    window.setTimeout(() => composerRef.current?.focus(), delay);
+    if (focusTimerRef.current) window.clearTimeout(focusTimerRef.current);
+    focusTimerRef.current = window.setTimeout(() => {
+      focusTimerRef.current = null;
+      composerRef.current?.focus();
+    }, delay);
   }, []);
 
   const collapse = useCallback(() => {
     if (!isFloating) return;
+    // A focus still queued from opening would re-expand the widget through the input's onFocus.
+    if (focusTimerRef.current) window.clearTimeout(focusTimerRef.current);
+    focusTimerRef.current = null;
     setIsExpanded(false);
     setActionTarget(null);
   }, [isFloating]);
@@ -379,14 +387,14 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
       transition={{ type: 'tween', duration: isCompact ? 0.3 : 0.45, ease: [0.22, 1, 0.36, 1] }}
       className={`${isFloating ? 'fixed z-[260]' : 'relative z-10 mx-auto'} border transition-[border-color,box-shadow] duration-500 ${
         isExpanded || !isFloating
-          ? 'bg-white shadow-[0_24px_80px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.05)]'
-          : 'bg-[#f8f8f6] shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_2px_3px_rgba(0,0,0,0.05),0_12px_32px_rgba(0,0,0,0.10)]'
+          ? 'bg-white shadow-[0_24px_80px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.10)]'
+          : 'bg-[#f8f8f6] shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_2px_3px_rgba(0,0,0,0.10),0_12px_32px_rgba(0,0,0,0.10)]'
       } ${
         isFloating && presence.glow
           ? 'border-[#3b82f6] ring-4 ring-[#3b82f6]/20'
           : isFloating && !isExpanded
             ? 'border-black/[0.14] hover:border-[#3b82f6] hover:ring-4 hover:ring-[#3b82f6]/20'
-            : 'border-black/10'
+            : 'border-black/[0.18]'
       }`}
       style={{
         left: isFloating ? '50%' : undefined,

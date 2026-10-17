@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, X, AlertTriangle } from 'lucide-react';
 import { cx, layout, typography } from '../../utils/theme';
@@ -82,16 +82,16 @@ const CompetitorComparison: React.FC = () => {
         </motion.div>
 
         {/* Desktop */}
-        <div className="hidden md:block w-full rounded-2xl border border-black/10 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+        <div className="hidden md:block w-full rounded-2xl border border-black/[0.18] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.09)]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-black/10">
+              <tr className="border-b border-black/[0.18]">
                 <th className="py-4 px-6 text-[10px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[18%] bg-[var(--color-bg-secondary)]" />
                 <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-white w-[24%] bg-[var(--color-text-primary)] border-x border-white/10">
                   Reframe Visuals
                 </th>
                 <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[19%] bg-[var(--color-bg-secondary)]">Offshore Agencies</th>
-                <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[19%] bg-[var(--color-bg-secondary)] border-x border-black/[0.06]">Enterprise Studios</th>
+                <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[19%] bg-[var(--color-bg-secondary)] border-x border-black/[0.14]">Enterprise Studios</th>
                 <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[19%] bg-[var(--color-bg-secondary)]">Remove.bg / Auto-AI</th>
               </tr>
             </thead>
@@ -101,7 +101,7 @@ const CompetitorComparison: React.FC = () => {
                 const rowBg = isEven ? 'bg-white' : 'bg-[var(--color-bg-secondary)]/60';
                 const isLast = i === comparisonData.length - 1;
                 return (
-                  <tr key={row.feature} className={isLast ? '' : 'border-b border-black/[0.07]'}>
+                  <tr key={row.feature} className={isLast ? '' : 'border-b border-black/[0.14]'}>
                     <td className={cx('py-6 px-6 text-[16px] font-semibold text-[var(--color-text-primary)] align-top', rowBg)}>
                       {row.feature}
                     </td>
@@ -117,7 +117,7 @@ const CompetitorComparison: React.FC = () => {
                         <span>{row.traditionalAgencies.text}</span>
                       </div>
                     </td>
-                    <td className={cx('py-6 px-6 text-[15px] text-black/75 leading-relaxed align-top border-x border-black/[0.06]', rowBg)}>
+                    <td className={cx('py-6 px-6 text-[15px] text-black/75 leading-relaxed align-top border-x border-black/[0.14]', rowBg)}>
                       <div className="flex gap-2.5 items-start">
                         <StatusIcon status={row.enterpriseStudios.status} />
                         <span>{row.enterpriseStudios.text}</span>
@@ -137,9 +137,9 @@ const CompetitorComparison: React.FC = () => {
         </div>
 
         {/* Mobile */}
-        <div className="md:hidden rounded-2xl border border-black/10 overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+        <div className="md:hidden rounded-2xl border border-black/[0.18] overflow-hidden shadow-[0_8px_24px_rgba(0,0,0,0.09)]">
           {comparisonData.map((row, i) => (
-            <div key={row.feature} className={cx('p-4', i % 2 !== 0 && 'bg-[var(--color-bg-secondary)]/60', i < comparisonData.length - 1 && 'border-b border-black/[0.07]')}>
+            <div key={row.feature} className={cx('p-4', i % 2 !== 0 && 'bg-[var(--color-bg-secondary)]/60', i < comparisonData.length - 1 && 'border-b border-black/[0.14]')}>
               <p className="text-[12px] font-bold font-mono uppercase tracking-widest text-black/45 mb-2.5">{row.feature}</p>
 
               <div className="rounded-xl bg-[var(--color-text-primary)] px-3.5 py-3 mb-2.5 flex gap-2 items-start">

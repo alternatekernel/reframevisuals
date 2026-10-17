@@ -1,4 +1,4 @@
-import { Zap, Target, Award, Lightbulb, Users, TrendingUp } from 'lucide-react';
+﻿import { Zap, Target, Award, Lightbulb, Users, TrendingUp } from 'lucide-react';
 import { useContent } from '../context/ContentBase';
 import { cx, layout, typography } from '../utils/theme';
 import { motion } from 'framer-motion';
@@ -86,7 +86,7 @@ const Differentiation = () => {
           </div>
 
           {/* Right: Redesigned transformation cards */}
-          <div className="rounded-[28px] border border-black/10 bg-[#FAFAFA] p-2.5 shadow-[0_18px_60px_-48px_rgba(0,0,0,0.5)] sm:p-4">
+          <div className="rounded-[28px] border border-black/[0.18] bg-[#FAFAFA] p-2.5 shadow-[0_18px_60px_-48px_rgba(0,0,0,0.5)] sm:p-4">
             <div className="grid gap-2.5 sm:gap-3">
               {points.map((point: any, i: number) => {
                 const Icon = ICONS[i] || Target;
@@ -100,7 +100,7 @@ const Differentiation = () => {
                     transition={{ delay: i * 0.04, duration: 0.3 }}
                     className={`group grid grid-cols-[auto_1fr] gap-3 rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-0.5 sm:grid-cols-[auto_1fr] sm:items-start sm:p-5 ${cardStyles.bg} ${cardStyles.border}`}
                   >
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-2xl border border-black/5 transition-colors sm:h-11 sm:w-11 ${cardStyles.iconBg}`}>
+                    <div className={`flex h-10 w-10 items-center justify-center rounded-2xl border border-black/[0.12] transition-colors sm:h-11 sm:w-11 ${cardStyles.iconBg}`}>
                       <Icon size={16} strokeWidth={1.8} />
                     </div>
                     <div>

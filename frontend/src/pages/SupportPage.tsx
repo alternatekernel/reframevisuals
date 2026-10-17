@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FileText, Zap, Users, Clock, HelpCircle, Mail, ChevronRight } from 'lucide-react';
 import ReframeCSShowcase from '../sections/ReframeCSShowcase';
@@ -222,11 +222,11 @@ const SupportPage: React.FC = () => {
         <div className="mx-auto w-full max-w-5xl relative z-10 space-y-6 pt-6">
 
           {/* What you can ask */}
-          <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] p-8 sm:p-10">
+          <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] p-8 sm:p-10">
             <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">What you can ask</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {WHEN_TO_USE.map(({ icon: Icon, title, description }) => (
-                <div key={title} className="flex items-start gap-4 p-5 rounded-2xl bg-[var(--color-bg-secondary)] border border-black/[0.05]">
+                <div key={title} className="flex items-start gap-4 p-5 rounded-2xl bg-[var(--color-bg-secondary)] border border-black/[0.20]">
                   <div className="flex shrink-0 h-10 w-10 items-center justify-center rounded-xl bg-black/[0.05]">
                     <Icon size={18} className="text-black/50" strokeWidth={1.8} />
                   </div>
@@ -243,7 +243,7 @@ const SupportPage: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-6">
 
             {/* Good question examples */}
-            <div className="flex-1 relative overflow-hidden rounded-[24px] border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] p-8 sm:p-10">
+            <div className="flex-1 relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] p-8 sm:p-10">
               <div className="flex items-center gap-2.5 mb-4">
                 <HelpCircle size={18} className="text-black/30" strokeWidth={1.8} />
                 <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35">How to ask</h2>
@@ -253,7 +253,7 @@ const SupportPage: React.FC = () => {
               </p>
               <div className="space-y-5">
                 {GOOD_QUESTIONS.map(({ label, example }) => (
-                  <div key={label} className="border-l-2 border-black/10 pl-4">
+                  <div key={label} className="border-l-2 border-black/[0.18] pl-4">
                     <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1">{label}</p>
                     <p className="text-[14px] text-black/50 leading-relaxed italic">{example}</p>
                   </div>
@@ -264,7 +264,7 @@ const SupportPage: React.FC = () => {
             {/* Sidebar */}
             <div className="md:w-[300px] shrink-0 flex flex-col gap-6">
 
-              <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-[var(--color-bg-secondary)] shadow-[0_14px_40px_rgba(0,0,0,0.04)] p-7 flex-1">
+              <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-[var(--color-bg-secondary)] shadow-[0_14px_40px_rgba(0,0,0,0.09)] p-7 flex-1">
                 <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-5">What to expect</h2>
                 <div className="space-y-6">
                   <div>
@@ -282,7 +282,7 @@ const SupportPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="relative overflow-hidden rounded-[24px] border border-black/10 bg-[var(--color-text-primary)] shadow-[0_14px_40px_rgba(0,0,0,0.1)] p-7">
+              <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-[var(--color-text-primary)] shadow-[0_14px_40px_rgba(0,0,0,0.1)] p-7">
                 <p className="text-[18px] font-bold text-white leading-snug">Need help now?</p>
                 <p className="mt-2 text-[14px] text-white/55 leading-relaxed">Use the chat at the top of this page or click below.</p>
                 <button

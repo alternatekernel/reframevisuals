@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { cx, layout, tokens, typography } from '../../utils/theme';
 
 const AboutPhilosophy = () => {
@@ -29,7 +29,7 @@ const AboutPhilosophy = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             className={cx(
-              "p-5 sm:p-7 lg:p-10 transition-all duration-500 bg-white flex flex-col border border-black/10",
+              "p-5 sm:p-7 lg:p-10 transition-all duration-500 bg-white flex flex-col border border-black/[0.18]",
               tokens.radiusCard
             )}
             style={{ boxShadow: tokens.shadowStandard }}

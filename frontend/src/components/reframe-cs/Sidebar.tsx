@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { MessageSquare, Pin, Plus, Settings, Trash2, Zap } from 'lucide-react';
 import type { ConversationPreview } from './types';
 
@@ -52,7 +52,7 @@ const Sidebar = ({
       animate={{ width: 200, opacity: 1 }}
       exit={{ width: 0, opacity: 0 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="flex shrink-0 flex-col overflow-hidden border-r border-black/[0.08] bg-[#FDFDFD]"
+      className="flex shrink-0 flex-col overflow-hidden border-r border-black/[0.16] bg-[#FDFDFD]"
       aria-label="Reframe CS navigation"
     >
       <div className="flex h-full w-[200px] min-h-0 flex-col">
@@ -100,7 +100,7 @@ const Sidebar = ({
             className={`mb-2 flex h-8 w-full items-center gap-2.5 rounded-lg px-3 text-[12px] font-semibold transition-colors ${
               isChatTab && !activeConversationId
                 ? 'bg-[var(--research-blue)] text-[#171717]'
-                : 'border border-dashed border-black/10 text-[#666] hover:bg-white hover:text-[#171717]'
+                : 'border border-dashed border-black/[0.18] text-[#666] hover:bg-white hover:text-[#171717]'
             }`}
           >
             <MessageSquare size={13} />
@@ -125,7 +125,7 @@ const Sidebar = ({
                       onClick={() => onSelectConversation(conversation.id)}
                       aria-current={active ? 'true' : undefined}
                       className={`flex w-full flex-col gap-0.5 rounded-lg border px-3 py-2 pr-14 text-left transition-colors ${
-                        active ? 'border-black/10 bg-white shadow-sm' : 'border-transparent hover:bg-white/80'
+                        active ? 'border-black/[0.18] bg-white shadow-sm' : 'border-transparent hover:bg-white/80'
                       }`}
                     >
                       <span className="flex min-w-0 items-center gap-1.5">
@@ -161,7 +161,7 @@ const Sidebar = ({
           )}
         </div>
 
-        <div className="flex min-h-[64px] shrink-0 items-center gap-3 border-t border-black/[0.08] bg-white/50 px-4 py-3">
+        <div className="flex min-h-[64px] shrink-0 items-center gap-3 border-t border-black/[0.16] bg-white/50 px-4 py-3">
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#171717] text-[10px] font-medium text-white">
             {initials}
           </span>

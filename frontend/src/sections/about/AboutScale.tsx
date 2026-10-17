@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { cx, layout, tokens, typography } from '../../utils/theme';
 import { Globe, Users, Database, Zap } from 'lucide-react';
 
@@ -65,7 +65,7 @@ const AboutScale = () => {
               )}
               style={{ boxShadow: tokens.shadowStandard }}
             >
-              <div className="w-10 h-10 rounded-lg bg-[#fafafa] flex items-center justify-center mb-6 border border-black/5">
+              <div className="w-10 h-10 rounded-lg bg-[#fafafa] flex items-center justify-center mb-6 border border-black/[0.12]">
                 <item.icon size={20} className="text-[#171717]" />
               </div>
               <div className="mb-4">

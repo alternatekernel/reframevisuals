@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+﻿import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useContent } from '../context/ContentBase';
 import { Link } from 'react-router-dom';
 import { motion, useTransform, AnimatePresence, useScroll } from 'framer-motion';
@@ -162,14 +162,14 @@ const Hero = () => {
       <div className="relative z-10 flex w-full flex-col justify-between px-4 min-h-[82dvh] pb-6 pt-1 sm:hidden">
         <div className="flex flex-col justify-start gap-5 sm:gap-7 w-full mt-1">
           <motion.div
-            className="mx-auto flex w-full max-w-[410px] flex-col items-center gap-5 sm:gap-7 px-7 py-7 sm:py-9 text-center rounded-[32px] border border-black/[0.08] animate-card-bg shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] relative overflow-hidden"
+            className="mx-auto flex w-full max-w-[410px] flex-col items-center gap-5 sm:gap-7 px-7 py-7 sm:py-9 text-center rounded-[32px] border border-black/[0.16] animate-card-bg shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] relative overflow-hidden"
             initial={shouldAnimate ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: [0.0, 0, 0.2, 1], delay: d(60) }}
           >
             {/* Decorative blurs — hidden on mobile to reduce paint cost */}
             <div className="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-white/55 blur-2xl hidden sm:block" />
-            <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/[0.03] blur-2xl hidden sm:block" />
+            <div className="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/[0.05] blur-2xl hidden sm:block" />
 
             <div className="space-y-4 relative z-10">
               <motion.h2
@@ -208,7 +208,7 @@ const Hero = () => {
               </Link>
               <Link
                 to="/pricing"
-                className="inline-flex min-h-[52px] items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-7 text-[16px] font-bold text-black transition-all hover:bg-black/[0.03] active:scale-95 touch-manipulation shadow-sm"
+                className="inline-flex min-h-[52px] items-center justify-center whitespace-nowrap rounded-full border border-black/[0.18] bg-white px-7 text-[16px] font-bold text-black transition-all hover:bg-black/[0.05] active:scale-95 touch-manipulation shadow-sm"
               >
                 See pricing
               </Link>
@@ -255,7 +255,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: 'easeOut', delay: d(700) }}
         >
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-black/[0.09] bg-white/90 px-3 py-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.07)] backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2.5 rounded-full border border-black/[0.16] bg-white/90 px-3 py-1.5 shadow-[0_2px_10px_rgba(0,0,0,0.12)] backdrop-blur-sm">
             <div className="flex -space-x-2">
               {HERO_AVATARS.slice(0, 4).map((src, i) => (
                 <img
@@ -282,7 +282,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.22, ease: 'easeOut', delay: d(720) }}
         >
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.12] bg-[var(--color-bg-secondary)]/90 px-2.5 py-1 text-[10px] font-semibold text-black/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_1px_2px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.20] bg-[var(--color-bg-secondary)]/90 px-2.5 py-1 text-[10px] font-semibold text-black/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_1px_2px_rgba(0,0,0,0.09)] backdrop-blur-sm">
             <span className="tracking-[0.16em] uppercase">Swipe to explore</span>
             <motion.span
               aria-hidden="true"
@@ -382,7 +382,7 @@ const Hero = () => {
 
             <div className="grid w-full max-w-[350px] grid-cols-3 gap-1.5 sm:hidden">
               {MOBILE_TRUST_POINTS.map((point) => (
-                <div key={point} className="flex min-h-10 items-center justify-center rounded-2xl border border-black/8 bg-white/80 px-2 text-[10px] font-bold leading-tight text-black/55 shadow-sm">
+                <div key={point} className="flex min-h-10 items-center justify-center rounded-2xl border border-black/[0.16] bg-white/80 px-2 text-[10px] font-bold leading-tight text-black/55 shadow-sm">
                   {point}
                 </div>
               ))}
@@ -410,7 +410,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: 'easeOut', delay: d(900) }}
           >
-            <div className="inline-flex items-center gap-3 rounded-full border border-black/[0.09] bg-white/90 px-3.5 py-2 shadow-[0_2px_14px_rgba(0,0,0,0.07)] backdrop-blur-sm">
+            <div className="inline-flex items-center gap-3 rounded-full border border-black/[0.16] bg-white/90 px-3.5 py-2 shadow-[0_2px_14px_rgba(0,0,0,0.12)] backdrop-blur-sm">
               <div className="flex -space-x-2.5">
                 {HERO_AVATARS.map((src, i) => (
                   <img

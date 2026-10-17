@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { INDUSTRY_PAGES, GEO_PAGES, CASE_STUDIES } from '../data/expansionPages';
 import { SERVICES } from '../data/services';
@@ -154,7 +154,7 @@ const ExpansionPage = () => {
         {/* Key capabilities */}
         <div className="grid md:grid-cols-3 gap-4 my-10">
           {page.bullets.map((b) => (
-            <div key={b} className="border border-black/10 rounded-2xl p-4 text-[16px] text-black/75 font-medium">{b}</div>
+            <div key={b} className="border border-black/[0.18] rounded-2xl p-4 text-[16px] text-black/75 font-medium">{b}</div>
           ))}
         </div>
 
@@ -164,7 +164,7 @@ const ExpansionPage = () => {
             <h2 className="text-2xl font-semibold tracking-tight mb-6">Services included</h2>
             <div className="space-y-4">
               {relatedServices.map((s) => (
-                <div key={s.id} className="border border-black/10 rounded-2xl p-5">
+                <div key={s.id} className="border border-black/[0.18] rounded-2xl p-5">
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <h3 className="font-semibold text-[18px]">{s.name}</h3>
                     <span className="text-sm font-semibold text-black/60 whitespace-nowrap">from ${s.price.toFixed(2)}/image</span>
@@ -194,7 +194,7 @@ const ExpansionPage = () => {
           <h2 className="text-2xl font-semibold tracking-tight mb-6">Frequently asked questions</h2>
           <div className="space-y-4">
             {page.faq.map((f) => (
-              <article key={f.q} className="border border-black/10 rounded-2xl p-5">
+              <article key={f.q} className="border border-black/[0.18] rounded-2xl p-5">
                 <h3 className="font-semibold text-[18px] mb-2">{f.q}</h3>
                 <p className="text-[15px] text-black/70 leading-relaxed">{f.a}</p>
               </article>
@@ -211,7 +211,7 @@ const ExpansionPage = () => {
                 <Link
                   key={cs.slug}
                   to={cs.path}
-                  className="border border-black/10 rounded-2xl p-5 hover:border-black/30 transition-colors block"
+                  className="border border-black/[0.18] rounded-2xl p-5 hover:border-black/30 transition-colors block"
                 >
                   <h3 className="font-semibold text-[16px] mb-2">{cs.h1}</h3>
                   <p className="text-[14px] text-black/60 leading-relaxed">{cs.outcome ?? cs.description}</p>
@@ -228,7 +228,7 @@ const ExpansionPage = () => {
             <h2 className="text-2xl font-semibold tracking-tight mb-6">What clients say</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {relatedTestimonials.map((t) => t && (
-                <blockquote key={t.name} className="border border-black/10 rounded-2xl p-5">
+                <blockquote key={t.name} className="border border-black/[0.18] rounded-2xl p-5">
                   <p className="text-[15px] text-black/75 leading-relaxed mb-3">"{t.quote}"</p>
                   <footer className="text-[13px] font-semibold text-black/60">
                     {t.name} — {t.company}
@@ -241,7 +241,7 @@ const ExpansionPage = () => {
         )}
 
         {/* CTAs */}
-        <div className="flex flex-wrap gap-3 pt-4 border-t border-black/10">
+        <div className="flex flex-wrap gap-3 pt-4 border-t border-black/[0.18]">
           <Button asChild size="compact" variant="default" className="font-semibold">
             <Link to="/free-trial">{page.ctaLabel}</Link>
           </Button>

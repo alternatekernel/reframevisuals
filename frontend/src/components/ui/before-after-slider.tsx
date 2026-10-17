@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cx } from "../../utils/theme"
 
 export interface BeforeAfterSliderProps {
@@ -64,7 +64,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       onMouseDown={handleMouseDown}
       onTouchMove={handleTouchMove}
       className={cx(
-        "group relative w-full select-none overflow-hidden rounded-2xl border border-black/10 bg-black/[0.03] shadow-md cursor-ew-resize",
+        "group relative w-full select-none overflow-hidden rounded-2xl border border-black/[0.18] bg-black/[0.05] shadow-md cursor-ew-resize",
         aspectRatio,
         className,
       )}

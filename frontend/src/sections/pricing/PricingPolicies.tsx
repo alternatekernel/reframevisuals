@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, RotateCcw, ShieldCheck, HelpCircle } from 'lucide-react';
 import { cx, layout, tokens, typography } from '../../utils/theme';
@@ -84,7 +84,7 @@ const PricingPolicies: React.FC = () => {
 
                 <ul className="space-y-4 mt-auto">
                   {policy.items.map((item) => (
-                    <li key={item.label} className="text-[12px] leading-relaxed border-t border-black/5 pt-3 first:border-t-0 first:pt-0">
+                    <li key={item.label} className="text-[12px] leading-relaxed border-t border-black/[0.12] pt-3 first:border-t-0 first:pt-0">
                       <p className="font-bold text-[var(--color-text-primary)]">{item.label}</p>
                       <p className="text-black/55 mt-0.5">{item.detail}</p>
                     </li>

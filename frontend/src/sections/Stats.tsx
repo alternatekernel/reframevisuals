@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { useContent } from '../context/ContentBase';
 import { isLikelyCrawler } from '../utils/crawler';
 import { cx, layout, typography } from '../utils/theme';
@@ -15,17 +15,17 @@ const SOURCE_URLS: Record<string, string> = {
 const CARD_THEMES = [
   {
     hoverBorder: 'hover:border-zinc-300',
-    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.06)]',
+    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.11)]',
     cardGlow: 'before:shadow-[0_28px_40px_-24px_rgba(0,0,0,0.08)]',
   },
   {
     hoverBorder: 'hover:border-zinc-300',
-    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.06)]',
+    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.11)]',
     cardGlow: 'before:shadow-[0_28px_40px_-24px_rgba(0,0,0,0.08)]',
   },
   {
     hoverBorder: 'hover:border-zinc-300',
-    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.06)]',
+    hoverShadow: 'hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.11)]',
     cardGlow: 'before:shadow-[0_28px_40px_-24px_rgba(0,0,0,0.08)]',
   }
 ];
@@ -108,7 +108,7 @@ const Stats = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
                 className={cx(
-                  "relative py-12 lg:py-16 px-6 lg:px-8 bg-white border border-zinc-200/80 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.04)] rounded-3xl flex flex-col justify-between items-center transition-all duration-300 overflow-hidden group min-h-[320px] md:min-h-[360px] before:pointer-events-none before:absolute before:left-[10%] before:right-[10%] before:bottom-4 before:h-16 before:rounded-full before:bg-black/[0.02] before:blur-2xl before:transition-all before:duration-300 hover:-translate-y-1 hover:before:bottom-2",
+                  "relative py-12 lg:py-16 px-6 lg:px-8 bg-white border border-zinc-200/80 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.09)] rounded-3xl flex flex-col justify-between items-center transition-all duration-300 overflow-hidden group min-h-[320px] md:min-h-[360px] before:pointer-events-none before:absolute before:left-[10%] before:right-[10%] before:bottom-4 before:h-16 before:rounded-full before:bg-black/[0.04] before:blur-2xl before:transition-all before:duration-300 hover:-translate-y-1 hover:before:bottom-2",
                   theme.hoverBorder,
                   theme.hoverShadow,
                   theme.cardGlow

@@ -1,4 +1,4 @@
-import { layout } from '../../utils/theme';
+﻿import { layout } from '../../utils/theme';
 import { CreditCard, ShieldCheck, FileText } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ const BillingView = () => {
     return (
       <div className={`${layout.compactShell} px-4 sm:px-6 xl:px-8`}>
         <div className="py-20 flex flex-col items-center justify-center space-y-4">
-          <div className="w-8 h-8 border-2 border-black/5 border-t-black rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-black/[0.12] border-t-black rounded-full animate-spin" />
           <p className="text-sm text-black/40">Loading your billing profile...</p>
         </div>
       </div>
@@ -28,7 +28,7 @@ const BillingView = () => {
 
   return (
     <div className={`${layout.compactShell} px-4 sm:px-6 xl:px-8`}>
-      <header className="py-8 lg:py-10 xl:py-12 border-b border-black/[0.03]">
+      <header className="py-8 lg:py-10 xl:py-12 border-b border-black/[0.18]">
         <div className="flex items-center gap-3 mb-2">
           <ShieldCheck size={14} className="text-emerald-500" />
           <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500">Billing</span>
@@ -75,7 +75,7 @@ const BillingView = () => {
               <h2 className="text-[14px] font-bold uppercase tracking-widest text-black/40">Identity & Payment</h2>
             </div>
             {defaultPaymentMethod ? (
-              <div className="rounded-2xl border border-black/5 bg-white shadow-sm overflow-hidden">
+              <div className="rounded-2xl border border-black/[0.12] bg-white shadow-sm overflow-hidden">
                 <div className="p-6 flex flex-col gap-4 sm:flex-row sm:items-center">
                   <div className="w-12 h-12 rounded-xl bg-brand-ink flex items-center justify-center text-white shrink-0">
                     <CreditCard size={20} />
@@ -90,7 +90,7 @@ const BillingView = () => {
                     <p className="text-[12px] text-black/40">Expires {defaultPaymentMethod.expMonth}/{defaultPaymentMethod.expYear}</p>
                   </div>
                 </div>
-                <div className="border-t border-black/[0.04] px-6 py-3 bg-bg-secondary">
+                <div className="border-t border-black/[0.20] px-6 py-3 bg-bg-secondary">
                   <a
                     href="mailto:support@reframevisuals.com?subject=Update payment method"
                     className="text-[12px] font-medium text-text-secondary hover:text-text-primary transition-colors"
@@ -100,7 +100,7 @@ const BillingView = () => {
                 </div>
               </div>
             ) : (
-              <div className="w-full p-8 border border-dashed border-black/10 rounded-2xl text-black/40 flex flex-col items-center gap-2">
+              <div className="w-full p-8 border border-dashed border-black/[0.18] rounded-2xl text-black/40 flex flex-col items-center gap-2">
                 <CreditCard size={20} className="text-black/20" />
                 <span className="text-[13px] font-medium">No payment method on file</span>
                 <a
@@ -115,7 +115,7 @@ const BillingView = () => {
 
           <section>
             <h2 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-6">Usage Quota</h2>
-            <div className="p-6 rounded-2xl border border-black/5 bg-surfaceMuted space-y-6">
+            <div className="p-6 rounded-2xl border border-black/[0.12] bg-surfaceMuted space-y-6">
               <div>
                 <div className="flex justify-between text-[13px] mb-2">
                   <span className="text-black/50">Images processed</span>
@@ -127,7 +127,7 @@ const BillingView = () => {
                   <motion.div initial={{ width: 0 }} animate={{ width: `${usagePercent}%` }} className="h-full bg-black rounded-full" />
                 </div>
               </div>
-              <div className="pt-4 border-t border-black/[0.05] flex items-center justify-between">
+              <div className="pt-4 border-t border-black/[0.20] flex items-center justify-between">
                 <span className="text-[12px] text-black/40 italic">Quota resets on {billingProfile?.usage?.resetDate || 'Unavailable'}</span>
               </div>
             </div>
@@ -138,8 +138,8 @@ const BillingView = () => {
         <section>
           <h2 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-6">Invoice History</h2>
           {invoices.length > 0 ? (
-            <div className="rounded-2xl border border-black/5 bg-white overflow-hidden">
-              <div className="hidden md:grid grid-cols-12 gap-3 px-5 py-3 border-b border-black/5 text-[11px] font-bold uppercase tracking-widest text-black/30">
+            <div className="rounded-2xl border border-black/[0.12] bg-white overflow-hidden">
+              <div className="hidden md:grid grid-cols-12 gap-3 px-5 py-3 border-b border-black/[0.12] text-[11px] font-bold uppercase tracking-widest text-black/30">
                 <div className="col-span-3">Invoice</div>
                 <div className="col-span-3">Date</div>
                 <div className="col-span-2">Due</div>
@@ -147,7 +147,7 @@ const BillingView = () => {
                 <div className="col-span-2 text-right">Status</div>
               </div>
               {invoices.map((inv) => (
-                <div key={inv.id} className="grid grid-cols-1 gap-2 px-5 py-4 border-b border-black/[0.04] last:border-b-0 md:grid-cols-12 md:items-center hover:bg-bg-secondary transition-colors">
+                <div key={inv.id} className="grid grid-cols-1 gap-2 px-5 py-4 border-b border-black/[0.20] last:border-b-0 md:grid-cols-12 md:items-center hover:bg-bg-secondary transition-colors">
                   <div className="md:col-span-3 flex items-center gap-3">
                     <div className="w-8 h-8 rounded-lg bg-bg-secondary flex items-center justify-center shrink-0">
                       <FileText size={14} className="text-text-secondary" />
@@ -180,7 +180,7 @@ const BillingView = () => {
               ))}
             </div>
           ) : (
-            <div className="w-full p-10 border border-dashed border-black/10 rounded-2xl flex flex-col items-center gap-3 text-center">
+            <div className="w-full p-10 border border-dashed border-black/[0.18] rounded-2xl flex flex-col items-center gap-3 text-center">
               <FileText size={24} className="text-black/20" />
               <p className="text-[14px] font-medium text-black/40">No invoices yet</p>
               <p className="text-[13px] text-black/30">Your invoices will appear here once your first order is billed.</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useDashboard } from '../../context/DashboardContext';
 import { layout } from '../../utils/theme';
 import { Plus, Trash2, Edit3, Zap, Copy, FileJson, Check, Info } from 'lucide-react';
@@ -52,7 +52,7 @@ const TemplatesView = () => {
         {templates.map((t) => (
           <div 
             key={t.id}
-            className="group p-6 rounded-2xl border border-gray-100 bg-white hover:border-black/10 hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+            className="group p-6 rounded-2xl border border-gray-100 bg-white hover:border-black/[0.18] hover:shadow-xl transition-all duration-300 relative overflow-hidden"
             style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.02)' }}
           >
             <div className="flex justify-between items-start mb-4">
@@ -103,7 +103,7 @@ const TemplatesView = () => {
         {/* Empty State / Add Card */}
         <button 
           onClick={handleCreateNew}
-          className="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed border-gray-100 hover:border-black/10 hover:bg-gray-50 transition-all text-gray-400 gap-3 group"
+          className="flex flex-col items-center justify-center p-8 rounded-2xl border-2 border-dashed border-gray-100 hover:border-black/[0.18] hover:bg-gray-50 transition-all text-gray-400 gap-3 group"
         >
           <div className="w-12 h-12 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center group-hover:scale-110 transition-transform">
             <Plus size={24} />

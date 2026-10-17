@@ -4,3 +4,7 @@ node_modules
 dist
 .vite
 .vercel
+
+# Playwright output
+frontend/e2e-results/
+frontend/e2e-report/

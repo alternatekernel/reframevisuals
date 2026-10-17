@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { cx, layout, typography } from '../../utils/theme';
 
@@ -8,7 +8,7 @@ interface ServicesHeroProps {
 
 const ServicesHero: React.FC<ServicesHeroProps> = ({ content }) => {
   return (
-    <section className="px-6 lg:px-12 py-16 bg-white relative overflow-hidden border-b border-black/5">
+    <section className="px-6 lg:px-12 py-16 bg-white relative overflow-hidden border-b border-black/[0.12]">
       {/* Background Watermark */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 opacity-[0.02] pointer-events-none">
         <img src="/logo.svg" alt="Reframe Services Background Icon" className="w-[500px] h-[500px] -translate-x-1/2" />
@@ -46,7 +46,7 @@ const ServicesHero: React.FC<ServicesHeroProps> = ({ content }) => {
               className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 ${
                 label === 'Standard'
                   ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white'
-                  : 'border-black/10 bg-white text-[var(--color-text-primary)]'
+                  : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]'
               }`}
             >
               <span className="text-[14px] font-bold">{time}</span>

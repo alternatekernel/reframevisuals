@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cx } from "../../utils/theme"
@@ -57,7 +57,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     <div
       data-accordion-id={id}
       className={cx(
-        "rounded-2xl border border-black/10 bg-white transition-colors duration-200 overflow-hidden",
+        "rounded-2xl border border-black/[0.18] bg-white transition-colors duration-200 overflow-hidden",
         className,
       )}
     >
@@ -97,7 +97,7 @@ export const AccordionTrigger: React.FC<AccordionTriggerProps> = ({
       onClick={() => context.toggleItem(itemId)}
       aria-expanded={isOpen}
       className={cx(
-        "flex w-full items-center justify-between px-5 py-4 text-left font-medium transition-colors hover:bg-black/[0.02]",
+        "flex w-full items-center justify-between px-5 py-4 text-left font-medium transition-colors hover:bg-black/[0.04]",
         className,
       )}
     >
@@ -146,7 +146,7 @@ export const AccordionContent: React.FC<AccordionContentProps> = ({
         >
           <div
             className={cx(
-              "border-t border-black/6 px-5 pb-5 pt-3 text-[14px] text-black/65 leading-relaxed",
+              "border-t border-black/[0.20] px-5 pb-5 pt-3 text-[14px] text-black/65 leading-relaxed",
               className,
             )}
           >

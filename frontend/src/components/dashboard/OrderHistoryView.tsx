@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { useDashboard } from '../../context/DashboardContext';
 import { Job } from '../../types/dashboard';
 import { layout } from '../../utils/theme';
@@ -53,11 +53,11 @@ const OrderHistoryView = () => {
       <div className={`${layout.compactShell} px-4 sm:px-6 xl:px-8`}>
         <header className="py-6 lg:py-8 border-b border-borderSubtle">
           <div className="h-8 w-48 bg-black/5 rounded-lg animate-pulse" />
-          <div className="h-4 w-32 bg-black/[0.03] rounded mt-2 animate-pulse" />
+          <div className="h-4 w-32 bg-black/[0.05] rounded mt-2 animate-pulse" />
         </header>
         <div className="space-y-3 py-6">
           {[0, 1, 2, 3].map(i => (
-            <div key={i} className="h-16 w-full bg-black/[0.03] rounded-xl animate-pulse border border-black/5" style={{ animationDelay: `${i * 80}ms` }} />
+            <div key={i} className="h-16 w-full bg-black/[0.05] rounded-xl animate-pulse border border-black/[0.12]" style={{ animationDelay: `${i * 80}ms` }} />
           ))}
         </div>
       </div>
@@ -114,7 +114,7 @@ const OrderHistoryView = () => {
                 <span className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Total</span>
                 <span className="text-[14px] font-semibold text-text-primary">{job.totalPrice || '—'}</span>
               </div>
-              <div className="flex justify-end gap-2 border-t border-black/5 pt-3 md:col-span-2 md:border-t-0 md:pt-0">
+              <div className="flex justify-end gap-2 border-t border-black/[0.12] pt-3 md:col-span-2 md:border-t-0 md:pt-0">
                 <button
                   onClick={() => setSelectedJob(job)}
                   className="inline-flex items-center justify-center rounded-lg border border-borderSubtle px-4 py-2 text-[13px] font-medium text-text-secondary transition-all hover:bg-bg-secondary"

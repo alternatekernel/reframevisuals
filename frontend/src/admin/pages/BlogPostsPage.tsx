@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
+﻿import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
   FileText, Plus, RefreshCw, Search, Star, Tag, FolderTree, Trash2, X,
   ExternalLink, Image as ImageIcon, Link2, Code, Bold, Italic, Eye, Settings,
@@ -822,7 +822,7 @@ export const BlogPostsPage: React.FC = () => {
           .prose-preview ol li { list-style: decimal; }
           .prose-preview blockquote { border-left: 4px solid #000; padding-left: 1.25rem; font-style: italic; color: #555; margin: 1.75rem 0; font-family: Georgia, serif; font-size: 1.15rem; }
           .prose-preview blockquote p { margin-bottom: 0.5rem; }
-          .prose-preview img { max-width: 100%; max-height: 480px; border-radius: 8px; margin: 2rem auto; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+          .prose-preview img { max-width: 100%; max-height: 480px; border-radius: 8px; margin: 2rem auto; display: block; box-shadow: 0 10px 30px rgba(0,0,0,0.11); }
           .prose-preview a { color: #2563eb; text-decoration: underline; text-underline-offset: 3px; }
           .prose-preview a:hover { color: #1d4ed8; }
           .prose-preview code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #e06c75; }
@@ -1974,7 +1974,7 @@ export const BlogPostsPage: React.FC = () => {
                     <tr
                       style={{ cursor: 'pointer' }}
                       onClick={() => openEdit(post)}
-                      className="border-b border-[var(--an-border)] hover:bg-black/[0.02] transition-colors"
+                      className="border-b border-[var(--an-border)] hover:bg-black/[0.04] transition-colors"
                     >
                       {/* Checkbox */}
                       <td className="px-3 py-2.5 w-8" onClick={(e) => e.stopPropagation()}>
@@ -2613,7 +2613,7 @@ export const BlogPostsPage: React.FC = () => {
               </thead>
               <tbody>
                 {categories.map((c) => (
-                  <tr key={c.id} className="border-b border-[var(--an-border)] hover:bg-black/[0.01]">
+                  <tr key={c.id} className="border-b border-[var(--an-border)] hover:bg-black/[0.04]">
                     <td className="px-3 py-2.5 font-medium">{c.name}</td>
                     <td className="px-3 py-2.5 text-gray-500 font-mono">/blog/category/{c.slug}</td>
                     <td className="px-3 py-2.5 text-gray-500">{c._count?.posts ?? 0} posts</td>

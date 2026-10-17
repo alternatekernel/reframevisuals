@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
+﻿import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { Paperclip, AudioLines, ArrowUp, Zap, MoreHorizontal, Phone, Palette, AlertCircle, X, Copy, RefreshCw, Pencil } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { useSharedChatController } from '../../hooks/useSharedChatController';
@@ -370,7 +370,7 @@ const ChatView = () => {
               {attachments.map((a) => {
                 const isImage = a.file.type.startsWith('image/');
                 return (
-                  <div key={a.id} className="rounded-lg border border-black/10 overflow-hidden bg-black/[0.02]">
+                  <div key={a.id} className="rounded-lg border border-black/[0.18] overflow-hidden bg-black/[0.04]">
                     {isImage ? (
                       <div className="relative group/att">
                         <img
@@ -503,7 +503,7 @@ const ChatView = () => {
     return (
       <div className="flex h-[calc(100dvh-56px)] flex-col bg-white lg:h-screen">
         <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-          <div className="w-16 h-16 bg-black/[0.03] rounded-3xl flex items-center justify-center mb-6 animate-fadeIn">
+          <div className="w-16 h-16 bg-black/[0.05] rounded-3xl flex items-center justify-center mb-6 animate-fadeIn">
             <Zap size={32} className="text-black/20" />
           </div>
           <h2 className="text-[24px] font-bold text-black mb-2 animate-fadeIn" style={{ animationDelay: '80ms' }}>Reframe CS</h2>
@@ -542,7 +542,7 @@ const ChatView = () => {
     <div className="flex h-[calc(100dvh-56px)] bg-white lg:h-screen">
       <div className="flex-1 flex flex-col">
       {/* Chat Header */}
-      <div className="flex shrink-0 items-center justify-between gap-3 border-b border-black/5 px-4 py-3 sm:px-6 lg:px-8 lg:py-5">
+      <div className="flex shrink-0 items-center justify-between gap-3 border-b border-black/[0.12] px-4 py-3 sm:px-6 lg:px-8 lg:py-5">
         <div className="flex items-center gap-3">
           <div className="hidden h-10 w-10 rounded-full bg-[#171717] items-center justify-center sm:flex">
             <Zap size={20} className="text-white" />
@@ -607,7 +607,7 @@ const ChatView = () => {
               <div className="w-8 h-8 rounded-full bg-[#171717] flex items-center justify-center shrink-0">
                 <Zap size={16} className="text-white" />
               </div>
-              <div className="max-w-[92%] bg-black/[0.03] border border-black/5 px-4 py-4 sm:max-w-[78%] lg:max-w-[70%] sm:px-6 sm:py-5 rounded-[24px] shadow-sm">
+              <div className="max-w-[92%] bg-black/[0.05] border border-black/[0.12] px-4 py-4 sm:max-w-[78%] lg:max-w-[70%] sm:px-6 sm:py-5 rounded-[24px] shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[15px] font-semibold text-text-primary">Hi! I'm Reframe CS</span>
                   <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-medium rounded-full">AI</span>
@@ -633,7 +633,7 @@ const ChatView = () => {
                     <span>Track your orders in real-time</span>
                   </div>
                 </div>
-                <p className={`mt-3 text-[13px] ${dashboardChatMutedTextClass} border-t border-black/10 pt-3`}>
+                <p className={`mt-3 text-[13px] ${dashboardChatMutedTextClass} border-t border-black/[0.18] pt-3`}>
                   How can I help you today?
                 </p>
               </div>
@@ -697,7 +697,7 @@ const ChatView = () => {
                 <Zap size={16} className="text-white animate-pulse" />
               </div>
               <div className="flex flex-col items-start">
-                <div className="flex items-center gap-2 px-5 py-4 rounded-[24px] bg-black/[0.03] min-w-[100px]">
+                <div className="flex items-center gap-2 px-5 py-4 rounded-[24px] bg-black/[0.05] min-w-[100px]">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2 h-2 rounded-full bg-[#171717]/30 animate-typingDot1" />
                     <div className="w-2 h-2 rounded-full bg-[#171717]/30 animate-typingDot2" />

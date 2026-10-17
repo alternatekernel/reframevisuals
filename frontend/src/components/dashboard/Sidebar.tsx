@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+﻿import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus, User, Box, Clock, CreditCard, MessageSquare, Layers, LogOut, ExternalLink, Headset, Image } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { useContent } from '../../context/ContentBase';
@@ -26,7 +26,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
 
   return (
     <div className="flex flex-col h-full font-satoshi selection:bg-brand-ink/10">
-      <div className="p-6 border-b shrink-0 space-y-6" style={{ borderColor: 'rgba(0,0,0,0.04)' }}>
+      <div className="p-6 border-b shrink-0 space-y-6" style={{ borderColor: 'rgba(0,0,0,0.09)' }}>
         <button onClick={() => { navigate('/dashboard'); onNavigate?.(); }} className="flex items-center gap-3 group transition-all">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-brand-ink shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] group-hover:scale-105 transition-transform">
             <Box size={16} color="#ffffff" strokeWidth={1.5} />
@@ -40,7 +40,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
             navigate('/dashboard?view=new-project');
             onNavigate?.();
           }}
-          className="w-full flex items-center justify-center gap-2 bg-brand-ink text-white py-2.5 rounded-full text-[13px] font-semibold hover:opacity-90 transition-all active:scale-[0.98] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04)]"
+          className="w-full flex items-center justify-center gap-2 bg-brand-ink text-white py-2.5 rounded-full text-[13px] font-semibold hover:opacity-90 transition-all active:scale-[0.98] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]"
         >
           <Plus size={16} strokeWidth={2} />
           New Project
@@ -64,7 +64,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
                 }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
                   isActive 
-                    ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04)]' 
+                    ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]' 
                     : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
                 }`}
               >
@@ -123,7 +123,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
                 }}
                 className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
                   isActive 
-                    ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04)]' 
+                    ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]' 
                     : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
                 }`}
               >
@@ -136,12 +136,12 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
       </div>
 
       {/* Bottom Search/Actions */}
-      <div className="p-6 border-t shrink-0 bg-[#FDFDFD] space-y-2" style={{ borderColor: 'rgba(0,0,0,0.04)' }}>
+      <div className="p-6 border-t shrink-0 bg-[#FDFDFD] space-y-2" style={{ borderColor: 'rgba(0,0,0,0.09)' }}>
         <button
           onClick={() => { setCurrentView('account'); navigate('/dashboard/account'); onNavigate?.(); }}
           className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
             currentView === 'account'
-              ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04)]'
+              ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]'
               : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
           }`}
         >

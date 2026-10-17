@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCustomers, useCreateOrder } from '../hooks/useAdminData';
 import { Check, Copy, Search } from 'lucide-react';
@@ -95,7 +95,7 @@ export const AdminCustomOrder: React.FC = () => {
             <div className="max-h-64 overflow-auto rounded-xl border border-gray-100">
               {customersLoading && <div className="p-3 text-xs text-[#777]">Loading customers…</div>}
               {!customersLoading && filteredCustomers.map((customer: any) => (
-                <button key={customer.id} type="button" onClick={() => { setSelectedCustomer(customer); setFormData((prev) => ({ ...prev, customerId: customer.id })); }} className={`w-full border-b border-gray-100 p-3 text-left text-sm last:border-b-0 ${selectedCustomer?.id === customer.id ? 'bg-black/[0.04]' : 'hover:bg-black/[0.02]'}`}>
+                <button key={customer.id} type="button" onClick={() => { setSelectedCustomer(customer); setFormData((prev) => ({ ...prev, customerId: customer.id })); }} className={`w-full border-b border-gray-100 p-3 text-left text-sm last:border-b-0 ${selectedCustomer?.id === customer.id ? 'bg-black/[0.04]' : 'hover:bg-black/[0.04]'}`}>
                   <div className="font-semibold">{customer.name || customer.companyName || 'Guest User'} {customer.customerNumber ? `(CLT${String(customer.customerNumber).padStart(3, '0')})` : ''}</div>
                   <div className="text-xs text-[#666]">{customer.isGuest ? 'Guest' : 'Registered'} • {customer.id}</div>
                   <div className="text-xs text-[#666]">{customer.email || customer.contactEmail || 'No email'}</div>
@@ -239,7 +239,7 @@ export const AdminCustomOrder: React.FC = () => {
           <div className="space-y-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
             <div className="flex items-center gap-2 text-sm font-semibold text-emerald-700"><Check size={16} /> Order created: {createdOrder.code || createdOrder.id}</div>
             <div className="text-xs text-[#444] break-all">{customerLink}</div>
-            <button type="button" onClick={() => navigator.clipboard.writeText(customerLink)} className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-xs font-semibold"><Copy size={13} /> Copy customer link</button>
+            <button type="button" onClick={() => navigator.clipboard.writeText(customerLink)} className="inline-flex items-center gap-2 rounded-full border border-black/[0.18] bg-white px-4 py-2 text-xs font-semibold"><Copy size={13} /> Copy customer link</button>
             <button type="button" onClick={() => navigate(`/admin/chats?customerId=${encodeURIComponent(selectedCustomer?.id || '')}&orderId=${encodeURIComponent(createdOrder?.id || '')}`)} className="ml-2 inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-xs font-semibold text-white">Send Order Card in Chat</button>
           </div>
         )}

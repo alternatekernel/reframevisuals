@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+﻿import React, { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
 import {
   Search,
@@ -26,6 +26,7 @@ import {
   TrendingUp,
   User,
   ExternalLink,
+  Layout,
 } from "lucide-react"
 
 // Import Mother Components directly from single source of truth
@@ -82,6 +83,106 @@ const BRAND_PRESETS = [
   { name: "Obsidian Rose", hex: "#E11D48", rgb: "225, 29, 72" },
 ]
 
+// Section pattern groups — maps site sections to their mother component dependencies
+const SECTION_GROUPS = [
+  {
+    name: "Hero Patterns",
+    accentHex: "#EA580C",
+    count: 7,
+    files: ["Hero.tsx", "ServicesHero.tsx", "ServiceHero.tsx", "AboutHero.tsx", "PricingHero.tsx", "BlogHero.tsx", "PortfolioHero.tsx"],
+    pages: "Home, Services, Service Detail, About, Pricing, Blog, Portfolio",
+    motherComponents: [
+      { label: "Button",         anchor: "buttons" },
+      { label: "ButtonWithIcon", anchor: "buttons" },
+      { label: "Badge",          anchor: "badges"  },
+    ],
+  },
+  {
+    name: "CTA Patterns",
+    accentHex: "#0284C7",
+    count: 6,
+    files: ["TrialAuditCta.tsx", "ServicesCTA.tsx", "ServiceFinalCTA.tsx", "AboutCTA.tsx", "BlogCTA.tsx", "PricingCTA.tsx"],
+    pages: "All public pages",
+    motherComponents: [
+      { label: "Button",         anchor: "buttons" },
+      { label: "ButtonWithIcon", anchor: "buttons" },
+    ],
+  },
+  {
+    name: "FAQ Patterns",
+    accentHex: "#16A34A",
+    count: 4,
+    files: ["Faq.tsx", "AboutFAQ.tsx", "ServiceFaq.tsx", "PricingFaq.tsx"],
+    pages: "Home, Services, About, Pricing",
+    motherComponents: [
+      { label: "Accordion",        anchor: "platform" },
+      { label: "AccordionItem",    anchor: "platform" },
+      { label: "AccordionTrigger", anchor: "platform" },
+      { label: "Card",             anchor: "cards"    },
+    ],
+  },
+  {
+    name: "Social Proof",
+    accentHex: "#7C3AED",
+    count: 4,
+    files: ["Testimonials.tsx", "Stats.tsx", "TargetAudienceProof.tsx", "ClientCategoryStrip.tsx"],
+    pages: "Home, About, Services, Pricing",
+    motherComponents: [
+      { label: "StatWidget", anchor: "data"   },
+      { label: "Card",       anchor: "cards"  },
+      { label: "Avatar",     anchor: "data"   },
+    ],
+  },
+  {
+    name: "Content + Feature Grid",
+    accentHex: "#C2410C",
+    count: 4,
+    files: ["ServiceCapabilities.tsx", "ServiceProcessSteps.tsx", "Workflow.tsx", "AboutExpertise.tsx"],
+    pages: "Services, About, How It Works",
+    motherComponents: [
+      { label: "Card",              anchor: "cards"    },
+      { label: "Badge",             anchor: "badges"   },
+      { label: "BeforeAfterSlider", anchor: "platform" },
+    ],
+  },
+  {
+    name: "Pricing & Conversion",
+    accentHex: "#0369A1",
+    count: 4,
+    files: ["Pricing.tsx", "PricingTable.tsx", "PricingBundles.tsx", "ServicePricingBox.tsx"],
+    pages: "Pricing, Service Detail",
+    motherComponents: [
+      { label: "Card",   anchor: "cards"   },
+      { label: "Button", anchor: "buttons" },
+      { label: "Badge",  anchor: "badges"  },
+    ],
+  },
+  {
+    name: "Content Discovery",
+    accentHex: "#15803D",
+    count: 3,
+    files: ["BlogPreview.tsx", "ServiceRelatedGuides.tsx", "Integrations.tsx"],
+    pages: "Home, Blog, Services",
+    motherComponents: [
+      { label: "Card",   anchor: "cards"   },
+      { label: "Badge",  anchor: "badges"  },
+      { label: "Button", anchor: "buttons" },
+    ],
+  },
+  {
+    name: "Utility Strips",
+    accentHex: "#6D28D9",
+    count: 5,
+    files: ["BeatPixelzBanner.tsx", "Ticker.tsx", "PreFooter.tsx", "CompetitorComparison.tsx", "AIProductShowcase.tsx"],
+    pages: "Home, About, Pricing",
+    motherComponents: [
+      { label: "Badge",      anchor: "badges"  },
+      { label: "Button",     anchor: "buttons" },
+      { label: "StatWidget", anchor: "data"    },
+    ],
+  },
+]
+
 // Navigation menu items for the design system explorer
 const SECTIONS = [
   { id: "tokens", title: "Tokens & Foundations", icon: <Layers className="h-4 w-4" /> },
@@ -95,6 +196,7 @@ const SECTIONS = [
   { id: "feedback", title: "Feedback & Alerts", icon: <Bell className="h-4 w-4" /> },
   { id: "data", title: "Data Display & Tables", icon: <TableIcon className="h-4 w-4" /> },
   { id: "platform", title: "Platform Specials", icon: <Eye className="h-4 w-4" /> },
+  { id: "sections", title: "Site Sections Architecture", icon: <Layout className="h-4 w-4" /> },
 ]
 
 export default function DesignSystemPage() {
@@ -173,11 +275,11 @@ export default function DesignSystemPage() {
       </Helmet>
 
       {/* ─── Hero Header & Overview ─── */}
-      <section className="relative border-b border-black/8 bg-gradient-to-b from-black/[0.02] to-transparent pt-12 pb-14 sm:pt-16 sm:pb-20">
+      <section className="relative border-b border-black/[0.14] bg-gradient-to-b from-black/[0.02] to-transparent pt-12 pb-14 sm:pt-16 sm:pb-20">
         <div className="max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3.5 py-1 text-[12px] font-semibold shadow-sm mb-5">
+              <div className="inline-flex items-center gap-2 rounded-full border border-black/[0.18] bg-white px-3.5 py-1 text-[12px] font-semibold shadow-sm mb-5">
                 <span className="h-2 w-2 rounded-full bg-[var(--brand,#0A0A0B)] animate-pulse" />
                 <span>Single Source of Truth</span>
                 <span className="text-black/30">·</span>
@@ -196,15 +298,15 @@ export default function DesignSystemPage() {
 
             {/* Quick stats badges */}
             <div className="flex flex-wrap items-center gap-3">
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm text-left">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Mother Components</div>
-                <div className="font-heading text-[22px] font-bold text-[var(--color-text-primary,#0A0A0B)]">24+ Core</div>
+                <div className="font-heading text-[22px] font-bold text-[var(--color-text-primary,#0A0A0B)]">29+ Components</div>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm text-left">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Accessibility</div>
                 <div className="font-heading text-[22px] font-bold text-emerald-600">WCAG 2.1 AA</div>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm text-left">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Framework</div>
                 <div className="font-heading text-[22px] font-bold text-[var(--brand,#0A0A0B)]">Tailwind + Radix</div>
               </div>
@@ -212,8 +314,8 @@ export default function DesignSystemPage() {
           </div>
 
           {/* ─── LIVE GLOBAL TOKEN CUSTOMIZER TOOLBAR ─── */}
-          <div className="mt-10 rounded-2xl border border-black/10 bg-white p-5 sm:p-6 shadow-[0_12px_32px_rgba(0,0,0,0.05)] text-left">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 border-b border-black/6 pb-5">
+          <div className="mt-10 rounded-2xl border border-black/[0.18] bg-white p-5 sm:p-6 shadow-[0_12px_32px_rgba(0,0,0,0.10)] text-left">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 border-b border-black/[0.20] pb-5">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand,#0A0A0B)]/10 text-[var(--brand,#0A0A0B)]">
                   <Sliders className="h-5 w-5" />
@@ -273,7 +375,7 @@ export default function DesignSystemPage() {
                 <label className="mb-2 block text-[12px] font-bold uppercase tracking-wider text-black/50">
                   Border Radius Profile
                 </label>
-                <div className="inline-flex rounded-xl bg-black/[0.05] p-1 border border-black/5">
+                <div className="inline-flex rounded-xl bg-black/[0.05] p-1 border border-black/[0.18]">
                   {(["tight", "standard", "rounded", "pill"] as const).map((r) => (
                     <button
                       key={r}
@@ -294,7 +396,7 @@ export default function DesignSystemPage() {
                 <label className="mb-2 block text-[12px] font-bold uppercase tracking-wider text-black/50">
                   Active Injected Variables
                 </label>
-                <div className="rounded-xl bg-black/[0.03] border border-black/8 px-3.5 py-2 font-mono text-[12px] text-black/70 flex items-center justify-between">
+                <div className="rounded-xl bg-black/[0.05] border border-black/[0.14] px-3.5 py-2 font-mono text-[12px] text-black/70 flex items-center justify-between">
                   <span>--brand: {currentBrand.hex}</span>
                   <span className="text-emerald-600 font-semibold">● Active</span>
                 </div>
@@ -308,7 +410,7 @@ export default function DesignSystemPage() {
       <div className="max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10 items-start">
           {/* ─── Sticky Sidebar Navigation ─── */}
-          <aside className="sticky top-20 hidden lg:block rounded-2xl border border-black/10 bg-white p-4 shadow-sm text-left max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <aside className="sticky top-20 hidden lg:block rounded-2xl border border-black/[0.18] bg-white p-4 shadow-sm text-left max-h-[calc(100vh-6rem)] overflow-y-auto">
             {/* Search Filter */}
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-black/40" />
@@ -317,7 +419,7 @@ export default function DesignSystemPage() {
                 placeholder="Search components..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-black/10 bg-black/[0.02] pl-9 pr-3 py-2 text-[13px] text-black outline-none placeholder:text-black/40 focus:border-black/30 focus:bg-white"
+                className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] pl-9 pr-3 py-2 text-[13px] text-black outline-none placeholder:text-black/40 focus:border-black/40 focus:bg-white"
               />
             </div>
 
@@ -338,7 +440,7 @@ export default function DesignSystemPage() {
               ))}
             </div>
 
-            <div className="mt-6 border-t border-black/8 pt-4">
+            <div className="mt-6 border-t border-black/[0.14] pt-4">
               <div className="rounded-xl bg-[var(--brand,#0A0A0B)]/8 border border-[var(--brand,#0A0A0B)]/20 p-3">
                 <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   Developer Quickstart
@@ -353,7 +455,7 @@ export default function DesignSystemPage() {
           {/* ─── Component Sections ─── */}
           <main className="space-y-16 text-left">
             {/* The Essential 10 Architecture Banner */}
-            <div className="rounded-2xl border border-black/10 bg-gradient-to-r from-black/[0.03] to-transparent p-5 sm:p-6 shadow-sm">
+            <div className="rounded-2xl border border-black/[0.18] bg-gradient-to-r from-black/[0.03] to-transparent p-5 sm:p-6 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
                   <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
@@ -379,7 +481,7 @@ export default function DesignSystemPage() {
                   { name: "9. Alert/Toast", file: "alert.tsx", desc: "5 semantic alert banners" },
                   { name: "10. Modal", file: "modal.tsx", desc: "Overlays, dialogs & drawers" },
                 ].map((item) => (
-                  <div key={item.name} className="rounded-xl border border-black/8 bg-white p-2.5 shadow-xs">
+                  <div key={item.name} className="rounded-xl border border-black/[0.14] bg-white p-2.5 shadow-xs">
                     <div className="font-bold text-black flex items-center gap-1">
                       <Check className="h-3 w-3 text-emerald-600 shrink-0" />
                       <span>{item.name}</span>
@@ -419,10 +521,10 @@ export default function DesignSystemPage() {
                 ].map((swatch) => (
                   <div
                     key={swatch.name}
-                    className="overflow-hidden rounded-2xl border border-black/10 bg-white p-3 shadow-sm text-left transition-all hover:shadow-md"
+                    className="overflow-hidden rounded-2xl border border-black/[0.18] bg-white p-3 shadow-sm text-left transition-all hover:shadow-md"
                   >
                     <div
-                      className="h-16 w-full rounded-xl border border-black/5"
+                      className="h-16 w-full rounded-xl border border-black/[0.18]"
                       style={{ backgroundColor: swatch.hex }}
                     />
                     <div className="mt-3">
@@ -463,7 +565,7 @@ export default function DesignSystemPage() {
                         <col />
                       </colgroup>
                       <thead>
-                        <tr className="border-b border-black/10 text-[#737373] font-mono text-[10.5px] uppercase tracking-wider">
+                        <tr className="border-b border-black/[0.18] text-[#737373] font-mono text-[10.5px] uppercase tracking-wider">
                           <th className="pb-2 font-semibold">Role</th>
                           <th className="pb-2 font-semibold">Size / Weight</th>
                           <th className="pb-2 font-semibold">Leading</th>
@@ -471,7 +573,7 @@ export default function DesignSystemPage() {
                           <th className="pb-2 font-semibold">Live Preview</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-black/6">
+                      <tbody className="divide-y divide-black/[0.12]">
                         {[
                           { role: "Display", spec: "48px / 700", lead: "1.05", usage: "Hero titles", preview: <span className="font-heading text-[18px] font-bold leading-tight">Catalog Editing</span> },
                           { role: "H1",      spec: "32px / 700", lead: "1.15", usage: "Major headings", preview: <span className="font-heading text-[16px] font-bold">12h Turnaround</span> },
@@ -513,7 +615,7 @@ export default function DesignSystemPage() {
                       { size: "32px", name: "Loose Spacing", role: "Between major section blocks", barWidth: "w-32" },
                       { size: "48px", name: "Generous Spacing", role: "Page margins & section padding", barWidth: "w-48" },
                     ].map((space) => (
-                      <div key={space.size} className="rounded-xl border border-black/8 bg-black/[0.015] p-3 text-left">
+                      <div key={space.size} className="rounded-xl border border-black/[0.14] bg-black/[0.04] p-3 text-left">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-mono text-[13px] font-bold text-[var(--brand,#0A0A0B)]">{space.size}</span>
                           <span className="text-[12px] font-semibold text-black/70">{space.name}</span>
@@ -577,7 +679,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Outlined / surface group */}
-                  <div className="border-t border-black/8 pt-6">
+                  <div className="border-t border-black/[0.14] pt-6">
                     <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Outlined / surface — medium emphasis</div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {([
@@ -595,7 +697,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Ghost / text group */}
-                  <div className="border-t border-black/8 pt-6">
+                  <div className="border-t border-black/[0.14] pt-6">
                     <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Ghost / text — low emphasis</div>
                     <div className="flex flex-wrap items-center gap-6">
                       <div className="flex flex-col items-start gap-2">
@@ -610,7 +712,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Sizes */}
-                  <div className="border-t border-black/8 pt-6">
+                  <div className="border-t border-black/[0.14] pt-6">
                     <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Size Scale — xs · sm · default · lg · icon</div>
                     <div className="flex flex-wrap items-center gap-3">
                       <Button size="xs"      variant="default">XS</Button>
@@ -622,7 +724,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Icons & composites */}
-                  <div className="border-t border-black/8 pt-6">
+                  <div className="border-t border-black/[0.14] pt-6">
                     <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Icons & Composites</div>
                     <div className="flex flex-wrap items-center gap-3">
                       <Button leftIcon={<Send className="h-4 w-4" />}>Send Order</Button>
@@ -650,7 +752,7 @@ export default function DesignSystemPage() {
                       { label: "5. Loading",        btn: <Button size="sm" variant="brand" loading>Processing</Button> },
                       { label: "6. Disabled (0.45 opacity)", btn: <Button size="sm" variant="default" disabled>Unavailable</Button> },
                     ].map(({ label, btn }) => (
-                      <div key={label} className="flex items-center justify-between rounded-xl bg-black/[0.02] px-3 py-2 text-[12.5px]">
+                      <div key={label} className="flex items-center justify-between rounded-xl bg-black/[0.04] px-3 py-2 text-[12.5px]">
                         <span className="font-medium text-[#595959]">{label}</span>
                         {btn}
                       </div>
@@ -672,7 +774,7 @@ export default function DesignSystemPage() {
                       <div className="font-semibold text-blue-800 mb-0.5">Secondary — supporting action</div>
                       <p className="text-blue-900/75 leading-relaxed text-[12.5px]">Alongside the primary: "View Pricing", "Download Specs", "Learn More".</p>
                     </div>
-                    <div className="rounded-xl border-l-[3px] border-black/20 bg-black/[0.02] p-3">
+                    <div className="rounded-xl border-l-[3px] border-black/30 bg-black/[0.04] p-3">
                       <div className="font-semibold text-black/75 mb-0.5">Tertiary — ghost / link</div>
                       <p className="text-black/55 leading-relaxed text-[12.5px]">Dismiss, cancel, and inline navigation; zero visual weight to avoid competing with the CTA.</p>
                     </div>
@@ -718,7 +820,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Status Badges with Live Dots */}
-                  <div className="border-t border-black/8 pt-5">
+                  <div className="border-t border-black/[0.14] pt-5">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">
                       Status & Indicator Dots
                     </div>
@@ -891,7 +993,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Radio Group */}
-                  <div className="border-t border-black/8 pt-5">
+                  <div className="border-t border-black/[0.14] pt-5">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">
                       Radio Group
                     </div>
@@ -1024,7 +1126,7 @@ export default function DesignSystemPage() {
                 description="Your edits have passed two-stage QA. Choose your preferred delivery format."
               >
                 <div className="space-y-4">
-                  <div className="rounded-xl border border-black/8 bg-black/[0.02] p-4 text-[13.5px]">
+                  <div className="rounded-xl border border-black/[0.14] bg-black/[0.04] p-4 text-[13.5px]">
                     <div className="flex justify-between font-semibold">
                       <span>Batch #2026-RF-891</span>
                       <span className="text-emerald-600">QA Approved</span>
@@ -1056,7 +1158,7 @@ export default function DesignSystemPage() {
 
                   <div className="space-y-3">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/45">File Specs</div>
-                    <div className="rounded-xl border border-black/8 p-3.5 text-[13px] space-y-2">
+                    <div className="rounded-xl border border-black/[0.14] p-3.5 text-[13px] space-y-2">
                       <div className="flex justify-between">
                         <span className="text-black/55">Resolution:</span>
                         <span className="font-mono font-semibold">300 DPI</span>
@@ -1134,7 +1236,7 @@ export default function DesignSystemPage() {
                   </div>
 
                   {/* Breadcrumbs */}
-                  <div className="border-t border-black/8 pt-5">
+                  <div className="border-t border-black/[0.14] pt-5">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">
                       Breadcrumbs Trail
                     </div>
@@ -1196,7 +1298,7 @@ export default function DesignSystemPage() {
                     <ProgressBar value={76} showLabel />
                   </div>
 
-                  <div className="border-t border-black/8 pt-5 space-y-3">
+                  <div className="border-t border-black/[0.14] pt-5 space-y-3">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/50">
                       Skeleton Shimmer Loaders
                     </div>
@@ -1312,7 +1414,7 @@ export default function DesignSystemPage() {
                       </div>
                     </div>
 
-                    <div className="border-l border-black/8 pl-8">
+                    <div className="border-l border-black/[0.16] pl-8">
                       <div className="text-[12px] font-bold uppercase tracking-wider text-black/50 mb-3">Stacked Avatar Group</div>
                       <AvatarGroup max={4}>
                         <Avatar name="David Lee" size="md" />
@@ -1408,6 +1510,205 @@ export default function DesignSystemPage() {
                   </Accordion>
                 </CardContent>
               </Card>
+            </section>
+
+            {/* 12. SITE SECTIONS ARCHITECTURE */}
+            <section id="sections" className="scroll-mt-24 space-y-8">
+              <div>
+                <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
+                  <span>12. Site Architecture</span>
+                </div>
+                <h2 className="font-heading text-[28px] sm:text-[34px] font-bold tracking-[-0.04em] text-[var(--color-text-primary,#0A0A0B)]">
+                  Site Sections Architecture
+                </h2>
+                <p className="mt-1 text-[15px] text-black/60 max-w-2xl">
+                  Every reusable section and layout component in the platform, mapped to their mother component dependencies.
+                  Changes to any mother component above instantly cascade into these sections.
+                </p>
+              </div>
+
+              {/* ─── Panel A: Always-Present Layout Components ─── */}
+              <div className="space-y-3">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                  Always-Present Layout Components — mounted on every public page
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  {[
+                    {
+                      name: "Navigation",
+                      path: "src/components/Navigation.tsx",
+                      role: "Sticky top nav with responsive mobile drawer. Present on every public route via PublicSite shell.",
+                      pages: "All public pages",
+                      motherComponents: [
+                        { label: "Button",  anchor: "buttons" },
+                        { label: "Badge",   anchor: "badges"  },
+                      ],
+                    },
+                    {
+                      name: "Footer",
+                      path: "src/components/Footer.tsx",
+                      role: "Site-wide footer with nav links, legal text, and social icons. Rendered by PublicSite shell.",
+                      pages: "All public pages",
+                      motherComponents: [
+                        { label: "Button", anchor: "buttons" },
+                      ],
+                    },
+                    {
+                      name: "ReframeCS",
+                      path: "src/components/ReframeCS.tsx",
+                      role: "Floating AI chat assistant widget — minimised trigger, chat drawer, contact capture card.",
+                      pages: "All public pages",
+                      motherComponents: [
+                        { label: "Button",  anchor: "buttons"  },
+                        { label: "Drawer",  anchor: "overlays" },
+                        { label: "Input",   anchor: "forms"    },
+                      ],
+                    },
+                  ].map((comp) => (
+                    <div key={comp.name} className="rounded-2xl border border-black/[0.18] bg-white p-5 shadow-sm text-left">
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-black/[0.05]">
+                          <NavIcon className="h-4 w-4 text-black/60" />
+                        </div>
+                        <Badge variant="secondary">Layout</Badge>
+                      </div>
+                      <div className="font-heading text-[15px] font-bold text-[var(--color-text-primary,#0A0A0B)]">
+                        {comp.name}
+                      </div>
+                      <code className="block mt-0.5 text-[11px] font-mono text-black/40">{comp.path}</code>
+                      <p className="mt-2 text-[13px] text-black/60 leading-snug">{comp.role}</p>
+                      <div className="mt-3 border-t border-black/[0.14] pt-3 space-y-1.5">
+                        <div className="text-[10.5px] font-bold uppercase tracking-wider text-black/40">
+                          Mother Components Used
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {comp.motherComponents.map((mc) => (
+                            <a key={mc.label} href={`#${mc.anchor}`}>
+                              <Badge variant="outline" className="text-[11px] cursor-pointer hover:bg-black/5">
+                                {mc.label}
+                              </Badge>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="mt-2 text-[11px] text-black/40">Used on: {comp.pages}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ─── Panel B: Section Pattern Groups ─── */}
+              <div className="space-y-3">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                  Section Pattern Groups — {SECTION_GROUPS.reduce((s, g) => s + g.count, 0)} sections across {SECTION_GROUPS.length} groups
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {SECTION_GROUPS.map((group) => (
+                    <div
+                      key={group.name}
+                      className="rounded-2xl border border-black/[0.18] bg-white p-5 shadow-sm text-left"
+                      style={{ borderLeftWidth: "3px", borderLeftColor: group.accentHex }}
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className="font-heading text-[14px] font-bold text-[var(--color-text-primary,#0A0A0B)]">
+                          {group.name}
+                        </span>
+                        <Badge variant="secondary">{group.count} sections</Badge>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {group.files.map((f) => (
+                          <Badge key={f} variant="outline" className="text-[10px] font-mono">
+                            {f}
+                          </Badge>
+                        ))}
+                      </div>
+                      <div className="text-[11.5px] text-black/55 mb-3">
+                        <span className="font-semibold text-black/70">Pages:</span> {group.pages}
+                      </div>
+                      <div className="border-t border-black/[0.14] pt-2.5 space-y-1.5">
+                        <div className="text-[10.5px] font-bold uppercase tracking-wider text-black/40">
+                          Connected Mother Components
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {group.motherComponents.map((mc) => (
+                            <a key={mc.label} href={`#${mc.anchor}`}>
+                              <Badge variant="outline" className="text-[10.5px] cursor-pointer hover:bg-black/5">
+                                {mc.label}
+                              </Badge>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ─── Panel C: Feature Cluster Sub-Components ─── */}
+              <div className="space-y-3">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                  Feature Cluster Sub-Components — sit between sections and atomic primitives
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    {
+                      name: "BeforeAfterCard",
+                      path: "src/components/BeforeAfterCard.tsx",
+                      role: "Static before/after image pair card. Used in portfolio grid and service pages.",
+                      usedIn: "ServiceCapabilities.tsx, PortfolioHero.tsx",
+                      motherLink: { label: "BeforeAfterSlider", anchor: "platform" },
+                    },
+                    {
+                      name: "HoverBeforeAfterCard",
+                      path: "src/components/HoverBeforeAfterCard.tsx",
+                      role: "CSS hover-triggered before/after reveal. Lightweight alternative to the drag slider.",
+                      usedIn: "ClientCategoryStrip.tsx, Hero.tsx",
+                      motherLink: { label: "BeforeAfterSlider", anchor: "platform" },
+                    },
+                    {
+                      name: "HeroCards",
+                      path: "src/components/hero/HeroCards.tsx",
+                      role: "Floating proof-point card cluster displayed beside the main hero headline.",
+                      usedIn: "Hero.tsx",
+                      motherLink: { label: "Card", anchor: "cards" },
+                    },
+                    {
+                      name: "ScrollReveal",
+                      path: "src/components/common/ScrollReveal.tsx",
+                      role: "Framer Motion viewport-enter animation wrapper. Used across 20+ sections for entrance animations.",
+                      usedIn: "20+ sections",
+                      motherLink: null,
+                    },
+                    {
+                      name: "BundleCard",
+                      path: "src/components/pricing/BundleCard.tsx",
+                      role: "Pricing bundle tier card with feature list and CTA. Consumed exclusively by PricingBundles.tsx.",
+                      usedIn: "PricingBundles.tsx",
+                      motherLink: { label: "Card", anchor: "cards" },
+                    },
+                  ].map((sub) => (
+                    <div key={sub.name} className="rounded-2xl border border-black/[0.18] bg-white p-4 shadow-sm text-left">
+                      <div className="font-heading text-[13.5px] font-bold text-[var(--color-text-primary,#0A0A0B)]">
+                        {sub.name}
+                      </div>
+                      <code className="block mt-0.5 text-[10.5px] font-mono text-black/40">{sub.path}</code>
+                      <p className="mt-2 text-[12.5px] text-black/60 leading-snug">{sub.role}</p>
+                      <div className="mt-2 text-[11px] text-black/45">
+                        <span className="font-semibold">Used in:</span> {sub.usedIn}
+                      </div>
+                      {sub.motherLink && (
+                        <div className="mt-2">
+                          <a href={`#${sub.motherLink.anchor}`}>
+                            <Badge variant="outline" className="text-[10.5px] cursor-pointer hover:bg-black/5">
+                              ↑ {sub.motherLink.label}
+                            </Badge>
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </section>
           </main>
         </div>

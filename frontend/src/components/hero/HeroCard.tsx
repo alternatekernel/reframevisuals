@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useTransform, useMotionValueEvent, AnimatePresence, useSpring } from 'framer-motion';
 import { Package, Info } from 'lucide-react';
@@ -133,7 +133,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
           isActive
             ? "border-black/[0.20] shadow-[0_20px_50px_-34px_rgba(0,0,0,0.48)]"
             : "border-black/[0.14] shadow-[0_18px_44px_-36px_rgba(0,0,0,0.42)]",
-          "hover:border-black/[0.24] hover:shadow-[0_2px_2px_rgba(0,0,0,0.05),0_12px_24px_rgba(0,0,0,0.12),0_34px_68px_rgba(0,0,0,0.17)]"
+          "hover:border-black/[0.24] hover:shadow-[0_2px_2px_rgba(0,0,0,0.10),0_12px_24px_rgba(0,0,0,0.12),0_34px_68px_rgba(0,0,0,0.17)]"
         )}>
           <div className="flex flex-col">
             <motion.div 

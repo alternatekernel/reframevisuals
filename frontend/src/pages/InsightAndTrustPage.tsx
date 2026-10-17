@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { INSIGHT_ARTICLES } from '../data/expansionPages';
 import { Button } from '../components/ui/button';
@@ -235,7 +235,7 @@ const InsightAndTrustPage = () => {
         <p className="text-black/70 mb-8">{page.description}</p>
 
         {aiContent && (
-          <div className="mb-10 rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-6">
+          <div className="mb-10 rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-6">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-black/45">Direct answer</p>
             <p className="mt-3 text-lg leading-8 text-black/80">{aiContent.answer}</p>
           </div>
@@ -243,19 +243,19 @@ const InsightAndTrustPage = () => {
 
         <div className="space-y-3 mb-10">
           {page.points.map((p) => (
-            <div key={p} className="border border-black/10 rounded-lg p-4 text-black/75">{p}</div>
+            <div key={p} className="border border-black/[0.18] rounded-lg p-4 text-black/75">{p}</div>
           ))}
         </div>
 
         {aiContent && (
           <div className="mb-10 space-y-6">
             {aiContent.sections.map((section) => (
-              <section key={section.heading} className="rounded-2xl border border-black/10 p-6">
+              <section key={section.heading} className="rounded-2xl border border-black/[0.18] p-6">
                 <h2 className="text-xl font-semibold mb-3">{section.heading}</h2>
                 <p className="text-black/70 leading-7">{section.body}</p>
               </section>
             ))}
-            <section className="rounded-2xl border border-black/10 p-6">
+            <section className="rounded-2xl border border-black/[0.18] p-6">
               <h2 className="text-xl font-semibold mb-3">Recommended next step</h2>
               <p className="text-black/70 leading-7">If you are comparing providers, start with a small proof batch. Upload up to 3 product photos, review the edited result, then decide whether to move into a paid order or larger catalog workflow.</p>
             </section>

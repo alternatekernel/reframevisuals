@@ -1,16 +1,16 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cx } from "../../utils/theme"
 
 export const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement> & { zebra?: boolean }
 >(({ className, zebra = false, ...props }, ref) => (
-  <div className="relative w-full overflow-auto rounded-2xl border border-black/10 bg-white shadow-sm">
+  <div className="relative w-full overflow-auto rounded-2xl border border-black/[0.18] bg-white shadow-sm">
     <table
       ref={ref}
       className={cx(
         "w-full caption-bottom text-left text-[13.5px]",
-        zebra && "[&_tbody_tr:nth-child(even)]:bg-black/[0.015]",
+        zebra && "[&_tbody_tr:nth-child(even)]:bg-black/[0.04]",
         className,
       )}
       {...props}
@@ -25,7 +25,7 @@ export const TableHeader = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <thead
     ref={ref}
-    className={cx("border-b border-black/10 bg-black/[0.02]", className)}
+    className={cx("border-b border-black/[0.18] bg-black/[0.05]", className)}
     {...props}
   />
 ))
@@ -49,7 +49,7 @@ export const TableFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <tfoot
     ref={ref}
-    className={cx("border-t border-black/10 bg-black/[0.02] font-medium", className)}
+    className={cx("border-t border-black/[0.18] bg-black/[0.05] font-medium", className)}
     {...props}
   />
 ))
@@ -62,7 +62,7 @@ export const TableRow = React.forwardRef<
   <tr
     ref={ref}
     className={cx(
-      "border-b border-black/6 transition-colors hover:bg-black/[0.025] data-[state=selected]:bg-black/[0.04]",
+      "border-b border-black/[0.20] transition-colors hover:bg-black/[0.05] data-[state=selected]:bg-black/[0.08]",
       className,
     )}
     {...props}

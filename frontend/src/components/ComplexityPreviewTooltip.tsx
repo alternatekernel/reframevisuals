@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 
@@ -108,7 +108,7 @@ const ComplexityPreviewTooltip: React.FC<ComplexityPreviewTooltipProps> = ({
             zIndex: 9999,
           }}
         >
-          <div className="bg-white rounded-xl border border-black/[0.06] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
+          <div className="bg-white rounded-xl border border-black/[0.14] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] overflow-hidden">
             {/* Example image */}
             <div className="relative h-[160px] overflow-hidden bg-gray-100">
               <img

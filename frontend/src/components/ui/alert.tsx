@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import {
   Info,
@@ -19,7 +19,7 @@ const alertVariants = cva(
         success:     "border-emerald-200 border-l-emerald-500 bg-emerald-50 text-emerald-950",
         warning:     "border-amber-200 border-l-amber-500 bg-amber-50 text-amber-950",
         destructive: "border-rose-200 border-l-rose-500 bg-rose-50 text-rose-950",
-        tip:         "border-black/10 border-l-black/50 bg-black/[0.03] text-[var(--color-text-primary,#0A0A0B)]",
+        tip:         "border-black/[0.18] border-l-black/50 bg-black/[0.05] text-[var(--color-text-primary,#0A0A0B)]",
       },
     },
     defaultVariants: {

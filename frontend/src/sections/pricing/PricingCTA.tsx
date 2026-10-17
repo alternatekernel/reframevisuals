@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { cx, layout, tokens, typography } from '../../utils/theme';
@@ -31,15 +31,15 @@ const PricingCTA = () => {
             </p>
 
             <div className="mx-auto mb-10 grid w-full max-w-3xl grid-cols-1 gap-3 text-left sm:grid-cols-3">
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-black/50">Reply SLA</p>
                 <p className="mt-1 text-[18px] font-black text-[var(--color-text-primary)]">≤ 30 min</p>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-black/50">Quality control</p>
                 <p className="mt-1 text-[18px] font-black text-[var(--color-text-primary)]">Manual QA</p>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white px-4 py-3 shadow-sm">
+              <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
                 <p className="text-[10px] font-bold uppercase tracking-widest text-black/50">Turnaround</p>
                 <p className="mt-1 text-[18px] font-black text-[var(--color-text-primary)]">12h–72h options</p>
               </div>
@@ -63,7 +63,7 @@ const PricingCTA = () => {
                 </Button>
               </div>
 
-              <div className="w-full max-w-sm space-y-4 border-t border-black/5 pt-8">
+              <div className="w-full max-w-sm space-y-4 border-t border-black/[0.12] pt-8">
                 <p className="text-[14px] font-bold tracking-widest text-[var(--color-text-secondary)]">Or get a custom quote via email</p>
 
                 {submitState !== 'success' ? (

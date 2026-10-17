@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useParams, Link, Navigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Bookmark, BookmarkCheck, Copy, ExternalLink, Share2, Rss } from 'lucide-react';
@@ -319,7 +319,7 @@ const BlogPostPage: React.FC = () => {
 
       <div className="fixed top-0 left-0 z-[260] h-1 bg-[var(--color-text-primary)]" style={{ width: `${progress}%` }} />
 
-      <nav className="px-6 py-4 bg-white border-b border-black/[0.03] sticky top-0 z-[240]">
+      <nav className="px-6 py-4 bg-white border-b border-black/[0.18] sticky top-0 z-[240]">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link to="/" className="text-[13px] font-black uppercase tracking-tighter hover:text-brand transition-colors">
@@ -338,14 +338,14 @@ const BlogPostPage: React.FC = () => {
             <span className="text-[12px] text-black/40">{remainingMinutes} min left</span>
             <button
               onClick={handleSave}
-              className="inline-flex items-center gap-1 rounded-full border border-black/10 px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5"
+              className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5"
             >
               {saved.includes(post.slug) ? <BookmarkCheck size={14} /> : <Bookmark size={14} />}
               Save
             </button>
             <button
               onClick={handleShare}
-              className="inline-flex items-center gap-1 rounded-full border border-black/10 px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5"
+              className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5"
             >
               <Share2 size={14} />
               Share
@@ -354,7 +354,7 @@ const BlogPostPage: React.FC = () => {
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-black/10 px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"
+              className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"
             >
               𝕏
             </a>
@@ -362,7 +362,7 @@ const BlogPostPage: React.FC = () => {
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-black/10 px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"
+              className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"
             >
               in
             </a>
@@ -391,7 +391,7 @@ const BlogPostPage: React.FC = () => {
               </div>
             </header>
 
-            <figure className="mb-10 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm">
+            <figure className="mb-10 overflow-hidden rounded-3xl border border-black/[0.18] bg-white shadow-sm">
               <img src={post.image} alt={post.imageAlt || `${post.title} cover image`} className="w-full aspect-[16/10] object-cover" loading="eager" />
               {post.imageCaption && (
                 <figcaption className="px-5 py-3 text-[13px] text-black/50">
@@ -400,7 +400,7 @@ const BlogPostPage: React.FC = () => {
               )}
             </figure>
 
-            <div className="mb-8 rounded-2xl border border-black/10 bg-white p-4 flex flex-wrap gap-2 items-center">
+            <div className="mb-8 rounded-2xl border border-black/[0.18] bg-white p-4 flex flex-wrap gap-2 items-center">
               <span className="text-[12px] font-semibold text-black/60">Reading view</span>
               <div className="flex gap-2">
                 {(['s', 'm', 'l'] as const).map((size) => (
@@ -425,7 +425,7 @@ const BlogPostPage: React.FC = () => {
             </div>
 
             <main className="prose prose-neutral max-w-none">
-              <div className="mb-8 rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-5">
+              <div className="mb-8 rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-5">
                 <p className="text-[16px] text-black/70 mb-3">See this technique in our production workflow.</p>
                 <Link to={ctaHref} className="inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-wider text-white bg-[var(--color-text-primary)] px-4 py-2 rounded-full">
                   {ctaLabel} <ExternalLink size={12} />
@@ -443,7 +443,7 @@ const BlogPostPage: React.FC = () => {
                     const headingText = String(props.children ?? '');
                     const id = slugifyHeading(headingText);
                     return (
-                      <h2 id={id} className="group font-heading text-[24px] sm:text-[30px] font-black mt-14 sm:mt-20 mb-5 sm:mb-6 text-black tracking-tight leading-tight border-t border-black/[0.03] pt-8 sm:pt-12 break-words">
+                      <h2 id={id} className="group font-heading text-[24px] sm:text-[30px] font-black mt-14 sm:mt-20 mb-5 sm:mb-6 text-black tracking-tight leading-tight border-t border-black/[0.18] pt-8 sm:pt-12 break-words">
                         <span>{props.children}</span>
                         <button onClick={() => handleCopyLink(id)} className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity align-middle" aria-label="Copy heading link">
                           <Copy size={14} />
@@ -469,20 +469,20 @@ const BlogPostPage: React.FC = () => {
                   a: ({ node, ...props }) => <a className="text-brand border-b border-brand/30 hover:border-brand transition-all pb-0.5" {...props} />,
                   strong: ({ node, ...props }) => <strong className="font-bold text-black" {...props} />,
                   table: ({ node, ...props }) => (
-                    <div className="overflow-x-auto my-12 border border-black/5 rounded-lg shadow-sm">
+                    <div className="overflow-x-auto my-12 border border-black/[0.12] rounded-lg shadow-sm">
                       <table className="w-full text-left border-collapse min-w-[500px]" {...props} />
                     </div>
                   ),
-                  thead: ({ node, ...props }) => <thead className="bg-black/[0.03] border-b-2 border-black/5" {...props} />,
+                  thead: ({ node, ...props }) => <thead className="bg-black/[0.05] border-b-2 border-black/[0.12]" {...props} />,
                   th: ({ node, ...props }) => <th className="px-6 py-4 text-[11px] font-black uppercase tracking-[0.2em] text-black/40" {...props} />,
-                  td: ({ node, ...props }) => <td className="px-6 py-5 text-[16px] text-black/70 border-b border-black/[0.02] leading-relaxed" style={{ fontFamily: "'Charter', 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif" }} {...props} />,
+                  td: ({ node, ...props }) => <td className="px-6 py-5 text-[16px] text-black/70 border-b border-black/[0.18] leading-relaxed" style={{ fontFamily: "'Charter', 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif" }} {...props} />,
                 }}
               >
                 {post.content}
               </ReactMarkdown>
 
               {/(table|checklist|protocol)/i.test(post.content) ? (
-                <div className="mt-8 rounded-2xl border border-black/10 bg-white p-5">
+                <div className="mt-8 rounded-2xl border border-black/[0.18] bg-white p-5">
                   <h4 className="font-heading text-[18px] font-bold mb-2">Download Resources</h4>
                   <p className="text-[16px] text-black/65 mb-3">Download-ready checklist and prep SOP for this workflow style.</p>
                   <div className="flex flex-wrap gap-2">
@@ -493,16 +493,16 @@ const BlogPostPage: React.FC = () => {
                 </div>
               ) : null}
 
-              <div className="mt-8 rounded-2xl border border-black/10 bg-[#f8f8f8] p-5">
+              <div className="mt-8 rounded-2xl border border-black/[0.18] bg-[#f8f8f8] p-5">
                 <p className="text-[16px] text-black/65 mb-3">Was this useful?</p>
                 <div className="flex gap-2 mb-3">
                   <button onClick={() => setFeedback('yes')} className={`px-4 py-2 rounded-full text-[14px] font-semibold border transition-colors ${feedback === 'yes' ? 'bg-[var(--color-text-primary)] text-white border-[var(--color-text-primary)]' : 'border-black/15 hover:bg-black/5'}`}>Yes</button>
                   <button onClick={() => setFeedback('no')} className={`px-4 py-2 rounded-full text-[14px] font-semibold border transition-colors ${feedback === 'no' ? 'bg-[var(--color-text-primary)] text-white border-[var(--color-text-primary)]' : 'border-black/15 hover:bg-black/5'}`}>No</button>
                 </div>
-                <textarea value={feedbackNote} onChange={(e) => setFeedbackNote(e.target.value)} placeholder="Optional feedback" className="w-full min-h-20 rounded-lg border border-black/10 px-3 py-2 text-[16px] bg-white focus-visible:ring-2 focus-visible:ring-black/30 outline-none" />
+                <textarea value={feedbackNote} onChange={(e) => setFeedbackNote(e.target.value)} placeholder="Optional feedback" className="w-full min-h-20 rounded-lg border border-black/[0.18] px-3 py-2 text-[16px] bg-white focus-visible:ring-2 focus-visible:ring-black/30 outline-none" />
               </div>
 
-              <div className="mt-8 rounded-2xl border border-black/10 bg-white p-5">
+              <div className="mt-8 rounded-2xl border border-black/[0.18] bg-white p-5">
                 <h4 className="font-heading text-[18px] font-bold mb-2">Newsletter preferences</h4>
                 <p className="text-[16px] text-black/60 mb-3">Get weekly updates on this topic and adjacent workflows.</p>
                 <div className="flex flex-wrap gap-2 mb-3">
@@ -520,7 +520,7 @@ const BlogPostPage: React.FC = () => {
                       value={subEmail}
                       onChange={(e) => setSubEmail(e.target.value)}
                       required
-                      className="flex-1 min-h-12 rounded-full border border-black/10 px-4 text-[16px] focus-visible:ring-2 focus-visible:ring-black/30 outline-none"
+                      className="flex-1 min-h-12 rounded-full border border-black/[0.18] px-4 text-[16px] focus-visible:ring-2 focus-visible:ring-black/30 outline-none"
                     />
                     <button
                       type="submit"
@@ -543,7 +543,7 @@ const BlogPostPage: React.FC = () => {
           </article>
 
           <aside className="hidden lg:block w-[320px] sticky top-24 space-y-8">
-            <div className="rounded-2xl border border-black/10 bg-white p-4">
+            <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">On this page</h5>
               {toc.length === 0 ? (
                 <p className="text-[14px] text-black/45">No section headings available.</p>
@@ -562,7 +562,7 @@ const BlogPostPage: React.FC = () => {
               )}
             </div>
 
-            <div className="rounded-2xl border border-black/10 bg-white p-4">
+            <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related articles</h5>
               <div className="space-y-2">
                 {(relatedFromApi.length ? relatedFromApi : relatedByTopic).slice(0, 4).map((item) => (
@@ -580,7 +580,7 @@ const BlogPostPage: React.FC = () => {
               ).slice(0, 3);
               if (!relatedServices.length) return null;
               return (
-                <div className="rounded-2xl border border-black/10 bg-white p-4">
+                <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
                   <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related Services</h5>
                   <div className="space-y-2">
                     {relatedServices.map((s) => (
@@ -591,7 +591,7 @@ const BlogPostPage: React.FC = () => {
               );
             })()}
 
-            <div className="rounded-2xl border border-black/10 bg-white p-4">
+            <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Popular this week</h5>
               <div className="space-y-2">
                 {popularPosts.map((item) => (
@@ -600,7 +600,7 @@ const BlogPostPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-black/10 bg-white p-4">
+            <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Recently updated</h5>
               <div className="space-y-2">
                 {updatedPosts.map((item) => (
@@ -613,14 +613,14 @@ const BlogPostPage: React.FC = () => {
       </div>
 
       {actionMessage ? (
-        <div className="fixed top-[76px] right-6 z-[280] rounded-lg border border-black/10 bg-white px-3 py-2 text-[12px] font-medium text-black shadow-md">
+        <div className="fixed top-[76px] right-6 z-[280] rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[12px] font-medium text-black shadow-md">
           {actionMessage}
         </div>
       ) : null}
 
       {currentSeries.length > 1 ? (
         <section className="px-6 pb-10">
-          <div className="max-w-4xl mx-auto rounded-2xl border border-black/10 bg-white p-5">
+          <div className="max-w-4xl mx-auto rounded-2xl border border-black/[0.18] bg-white p-5">
             <p className="text-[11px] uppercase tracking-wider font-bold text-black/40 mb-2">Series</p>
             <h4 className="font-heading text-[18px] font-bold mb-3">{topicLabel(post.seriesId || 'workflow-series')}</h4>
             <div className="flex flex-wrap gap-2">

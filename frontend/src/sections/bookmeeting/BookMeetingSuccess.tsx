@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { ButtonWithIcon } from '../../components/ui/button-with-icon';
@@ -11,7 +11,7 @@ interface BookMeetingSuccessProps {
 const BookMeetingSuccess: React.FC<BookMeetingSuccessProps> = ({ onBack }) => (
   <div className="min-h-screen bg-[var(--color-bg-secondary)] relative flex items-start justify-center overflow-hidden py-12">
     <div className="w-full h-auto lg:h-[62vh] relative z-10 flex flex-col items-center px-4 lg:px-8 pt-8 lg:pt-[4vh]">
-      <div className={cx("w-full h-full max-w-[800px] bg-white border border-black/10 flex flex-col items-center justify-center p-8 lg:p-12 text-center overflow-hidden", tokens.radiusCard)}>
+      <div className={cx("w-full h-full max-w-[800px] bg-white border border-black/[0.18] flex flex-col items-center justify-center p-8 lg:p-12 text-center overflow-hidden", tokens.radiusCard)}>
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}

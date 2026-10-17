@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   FileStack, Plus, RefreshCw, Search, Trash2, X, ExternalLink,
   Globe, AlertTriangle, CheckCircle2, Copy, Filter, BarChart2,
@@ -1263,7 +1263,7 @@ export const PagesPage: React.FC = () => {
                 {filtered.map((p) => (
                   <React.Fragment key={p.id}>
                     <tr
-                      className="border-b border-[var(--an-border)] hover:bg-black/[0.02] transition-colors"
+                      className="border-b border-[var(--an-border)] hover:bg-black/[0.04] transition-colors"
                       style={{ cursor: p.type === 'cms' ? 'pointer' : 'default' }}
                       onClick={() => p.type === 'cms' && p._raw && setEditor(p._raw)}
                     >

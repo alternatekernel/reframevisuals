@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+﻿import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Building2, Check, Copy, CreditCard, Edit3, Globe, KeyRound, Lock, Mail, Monitor, Phone, RefreshCw, Search, ShieldCheck, ShoppingBag, X } from 'lucide-react';
 import { adminFetch } from '../utils/api';
@@ -388,7 +388,7 @@ export const CustomersPage: React.FC = () => {
                 <div className="rounded-2xl border border-[var(--an-border)] p-4">
                   <div className="mb-4 flex items-center gap-2 font-semibold"><KeyRound size={16} /> Account Access</div>
                   <div className="space-y-3">
-                    <div className="flex items-start gap-3 rounded-xl bg-black/[0.03] p-3">
+                    <div className="flex items-start gap-3 rounded-xl bg-black/[0.05] p-3">
                       <Mail size={15} className="mt-0.5 shrink-0 text-[var(--an-text2)]" />
                       <div className="flex-1 min-w-0">
                         <div className="text-[13px] font-medium text-[var(--an-text)]">Send password reset email</div>
@@ -403,7 +403,7 @@ export const CustomersPage: React.FC = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-start gap-3 rounded-xl bg-black/[0.03] p-3">
+                    <div className="flex items-start gap-3 rounded-xl bg-black/[0.05] p-3">
                       <Lock size={15} className="mt-0.5 shrink-0 text-[var(--an-text2)]" />
                       <div className="flex-1 min-w-0">
                         <div className="text-[13px] font-medium text-[var(--an-text)]">Set temporary password</div>
@@ -468,7 +468,7 @@ export const CustomersPage: React.FC = () => {
                         const actionLabel = parsed.action === 'signup' ? 'Signed up' : 'Logged in';
                         const providerLabel = parsed.provider ? ` via ${parsed.provider}` : '';
                         return (
-                          <div key={session.id} className="rounded-lg bg-black/[0.03] px-3 py-2 text-[12px]">
+                          <div key={session.id} className="rounded-lg bg-black/[0.05] px-3 py-2 text-[12px]">
                             <div className="flex items-center justify-between gap-2">
                               <span className="font-medium text-[#333]">{actionLabel}{providerLabel}</span>
                               <span className="text-[#999]">{new Date(session.createdAt).toLocaleString()}</span>
@@ -513,7 +513,7 @@ const RelatedList: React.FC<{ title: string; items: any[]; empty: string }> = ({
     ) : (
       <div className="space-y-2">
         {items.slice(0, 5).map((item) => (
-          <div key={item.id} className="rounded-lg bg-black/[0.03] px-3 py-2 text-[13px]">
+          <div key={item.id} className="rounded-lg bg-black/[0.05] px-3 py-2 text-[13px]">
             <div className="font-semibold">{item.code || item.title || item.id}</div>
             <div className="text-[12px] text-[#777]">{item.status || item.createdAt ? `${item.status || 'created'} · ${item.createdAt ? new Date(item.createdAt).toLocaleDateString() : ''}` : 'No status'}</div>
           </div>

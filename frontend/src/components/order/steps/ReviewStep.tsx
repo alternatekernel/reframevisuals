@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { SERVICES } from '../../../data/services';
 import { OrderFlowData } from '../types';
 import { orderFooterClass, orderPrimaryButtonClass, orderSecondaryButtonClass } from '../flow-controls';
@@ -44,13 +44,13 @@ const ReviewStep: React.FC<Props> = ({ orderData, isSubmitting, error, isTemplat
           <p className="text-caption font-bold text-[var(--color-text-primary)] mb-3">Order Summary</p>
 
           <div className="space-y-1.5 text-caption text-left">
-            <div className="flex justify-between py-1.5 border-b border-black/5">
+            <div className="flex justify-between py-1.5 border-b border-black/[0.12]">
               <span className="text-[var(--color-text-secondary)]">Selected Services:</span>
               <span className="text-[var(--color-text-primary)] font-normal text-right max-w-[60%]">
                 {serviceNames.join(', ')}
               </span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-black/5">
+            <div className="flex justify-between py-1.5 border-b border-black/[0.12]">
               <span className="text-[var(--color-text-secondary)]">Volume:</span>
               <span className="text-[var(--color-text-primary)] text-right">
                 {workFileCount} {orderData.customFilesLink ? 'images (via link)' : 'uploads'}
@@ -59,7 +59,7 @@ const ReviewStep: React.FC<Props> = ({ orderData, isSubmitting, error, isTemplat
               </span>
             </div>
             {orderData.customFilesLink && (
-              <div className="flex justify-between py-1.5 border-b border-black/5 flex-col sm:flex-row">
+              <div className="flex justify-between py-1.5 border-b border-black/[0.12] flex-col sm:flex-row">
                 <span className="text-[var(--color-text-secondary)]">Files Link:</span>
                 <span className="text-[var(--color-text-primary)] text-right break-all max-w-full sm:max-w-[60%] font-medium text-blue-600 hover:underline">
                   <a href={orderData.customFilesLink} target="_blank" rel="noopener noreferrer">
@@ -68,15 +68,15 @@ const ReviewStep: React.FC<Props> = ({ orderData, isSubmitting, error, isTemplat
                 </span>
               </div>
             )}
-            <div className="flex justify-between py-1.5 border-b border-black/5">
+            <div className="flex justify-between py-1.5 border-b border-black/[0.12]">
               <span className="text-[var(--color-text-secondary)]">Format / DPI:</span>
               <span className="text-[var(--color-text-primary)] text-right">{orderData.outputFormat} / {orderData.resolutionDPI} DPI</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-black/5">
+            <div className="flex justify-between py-1.5 border-b border-black/[0.12]">
               <span className="text-[var(--color-text-secondary)]">Color / Background:</span>
               <span className="text-[var(--color-text-primary)] text-right max-w-[60%]">{orderData.colorProfile} / {backgroundLabel}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-black/5">
+            <div className="flex justify-between py-1.5 border-b border-black/[0.12]">
               <span className="text-[var(--color-text-secondary)]">Resize:</span>
               <span className="text-[var(--color-text-primary)] text-right">{resizeLabel}</span>
             </div>

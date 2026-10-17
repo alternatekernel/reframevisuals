@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react';
+﻿import { useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ScanSearch, SplitSquareHorizontal } from 'lucide-react';
 
@@ -40,7 +40,7 @@ const ImageComparisonSlider = ({ beforeUrl, afterUrl, label = 'Asset preview' }:
     <div className="space-y-3">
       <div
         ref={containerRef}
-        className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-black/10 bg-[#f5f5f5] select-none"
+        className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-black/[0.18] bg-[#f5f5f5] select-none"
         onPointerMove={(event) => updatePointer(event.clientX, event.clientY)}
         onPointerDown={(event) => {
           event.currentTarget.setPointerCapture(event.pointerId);

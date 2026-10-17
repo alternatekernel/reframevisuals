@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, Image as ImageIcon, Zap } from 'lucide-react';
 import { tokens } from '../../utils/theme';
@@ -22,7 +22,7 @@ const FreeTrialInfo: React.FC<FreeTrialInfoProps> = ({ content }) => {
         transition={{ delay: 0.1 }}
       >
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-8 h-8 p-1.5 bg-[#fafafa] rounded-lg border border-black/5" style={{ boxShadow: tokens.shadowStandard }}>
+          <div className="w-8 h-8 p-1.5 bg-[#fafafa] rounded-lg border border-black/[0.12]" style={{ boxShadow: tokens.shadowStandard }}>
             <img src="/logo.svg" alt="Reframe Free Trial Icon" className="w-full h-full object-contain" />
           </div>
           <p className="text-[9px] font-black tracking-[0.4em] text-[#666666] uppercase">System • Trial</p>
@@ -46,8 +46,8 @@ const FreeTrialInfo: React.FC<FreeTrialInfoProps> = ({ content }) => {
         className="space-y-3"
       >
         {PERKS.map(({ icon: Icon, label }) => (
-          <div key={label} className="flex items-center gap-4 p-3.5 bg-[#fafafa] rounded-xl border border-black/5">
-            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0 border border-black/5 shadow-sm">
+          <div key={label} className="flex items-center gap-4 p-3.5 bg-[#fafafa] rounded-xl border border-black/[0.12]">
+            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shrink-0 border border-black/[0.12] shadow-sm">
               <Icon size={14} className="text-[#171717]" />
             </div>
             <span className="text-[14px] font-bold text-[#171717]">

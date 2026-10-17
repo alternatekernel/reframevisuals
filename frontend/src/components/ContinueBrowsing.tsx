@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 
 const ContinueBrowsing = () => {
   const { pathname } = useLocation();
@@ -27,7 +27,7 @@ const ContinueBrowsing = () => {
           <Link
             key={link.to}
             to={link.to}
-            className="block rounded-lg px-4 py-3 text-sm font-medium text-black/85 transition-all duration-300 border border-black/10 hover:border-black/20 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
+            className="block rounded-lg px-4 py-3 text-sm font-medium text-black/85 transition-all duration-300 border border-black/[0.18] hover:border-black/20 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
             {link.label}
           </Link>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -126,7 +126,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
                   className={`flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border px-3 sm:px-4 py-1.5 sm:py-2 cursor-default w-full sm:w-auto ${
                     label === 'Standard'
                       ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white'
-                      : 'border-black/10 bg-white text-[var(--color-text-primary)]'
+                      : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]'
                   }`}
                 >
                   <span className="text-[14px] font-bold">{time}</span>
@@ -152,7 +152,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
-              className="group relative overflow-hidden rounded-[24px] border border-black/8 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] cursor-pointer touch-manipulation [content-visibility:auto] [contain-intrinsic-size:520px] sm:aspect-[4/5] sm:rounded-none sm:border-0 sm:bg-[var(--color-bg-secondary)] sm:shadow-none"
+              className="group relative overflow-hidden rounded-[24px] border border-black/[0.16] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] cursor-pointer touch-manipulation [content-visibility:auto] [contain-intrinsic-size:520px] sm:aspect-[4/5] sm:rounded-none sm:border-0 sm:bg-[var(--color-bg-secondary)] sm:shadow-none"
             >
               <div className="relative aspect-[4/5] overflow-hidden bg-[var(--color-bg-secondary)] sm:hidden">
                 <BeforeAfterCard
@@ -200,7 +200,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
               {/* Combined Info & Order Bar - Flush at bottom edge with fade-in transition */}
               <div className="absolute bottom-0 inset-x-0 hidden overflow-hidden sm:block">
                 <div 
-                  className="opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between bg-white/95 backdrop-blur-sm border-t border-black/10 p-4 text-[var(--color-text-primary)] shadow-[0_-16px_40px_rgba(0,0,0,0.10)]"
+                  className="opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between bg-white/95 backdrop-blur-sm border-t border-black/[0.18] p-4 text-[var(--color-text-primary)] shadow-[0_-16px_40px_rgba(0,0,0,0.10)]"
                 >
                   {/* Left Side: Service Info */}
                   <div className="flex flex-col items-start gap-1 min-w-0 pr-4">
@@ -280,7 +280,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
                 <Link
                   key={service.id}
                   to={`/services/${service.id}`}
-                  className="px-3.5 py-1.5 text-[13px] font-semibold text-black/55 bg-black/[0.03] hover:bg-black/[0.07] hover:text-[var(--color-text-primary)] rounded-full transition-all duration-200"
+                  className="px-3.5 py-1.5 text-[13px] font-semibold text-black/55 bg-black/[0.05] hover:bg-black/[0.07] hover:text-[var(--color-text-primary)] rounded-full transition-all duration-200"
                 >
                   {service.name}
                 </Link>
@@ -291,7 +291,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
           <div className="mt-5 sm:mt-6 flex justify-center w-full">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-[13px] font-semibold text-black/70 bg-white border border-black/10 hover:border-black/20 hover:bg-black hover:text-white rounded-full transition-all duration-200 shadow-sm active:scale-95 group"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-[13px] font-semibold text-black/70 bg-white border border-black/[0.18] hover:border-black/20 hover:bg-black hover:text-white rounded-full transition-all duration-200 shadow-sm active:scale-95 group"
             >
               <span>Need anything custom? Let&apos;s give it a try</span>
               <ArrowRight size={13} className="text-black/40 group-hover:text-white/80 transition-all duration-300 group-hover:-rotate-45" />

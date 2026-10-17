@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { SERVICES } from '../data/services';
 import { Button } from '../components/ui/button';
@@ -27,7 +27,7 @@ const ReframeVisualsServicesPage = () => {
 
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 text-black/80">
           {SERVICES.map((service) => (
-            <li key={service.id} className="rounded-2xl border border-black/10 px-5 py-4 hover:border-black/20 hover:shadow-sm transition-all flex flex-col">
+            <li key={service.id} className="rounded-2xl border border-black/[0.18] px-5 py-4 hover:border-black/20 hover:shadow-sm transition-all flex flex-col">
               <span className="font-bold text-[15px] mb-1">{service.name}</span>
               <span className="text-[13px] text-black/60 line-clamp-2">{service.description || "Professional image editing and processing."}</span>
             </li>

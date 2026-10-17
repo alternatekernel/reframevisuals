@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Check } from 'lucide-react';
 
@@ -172,7 +172,7 @@ const ComparisonPage = () => {
         </h1>
         <p className="text-[16px] text-black/60 leading-relaxed max-w-2xl mb-10">{data.intro}</p>
 
-        <div className="mb-12 rounded-2xl border border-black/8 bg-[var(--color-bg-secondary)] p-6">
+        <div className="mb-12 rounded-2xl border border-black/[0.16] bg-[var(--color-bg-secondary)] p-6">
           <p className="text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Direct answer</p>
           <p className="text-[16px] leading-8 text-black/80">{data.directAnswer}</p>
         </div>
@@ -181,7 +181,7 @@ const ComparisonPage = () => {
           <h2 className="text-[22px] font-semibold tracking-tight mb-5">
             Reframe Visuals vs {data.competitorLabel}
           </h2>
-          <div className="overflow-x-auto rounded-2xl border border-black/10">
+          <div className="overflow-x-auto rounded-2xl border border-black/[0.18]">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-[var(--color-text-primary)] text-white">
@@ -192,7 +192,7 @@ const ComparisonPage = () => {
               </thead>
               <tbody>
                 {data.tableRows.map((row, i) => (
-                  <tr key={row.feature} className={i % 2 === 0 ? 'bg-white' : 'bg-black/[0.015]'}>
+                  <tr key={row.feature} className={i % 2 === 0 ? 'bg-white' : 'bg-black/[0.04]'}>
                     <td className="px-5 py-3 text-black/55 text-[13px] font-medium">{row.feature}</td>
                     <td className="px-5 py-3">
                       <span
@@ -220,7 +220,7 @@ const ComparisonPage = () => {
             {data.reasons.map((reason) => (
               <div
                 key={reason.heading}
-                className="rounded-2xl border border-black/8 bg-white p-5 shadow-[0_4px_16px_rgba(0,0,0,0.03)]"
+                className="rounded-2xl border border-black/[0.16] bg-white p-5 shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
               >
                 <h3 className="text-[15px] font-semibold tracking-tight mb-2">{reason.heading}</h3>
                 <p className="text-[13px] text-black/60 leading-relaxed">{reason.body}</p>
@@ -233,7 +233,7 @@ const ComparisonPage = () => {
           <h2 className="text-[22px] font-semibold tracking-tight mb-5">Common questions</h2>
           <div className="space-y-3">
             {data.faqs.map((faq) => (
-              <div key={faq.q} className="rounded-2xl border border-black/8 p-5">
+              <div key={faq.q} className="rounded-2xl border border-black/[0.16] p-5">
                 <h3 className="text-[15px] font-semibold mb-2">{faq.q}</h3>
                 <p className="text-[13px] text-black/65 leading-relaxed">{faq.a}</p>
               </div>
@@ -241,7 +241,7 @@ const ComparisonPage = () => {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-black/10 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.04)] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
+        <div className="rounded-2xl border border-black/[0.18] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.09)] p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
           <div className="flex-1">
             <h2 className="text-[20px] font-semibold tracking-tight mb-1.5">
               Test Reframe Visuals on your products.

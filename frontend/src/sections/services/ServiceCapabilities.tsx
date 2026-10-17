@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Layers, Image as ImageIcon, Sparkles, Box } from 'lucide-react';
 import { cx, layout, tokens, typography } from '../../utils/theme';
 
@@ -51,8 +51,8 @@ const ServiceCapabilities: React.FC<ServiceCapabilitiesProps> = ({ service }) =>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
           {capabilities.map((cap: any, i: number) => (
-              <div key={i} className={cx('p-10 lg:p-12 space-y-8 group cursor-default rounded-[28px] border border-black/10 bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.05)] hover:border-black/20 hover:-translate-y-1', tokens.motionInteractive)}>
-                <div className={cx('w-14 h-14 border border-black/10 rounded-[16px] flex items-center justify-center text-black/40 bg-[var(--color-bg-secondary)] group-hover:bg-[var(--color-text-primary)] group-hover:text-white', tokens.motionInteractive)}>
+              <div key={i} className={cx('p-10 lg:p-12 space-y-8 group cursor-default rounded-[28px] border border-black/[0.18] bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.10)] hover:border-black/20 hover:-translate-y-1', tokens.motionInteractive)}>
+                <div className={cx('w-14 h-14 border border-black/[0.18] rounded-[16px] flex items-center justify-center text-black/40 bg-[var(--color-bg-secondary)] group-hover:bg-[var(--color-text-primary)] group-hover:text-white', tokens.motionInteractive)}>
                   <cap.icon size={28} />
                 </div>
                 <div className="space-y-4">

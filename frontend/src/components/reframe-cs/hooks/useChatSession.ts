@@ -353,9 +353,11 @@ export const useChatSession = ({ guestId, identity, isGuest, isOpenOnChat, notif
       return true;
     } catch {
       // Keep the instant local answer so the visitor isn't left empty-handed, and let them retry.
+      // Mark the reply placeholder as localOnly so cacheMessages drops it on reload.
+      // Use the current conversationId (not sentFrom) so syncThread keeps the failed message.
       setMessages(prev => prev.map(message => {
-        if (message.clientId === userClientId) return { ...message, failed: true, failedIn: sentFrom };
-        if (message.clientId === replyClientId) return { ...message, pending: false };
+        if (message.clientId === userClientId) return { ...message, failed: true, failedIn: conversationIdRef.current };
+        if (message.clientId === replyClientId) return { ...message, pending: false, localOnly: true };
         return message;
       }));
       return true;

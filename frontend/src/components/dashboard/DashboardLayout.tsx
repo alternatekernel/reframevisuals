@@ -1,4 +1,4 @@
-import { ReactNode, useState, useEffect, lazy, Suspense } from 'react';
+﻿import { ReactNode, useState, useEffect, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Sidebar from './Sidebar';
@@ -31,11 +31,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
   return (
     <div className="min-h-[100dvh] bg-white font-satoshi selection:bg-brand-ink/10 antialiased">
-      <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-black/[0.06] bg-white/95 px-4 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-black/[0.14] bg-white/95 px-4 backdrop-blur lg:hidden">
         <button
           type="button"
           onClick={() => setMobileSidebarOpen(true)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-black/10 text-text-primary active:scale-95"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-black/[0.18] text-text-primary active:scale-95"
           aria-label="Open dashboard menu"
         >
           <Menu size={20} />
@@ -54,7 +54,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
           />
           <aside
             className="absolute bottom-0 left-0 top-0 w-[min(86vw,320px)] overflow-y-auto bg-[#FAFAFA] shadow-2xl pb-[max(env(safe-area-inset-bottom),1rem)]"
-            style={{ boxShadow: 'inset -1px 0px 0px 0px rgba(0,0,0,0.04), 24px 0px 60px rgba(0,0,0,0.18)' }}
+            style={{ boxShadow: 'inset -1px 0px 0px 0px rgba(0,0,0,0.09), 24px 0px 60px rgba(0,0,0,0.18)' }}
           >
             <button
               type="button"
@@ -91,7 +91,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <div className="flex min-h-[calc(100dvh-56px)] lg:min-h-screen">
       <aside 
         className="fixed bottom-0 left-0 top-0 z-40 hidden w-64 shrink-0 overflow-y-auto bg-[#FAFAFA] lg:block"
-        style={{ boxShadow: 'inset -1px 0px 0px 0px rgba(0,0,0,0.04), 1px 0px 0px 0px rgba(0,0,0,0.06)' }}
+        style={{ boxShadow: 'inset -1px 0px 0px 0px rgba(0,0,0,0.09), 1px 0px 0px 0px rgba(0,0,0,0.11)' }}
       >
         <Sidebar />
       </aside>

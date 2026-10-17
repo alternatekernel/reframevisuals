@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cx, tokens, typography } from '../../utils/theme';
 import { Activity } from 'lucide-react';
@@ -25,12 +25,12 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
   const { currency, convertFromUsd } = useCurrency();
   const isHighlighted = b.highlight ?? (i === 1);
   const standardTone = {
-    shell: "bg-white border-black/10 shadow-[0_8px_24px_rgba(0,0,0,0.04)]",
+    shell: "bg-white border-black/[0.18] shadow-[0_8px_24px_rgba(0,0,0,0.09)]",
     title: "text-black",
     priceSub: "text-black/40",
     dot: "bg-black/20",
     text: "text-black/65 group-hover/item:text-black",
-    chip: "bg-black/[0.04] text-black/60 border border-black/10",
+    chip: "bg-black/[0.04] text-black/60 border border-black/[0.18]",
     button: "white",
   };
 
@@ -49,7 +49,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
         "absolute inset-0 overflow-hidden border transition-all duration-300",
         tokens.radiusCard,
         isHighlighted ? "bg-[#1F1F1F]" : standardTone.shell,
-        isHovered && !isHighlighted ? "shadow-[0_18px_40px_rgba(0,0,0,0.07)] border-black/10" : ""
+        isHovered && !isHighlighted ? "shadow-[0_18px_40px_rgba(0,0,0,0.12)] border-black/[0.18]" : ""
       )}>
         {!isHighlighted && <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]" />}
       </div>

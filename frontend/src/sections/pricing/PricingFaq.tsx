@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, FileText, Clock, RotateCcw, CreditCard } from 'lucide-react';
 import { cx, layout, typography } from '../../utils/theme';
@@ -12,14 +12,14 @@ interface FaqItem {
 
 const FAQ_CARD_THEMES = [
   {
-    shell: 'border-black/10 bg-[#FAFAFA] hover:border-black/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)]',
-    openShell: 'border-black/10 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)]',
-    icon: 'bg-white text-black/60 border-black/10 shadow-sm',
+    shell: 'border-black/[0.18] bg-[#FAFAFA] hover:border-black/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)]',
+    openShell: 'border-black/[0.18] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.11)]',
+    icon: 'bg-white text-black/60 border-black/[0.18] shadow-sm',
     iconOpen: 'bg-black text-white border-black shadow-md',
     label: 'text-black/50',
-    chevron: 'bg-white text-black/50 shadow-sm border border-black/5',
+    chevron: 'bg-white text-black/50 shadow-sm border border-black/[0.12]',
     chevronOpen: 'bg-black text-white shadow-md',
-    answerBorder: 'border-black/5',
+    answerBorder: 'border-black/[0.12]',
   },
 ];
 
@@ -74,7 +74,7 @@ const PricingFaq: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto rounded-3xl border border-black/10 bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.03)] sm:p-6">
+        <div className="max-w-3xl mx-auto rounded-3xl border border-black/[0.18] bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:p-6">
           <div className="flex flex-col gap-3">
             {faqItems.map((item, i) => {
               const Icon = item.icon;

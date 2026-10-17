@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Info } from 'lucide-react';
 import { getApiEndpoint } from '../../lib/apiConfig';
 
@@ -52,7 +52,7 @@ const ContactCaptureCard = ({ conversationId, guestId, onCaptured }: Props) => {
   const note = 'Used only to continue this support conversation. We never sell it or send marketing.';
 
   return (
-    <div className="rounded-xl border border-black/[0.08] bg-black/[0.02] p-3">
+    <div className="rounded-xl border border-black/[0.16] bg-black/[0.04] p-3">
       <div className="mb-1 flex items-start gap-1.5">
         <p className="text-[12px] font-semibold leading-snug text-[#171717]">Where should we reach you?</p>
         <span title={note} aria-label={note} className="mt-[1px] cursor-help text-[#999]"><Info size={12} /></span>
@@ -62,6 +62,7 @@ const ContactCaptureCard = ({ conversationId, guestId, onCaptured }: Props) => {
       </p>
       <form
         className="flex gap-2"
+        noValidate
         onSubmit={event => { event.preventDefault(); submit(); }}
       >
         <input

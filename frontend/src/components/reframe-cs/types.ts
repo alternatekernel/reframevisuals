@@ -31,6 +31,8 @@ export interface ChatMessage {
   failed?: boolean;
   /** Conversation a failed message belongs to, so it never leaks into another thread. */
   failedIn?: string | null;
+  /** Reply placeholder that should never be cached to localStorage (dropped on reload). */
+  localOnly?: boolean;
   attachments?: ChatAttachment[];
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -77,7 +77,7 @@ const PolicyPage: React.FC = () => {
         <p className="mt-4 text-[13px] font-semibold text-black/45">Last updated: {policy.updated}</p>
         <div className="mt-10 space-y-8">
           {policy.sections.map((section) => (
-            <section key={section.heading} className="rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-6">
+            <section key={section.heading} className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-6">
               <h2 className="text-[20px] font-bold tracking-tight">{section.heading}</h2>
               <div className="mt-4 space-y-3 text-[16px] leading-7 text-black/65">
                 {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -85,7 +85,7 @@ const PolicyPage: React.FC = () => {
             </section>
           ))}
         </div>
-        <div className="mt-10 rounded-2xl border border-black/10 p-6 text-[16px] leading-7 text-black/65">
+        <div className="mt-10 rounded-2xl border border-black/[0.18] p-6 text-[16px] leading-7 text-black/65">
           Questions about this page? Contact <a className="font-semibold text-black underline" href="mailto:hello@reframevisuals.com">hello@reframevisuals.com</a> or return to the <Link className="font-semibold text-black underline" to="/contact">contact page</Link>.
         </div>
       </div>

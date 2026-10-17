@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Upload, X, Plus, Clock, CreditCard, ShieldCheck, AlertTriangle, ArrowRight, Check } from 'lucide-react';
 import { cx } from '../../utils/theme';
@@ -175,7 +175,7 @@ const InstantDropZone: React.FC = () => {
 
   return (
     <section className="relative z-10 mx-auto max-w-5xl px-5 sm:px-6 lg:px-10 pt-8 pb-4 lg:pt-12 lg:pb-6">
-      <div className="rounded-[24px] border border-black/10 bg-white p-5 shadow-[0_14px_40px_rgba(0,0,0,0.05)] sm:p-8">
+      <div className="rounded-[24px] border border-black/[0.18] bg-white p-5 shadow-[0_14px_40px_rgba(0,0,0,0.10)] sm:p-8">
         {submitted ? (
           <div className="flex flex-col items-center py-10 text-center">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-green-100 bg-green-50">
@@ -222,8 +222,8 @@ const InstantDropZone: React.FC = () => {
                 'relative rounded-2xl border-2 border-dashed transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-black/30',
                 isDragging
                   ? 'border-[var(--brand)] bg-orange-50/40 scale-[0.995]'
-                  : 'border-black/15 bg-black/[0.01]',
-                !hasFiles && 'cursor-pointer hover:border-black/40 hover:bg-black/[0.02]'
+                  : 'border-black/15 bg-black/[0.04]',
+                !hasFiles && 'cursor-pointer hover:border-black/40 hover:bg-black/[0.04]'
               )}
             >
               {!hasFiles ? (
@@ -247,13 +247,13 @@ const InstantDropZone: React.FC = () => {
                 <div className="p-3 sm:p-4">
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {projectAssets.map((asset, i) => (
-                      <div key={`${asset.file.name}-${i}`} className="group relative aspect-square overflow-hidden rounded-xl border border-black/10 bg-black/[0.02]">
+                      <div key={`${asset.file.name}-${i}`} className="group relative aspect-square overflow-hidden rounded-xl border border-black/[0.18] bg-black/[0.04]">
                         <img src={asset.preview} alt={asset.file.name} className="h-full w-full object-cover" />
                         <button
                           type="button"
                           onClick={(e) => { e.stopPropagation(); removeFile(i); }}
                           aria-label={`Remove ${asset.file.name}`}
-                          className="absolute right-2 top-2 rounded-full border border-black/10 bg-white p-1.5 text-black shadow-sm transition-all hover:bg-black hover:text-white"
+                          className="absolute right-2 top-2 rounded-full border border-black/[0.18] bg-white p-1.5 text-black shadow-sm transition-all hover:bg-black hover:text-white"
                         >
                           <X size={11} />
                         </button>
@@ -266,7 +266,7 @@ const InstantDropZone: React.FC = () => {
                       <button
                         type="button"
                         onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                        className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-black/20 text-black/50 transition-all hover:border-black hover:bg-black/[0.01] hover:text-black"
+                        className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-black/20 text-black/50 transition-all hover:border-black hover:bg-black/[0.04] hover:text-black"
                       >
                         <Plus size={18} />
                         <span className="text-[11px] font-semibold">Add more</span>
@@ -287,7 +287,7 @@ const InstantDropZone: React.FC = () => {
             )}
 
             {hasFiles && (
-              <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-2xl border border-black/10 bg-[var(--color-bg-secondary)] p-4 sm:p-5">
+              <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5">
                 <p className="mb-3 text-[13px] font-bold text-[var(--color-text-primary)]">
                   Last step — where do we send your edited images?
                 </p>
@@ -300,7 +300,7 @@ const InstantDropZone: React.FC = () => {
                     placeholder="Your name"
                     aria-label="Full name"
                     required
-                    className="flex-1 rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                    className="flex-1 rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                   />
                   <input
                     type="email"
@@ -309,7 +309,7 @@ const InstantDropZone: React.FC = () => {
                     placeholder="Work email"
                     aria-label="Work email"
                     required
-                    className="flex-1 rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                    className="flex-1 rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                   />
                   <button
                     type="submit"
@@ -329,7 +329,7 @@ const InstantDropZone: React.FC = () => {
                     aria-label="Editing instructions"
                     rows={3}
                     maxLength={4000}
-                    className="w-full resize-y rounded-2xl border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                    className="w-full resize-y rounded-2xl border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                   />
                   <input
                     type="url"
@@ -337,7 +337,7 @@ const InstantDropZone: React.FC = () => {
                     onChange={(e) => setFormData({ ...formData, sourceLink: e.target.value })}
                     placeholder="Drive / Dropbox / WeTransfer link to more files (optional)"
                     aria-label="Link to additional files"
-                    className="w-full rounded-full border border-black/10 bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
+                    className="w-full rounded-full border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30"
                   />
                 </div>
 

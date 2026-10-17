@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { HardDrive, Cloud, FileText, Settings, Upload, Download, MoreHorizontal, Layout, Box, Hash, Globe, Clock, ChevronRight, BarChart2, Plus } from 'lucide-react';
 import { SectionHeader } from '../components/SectionHeader';
 import { cx } from '../../utils/theme';
@@ -67,7 +67,7 @@ export const CMSStoragePage: React.FC = () => {
                {storage.byCategory.map((cat, i) => (
                  <div 
                    key={i} 
-                   className="h-full first:rounded-l-full last:rounded-r-full border-r border-black/10 last:border-0" 
+                   className="h-full first:rounded-l-full last:rounded-r-full border-r border-black/[0.18] last:border-0" 
                    style={{ width: `${(cat.size / storage.totalLimit) * 100}%`, backgroundColor: cat.color }} 
                  />
                ))}

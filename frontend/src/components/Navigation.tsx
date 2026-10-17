@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useModal } from '../context/ModalContext';
 import { Menu, X, ChevronDown, ChevronRight, ArrowRight, Mail, UserCircle, LogOut, Settings } from 'lucide-react';
@@ -249,7 +249,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                 role="menu"
                 aria-label="Services menu"
               >
-                <div className="bg-white rounded-[20px] p-5 grid grid-cols-3 gap-x-6 gap-y-0.5 w-[960px] max-w-[95vw] border border-black/10 shadow-[0_24px_80px_-15px_rgba(0,0,0,0.12)]">
+                <div className="bg-white rounded-[20px] p-5 grid grid-cols-3 gap-x-6 gap-y-0.5 w-[960px] max-w-[95vw] border border-black/[0.18] shadow-[0_24px_80px_-15px_rgba(0,0,0,0.12)]">
                   {displayServices.map((svc: any) => {
                     const Icon = svc.icon;
                     return (
@@ -272,7 +272,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                       </Link>
                     );
                   })}
-                  <div className="col-span-3 border-t border-black/5 mt-3 pt-3">
+                  <div className="col-span-3 border-t border-black/[0.12] mt-3 pt-3">
                     <Link 
                       to="/services" 
                       onClick={() => setServicesOpen(false)} 
@@ -310,7 +310,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute right-0 mt-3 w-72 bg-white/90 backdrop-blur-xl border border-black/5 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-[300]"
+                    className="absolute right-0 mt-3 w-72 bg-white/90 backdrop-blur-xl border border-black/[0.12] rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-[300]"
                   >
                     {!isContactSubmitted ? (
                       <div className="space-y-4">
@@ -330,7 +330,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                                 value={contactEmail}
                                 onChange={(e) => setContactEmail(e.target.value)}
                                 disabled={isSubmittingContact}
-                                className="w-full min-h-11 px-3 bg-white/50 border border-black/10 rounded-xl text-[12px] font-medium text-[#171717] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder-[#999] focus:border-black/35 focus:bg-white focus:ring-1 focus:ring-black/5 disabled:opacity-50"
+                                className="w-full min-h-11 px-3 bg-white/50 border border-black/[0.18] rounded-xl text-[12px] font-medium text-[#171717] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder-[#999] focus:border-black/35 focus:bg-white focus:ring-1 focus:ring-black/5 disabled:opacity-50"
                               />
                             </div>
                             <p className="text-[12px] text-[#999] px-1 italic">
@@ -384,7 +384,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
 
                           <div className="relative py-1">
                             <div className="absolute inset-0 flex items-center">
-                              <div className="w-full border-t border-black/5"></div>
+                              <div className="w-full border-t border-black/[0.12]"></div>
                             </div>
                             <div className="relative flex justify-center text-[10px] uppercase tracking-wider font-bold text-[#999]">
                               <span className="bg-white/0 px-2 backdrop-blur-xl">or</span>
@@ -393,7 +393,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
 
                           <a
                             href="mailto:hello@reframevisuals.com"
-                            className="flex items-center justify-center gap-2 w-full min-h-11 border border-black/10 rounded-xl text-[12px] font-bold text-[#171717] hover:bg-black/5 transition-all touch-manipulation"
+                            className="flex items-center justify-center gap-2 w-full min-h-11 border border-black/[0.18] rounded-xl text-[12px] font-bold text-[#171717] hover:bg-black/5 transition-all touch-manipulation"
                           >
                             <Mail size={14} />
                             Email hello@reframevisuals.com
@@ -450,9 +450,9 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
-                      className="absolute right-0 top-12 z-[260] w-72 rounded-2xl border border-black/10 bg-white p-3 text-left shadow-2xl"
+                      className="absolute right-0 top-12 z-[260] w-72 rounded-2xl border border-black/[0.18] bg-white p-3 text-left shadow-2xl"
                     >
-                      <div className="border-b border-black/5 pb-3 flex items-center gap-3">
+                      <div className="border-b border-black/[0.12] pb-3 flex items-center gap-3">
                         {currentUser?.avatarUrl ? (
                           <img src={currentUser.avatarUrl} alt={currentUser.name} className="h-10 w-10 rounded-full object-cover shrink-0" />
                         ) : (
@@ -512,11 +512,11 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
               aria-modal="true"
               aria-label="Mobile navigation menu"
             >
-              <div className="flex items-center justify-between p-5 border-b border-black/[0.06]">
+              <div className="flex items-center justify-between p-5 border-b border-black/[0.14]">
                 <Logo onClick={() => setMobileMenuOpen(false)} />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="min-h-12 min-w-12 p-2 flex items-center justify-center rounded-full border border-black/10 hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
+                  className="min-h-12 min-w-12 p-2 flex items-center justify-center rounded-full border border-black/[0.18] hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
                   style={{ color: '#171717' }}
                   aria-label="Close menu"
                 >
@@ -539,7 +539,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           "group flex items-center justify-between px-3 py-3 text-[16px] font-semibold focus-visible:outline-none transition-all touch-manipulation",
                           isActive(item.path) 
                             ? "bg-[var(--brand)]/10 text-[var(--brand)] rounded-full" 
-                            : "text-black/70 hover:text-black border-b border-black/[0.06] rounded-none"
+                            : "text-black/70 hover:text-black border-b border-black/[0.14] rounded-none"
                         )}
                         role="menuitem"
                       >
@@ -556,7 +556,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                   ))}
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-black/[0.06] space-y-3">
+                <div className="mt-8 pt-6 border-t border-black/[0.14] space-y-3">
                   {!isUserAuthenticated && (
                     <>
                       <motion.div
@@ -567,7 +567,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         <Link
                           to="/login"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex min-h-12 items-center justify-center text-[15px] font-bold rounded-full border border-black/10 text-[#171717] hover:bg-black/[0.02] active:scale-[0.98] transition-all touch-manipulation"
+                          className="flex min-h-12 items-center justify-center text-[15px] font-bold rounded-full border border-black/[0.18] text-[#171717] hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
                           role="menuitem"
                         >
                           Sign In
@@ -596,9 +596,9 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: NAV_ITEMS.length * 0.04 }}
-                      className="rounded-2xl border border-black/10 bg-black/[0.02] p-4 text-left"
+                      className="rounded-2xl border border-black/[0.18] bg-black/[0.04] p-4 text-left"
                     >
-                      <div className="flex items-center gap-3 border-b border-black/5 pb-3">
+                      <div className="flex items-center gap-3 border-b border-black/[0.12] pb-3">
                         {currentUser?.avatarUrl ? (
                           <img src={currentUser.avatarUrl} alt={currentUser.name} className="h-10 w-10 rounded-full object-cover shrink-0" />
                         ) : (
@@ -617,7 +617,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           navigate('/dashboard');
                           setMobileMenuOpen(false);
                         }}
-                        className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-white py-3 text-[14px] font-semibold text-[#171717] hover:bg-black/[0.02] active:scale-[0.98] transition-all touch-manipulation"
+                        className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/[0.18] bg-white py-3 text-[14px] font-semibold text-[#171717] hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
                         role="menuitem"
                       >
                         <Settings size={15} /> Profile / dashboard

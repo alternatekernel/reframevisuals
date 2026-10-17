@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TESTIMONIALS, TestimonialItem } from '../data/testimonials';
@@ -38,7 +38,7 @@ const Avatar = ({ name, avatarUrl, company }: { name: string; avatarUrl?: string
         height={36}
         loading="lazy"
         decoding="async"
-        className="w-9 h-9 rounded-full object-cover shrink-0 border border-black/5"
+        className="w-9 h-9 rounded-full object-cover shrink-0 border border-black/[0.12]"
       />
     );
   }
@@ -48,7 +48,7 @@ const Avatar = ({ name, avatarUrl, company }: { name: string; avatarUrl?: string
     .join('')
     .slice(0, 2);
   return (
-    <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[11px] tracking-wide shrink-0 border border-black/[0.08] bg-black/[0.06] text-black/70">
+    <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[11px] tracking-wide shrink-0 border border-black/[0.16] bg-black/[0.06] text-black/70">
       {initials}
     </div>
   );
@@ -267,7 +267,7 @@ const LaurelBranch: React.FC<{ mirrored?: boolean; delay?: number; uid: string; 
 
 const TestimonialCard = ({ item, ariaHidden = false }: { item: typeof TESTIMONIALS[0]; ariaHidden?: boolean }) => {
   return (
-    <article aria-hidden={ariaHidden || undefined} className="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 flex flex-col bg-white border border-black/[0.08] -ml-[1px] cursor-default overflow-hidden">
+    <article aria-hidden={ariaHidden || undefined} className="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 flex flex-col bg-white border border-black/[0.16] -ml-[1px] cursor-default overflow-hidden">
       {/* Card Body - Quote at the top */}
       <div className="flex-1 p-5 pb-4 flex flex-col">
         <p className="text-[13px] sm:text-[14px] leading-relaxed text-black/75 font-normal" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
@@ -482,7 +482,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
 
           <Frame size="lg" noPadding hideCrosshairs className="w-full relative z-10">
             <div className="w-full p-[5px]">
-              <div className="w-full grid md:grid-cols-[1fr_1.3fr] rounded-none bg-white border border-black/[0.08] shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] overflow-hidden">
+              <div className="w-full grid md:grid-cols-[1fr_1.3fr] rounded-none bg-white border border-black/[0.16] shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] overflow-hidden">
           {/* Left Side: Real Photo of Nikola Filić */}
           <div className="relative h-[260px] md:h-auto min-h-[420px] overflow-hidden bg-[#e9e9e9]">
             <img
@@ -516,7 +516,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
               </blockquote>
 
               {/* Secondary Quote */}
-              <p className="mt-4 text-[13px] sm:text-[14px] text-black/50 leading-relaxed border-l-2 border-black/10 pl-4 italic">
+              <p className="mt-4 text-[13px] sm:text-[14px] text-black/50 leading-relaxed border-l-2 border-black/[0.18] pl-4 italic">
                 "Perfect collab as always. We have been working together now more than a year, and will definitely continue!"
               </p>
 
@@ -529,7 +529,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
             </div>
 
             {/* Identity Footer */}
-            <div className="mt-8 pt-6 border-t border-black/[0.06]">
+            <div className="mt-8 pt-6 border-t border-black/[0.14]">
               <div className="flex items-center justify-between gap-4 flex-wrap">
                 {/* Identity */}
                 <div className="flex items-center gap-3.5">
@@ -537,7 +537,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     <img
                       src="https://res.cloudinary.com/dnmj4altq/image/upload/w_88,h_88,c_fill,g_face,f_auto,q_auto/v1781715801/reframe/testimonials/nikola_filic_profile.png"
                       alt="Nikola Filić - Founder, Bomber Clothing - Verified Reframe Visuals Long-term Partner"
-                      className="w-full h-full rounded-full object-cover border-2 border-black/10"
+                      className="w-full h-full rounded-full object-cover border-2 border-black/[0.18]"
                     />
                     {/* Verified badge overlay */}
                     <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center border border-white">
@@ -619,7 +619,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ type: 'spring', duration: 0.4 }}
-              className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-black/10 bg-white p-6 shadow-2xl sm:p-8"
+              className="relative w-full max-w-md overflow-hidden rounded-[28px] border border-black/[0.18] bg-white p-6 shadow-2xl sm:p-8"
             >
               {/* Close Button */}
               <button
@@ -647,7 +647,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="e.g. Sarah Jenkins"
-                    className="w-full rounded-xl border border-black/10 bg-black/[0.01] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
+                    className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
                   />
                 </div>
 
@@ -661,7 +661,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     value={form.company}
                     onChange={(e) => setForm({ ...form, company: e.target.value })}
                     placeholder="e.g. Founder at CleanSkins"
-                    className="w-full rounded-xl border border-black/10 bg-black/[0.01] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
+                    className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
                   />
                 </div>
 
@@ -675,7 +675,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="e.g. sarah@cleanskins.com"
-                    className="w-full rounded-xl border border-black/10 bg-black/[0.01] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
+                    className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
                   />
                 </div>
 
@@ -693,7 +693,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     onChange={(e) => setForm({ ...form, quote: e.target.value })}
                     placeholder="Describe your experience with Reframe (e.g. quality, turnaround)..."
                     rows={3}
-                    className="w-full rounded-xl border border-black/10 bg-black/[0.01] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5 resize-none"
+                    className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5 resize-none"
                   />
                 </div>
 
@@ -706,7 +706,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                     value={form.metric}
                     onChange={(e) => setForm({ ...form, metric: e.target.value })}
                     placeholder="e.g. 3 days → 12 hours"
-                    className="w-full rounded-xl border border-black/10 bg-black/[0.01] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
+                    className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5"
                   />
                 </div>
 
@@ -714,7 +714,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 min-h-11 rounded-xl border border-black/10 text-[13px] font-bold text-black/70 hover:bg-neutral-50 active:scale-[0.98] transition-all"
+                    className="flex-1 min-h-11 rounded-xl border border-black/[0.18] text-[13px] font-bold text-black/70 hover:bg-neutral-50 active:scale-[0.98] transition-all"
                   >
                     Cancel
                   </button>

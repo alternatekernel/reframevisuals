@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cx } from '../utils/theme';
 import { Service } from '../data/services';
@@ -163,7 +163,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, showOrderNow = t
             </div>
 
             {/* ACTION FOOTER */}
-            <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-black/5">
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-black/[0.12]">
               <div className="flex items-center gap-6">
                 <div>
                   <p className="text-[10px] font-bold text-black/20 tracking-widest uppercase mb-1">FROM</p>

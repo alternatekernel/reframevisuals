@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { cx, layout, tokens, typography } from '../../utils/theme';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PortfolioAbout = () => {
   return (
-    <section className="px-5 sm:px-6 lg:px-12 py-16 sm:py-24 bg-white relative overflow-hidden border-t border-black/10">
+    <section className="px-5 sm:px-6 lg:px-12 py-16 sm:py-24 bg-white relative overflow-hidden border-t border-black/[0.18]">
       <div className={cx(layout.compactShell, "relative z-10")}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <motion.div

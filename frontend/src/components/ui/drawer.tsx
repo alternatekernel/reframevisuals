@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { cx } from "../../utils/theme"
@@ -94,7 +94,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             )}
           >
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-black/8 px-6 py-4.5">
+            <div className="flex items-center justify-between border-b border-black/[0.16] px-6 py-4.5">
               <div>
                 {title && (
                   <h3 className="font-heading text-[18px] font-semibold text-[var(--color-text-primary,#0A0A0B)]">

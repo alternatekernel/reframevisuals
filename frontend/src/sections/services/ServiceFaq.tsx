@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
@@ -54,7 +54,7 @@ const ServiceFaq: React.FC<ServiceFaqProps> = ({ service }) => {
             <div className="pt-6">
               <Link
                 to="/contact"
-                className="group inline-flex h-[50px] lg:h-[56px] items-center gap-3 rounded-full border border-black/10 bg-white px-8 text-[15px] lg:text-[16px] font-bold text-black transition-colors hover:bg-black/5"
+                className="group inline-flex h-[50px] lg:h-[56px] items-center gap-3 rounded-full border border-black/[0.18] bg-white px-8 text-[15px] lg:text-[16px] font-bold text-black transition-colors hover:bg-black/5"
               >
                 Contact the team
                 <div className="flex h-6 w-6 items-center justify-center rounded-full bg-black/5 transition-transform group-hover:translate-x-1">
@@ -67,7 +67,7 @@ const ServiceFaq: React.FC<ServiceFaqProps> = ({ service }) => {
           {/* Right column — FAQ accordion */}
           <div className="lg:col-span-7 space-y-3">
             {faqs.map((faq: any, i: number) => (
-              <div key={i} className={cx('overflow-hidden bg-[var(--color-bg-secondary)]/50 rounded-2xl border border-black/5', tokens.motionInteractive)}>
+              <div key={i} className={cx('overflow-hidden bg-[var(--color-bg-secondary)]/50 rounded-2xl border border-black/[0.12]', tokens.motionInteractive)}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between p-7 text-left hover:bg-white transition-colors"

@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef } from 'react';
+﻿import React, { useMemo, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, FileText, List, Hash, ChevronDown } from 'lucide-react';
 import { cx, tokens } from '../utils/theme';
@@ -74,7 +74,7 @@ const ServiceTable: React.FC = () => {
               className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 ${
                 label === 'Standard'
                   ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white'
-                  : 'border-black/10 bg-white text-[var(--color-text-primary)]'
+                  : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]'
               }`}
             >
               <span className="text-[14px] font-bold">{time}</span>
@@ -125,7 +125,7 @@ const ServiceTable: React.FC = () => {
                     onClick={() => navigate(`/services/${svc.id}`)}
                     className={cx(
                       "group grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch cursor-pointer text-[16px] transition-all duration-300 ease-in-out min-h-[64px] py-3 sm:py-0 sm:h-[64px]",
-                      index === 2 ? (isExpanded ? "border-b border-black/10" : "") : "border-b border-black/10",
+                      index === 2 ? (isExpanded ? "border-b border-black/[0.18]" : "") : "border-b border-black/[0.18]",
                       style.hoverClass
                     )}
                   >
@@ -146,7 +146,7 @@ const ServiceTable: React.FC = () => {
                     </div>
 
                     {/* Column 2: Included Features */}
-                    <div className="hidden sm:flex items-center gap-1.5 border-r border-black/10 px-5 min-w-0 overflow-hidden whitespace-nowrap">
+                    <div className="hidden sm:flex items-center gap-1.5 border-r border-black/[0.18] px-5 min-w-0 overflow-hidden whitespace-nowrap">
                       {svc.includes.slice(0, 2).map((inc, i) => (
                         <span
                           key={i}
@@ -202,7 +202,7 @@ const ServiceTable: React.FC = () => {
                     key={svc.id}
                     onClick={() => navigate(`/services/${svc.id}`)}
                     className={cx(
-                      "group grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch cursor-pointer text-[16px] transition-all duration-300 ease-in-out min-h-[64px] py-3 sm:py-0 sm:h-[64px] border-b border-black/10 last:border-b-0",
+                      "group grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch cursor-pointer text-[16px] transition-all duration-300 ease-in-out min-h-[64px] py-3 sm:py-0 sm:h-[64px] border-b border-black/[0.18] last:border-b-0",
                       style.hoverClass
                     )}
                   >
@@ -223,7 +223,7 @@ const ServiceTable: React.FC = () => {
                     </div>
 
                     {/* Column 2: Included Features */}
-                    <div className="hidden sm:flex items-center gap-1.5 border-r border-black/10 px-5 min-w-0 overflow-hidden whitespace-nowrap">
+                    <div className="hidden sm:flex items-center gap-1.5 border-r border-black/[0.18] px-5 min-w-0 overflow-hidden whitespace-nowrap">
                       {svc.includes.slice(0, 2).map((inc, i) => (
                         <span
                           key={i}

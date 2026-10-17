@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+﻿import React, { useEffect, useMemo, useState } from 'react';
 import JobsListView from './JobsListView';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, Download, RotateCcw, Eye, Clock, FileImage, Check, Loader2, Zap, X, ScanSearch, Paperclip } from 'lucide-react';
@@ -310,7 +310,7 @@ const JobDetailsView = () => {
                 <>
                   <button
                     onClick={() => setShowRevisionModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.03] transition-all"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
                   >
                     <RotateCcw size={15} />
                     Request Revision
@@ -333,7 +333,7 @@ const JobDetailsView = () => {
                   {isRevisionEligible && (
                     <button
                       onClick={() => setShowRevisionModal(true)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.03] transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
                     >
                       <RotateCcw size={15} />
                       Request Revision
@@ -362,7 +362,7 @@ const JobDetailsView = () => {
                 </div>
               )}
               {job.status === 'Submitted' && (
-                <div className="flex items-center gap-2 rounded-full bg-black/5 border border-black/[0.06] px-3 py-1.5">
+                <div className="flex items-center gap-2 rounded-full bg-black/5 border border-black/[0.14] px-3 py-1.5">
                   <Clock size={14} className="text-black/40" />
                   <span className="text-[13px] font-medium text-black/50">In Queue</span>
                 </div>
