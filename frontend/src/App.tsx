@@ -292,6 +292,7 @@ const LoginPage = lazy(() => import('./admin/LoginPage').then(m => ({ default: m
 const AdminResetPassword = lazy(() => import('./admin/pages/AdminResetPassword').then(m => ({ default: m.AdminResetPassword })));
 const AdminForgotPassword = lazy(() => import('./admin/pages/AdminForgotPassword').then(m => ({ default: m.AdminForgotPassword })));
 const AdminLayout = lazy(() => import('./admin/AdminLayout'));
+const InvoicePrintPage = lazy(() => import('./admin/pages/InvoicePrintPage').then(m => ({ default: m.InvoicePrintPage })));
 const AdminProtectedRoute = lazy(() => import('./admin/ProtectedRoute').then(m => ({ default: m.ProtectedRoute })));
 const AuditLogPage = lazy(() => import('./admin/pages/AuditLogPage').then(m => ({ default: m.default })));
 const UsersPage = lazy(() => import('./admin/pages/UsersPage').then(m => ({ default: m.default })));
@@ -485,6 +486,16 @@ export const routes: RouteObject[] = [
       {
         path: '/admin/forgot-password',
         element: <Suspense fallback={<RouteLoader />}><AdminForgotPassword /></Suspense>
+      },
+      {
+        path: '/admin/invoicing/:id/print',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <AdminProtectedRoute>
+              <InvoicePrintPage />
+            </AdminProtectedRoute>
+          </Suspense>
+        )
       },
       {
         path: '/admin/*',

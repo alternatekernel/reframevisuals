@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { CreditCard, Download, Search, Filter, ArrowRight, CheckCircle2, AlertCircle, FileText, Zap, DollarSign, RefreshCw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { CreditCard, Download, Search, Filter, ArrowRight, CheckCircle2, AlertCircle, FileText, Zap, DollarSign, RefreshCw, Plus } from 'lucide-react';
 import { SectionHeader } from '../components/SectionHeader';
 import { cx } from '../../utils/theme';
 import { adminFetch } from '../utils/api';
@@ -26,6 +27,7 @@ const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: '
 const normalizeStatus = (status: string) => status.toLowerCase();
 
 export const InvoicingPage: React.FC = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [metrics, setMetrics] = useState<InvoiceMetrics>({ totalOutstanding: 0, overdue: 0, paidThisMonth: 0, avgPaymentTime: 'N/A' });
@@ -133,7 +135,8 @@ export const InvoicingPage: React.FC = () => {
           <div className="flex items-center gap-3">
             <button className="flex items-center gap-2 px-4 py-2 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[13px] font-bold text-[var(--admin-text-2)] hover:text-[var(--admin-text)] transition-colors"><Filter size={14} /> Matrix Filter</button>
             <button onClick={loadInvoices} className="flex items-center gap-2 px-4 py-2 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[13px] font-bold text-[var(--admin-text-2)] hover:text-[var(--admin-accent)] transition-colors"><RefreshCw size={14} className={loading ? 'animate-spin' : ''} /> Sync</button>
-            <button onClick={exportCsv} className="flex items-center gap-2 px-5 py-2 bg-[var(--admin-accent)] text-black rounded-xl text-[13px] font-black hover:bg-[var(--admin-accent)]/90 transition-all shadow-[0_0_20px_rgba(255,191,0,0.2)]"><Download size={14} /> EXPORT CSV</button>
+<button onClick={exportCsv} className="flex items-center gap-2 px-4 py-2 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[13px] font-bold text-[var(--admin-text-2)] hover:text-[var(--admin-text)] transition-colors"><Download size={14} /> Export CSV</button>
+            <button onClick={() => navigate('/admin/invoicing/new')} className="flex items-center gap-2 px-5 py-2 bg-[var(--admin-accent)] text-black rounded-xl text-[13px] font-black hover:bg-[var(--admin-accent)]/90 transition-all"><Plus size={14} /> New Invoice</button>
           </div>
         </div>
 
@@ -169,7 +172,7 @@ export const InvoicingPage: React.FC = () => {
                       <td className="px-8 py-5"><div className="text-[15px] font-[var(--admin-font-mono)] font-bold text-[var(--admin-text)] tracking-tighter">{currency.format(inv.amount)}</div></td>
                       <td className="px-8 py-5"><span className={cx('inline-flex items-center px-3 py-1.5 rounded-lg text-[10px] font-black border uppercase tracking-wider gap-2', getStatusStyles(inv.status))}>{status === 'paid' && <CheckCircle2 size={10} className="fill-current" />}{status === 'overdue' && <AlertCircle size={10} />}{status}</span></td>
                       <td className="px-8 py-5 text-right"><div className="text-[13px] font-bold text-[var(--admin-text)]">DUE: {inv.due}</div><div className="text-[10px] font-black text-[var(--admin-text-3)] uppercase tracking-widest mt-0.5">ISSUED: {inv.issued}</div>{inv.paid && <div className="text-[10px] font-black text-[var(--admin-green)] uppercase tracking-widest mt-0.5">PAID: {inv.paid}</div>}</td>
-                      <td className="px-8 py-5 text-right"><div className="flex items-center justify-end gap-2"><button title="Download PDF" className="p-2.5 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[var(--admin-text-3)] hover:text-[var(--admin-accent)] hover:bg-[var(--admin-accent)]/5 hover:border-[var(--admin-accent)]/20 transition-all"><Download size={16} /></button><button title="View Matrix" className="p-2.5 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[var(--admin-text-3)] hover:text-[var(--admin-accent)] hover:bg-[var(--admin-accent)]/5 hover:border-[var(--admin-accent)]/20 transition-all"><ArrowRight size={16} /></button></div></td>
+                      <td className="px-8 py-5 text-right"><div className="flex items-center justify-end gap-2"><button title="Print / PDF" aria-label="Print or save as PDF" onClick={() => window.open(`/admin/invoicing/${inv.id}/print`, '_blank')} className="p-2.5 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[var(--admin-text-3)] hover:text-[var(--admin-accent)] hover:bg-[var(--admin-accent)]/5 hover:border-[var(--admin-accent)]/20 transition-all"><Download size={16} /></button><button title="Open invoice" aria-label="Open invoice" onClick={() => navigate(`/admin/invoicing/${inv.id}/edit`)} className="p-2.5 bg-[var(--admin-surface-3)] border border-[var(--admin-border)] rounded-xl text-[var(--admin-text-3)] hover:text-[var(--admin-accent)] hover:bg-[var(--admin-accent)]/5 hover:border-[var(--admin-accent)]/20 transition-all"><ArrowRight size={16} /></button></div></td>
                     </tr>
                   );
                 })}

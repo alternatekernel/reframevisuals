@@ -10,12 +10,15 @@ const AppLockContext = createContext<AppLockContextValue | null>(null);
 
 const LOCK_TIMEOUT_MS = 10 * 60 * 1000;
 const SESSION_KEY = 'admin_session_locked';
+// Local dev only: VITE_DEV_ADMIN_BYPASS is never set in production builds.
+const LOCK_DISABLED = import.meta.env.VITE_DEV_ADMIN_BYPASS === 'true';
 
 export const AppLockProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Initialise from sessionStorage so refresh doesn't auto-unlock
-  const [locked, setLocked] = useState(() => sessionStorage.getItem(SESSION_KEY) === 'true');
+  const [locked, setLocked] = useState(() => !LOCK_DISABLED && sessionStorage.getItem(SESSION_KEY) === 'true');
 
   const lockNow = useCallback(() => {
+    if (LOCK_DISABLED) return;
     sessionStorage.setItem(SESSION_KEY, 'true');
     setLocked(true);
   }, []);
@@ -26,6 +29,7 @@ export const AppLockProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }, []);
 
   useEffect(() => {
+    if (LOCK_DISABLED) return;
     let timer: ReturnType<typeof setTimeout>;
     const reset = () => {
       clearTimeout(timer);

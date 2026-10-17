@@ -82,6 +82,7 @@ const AboutPage = () => {
         </script>
       </Helmet>
       
+      <h1 className="sr-only">About Reframe Visuals | Ecommerce Photo Editing Studio</h1>
       <AboutPhilosophy />
       <AboutExpertise />
       <AboutFAQ />

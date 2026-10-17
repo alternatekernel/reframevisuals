@@ -59,6 +59,7 @@ const PricingPage = () => {
           ],
         })}</script>
       </Helmet>
+      <h1 className="sr-only">Photo Editing Pricing | Reframe Visuals</h1>
       <PricingTable />
       <PricingPilot />
       <CompetitorComparison />

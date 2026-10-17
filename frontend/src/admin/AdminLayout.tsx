@@ -34,6 +34,7 @@ const TeamPage = lazy(() => import('./pages/TeamPage').then(m => ({ default: m.T
 const IntegrationsPage = lazy(() => import('./pages/IntegrationsPage').then(m => ({ default: m.IntegrationsPage })));
 const AdminCustomOrder = lazy(() => import('./pages/AdminCustomOrder').then(m => ({ default: m.AdminCustomOrder })));
 const InvoicingPage = lazy(() => import('./pages/InvoicingPage').then(m => ({ default: m.InvoicingPage })));
+const InvoiceEditorPage = lazy(() => import('./pages/InvoiceEditorPage').then(m => ({ default: m.InvoiceEditorPage })));
 const PayrollPage = lazy(() => import('./pages/PayrollPage').then(m => ({ default: m.PayrollPage })));
 const PayoutDisbursementPage = lazy(() => import('./pages/PayoutDisbursementPage').then(m => ({ default: m.PayoutDisbursementPage })));
 const PricingMatrixPage = lazy(() => import('./pages/PricingMatrixPage').then(m => ({ default: m.PricingMatrixPage })));
@@ -377,6 +378,8 @@ export default function AdminLayout() {
 
                 {/* Extra pages */}
                 <Route path="invoicing" element={<InvoicingPage />} />
+                <Route path="invoicing/new" element={<InvoiceEditorPage />} />
+                <Route path="invoicing/:id/edit" element={<InvoiceEditorPage />} />
                 <Route path="payroll" element={<PayrollPage />} />
                 <Route path="payouts" element={<PayoutDisbursementPage />} />
                 <Route path="pricing" element={<PricingMatrixPage />} />
