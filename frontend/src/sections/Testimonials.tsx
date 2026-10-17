@@ -403,7 +403,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
   }, []);
 
   return (
-    <section className={`relative overflow-hidden bg-white pt-14 sm:pt-16 lg:pt-24 pb-6 sm:pb-8 lg:pb-12 ${className}`}>
+    <section id="testimonials" className={`relative overflow-hidden bg-[#F7F6F3] sm:bg-white pt-14 sm:pt-16 lg:pt-24 pb-6 sm:pb-8 lg:pb-12 ${className}`}>
       <style>{marqueeStyles}</style>
 
       

@@ -72,10 +72,12 @@ export const tokens = {
 
   // Shadows (Standardized Global System)
   shadowBorder: "0 0 0 1px rgba(0,0,0,0.14)",
-  shadowStandard: "0 8px 24px rgba(0,0,0,0.09)",       // Low elevation: 16px content cards
-  shadowShowcase: "0 14px 40px rgba(0,0,0,0.12)",      // Medium elevation: 24px showcase/service cards
-  shadowConversion: "0 24px 60px rgba(15,23,42,0.14)", // High elevation: 28px CTA/conversion cards
-  
+  shadowStandard: "0 2px 6px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.09)",
+  shadowShowcase: "0 4px 12px rgba(0,0,0,0.07), 0 14px 40px rgba(0,0,0,0.12)",
+  shadowConversion: "0 4px 16px rgba(0,0,0,0.08), 0 24px 60px rgba(15,23,42,0.18), 0 48px 96px -24px rgba(15,23,42,0.12)",
+  shadowWarm: "0 4px 16px rgba(0,0,0,0.07), 0 24px 56px -12px rgba(233,116,81,0.22)",
+  shadowInk: "0 0 0 1px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.09), 0 32px 72px -12px rgba(0,0,0,0.18)",
+
   // Specialty/Inset shadows
   shadowInsetGlass: "inset 0 1px 0 rgba(255,255,255,0.92), 0 2px 3px rgba(0,0,0,0.09), 0 18px 48px rgba(0,0,0,0.10)",
 

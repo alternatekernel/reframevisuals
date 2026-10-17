@@ -85,7 +85,7 @@ const Stats = () => {
   const getSourceUrl = (source: string) => SOURCE_URLS[source] || '#';
 
   return (
-    <section ref={sectionRef} id="stats" className={cx("pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-white text-center relative overflow-hidden scroll-mt-nav", layout.sectionGutter)}>
+    <section ref={sectionRef} id="stats" className={cx("pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-[#F7F6F3] sm:bg-white text-center relative overflow-hidden scroll-mt-nav", layout.sectionGutter)}>
       <div className={cx(layout.contentShell, "relative z-10")}>
         {/* Reframe Conventional Header */}
         <h2
@@ -108,7 +108,7 @@ const Stats = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.4 }}
                 className={cx(
-                  "relative py-12 lg:py-16 px-6 lg:px-8 bg-white border border-zinc-200/80 shadow-[0_12px_32px_-12px_rgba(0,0,0,0.09)] rounded-3xl flex flex-col justify-between items-center transition-all duration-300 overflow-hidden group min-h-[320px] md:min-h-[360px] before:pointer-events-none before:absolute before:left-[10%] before:right-[10%] before:bottom-4 before:h-16 before:rounded-full before:bg-black/[0.04] before:blur-2xl before:transition-all before:duration-300 hover:-translate-y-1 hover:before:bottom-2",
+                  "relative py-12 lg:py-16 px-6 lg:px-8 bg-white border border-black/[0.14] shadow-[0_2px_8px_rgba(0,0,0,0.06),_0_12px_32px_-8px_rgba(0,0,0,0.12)] rounded-3xl flex flex-col justify-between items-center transition-all duration-300 overflow-hidden group min-h-[320px] md:min-h-[360px] before:pointer-events-none before:absolute before:left-[10%] before:right-[10%] before:bottom-4 before:h-16 before:rounded-full before:bg-black/[0.05] before:blur-2xl before:transition-all before:duration-300 hover:-translate-y-1.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),_0_20px_48px_-8px_rgba(0,0,0,0.16)] hover:before:bottom-2",
                   theme.hoverBorder,
                   theme.hoverShadow,
                   theme.cardGlow

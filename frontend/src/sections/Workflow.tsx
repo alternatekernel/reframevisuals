@@ -421,7 +421,7 @@ const Workflow = ({
     <section
       id="workflow"
       ref={sectionRef}
-      className={cx('pt-10 pb-10 sm:pt-12 sm:pb-12 lg:pt-16 lg:pb-16 bg-white relative z-10 scroll-mt-nav overflow-hidden', layout.sectionGutter)}
+      className={cx('pt-10 pb-10 sm:pt-12 sm:pb-12 lg:pt-16 lg:pb-16 bg-[#F7F6F3] sm:bg-white relative z-10 scroll-mt-nav overflow-hidden', layout.sectionGutter)}
     >
       <style>{`
         @keyframes workflow-flow {

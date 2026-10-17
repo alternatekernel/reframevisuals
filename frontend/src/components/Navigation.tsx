@@ -180,7 +180,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
           duration: 1.0, 
           ease: [0.22, 1, 0.36, 1] // Slightly more "weighted" easing
         }}
-        className="fixed top-0 left-0 right-0 z-[200] bg-white py-1 lg:py-2" 
+        className="fixed top-0 left-0 right-0 z-[200] bg-white/[0.92] backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.09] py-1 lg:py-2"
         role="navigation" 
         aria-label="Main navigation"
       >

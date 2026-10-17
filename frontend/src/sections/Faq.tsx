@@ -34,7 +34,7 @@ const Faq: React.FC = () => {
   const faqItems = (content.landing || []) as any[];
 
   return (
-    <section id="faq" className="px-6 lg:px-12 pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-16 bg-white relative overflow-hidden scroll-mt-nav">
+    <section id="faq" className="px-6 lg:px-12 pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-16 bg-[#F7F6F3] sm:bg-white relative overflow-hidden scroll-mt-nav">
       <div className={cx(layout.compactShell, 'relative z-10')}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,7 +52,7 @@ const Faq: React.FC = () => {
           </p>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto rounded-3xl border border-black/[0.18] bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:p-6">
+        <div className="max-w-3xl mx-auto rounded-3xl border border-black/[0.16] bg-white p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06),_0_12px_40px_-8px_rgba(0,0,0,0.12)] sm:p-6">
           <div className="flex flex-col gap-3">
             {faqItems.map((item, i) => {
               const Icon = ICON_MAP[item.icon] || HelpCircle;

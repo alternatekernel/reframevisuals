@@ -53,7 +53,7 @@ const Differentiation = () => {
   const points = ((content.points || []) as any[]);
 
   return (
-    <section className={cx("py-14 sm:py-16 lg:py-24 bg-white", layout.sectionGutter)}>
+    <section id="differentiation" className={cx("py-14 sm:py-16 lg:py-24 bg-white", layout.sectionGutter)}>
       <div className={cx(layout.compactShell, "space-y-5 sm:space-y-8 lg:space-y-14")}>
 
         {/* Header */}

@@ -85,7 +85,9 @@
 
     /* Semantic theme colors */
     --color-bg-primary: #ffffff;
-    --color-bg-secondary: #fafafa;
+    --color-bg-secondary: #F4F3F0;     /* warm off-white for tinted sections */
+    --color-bg-ground: #F7F6F3;        /* page ground — body background */
+    --color-bg-elevated: #ffffff;      /* cards and elevated surfaces */
     --color-text-primary: #171717;
     --color-text-secondary: #666666;
     --color-text-muted: #808080;
@@ -180,6 +182,8 @@
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     position: relative;
+    /* Off-white page ground — white cards now lift above this, free of charge */
+    background-color: #F7F6F3;
   }
 
   /*
@@ -209,6 +213,56 @@
 
   .perspective-1000 {
     perspective: 1000px;
+  }
+
+  /* ── Section rhythm ── */
+  /* White card surfaces lift above the #F7F6F3 page ground automatically */
+  .section-elevated { background-color: #ffffff; }
+  .section-tinted   { background-color: #F2F1EE; }
+  .section-warm     { background-color: #FAF8F5; }
+  .section-ink      { background-color: #0A0A0B; }
+
+  /* Subtle grain overlay — adds texture depth without photography */
+  .grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+  .grain { position: relative; isolation: isolate; }
+  .grain > * { position: relative; z-index: 1; }
+
+  /* Ambient section separator — gradient border between white sections */
+  .section-sep {
+    border-top: 1px solid transparent;
+    background-clip: padding-box;
+    box-shadow: 0 -1px 0 0 rgba(0,0,0,0.10);
+  }
+
+  /* Ink ambient glow under CTAs and hero cards */
+  .ambient-ink {
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.12),
+      0 8px 24px rgba(0,0,0,0.09),
+      0 32px 72px -12px rgba(0,0,0,0.18);
+  }
+  .ambient-warm {
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,0.10),
+      0 8px 24px rgba(0,0,0,0.07),
+      0 28px 60px -12px rgba(233,116,81,0.22);
+  }
+
+  /* Premium focus ring */
+  .focus-ring:focus-visible {
+    outline: 2px solid rgba(0,0,0,0.85);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   /* Typography Hierarchy - Linked to CSS variables for dynamic themes */
@@ -266,7 +320,9 @@
     inset 0 1px 1px rgba(255, 255, 255, 0.25),
     inset 0 4px 12px rgba(255, 255, 255, 0.05),
     inset 0 -1px 2px rgba(0, 0, 0, 0.5),
-    0 8px 30px -8px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 30px -8px rgba(0, 0, 0, 0.5),
+    0 20px 40px -12px rgba(0, 0, 0, 0.30),
     0 0 0 1px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -320,7 +376,93 @@
   }
 }
 
-/* Lenis Smooth Scroll Rules */
+/* ── Mobile character layer ──────────────────────────────────────────────── */
+@media (max-width: 639px) {
+
+  /* Section rhythm — alternate true-white with a warm tint so mobile has cadence */
+  #stats,
+  #workflow,
+  #faq,
+  #testimonials,
+  #blog-preview {
+    background-color: #F4F3F0;
+  }
+
+  /* Inset top separator on tinted sections */
+  #stats,
+  #workflow,
+  #faq,
+  #testimonials {
+    box-shadow: inset 0 1px 0 rgba(0,0,0,0.08);
+  }
+
+  /* Mobile heading — tighter tracking, more impact */
+  h1, h2, .display-xl, .display-lg {
+    letter-spacing: -0.04em;
+  }
+
+  /* Section-level heading lift on mobile */
+  [class*="displayLg"],
+  [class*="displayMd"],
+  [class*="displayXl"] {
+    letter-spacing: -0.045em;
+  }
+
+  /* Cards on mobile: full shadow presence so they read as elevated tiles */
+  .rounded-2xl.border,
+  .rounded-3xl.border {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07), 0 8px 24px -6px rgba(0,0,0,0.10);
+  }
+
+  /* Sticky nav — stronger presence on mobile scroll */
+  nav, [data-nav] {
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+  }
+
+  /* Eyebrow labels on mobile — pushed a bit harder */
+  [class*="eyebrow"],
+  [class*="uppercase"][class*="tracking"] {
+    letter-spacing: 0.20em;
+  }
+
+  /* Button tap target — 44px min as per HIG */
+  button, a[role="button"], [class*="btn"] {
+    min-height: 44px;
+  }
+
+  /* Prevent tiny text on body copy */
+  p, li, td {
+    font-size: max(14px, 0.875rem);
+  }
+
+  /* Hero mobile card: stronger card shadow so it feels lifted */
+  [data-section="hero"] .rounded-\[32px\],
+  [data-section="hero"] .rounded-3xl {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 4px 16px rgba(0,0,0,0.08),
+      0 24px 60px -16px rgba(15,23,42,0.20);
+  }
+
+  /* Mobile stats card — stronger lift from tinted background */
+  #stats .rounded-3xl,
+  #stats .rounded-2xl {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,1) inset,
+      0 2px 8px rgba(0,0,0,0.06),
+      0 12px 32px -8px rgba(0,0,0,0.12);
+    background-color: #ffffff;
+  }
+
+  /* FAQ accordion items — stand out from tinted bg */
+  #faq .rounded-2xl {
+    background-color: #ffffff;
+    box-shadow: 0 1px 0 rgba(255,255,255,1) inset, 0 2px 8px rgba(0,0,0,0.06), 0 8px 20px -6px rgba(0,0,0,0.10);
+  }
+}
+
+/* ── Lenis Smooth Scroll Rules ─────────────────────────────────────────── */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -400,10 +542,11 @@ html.lenis body {
 
   /* Refractive Dropdown Utilities */
   .refractive-dropdown {
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 
-      0 32px 100px -20px rgba(var(--brand-rgb),0.18),
-      0 8px 24px -8px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-shadow:
+      0 2px 6px rgba(0,0,0,0.06),
+      0 12px 32px -8px rgba(0,0,0,0.12),
+      0 32px 100px -20px rgba(var(--brand-rgb),0.18);
   }
 
   /* Legacy class name; carries black primary via --brand */
