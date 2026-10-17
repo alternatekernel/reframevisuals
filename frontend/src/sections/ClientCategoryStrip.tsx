@@ -18,7 +18,7 @@ const NAMED_CLIENTS = [
 
 const ClientLogoRow = () => (
   <div className="mx-auto mb-8 flex w-full max-w-3xl flex-col items-center gap-5 px-4">
-    <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/60">
+    <p className="text-[12px] font-bold uppercase tracking-[0.3em] text-black/60">
       Trusted by
     </p>
 
@@ -51,7 +51,7 @@ const ClientLogoRow = () => (
               </span>
             )}
             {client.detail && (
-              <span className="text-[10px] font-medium tracking-[0.08em] text-black/35 uppercase">
+              <span className="text-[12px] font-medium tracking-[0.08em] text-black/35 uppercase">
                 {client.detail}
               </span>
             )}
@@ -140,7 +140,7 @@ const ClientCategoryStrip = () => {
         <ClientLogoRow />
 
         <div className="mb-8 text-center">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-black/25">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.25em] text-black/25">
             We work across
           </p>
         </div>

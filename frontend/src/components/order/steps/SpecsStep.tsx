@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { OrderFlowData } from '../types';
 import { OrderLabel, OrderTextInput, orderChoiceClass, orderFooterClass, orderPrimaryButtonClass, orderSecondaryButtonClass } from '../flow-controls';
 
@@ -177,7 +177,7 @@ const SpecsStep: React.FC<Props> = ({ orderData, setOrderData, onNext, onBack })
                   type="color"
                   value={orderData.customBgColor || '#ffffff'}
                   onChange={(e) => setOrderData(prev => ({ ...prev, customBgColor: e.target.value }))}
-                  className="w-full h-8 rounded cursor-pointer border border-[var(--color-border-light)] focus:outline-none focus:border-[var(--research-blue)] focus:ring-1 focus:ring-[var(--research-blue)]/10 transition-[border-color,box-shadow] duration-200"
+                  className="w-full h-8 rounded cursor-pointer border border-[var(--color-border-light)] focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-1 focus:ring-[var(--brand-secondary)]/10 transition-[border-color,box-shadow] duration-200"
                 />
               </div>
               <div className="flex-1">
@@ -303,7 +303,7 @@ const SpecsStep: React.FC<Props> = ({ orderData, setOrderData, onNext, onBack })
             min={new Date().toISOString().slice(0, 10)}
             onChange={(e) => setField('deadline', e.target.value)}
             aria-label="Requested delivery date"
-            className="w-full px-2.5 py-2 text-[12px] border border-[#e5e5e5] rounded-lg bg-white focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-all"
+            className="w-full px-2.5 py-2 text-[12px] border border-[#e5e5e5] rounded-lg bg-white focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all"
           />
           <p className="text-caption text-[var(--color-text-muted)]">
             We will confirm if the date is not achievable for this volume.

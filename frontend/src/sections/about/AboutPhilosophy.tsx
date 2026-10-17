@@ -71,11 +71,11 @@ const AboutPhilosophy = () => {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="rounded-xl border border-white/15 bg-white/5 px-4 py-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/60 mb-2">Turnaround</p>
+                <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-white/60 mb-2">Turnaround</p>
                 <p className="text-[18px] font-bold text-white">24-48 hour standard turnaround</p>
               </div>
               <div className="rounded-xl border border-white/15 bg-white/5 px-4 py-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-white/60 mb-2">Revisions</p>
+                <p className="text-[12px] font-bold uppercase tracking-[0.12em] text-white/60 mb-2">Revisions</p>
                 <p className="text-[18px] font-bold text-white">Unlimited revisions on every order</p>
               </div>
             </div>

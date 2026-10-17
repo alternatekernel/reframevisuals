@@ -124,7 +124,7 @@ const BlogListingPage = () => {
             <select
               value={sort}
               onChange={(e) => setParam('sort', e.target.value)}
-              className="rounded-full border border-black/[0.18] bg-white px-4 py-2.5 text-[13px] font-semibold outline-none cursor-pointer focus:border-black/40"
+              className="rounded-full border border-black/[0.18] bg-white px-4 py-2.5 text-[14px] font-semibold outline-none cursor-pointer focus:border-black/40"
               aria-label="Sort articles"
             >
               <option value="latest">Newest first</option>
@@ -149,7 +149,7 @@ const BlogListingPage = () => {
                   <button
                     key={t}
                     onClick={() => setParam('topic', t)}
-                    className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[11px] font-bold uppercase tracking-[0.08em] transition-all ${
+                    className={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.08em] transition-all ${
                       isActive
                         ? 'border-black bg-black text-white'
                         : 'border-black/[0.18] bg-white text-black/50 hover:border-black/25 hover:text-black'
@@ -186,7 +186,7 @@ const BlogListingPage = () => {
             <h3 className="mb-3 text-[14px] font-bold">Editor's picks</h3>
             <div className="space-y-2">
               {popularPosts.map((post) => (
-                <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[13px] text-black/70 hover:text-black">
+                <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[14px] text-black/70 hover:text-black">
                   {post.title}
                 </Link>
               ))}
@@ -196,7 +196,7 @@ const BlogListingPage = () => {
             <h3 className="mb-3 text-[14px] font-bold">Recently updated</h3>
             <div className="space-y-2">
               {updatedPosts.map((post) => (
-                <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[13px] text-black/70 hover:text-black">
+                <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[14px] text-black/70 hover:text-black">
                   {post.title}
                 </Link>
               ))}
@@ -205,11 +205,11 @@ const BlogListingPage = () => {
           <div className="rounded-xl border border-black/[0.18] bg-white p-4">
             <h3 className="mb-3 text-[14px] font-bold">Continue reading</h3>
             {readingHistory.length === 0 ? (
-              <p className="text-[13px] text-black/50">Your reading history appears here after opening articles.</p>
+              <p className="text-[14px] text-black/50">Your reading history appears here after opening articles.</p>
             ) : (
               <div className="space-y-2">
                 {readingHistory.map((post: any) => (
-                  <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[13px] text-black/70 hover:text-black">
+                  <Link key={post.slug} to={`/blog/${post.slug}`} className="block text-[14px] text-black/70 hover:text-black">
                     {post.title}
                   </Link>
                 ))}

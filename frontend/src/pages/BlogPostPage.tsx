@@ -322,13 +322,13 @@ const BlogPostPage: React.FC = () => {
       <nav className="px-6 py-4 bg-white border-b border-black/[0.18] sticky top-0 z-[240]">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/" className="text-[13px] font-black uppercase tracking-tighter hover:text-brand transition-colors">
+            <Link to="/" className="text-[14px] font-black uppercase tracking-tighter hover:text-brand transition-colors">
               Reframe Visuals
             </Link>
             <a
               href="/api/blog/rss"
               title="Subscribe via RSS"
-              className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-black/35 hover:text-orange-500 transition-colors"
+              className="hidden sm:inline-flex items-center gap-1 text-[12px] font-semibold text-black/35 hover:text-orange-500 transition-colors"
             >
               <Rss size={13} />
               RSS
@@ -375,14 +375,14 @@ const BlogPostPage: React.FC = () => {
           <article className="flex-1 w-full max-w-[700px] min-w-0">
             <header className="mb-14">
               <div className="flex items-center gap-2 mb-4 flex-wrap">
-                <Link to="/blog" className="text-[11px] uppercase font-bold tracking-wider text-black/40 hover:text-black">Blog</Link>
+                <Link to="/blog" className="text-[12px] uppercase font-bold tracking-wider text-black/40 hover:text-black">Blog</Link>
                 <span className="text-black/20">•</span>
-                <Link to={`/blog/topic/${post.topic}`} className={`inline-flex items-center px-2.5 py-1 rounded-full border text-[10px] sm:text-[11px] uppercase font-bold tracking-widest transition-all ${getTopicPastel(post.topic)}`}>
+                <Link to={`/blog/topic/${post.topic}`} className={`inline-flex items-center px-2.5 py-1 rounded-full border text-[12px] sm:text-[12px] uppercase font-bold tracking-widest transition-all ${getTopicPastel(post.topic)}`}>
                   {topicLabel(post.topic)}
                 </Link>
               </div>
               <h1 className="font-heading text-[30px] sm:text-[36px] md:text-[52px] font-black leading-[1.1] tracking-tight mb-6 text-black break-words">{post.title}</h1>
-              <div className="flex flex-wrap items-center gap-3 text-[13px] sm:text-[14px] text-black/40 font-medium italic">
+              <div className="flex flex-wrap items-center gap-3 text-[14px] sm:text-[14px] text-black/40 font-medium italic">
                 <span>By Reframe Editorial Team</span>
                 <span>·</span>
                 <span>{post.date}</span>
@@ -394,7 +394,7 @@ const BlogPostPage: React.FC = () => {
             <figure className="mb-10 overflow-hidden rounded-3xl border border-black/[0.18] bg-white shadow-sm">
               <img src={post.image} alt={post.imageAlt || `${post.title} cover image`} className="w-full aspect-[16/10] object-cover" loading="eager" />
               {post.imageCaption && (
-                <figcaption className="px-5 py-3 text-[13px] text-black/50">
+                <figcaption className="px-5 py-3 text-[14px] text-black/50">
                   {post.imageCaption}
                 </figcaption>
               )}
@@ -407,7 +407,7 @@ const BlogPostPage: React.FC = () => {
                   <button
                     key={size}
                     onClick={() => setPrefs((p) => ({ ...p, fontSize: size }))}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${prefs.fontSize === size ? 'bg-black text-white border-black' : 'border-black/15 text-black/60'}`}
+                    className={`px-2.5 py-1 rounded-full text-[12px] font-bold border ${prefs.fontSize === size ? 'bg-black text-white border-black' : 'border-black/15 text-black/60'}`}
                   >
                     {size.toUpperCase()}
                   </button>
@@ -416,7 +416,7 @@ const BlogPostPage: React.FC = () => {
                   <button
                     key={height}
                     onClick={() => setPrefs((p) => ({ ...p, lineHeight: height }))}
-                    className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${prefs.lineHeight === height ? 'bg-black text-white border-black' : 'border-black/15 text-black/60'}`}
+                    className={`px-2.5 py-1 rounded-full text-[12px] font-bold border ${prefs.lineHeight === height ? 'bg-black text-white border-black' : 'border-black/15 text-black/60'}`}
                   >
                     {height}
                   </button>
@@ -474,7 +474,7 @@ const BlogPostPage: React.FC = () => {
                     </div>
                   ),
                   thead: ({ node, ...props }) => <thead className="bg-black/[0.05] border-b-2 border-black/[0.12]" {...props} />,
-                  th: ({ node, ...props }) => <th className="px-6 py-4 text-[11px] font-black uppercase tracking-[0.2em] text-black/40" {...props} />,
+                  th: ({ node, ...props }) => <th className="px-6 py-4 text-[12px] font-black uppercase tracking-[0.2em] text-black/40" {...props} />,
                   td: ({ node, ...props }) => <td className="px-6 py-5 text-[16px] text-black/70 border-b border-black/[0.18] leading-relaxed" style={{ fontFamily: "'Charter', 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif" }} {...props} />,
                 }}
               >
@@ -531,7 +531,7 @@ const BlogPostPage: React.FC = () => {
                     </button>
                   </form>
                 )}
-                {subStatus === 'error' && <p className="text-[13px] text-red-600 mt-1">{subMessage}</p>}
+                {subStatus === 'error' && <p className="text-[14px] text-red-600 mt-1">{subMessage}</p>}
                 <p className="mt-4 text-[14px] text-black/55">
                   Prefer direct email?{' '}
                   <a href={`mailto:${NEWSLETTER_EMAIL}`} className="underline text-black hover:text-[var(--color-text-primary)] transition-colors">
@@ -544,7 +544,7 @@ const BlogPostPage: React.FC = () => {
 
           <aside className="hidden lg:block w-[320px] sticky top-24 space-y-8">
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
-              <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">On this page</h5>
+              <h5 className="font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">On this page</h5>
               {toc.length === 0 ? (
                 <p className="text-[14px] text-black/45">No section headings available.</p>
               ) : (
@@ -563,10 +563,10 @@ const BlogPostPage: React.FC = () => {
             </div>
 
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
-              <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related articles</h5>
+              <h5 className="font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related articles</h5>
               <div className="space-y-2">
                 {(relatedFromApi.length ? relatedFromApi : relatedByTopic).slice(0, 4).map((item) => (
-                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[13px] text-black/70 hover:text-black leading-snug">{item.title}</Link>
+                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[14px] text-black/70 hover:text-black leading-snug">{item.title}</Link>
                 ))}
               </div>
             </div>
@@ -581,10 +581,10 @@ const BlogPostPage: React.FC = () => {
               if (!relatedServices.length) return null;
               return (
                 <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
-                  <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related Services</h5>
+                  <h5 className="font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Related Services</h5>
                   <div className="space-y-2">
                     {relatedServices.map((s) => (
-                      <Link key={s.id} to={`/services/${s.id}`} className="block text-[13px] text-black/70 hover:text-black">{s.name}</Link>
+                      <Link key={s.id} to={`/services/${s.id}`} className="block text-[14px] text-black/70 hover:text-black">{s.name}</Link>
                     ))}
                   </div>
                 </div>
@@ -592,19 +592,19 @@ const BlogPostPage: React.FC = () => {
             })()}
 
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
-              <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Popular this week</h5>
+              <h5 className="font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Popular this week</h5>
               <div className="space-y-2">
                 {popularPosts.map((item) => (
-                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[13px] text-black/70 hover:text-black">{item.title}</Link>
+                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[14px] text-black/70 hover:text-black">{item.title}</Link>
                 ))}
               </div>
             </div>
 
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
-              <h5 className="font-heading text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Recently updated</h5>
+              <h5 className="font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Recently updated</h5>
               <div className="space-y-2">
                 {updatedPosts.map((item) => (
-                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[13px] text-black/70 hover:text-black">{item.title}</Link>
+                  <Link key={item.slug} to={`/blog/${item.slug}`} className="block text-[14px] text-black/70 hover:text-black">{item.title}</Link>
                 ))}
               </div>
             </div>
@@ -621,7 +621,7 @@ const BlogPostPage: React.FC = () => {
       {currentSeries.length > 1 ? (
         <section className="px-6 pb-10">
           <div className="max-w-4xl mx-auto rounded-2xl border border-black/[0.18] bg-white p-5">
-            <p className="text-[11px] uppercase tracking-wider font-bold text-black/40 mb-2">Series</p>
+            <p className="text-[12px] uppercase tracking-wider font-bold text-black/40 mb-2">Series</p>
             <h4 className="font-heading text-[18px] font-bold mb-3">{topicLabel(post.seriesId || 'workflow-series')}</h4>
             <div className="flex flex-wrap gap-2">
               {prevSeries ? <Link to={`/blog/${prevSeries.slug}`} className="px-3 py-1.5 rounded-full border border-black/20 text-[12px] font-semibold">← Previous part</Link> : null}
@@ -634,7 +634,7 @@ const BlogPostPage: React.FC = () => {
 
       {progress > 60 && nextPost ? (
         <div className="fixed bottom-5 right-5 z-[260] max-w-sm rounded-2xl border border-black/15 bg-white/95 backdrop-blur p-4 shadow-xl">
-          <p className="text-[11px] uppercase tracking-wider font-bold text-black/45 mb-2">Continue reading</p>
+          <p className="text-[12px] uppercase tracking-wider font-bold text-black/45 mb-2">Continue reading</p>
           <Link to={`/blog/${nextPost.slug}`} className="block text-[14px] font-semibold text-black hover:text-brand">
             {nextPost.title}
           </Link>

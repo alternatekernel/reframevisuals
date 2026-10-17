@@ -82,7 +82,7 @@ const PortfolioPage = () => {
                   className="w-full aspect-[4/5] object-contain bg-[var(--color-bg-secondary)]"
                   loading="lazy"
                 />
-                <span className="absolute top-2 left-2 text-[10px] uppercase tracking-wider bg-black/75 text-white px-2 py-1 rounded-full">Before</span>
+                <span className="absolute top-2 left-2 text-[12px] uppercase tracking-wider bg-black/75 text-white px-2 py-1 rounded-full">Before</span>
               </div>
               <div className="relative">
                 <img
@@ -91,7 +91,7 @@ const PortfolioPage = () => {
                   className="w-full aspect-[4/5] object-contain bg-[var(--color-bg-secondary)]"
                   loading="lazy"
                 />
-                <span className="absolute top-2 left-2 text-[10px] uppercase tracking-wider bg-white/90 text-[var(--color-text-primary)] px-2 py-1 rounded-full">After</span>
+                <span className="absolute top-2 left-2 text-[12px] uppercase tracking-wider bg-white/90 text-[var(--color-text-primary)] px-2 py-1 rounded-full">After</span>
               </div>
             </div>
             <div className="p-5">
@@ -108,7 +108,7 @@ const PortfolioPage = () => {
                 </Link>
               </h3>
               <p className="text-[14px] text-black/55 mt-3 leading-relaxed">{service.description}</p>
-              <p className="text-[13px] text-black/40 mt-1">Best for: {service.bestFor}</p>
+              <p className="text-[14px] text-black/40 mt-1">Best for: {service.bestFor}</p>
               <div className="flex items-center justify-between mt-3">
                 <p className="text-[15px] font-medium text-black/70">Starting at ${service.price.toFixed(2)} per image</p>
                 <Link

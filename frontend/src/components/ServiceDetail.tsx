@@ -141,7 +141,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, showOrderNow = t
             
             {service.bestFor && (
               <div className="mb-8 sm:mb-10">
-                <span className="text-[10px] font-bold tracking-[0.15em] text-black/30 uppercase mb-2 block">
+                <span className="text-[12px] font-bold tracking-[0.15em] text-black/30 uppercase mb-2 block">
                   IDEAL FOR
                 </span>
                 <p className="text-sm font-medium text-[#4d4d4d] max-w-md leading-relaxed">
@@ -166,7 +166,7 @@ const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, showOrderNow = t
             <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-black/[0.12]">
               <div className="flex items-center gap-6">
                 <div>
-                  <p className="text-[10px] font-bold text-black/20 tracking-widest uppercase mb-1">FROM</p>
+                  <p className="text-[12px] font-bold text-black/20 tracking-widest uppercase mb-1">FROM</p>
                   <p className="text-xl font-heading font-bold text-[#171717]">{formatCurrency(convertFromUsd(price), currency)}</p>
                 </div>
                 

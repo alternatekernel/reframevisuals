@@ -10,6 +10,7 @@ import ChatThread from './reframe-cs/ChatThread';
 import Composer, { type ComposerHandle } from './reframe-cs/Composer';
 import Sidebar, { conversationTitle, type WidgetNavItem } from './reframe-cs/Sidebar';
 import { AccountTab, ConversationChips, MessageActionsSheet, MobileTabs, PanelHeader } from './reframe-cs/PanelChrome';
+import EmailCaptureModal from './reframe-cs/EmailCaptureModal';
 import { useChatSession } from './reframe-cs/hooks/useChatSession';
 import { useOrderDraft } from './reframe-cs/hooks/useOrderDraft';
 import {
@@ -66,6 +67,10 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
   const [actionTarget, setActionTarget] = useState<ChatMessage | null>(null);
   const [pinnedIds, setPinnedIds] = useState<string[]>(() => readJson(STORAGE.pinned, []));
   const [orderGlow, setOrderGlow] = useState(false);
+  const [showEmailCapture, setShowEmailCapture] = useState(false);
+  const [emailCaptureMode, setEmailCaptureMode] = useState<'pre-chat' | 'post-message'>('post-message');
+  const emailCaptureShownRef = useRef(false);
+  const emailCaptureTimerRef = useRef<number | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const composerRef = useRef<ComposerHandle>(null);
@@ -178,13 +183,34 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
     setIsExpanded(true);
     setDraft('');
     const accepted = await session.sendMessage(value);
-    if (!accepted) setDraft(value);
-  }, [draft, session, setDraft]);
+    if (!accepted) { setDraft(value); return; }
+    if (!isAuthenticated && !session.contactCaptured) {
+      // Cancel any pending pre-chat timer so we replace it with the post-message version
+      if (emailCaptureTimerRef.current) {
+        window.clearTimeout(emailCaptureTimerRef.current);
+        emailCaptureTimerRef.current = null;
+      }
+      if (!emailCaptureShownRef.current) {
+        emailCaptureShownRef.current = true;
+        setEmailCaptureMode('post-message');
+        emailCaptureTimerRef.current = window.setTimeout(() => setShowEmailCapture(true), 1500);
+      }
+    }
+  }, [draft, isAuthenticated, session, setDraft]);
 
   const handleSuggestedAction = useCallback((action: SuggestedAction) => {
     if (action.url) goTo(action.url);
     else session.sendMessage(action.text);
   }, [goTo, session]);
+
+  const handleEmailCaptured = useCallback(() => {
+    session.markContactCaptured();
+    setShowEmailCapture(false);
+  }, [session]);
+
+  const handleEmailDismissed = useCallback(() => {
+    setShowEmailCapture(false);
+  }, []);
 
   const startNewChat = useCallback(() => {
     session.startNewChat();
@@ -311,6 +337,39 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
   }, [isFloating, session.unreadCount]);
 
   useEffect(() => {
+    const timer = emailCaptureTimerRef.current;
+    return () => { if (timer) window.clearTimeout(timer); };
+  }, []);
+
+  // Flush a pre-chat email captured before any conversation existed
+  useEffect(() => {
+    if (!session.conversationId || isAuthenticated) return;
+    const pending = sessionStorage.getItem('reframe_pending_email');
+    if (!pending) return;
+    sessionStorage.removeItem('reframe_pending_email');
+    fetch(getApiEndpoint('/portal/chat/capture-email'), {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json', 'X-Guest-ID': guestId },
+      body: JSON.stringify({ conversationId: session.conversationId, email: pending }),
+    }).catch(() => {});
+  }, [session.conversationId, guestId, isAuthenticated]);
+
+  // Pre-chat lead capture — fires 5s after the floating widget first opens for a guest
+  useEffect(() => {
+    if (!isFloating || !isExpanded || isAuthenticated || session.contactCaptured || emailCaptureShownRef.current) return;
+    const timer = window.setTimeout(() => {
+      emailCaptureShownRef.current = true;
+      setEmailCaptureMode('pre-chat');
+      setShowEmailCapture(true);
+    }, 5000);
+    emailCaptureTimerRef.current = timer;
+    return () => { window.clearTimeout(timer); emailCaptureTimerRef.current = null; };
+  // isExpanded is the trigger; the rest are stable or checked via ref
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isExpanded]);
+
+  useEffect(() => {
     if (!isFloating) return;
     const ping = () => fetch(getApiEndpoint('/portal/presence'), {
       method: 'POST',
@@ -388,12 +447,12 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
       className={`${isFloating ? 'fixed z-[260]' : 'relative z-10 mx-auto'} border transition-[border-color,box-shadow] duration-500 ${
         isExpanded || !isFloating
           ? 'bg-white shadow-[0_24px_80px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.10)]'
-          : 'bg-[#f8f8f6] shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_2px_3px_rgba(0,0,0,0.10),0_12px_32px_rgba(0,0,0,0.10)]'
+          : 'bg-bg-soft shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_2px_3px_rgba(0,0,0,0.10),0_12px_32px_rgba(0,0,0,0.10)]'
       } ${
         isFloating && presence.glow
-          ? 'border-[#3b82f6] ring-4 ring-[#3b82f6]/20'
+          ? 'border-focus ring-4 ring-focus/20'
           : isFloating && !isExpanded
-            ? 'border-black/[0.14] hover:border-[#3b82f6] hover:ring-4 hover:ring-[#3b82f6]/20'
+            ? 'border-black/[0.14] hover:border-focus hover:ring-4 hover:ring-focus/20'
             : 'border-black/[0.18]'
       }`}
       style={{
@@ -407,7 +466,7 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
     >
       {isFloating && !isExpanded && session.unreadCount > 0 && (
         <span
-          className="absolute -right-2 -top-2 z-[120] flex h-6 min-w-6 animate-pulse items-center justify-center rounded-full bg-red-600 px-1.5 text-[10px] font-black text-white shadow-lg ring-4 ring-white"
+          className="absolute -right-2 -top-2 z-[120] flex h-6 min-w-6 animate-pulse items-center justify-center rounded-full bg-semantic-error px-1.5 text-12 font-black text-white shadow-lg ring-4 ring-white"
           aria-label={`${session.unreadCount} unread ${session.unreadCount === 1 ? 'reply' : 'replies'}`}
         >
           {session.unreadCount > 9 ? '9+' : session.unreadCount}
@@ -520,6 +579,19 @@ const ReframeCSWidget = ({ variant = 'floating', defaultExpanded = false, showLa
             }}
           />
         )}
+
+        <AnimatePresence>
+          {showEmailCapture && (
+            <EmailCaptureModal
+              key="email-capture"
+              conversationId={session.conversationId}
+              guestId={guestId}
+              mode={emailCaptureMode}
+              onCaptured={handleEmailCaptured}
+              onDismiss={handleEmailDismissed}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+﻿import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
@@ -9,7 +9,7 @@ const NotFoundPage = () => (
       <meta name="robots" content="noindex, nofollow" />
     </Helmet>
     <div className="text-center space-y-5 max-w-md">
-      <p className="text-[13px] font-black uppercase tracking-[0.18em] text-black/30">404</p>
+      <p className="text-[14px] font-black uppercase tracking-[0.18em] text-black/30">404</p>
       <h1 className="text-[36px] font-bold tracking-tight text-[var(--color-text-primary)] leading-tight">
         Page not found.
       </h1>

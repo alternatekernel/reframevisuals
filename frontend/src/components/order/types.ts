@@ -1,4 +1,4 @@
-export interface OrderFlowData {
+﻿export interface OrderFlowData {
   projectName: string;
   instructions: string;
   selectedServices: string[];
@@ -33,4 +33,4 @@ export interface OrderFlowData {
 export type OrderFlowStep = 'requirements' | 'files' | 'specs' | 'review' | 'complete';
 
 export const SELECT_CLASS =
-  'w-full px-2.5 py-2 pr-8 text-[12px] border border-[#e5e5e5] rounded-lg bg-white focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-all appearance-none';
+  'w-full px-2.5 py-2 pr-8 text-[12px] border border-[#e5e5e5] rounded-lg bg-white focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all appearance-none';

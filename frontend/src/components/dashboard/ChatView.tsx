@@ -347,7 +347,7 @@ const ChatView = () => {
     if (!error) return null;
     return (
       <div className="chat-error-toast">
-        <div className="flex items-center gap-2 px-4 py-2.5 mx-8 mb-2 bg-red-50 border border-red-200 rounded-xl text-[13px] text-red-700 animate-fadeSlideUp">
+        <div className="flex items-center gap-2 px-4 py-2.5 mx-8 mb-2 bg-red-50 border border-red-200 rounded-xl text-[14px] text-red-700 animate-fadeSlideUp">
           <AlertCircle size={14} className="shrink-0" />
           <span className="flex-1">{error}</span>
           <button onClick={clearError} className="p-0.5 hover:bg-red-100 rounded transition-colors">
@@ -380,7 +380,7 @@ const ChatView = () => {
                         />
                         <button
                           type="button"
-                          className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] leading-none opacity-0 group-hover/att:opacity-100 transition-opacity"
+                          className="absolute top-0.5 right-0.5 bg-black/60 text-white rounded-full w-4 h-4 flex items-center justify-center text-[12px] leading-none opacity-0 group-hover/att:opacity-100 transition-opacity"
                           onClick={() => setAttachments((prev) => prev.filter((p) => p.id !== a.id))}
                         >×</button>
                         {a.progress < 100 && (
@@ -390,7 +390,7 @@ const ChatView = () => {
                         )}
                       </div>
                     ) : (
-                      <div className="px-2 py-1 text-[11px]">
+                      <div className="px-2 py-1 text-[12px]">
                         <div className="flex items-center gap-2">
                           <span className="max-w-[170px] truncate">{a.file.name}</span>
                           <button type="button" className={`${dashboardChatMutedTextClass} hover:text-text-primary`} onClick={() => setAttachments((prev) => prev.filter((p) => p.id !== a.id))}>×</button>
@@ -456,7 +456,7 @@ const ChatView = () => {
           </button>
         </div>
       </form>
-      <div className={`text-center mt-3 text-[11px] ${dashboardChatMutedTextClass} max-w-4xl mx-auto`}>
+      <div className={`text-center mt-3 text-[12px] ${dashboardChatMutedTextClass} max-w-4xl mx-auto`}>
         This chat is monitored by human agents and admins. For urgent help, use Connect to Human Agent.
       </div>
     </div>
@@ -483,7 +483,7 @@ const ChatView = () => {
   if (isChatBootstrapping || isConversationDetailLoading) {
     return (
       <div className="flex h-[calc(100dvh-56px)] items-center justify-center bg-white lg:h-screen">
-        <div className={`text-[13px] ${dashboardChatBodyTextClass}`}>Loading chat...</div>
+        <div className={`text-[14px] ${dashboardChatBodyTextClass}`}>Loading chat...</div>
       </div>
     );
   }
@@ -491,7 +491,7 @@ const ChatView = () => {
   if (conversationDetailError && activeConversation?.id) {
     return (
       <div className="flex h-[calc(100dvh-56px)] flex-col items-center justify-center bg-white lg:h-screen gap-3">
-        <p className="text-[13px] text-red-600">{conversationDetailError}</p>
+        <p className="text-[14px] text-red-600">{conversationDetailError}</p>
         <button onClick={() => selectConversation(activeConversation.id)} className={`${dashboardChatSecondaryPillClass} px-3 py-1.5 text-[12px]`}>
           Retry
         </button>
@@ -553,7 +553,7 @@ const ChatView = () => {
               <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               <span className={`text-[12px] font-medium ${dashboardChatMutedTextClass}`}>Online</span>
               <span className="w-1 h-1 rounded-full bg-[#E5E5E5]" />
-              <span className="hidden text-[11px] font-semibold text-text-primary bg-bg-secondary px-2 py-0.5 rounded-full sm:flex items-center gap-1">
+              <span className="hidden text-[12px] font-semibold text-text-primary bg-bg-secondary px-2 py-0.5 rounded-full sm:flex items-center gap-1">
                 <Palette size={10} />
                 {supportAvailabilityLabel}
               </span>
@@ -610,30 +610,30 @@ const ChatView = () => {
               <div className="max-w-[92%] bg-black/[0.05] border border-black/[0.12] px-4 py-4 sm:max-w-[78%] lg:max-w-[70%] sm:px-6 sm:py-5 rounded-[24px] shadow-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-[15px] font-semibold text-text-primary">Hi! I'm Reframe CS</span>
-                  <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-medium rounded-full">AI</span>
+                  <span className="px-2 py-0.5 bg-green-100 text-green-700 text-[12px] font-medium rounded-full">AI</span>
                 </div>
                 <p className={`text-[14px] ${dashboardChatBodyTextClass} mb-3`}>
                   Your AI assistant for professional image editing services.
                 </p>
                 <div className="space-y-1.5">
-                  <div className="flex items-center gap-2 text-[13px] text-[#444]">
+                  <div className="flex items-center gap-2 text-[14px] text-[#444]">
                     <span className="text-text-primary font-medium">💰</span>
                     <span>Get instant pricing for any service</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-[#444]">
+                  <div className="flex items-center gap-2 text-[14px] text-[#444]">
                     <span className="text-text-primary font-medium">📦</span>
                     <span>Place orders</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-[#444]">
+                  <div className="flex items-center gap-2 text-[14px] text-[#444]">
                     <span className="text-text-primary font-medium">🎨</span>
                     <span>Learn about our 19+ services</span>
                   </div>
-                  <div className="flex items-center gap-2 text-[13px] text-[#444]">
+                  <div className="flex items-center gap-2 text-[14px] text-[#444]">
                     <span className="text-text-primary font-medium">📊</span>
                     <span>Track your orders in real-time</span>
                   </div>
                 </div>
-                <p className={`mt-3 text-[13px] ${dashboardChatMutedTextClass} border-t border-black/[0.18] pt-3`}>
+                <p className={`mt-3 text-[14px] ${dashboardChatMutedTextClass} border-t border-black/[0.18] pt-3`}>
                   How can I help you today?
                 </p>
               </div>
@@ -704,7 +704,7 @@ const ChatView = () => {
                     <div className="w-2 h-2 rounded-full bg-[#171717]/30 animate-typingDot3" />
                   </div>
                 </div>
-                <span className={`text-[11px] ${dashboardChatMutedTextClass} mt-1.5 ml-1`}>Reframe CS is thinking...</span>
+                <span className={`text-[12px] ${dashboardChatMutedTextClass} mt-1.5 ml-1`}>Reframe CS is thinking...</span>
               </div>
             </div>
           </div>
@@ -715,7 +715,7 @@ const ChatView = () => {
           <div className="flex justify-start">
             <div className="flex items-end gap-2">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                <span className="text-white text-[10px] font-bold">S</span>
+                <span className="text-white text-[12px] font-bold">S</span>
               </div>
               <div className="flex flex-col items-start">
                 <div className="flex items-center gap-2 px-5 py-4 rounded-[24px] bg-blue-50 border border-blue-100 min-w-[100px]">
@@ -725,7 +725,7 @@ const ChatView = () => {
                     <div className="w-2 h-2 rounded-full bg-blue-400 animate-typingDot3" />
                   </div>
                 </div>
-                <span className={`text-[11px] ${dashboardChatMutedTextClass} mt-1.5 ml-1`}>Support is typing...</span>
+                <span className={`text-[12px] ${dashboardChatMutedTextClass} mt-1.5 ml-1`}>Support is typing...</span>
               </div>
             </div>
           </div>

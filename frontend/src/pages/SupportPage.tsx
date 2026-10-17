@@ -223,7 +223,7 @@ const SupportPage: React.FC = () => {
 
           {/* What you can ask */}
           <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] p-8 sm:p-10">
-            <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">What you can ask</h2>
+            <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">What you can ask</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {WHEN_TO_USE.map(({ icon: Icon, title, description }) => (
                 <div key={title} className="flex items-start gap-4 p-5 rounded-2xl bg-[var(--color-bg-secondary)] border border-black/[0.20]">
@@ -246,7 +246,7 @@ const SupportPage: React.FC = () => {
             <div className="flex-1 relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] p-8 sm:p-10">
               <div className="flex items-center gap-2.5 mb-4">
                 <HelpCircle size={18} className="text-black/30" strokeWidth={1.8} />
-                <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35">How to ask</h2>
+                <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-black/35">How to ask</h2>
               </div>
               <p className="text-[15px] text-black/55 mb-7 leading-relaxed">
                 Give us specifics and we can sort it faster. Here is what a useful message looks like:
@@ -265,7 +265,7 @@ const SupportPage: React.FC = () => {
             <div className="md:w-[300px] shrink-0 flex flex-col gap-6">
 
               <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-[var(--color-bg-secondary)] shadow-[0_14px_40px_rgba(0,0,0,0.09)] p-7 flex-1">
-                <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-5">What to expect</h2>
+                <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-black/35 mb-5">What to expect</h2>
                 <div className="space-y-6">
                   <div>
                     <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Instant answers</p>

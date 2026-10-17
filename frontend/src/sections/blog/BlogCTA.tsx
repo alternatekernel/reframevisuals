@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cx, layout, typography } from '../../utils/theme';
 import Frame from '../../components/ui/Frame';
 import { NEWSLETTER_EMAIL } from '../../constants/contact';
@@ -37,7 +37,7 @@ const BlogCTA: React.FC = () => {
                     Get 3 Free Sample Edits
                   </button>
 
-                  <p className={cx(typography.vercelMono, 'text-[11px] text-white/45 tracking-widest text-center lg:text-left')}>
+                  <p className={cx(typography.vercelMono, 'text-[12px] text-white/45 tracking-widest text-center lg:text-left')}>
                     3 FREE IMAGE EDITS &bull; NO CREDIT CARD REQUIRED
                   </p>
                 </div>
@@ -55,7 +55,7 @@ const BlogCTA: React.FC = () => {
                       type="email"
                       id="insights-newsletter-email"
                       placeholder="Your email address"
-                      className="h-12 w-full rounded-full border border-white/10 bg-white/5 pl-5 pr-[7.5rem] text-[13px] font-medium text-white transition-[border-color,box-shadow,background-color] duration-200 placeholder-white/40 focus:border-white/30 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-white/20 sm:h-14 sm:pl-6 sm:pr-[8.5rem] sm:text-[14px]"
+                      className="h-12 w-full rounded-full border border-white/10 bg-white/5 pl-5 pr-[7.5rem] text-[14px] font-medium text-white transition-[border-color,box-shadow,background-color] duration-200 placeholder-white/40 focus:border-white/30 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-white/20 sm:h-14 sm:pl-6 sm:pr-[8.5rem] sm:text-[14px]"
                     />
                     <button
                       onClick={async () => {
@@ -91,7 +91,7 @@ const BlogCTA: React.FC = () => {
                   </div>
                 )}
 
-                <p className="text-[11px] font-medium italic text-white/25 text-center lg:text-left">
+                <p className="text-[12px] font-medium italic text-white/25 text-center lg:text-left">
                   * No spam or annoying sales messages, guaranteed.
                 </p>
                 <p className="text-[12px] font-medium text-white/40 text-center lg:text-left">

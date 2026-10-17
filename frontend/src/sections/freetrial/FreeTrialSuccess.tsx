@@ -33,7 +33,7 @@ const FreeTrialSuccess: React.FC<FreeTrialSuccessProps> = ({ onBack }) => {
           <p className="text-[15px] sm:text-[16px] text-black/60 max-w-md mx-auto leading-relaxed mb-4">
             Your 3 sample images are in our queue. Expect the edited files back within 24 hours.
           </p>
-          <p className="text-[13px] text-black/45 max-w-md mx-auto leading-relaxed mb-10">
+          <p className="text-[14px] text-black/45 max-w-md mx-auto leading-relaxed mb-10">
             {isAuthenticated
               ? 'Track updates from your dashboard. We will also email you with details.'
               : 'Create an account to track updates from your dashboard. Otherwise, we will email you with details.'}

@@ -105,7 +105,7 @@ const PricingFaq: React.FC = () => {
                         <Icon size={15} className="sm:size-4" />
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <span className={cx('mb-1 text-[11px] font-semibold uppercase tracking-widest', theme.label)}>
+                        <span className={cx('mb-1 text-[12px] font-semibold uppercase tracking-widest', theme.label)}>
                           {item.category}
                         </span>
                         <span className="font-heading text-[15px] font-bold leading-snug tracking-tight text-black sm:text-[16px]">

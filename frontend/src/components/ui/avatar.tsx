@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cx } from "../../utils/theme"
 
 const AVATAR_COLORS = [
@@ -47,7 +47,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   const [imageError, setImageError] = React.useState(false)
 
   const sizeClasses = {
-    xs: "h-6 w-6 text-[10px]",
+    xs: "h-6 w-6 text-[12px]",
     sm: "h-8 w-8 text-[12px]",
     md: "h-10 w-10 text-[14px]",
     lg: "h-12 w-12 text-[16px]",
@@ -124,8 +124,8 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   const excess = childArray.length - max
 
   const excessSizeClasses = {
-    xs: "h-6 w-6 text-[10px]",
-    sm: "h-8 w-8 text-[11px]",
+    xs: "h-6 w-6 text-[12px]",
+    sm: "h-8 w-8 text-[12px]",
     md: "h-10 w-10 text-[12px]",
     lg: "h-12 w-12 text-[14px]",
   }[size]

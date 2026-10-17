@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
+﻿import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, Link2, Plus, Trash2, X } from 'lucide-react';
 import {
@@ -137,8 +137,8 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
           onDrop={handleDrop}
           className={`relative border-2 border-dashed transition-[background-color,border-color,box-shadow,transform] duration-300 overflow-hidden flex flex-col items-center justify-center ${
             isDragging
-              ? 'border-[var(--research-blue)] bg-[var(--research-blue)]/5 ring-8 ring-[var(--research-blue)]/5 scale-[0.99]'
-              : 'border-[var(--research-blue)]/20 bg-[var(--research-blue-light)]'
+              ? 'border-[var(--brand-secondary)] bg-[var(--brand-secondary)]/5 ring-8 ring-[var(--brand-secondary)]/5 scale-[0.99]'
+              : 'border-[var(--brand-secondary)]/20 bg-[var(--brand-secondary-light)]'
           } rounded-3xl h-[180px] sm:h-[240px] ${
             workFiles.length === 0 || isDragging ? 'cursor-pointer group' : 'p-4'
           }`}
@@ -152,12 +152,12 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                 exit={{ opacity: 0, scale: 1.1, y: -10 }}
                 className="flex flex-col items-center justify-center space-y-4"
               >
-                <div className="w-20 h-20 bg-[var(--research-blue)] text-white rounded-full flex items-center justify-center animate-pulse">
+                <div className="w-20 h-20 bg-[var(--brand-secondary)] text-white rounded-full flex items-center justify-center animate-pulse">
                   <CloudUploadIcon size={40} />
                 </div>
                 <div className="text-center">
-                  <p className="text-body text-[var(--research-blue)] font-normal">Release to Upload</p>
-                  <p className="text-caption text-[var(--research-blue)]/60 font-normal mt-1">Ready for processing</p>
+                  <p className="text-body text-[var(--brand-secondary)] font-normal">Release to Upload</p>
+                  <p className="text-caption text-[var(--brand-secondary)]/60 font-normal mt-1">Ready for processing</p>
                 </div>
               </motion.div>
             ) : workFiles.length === 0 ? (
@@ -177,9 +177,9 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                 </div>
                 <div className="relative z-10 text-center">
                   <div className="flex justify-center items-center gap-4 sm:gap-8 mb-4 sm:mb-8">
-                    <Image01Icon size={32} className="text-[var(--research-blue)] opacity-30" />
-                    <CloudUploadIcon size={44} className="text-[var(--research-blue)] sm:w-16 sm:h-16" />
-                    <FolderOpenIcon size={32} className="text-[var(--research-blue)] opacity-30" />
+                    <Image01Icon size={32} className="text-[var(--brand-secondary)] opacity-30" />
+                    <CloudUploadIcon size={44} className="text-[var(--brand-secondary)] sm:w-16 sm:h-16" />
+                    <FolderOpenIcon size={32} className="text-[var(--brand-secondary)] opacity-30" />
                   </div>
                   <p className="text-caption text-[var(--color-text-primary)] font-normal">Drop original files to upload</p>
                   <p className="text-caption text-[var(--color-text-primary)]/50 font-normal mt-1">Main images, PSD, TIFF, RAW</p>
@@ -193,7 +193,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                 className="w-full h-full flex flex-col"
               >
                 <div className="flex items-center gap-2 mb-3 px-1 shrink-0">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--research-blue)] animate-pulse" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[var(--brand-secondary)] animate-pulse" />
                   <p className="text-caption text-[var(--color-text-primary)] font-normal">
                     {workFiles.length} Main File{workFiles.length === 1 ? '' : 's'} Ready for Processing
                   </p>
@@ -219,9 +219,9 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                     ))}
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="aspect-square flex flex-col items-center justify-center bg-white/40 border border-dashed border-[var(--research-blue)]/20 rounded-lg hover:bg-white/80 transition-[background-color,transform] duration-200 group/add"
+                      className="aspect-square flex flex-col items-center justify-center bg-white/40 border border-dashed border-[var(--brand-secondary)]/20 rounded-lg hover:bg-white/80 transition-[background-color,transform] duration-200 group/add"
                     >
-                      <Plus size={20} className="text-[var(--research-blue)] group-hover/add:scale-125 transition-transform" />
+                      <Plus size={20} className="text-[var(--brand-secondary)] group-hover/add:scale-125 transition-transform" />
                     </button>
                   </div>
                 </div>
@@ -272,7 +272,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                   onFocus={e => setTimeout(() => e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 300)}
                   placeholder="https://dropbox.com/sh/..."
                   rows={2}
-                  className="min-h-[42px] flex-1 resize-none rounded-xl border border-[var(--color-border-subtle)] bg-white px-3 py-2 text-caption text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-[border-color,box-shadow] duration-200"
+                  className="min-h-[42px] flex-1 resize-none rounded-xl border border-[var(--color-border-subtle)] bg-white px-3 py-2 text-caption text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-[border-color,box-shadow] duration-200"
                 />
                 <button
                   type="button"
@@ -379,7 +379,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                       placeholder="e.g., https://dropbox.com/sh/..."
                       value={orderData.customFilesLink || ''}
                       onChange={(e) => setOrderData(prev => ({ ...prev, customFilesLink: e.target.value }))}
-                      className="w-full h-10 px-3 bg-white border border-[#e5e7eb] rounded-xl text-caption font-medium text-[#171717] focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-[border-color,box-shadow] duration-200 placeholder-[#999] shadow-sm"
+                      className="w-full h-10 px-3 bg-white border border-[var(--color-border-subtle)] rounded-xl text-caption font-medium text-text-primary focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-[border-color,box-shadow] duration-200 placeholder-text-faint shadow-sm"
                     />
                   </div>
                   <div>
@@ -392,7 +392,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                         const val = parseInt(e.target.value);
                         setOrderData(prev => ({ ...prev, customFilesCount: Number.isNaN(val) ? undefined : val }));
                       }}
-                      className="w-full h-10 px-3 bg-white border border-[#e5e7eb] rounded-xl text-caption font-medium text-[#171717] focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-all placeholder-[#999] shadow-sm"
+                      className="w-full h-10 px-3 bg-white border border-[#e5e7eb] rounded-xl text-caption font-medium text-[#171717] focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all placeholder-[#999] shadow-sm"
                     />
                   </div>
                 </div>

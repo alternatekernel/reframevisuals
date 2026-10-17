@@ -74,7 +74,7 @@ const PolicyPage: React.FC = () => {
         <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-black/40">Legal and trust</p>
         <h1 className="mt-3 text-[36px] font-bold leading-tight tracking-[-0.04em] sm:text-[48px]">{policy.title}</h1>
         <p className="mt-4 text-[16px] leading-7 text-black/60">{policy.description}</p>
-        <p className="mt-4 text-[13px] font-semibold text-black/45">Last updated: {policy.updated}</p>
+        <p className="mt-4 text-[14px] font-semibold text-black/45">Last updated: {policy.updated}</p>
         <div className="mt-10 space-y-8">
           {policy.sections.map((section) => (
             <section key={section.heading} className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-6">

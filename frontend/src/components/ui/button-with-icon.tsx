@@ -31,7 +31,7 @@ const ButtonWithIcon = ({ label, onClick, className, variant = "default", ariaLa
         {label}
       </span>
       <div className={cx(
-        "absolute right-1 top-[4px] w-10 h-10 rounded-full flex items-center justify-center transition-[right,transform] duration-300 rotate-0 group-hover:-rotate-45",
+        "absolute right-1 top-1/2 -mt-5 w-10 h-10 rounded-full flex items-center justify-center transition-[right,transform] duration-300 rotate-0 group-hover:-rotate-45",
         animated && "group-hover:right-[calc(100%-44px)]",
         ["white", "secondary", "outline"].includes(variant) ? "bg-[var(--color-text-primary)] text-white" : "bg-white text-black"
       )} aria-hidden="true">

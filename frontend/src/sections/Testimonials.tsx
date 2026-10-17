@@ -48,7 +48,7 @@ const Avatar = ({ name, avatarUrl, company }: { name: string; avatarUrl?: string
     .join('')
     .slice(0, 2);
   return (
-    <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[11px] tracking-wide shrink-0 border border-black/[0.16] bg-black/[0.06] text-black/70">
+    <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[12px] tracking-wide shrink-0 border border-black/[0.16] bg-black/[0.06] text-black/70">
       {initials}
     </div>
   );
@@ -270,12 +270,12 @@ const TestimonialCard = ({ item, ariaHidden = false }: { item: typeof TESTIMONIA
     <article aria-hidden={ariaHidden || undefined} className="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 flex flex-col bg-white border border-black/[0.16] -ml-[1px] cursor-default overflow-hidden">
       {/* Card Body - Quote at the top */}
       <div className="flex-1 p-5 pb-4 flex flex-col">
-        <p className="text-[13px] sm:text-[14px] leading-relaxed text-black/75 font-normal" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
+        <p className="text-[14px] sm:text-[14px] leading-relaxed text-black/75 font-normal" style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}>
           {highlightText(item.quote)}
         </p>
         {item.metric && (
           <div className="mt-auto pt-2">
-            <span className="inline-block text-[10px] font-bold text-[#C2410C] uppercase tracking-wider bg-orange-50 border border-orange-100 rounded px-1.5 py-0.5 leading-none">
+            <span className="inline-block text-[12px] font-bold text-[#C2410C] uppercase tracking-wider bg-orange-50 border border-orange-100 rounded px-1.5 py-0.5 leading-none">
               {item.metric}
             </span>
           </div>
@@ -290,7 +290,7 @@ const TestimonialCard = ({ item, ariaHidden = false }: { item: typeof TESTIMONIA
         <Avatar name={item.name} avatarUrl={item.avatarUrl} company={item.company} />
         <div className="min-w-0">
           <div className="flex items-center gap-1">
-            <span className="text-[13px] font-bold text-black leading-tight truncate">{item.name}</span>
+            <span className="text-[14px] font-bold text-black leading-tight truncate">{item.name}</span>
             {/* Checkmark verification badge */}
             {(item.company.includes(',') || item.company.toLowerCase().includes(' at ')) && (
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 flex-shrink-0" style={{ fill: 'rgba(0,0,0,0.35)' }} aria-label="Verified account">
@@ -299,7 +299,7 @@ const TestimonialCard = ({ item, ariaHidden = false }: { item: typeof TESTIMONIA
             )}
           </div>
           {item.username && (
-            <span className="block text-[13px] text-black/60 leading-tight mt-0.5 truncate">{item.username}</span>
+            <span className="block text-[14px] text-black/60 leading-tight mt-0.5 truncate">{item.username}</span>
           )}
           <span className="block text-[12px] text-black/40 leading-snug mt-0.5 truncate">{item.company}</span>
         </div>
@@ -516,12 +516,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({
               </blockquote>
 
               {/* Secondary Quote */}
-              <p className="mt-4 text-[13px] sm:text-[14px] text-black/50 leading-relaxed border-l-2 border-black/[0.18] pl-4 italic">
+              <p className="mt-4 text-[14px] sm:text-[14px] text-black/50 leading-relaxed border-l-2 border-black/[0.18] pl-4 italic">
                 "Perfect collab as always. We have been working together now more than a year, and will definitely continue!"
               </p>
 
               {/* Brand note */}
-              <p className="mt-6 text-[13px] text-black/45 leading-relaxed italic" style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
+              <p className="mt-6 text-[14px] text-black/45 leading-relaxed italic" style={{ WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
                 Five years. Same vision, different seasons. Not every partnership is written in a contract. Some are written in the work.
                 <span className="not-italic font-semibold text-black/30 ml-1">— Reframe Visuals</span>
               </p>
@@ -559,7 +559,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                         Bomber Clothing
                       </a>
                     </span>
-                    <span className="block text-[11px] text-black/50 mt-0.5 font-medium">Long-term partner</span>
+                    <span className="block text-[12px] text-black/50 mt-0.5 font-medium">Long-term partner</span>
                   </div>
                 </div>
                 {/* Identity data for search engines and AI crawlers — not visible to users */}
@@ -631,14 +631,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({
 
               <div className="mb-6">
                 <h3 className="text-[20px] font-bold text-[var(--color-text-primary)]">Share your experience</h3>
-                <p className="text-[13px] text-black/50 mt-1">
+                <p className="text-[14px] text-black/50 mt-1">
                   Add your testimonial to the Reframe scrolling marquee.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
                     Your Name
                   </label>
                   <input
@@ -652,7 +652,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
                     Company / Role
                   </label>
                   <input
@@ -666,7 +666,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
                     Work Email
                   </label>
                   <input
@@ -680,9 +680,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black/55 mb-1.5 flex justify-between">
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5 flex justify-between">
                     <span>Your Review Quote</span>
-                    <span className="text-[10px] text-black/35 normal-case font-normal">
+                    <span className="text-[12px] text-black/35 normal-case font-normal">
                       {form.quote.length}/180 chars
                     </span>
                   </label>
@@ -698,7 +698,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5">
                     Impact Metric (Optional)
                   </label>
                   <input
@@ -714,7 +714,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 min-h-11 rounded-xl border border-black/[0.18] text-[13px] font-bold text-black/70 hover:bg-neutral-50 active:scale-[0.98] transition-all"
+                    className="flex-1 min-h-11 rounded-xl border border-black/[0.18] text-[14px] font-bold text-black/70 hover:bg-neutral-50 active:scale-[0.98] transition-all"
                   >
                     Cancel
                   </button>

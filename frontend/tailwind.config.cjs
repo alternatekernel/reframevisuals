@@ -24,12 +24,44 @@ module.exports = {
         onyx: 'var(--onyx, #0A0A0B)',
         'soft-black': 'var(--soft-black, #1F1F1F)',
         surface: 'var(--surface, #F8F9FD)',
-        // Semantic colors
+        // Semantic text color scale
         'text-primary': 'var(--color-text-primary)',
         'text-secondary': 'var(--color-text-secondary)',
         'text-muted': 'var(--color-text-muted)',
+        'text-subtle': 'var(--color-text-subtle)',
+        'text-faint': 'var(--color-text-faint)',
+        'text-placeholder': 'var(--color-text-placeholder)',
+        // Semantic surface tokens
         'bg-primary': 'var(--color-bg-primary)',
         'bg-secondary': 'var(--color-bg-secondary)',
+        'bg-soft': 'var(--color-bg-soft)',
+        // Interaction
+        'focus': 'var(--color-focus, #3b82f6)',
+        // Semantic state colors (wire up designTokens.colors.semantic.*)
+        'semantic-error': {
+          DEFAULT: '#DC2626',
+          light: '#FEE2E2',
+          text: '#7F1D1D',
+          border: 'rgba(220, 38, 38, 0.25)',
+        },
+        'semantic-success': {
+          DEFAULT: '#16A34A',
+          light: '#DCFCE7',
+          text: '#14532D',
+          border: 'rgba(22, 163, 74, 0.25)',
+        },
+        'semantic-warning': {
+          DEFAULT: '#D97706',
+          light: '#FEF3C7',
+          text: '#78350F',
+          border: 'rgba(217, 119, 6, 0.25)',
+        },
+        'semantic-info': {
+          DEFAULT: '#2563EB',
+          light: '#DBEAFE',
+          text: '#1E3A8A',
+          border: 'rgba(37, 99, 235, 0.25)',
+        },
         // Design system surface tokens — must match dashboard-primitives.tsx usage
         'borderSubtle': 'rgba(0,0,0,0.12)',
         'borderLight': 'rgba(0,0,0,0.18)',
@@ -51,6 +83,11 @@ module.exports = {
         mono: ['var(--font-mono)', 'JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       fontSize: {
+        // UI widget scale (panel chrome, sidebar, badge labels)
+        'nano': ['var(--text-nano)', { lineHeight: '1.3' }],    /* 10px */
+        'micro': ['var(--text-micro)', { lineHeight: '1.3' }],  /* 11px */
+        '12': ['var(--text-12)', { lineHeight: '1.4' }],        /* 12px */
+        '14': ['var(--text-14)', { lineHeight: '1.4' }],        /* 14px */
         // Public site tokens
         'caption': ['var(--text-caption)', { lineHeight: '1.4' }],
         'body-sm': ['var(--text-body-sm)', { lineHeight: '1.5' }],
@@ -100,6 +137,21 @@ module.exports = {
       // fast  (120ms) — micro-feedback: button press, toggle, checkbox
       // base  (200ms) — standard UI: hover, focus, color changes
       // slow  (350ms) — structural: modal open, drawer, step transitions
+      borderRadius: {
+        'token-sm': 'var(--radius-sm, 8px)',
+        'token-md': 'var(--radius-md, 16px)',
+        'token-lg': 'var(--radius-lg, 32px)',
+        'token-xl': 'var(--radius-xl, 64px)',
+      },
+      boxShadow: {
+        'token-subtle': '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05)',
+        'token-standard': '0 8px 24px rgba(0, 0, 0, 0.09)',
+        'token-showcase': '0 16px 40px rgba(0, 0, 0, 0.13)',
+        'token-conversion': '0 24px 64px rgba(15, 23, 42, 0.18)',
+        'token-inset-glass': 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.06)',
+        'token-glow-brand': '0 0 28px -4px rgba(var(--brand-rgb, 233, 116, 81), 0.35)',
+        'token-focus': '0 0 0 2px rgba(59, 130, 246, 0.88)',
+      },
       transitionDuration: {
         'fast': '120ms',
         'base': '200ms',

@@ -166,7 +166,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
                     className="flex flex-col items-center gap-4 text-black/10 select-none pointer-events-none"
                   >
                     <Icon size={64} strokeWidth={1} />
-                    <p className="font-heading text-[10px] uppercase tracking-widest font-normal opacity-40">Blueprint Mode</p>
+                    <p className="font-heading text-[12px] uppercase tracking-widest font-normal opacity-40">Blueprint Mode</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -213,7 +213,7 @@ const HeroCard: React.FC<HeroCardProps> = ({
                 >
                   <Info size={14} />
                 </motion.div>
-                <div className={cx('absolute bottom-full right-0 z-50 mb-2 w-64 rounded-xl border border-white/10 bg-[var(--color-text-primary)] px-4 py-3 text-[13px] font-normal text-white opacity-0 transition-opacity pointer-events-none group-hover/tooltip:opacity-100', tokens.shadowStandard)}>
+                <div className={cx('absolute bottom-full right-0 z-50 mb-2 w-64 rounded-xl border border-white/10 bg-[var(--color-text-primary)] px-4 py-3 text-[14px] font-normal text-white opacity-0 transition-opacity pointer-events-none group-hover/tooltip:opacity-100', tokens.shadowStandard)}>
                   <p className="leading-relaxed">{card.description || "Professional service details."}</p>
                 </div>
               </div>

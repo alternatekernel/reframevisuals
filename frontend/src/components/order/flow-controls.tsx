@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { cx } from '../../utils/theme';
 
 export const orderText = {
@@ -21,7 +21,7 @@ export const OrderFieldLabel = ({ className, children }: React.HTMLAttributes<HT
   </p>
 );
 
-export const orderInputClass = 'rounded-lg px-3 py-2 text-caption border border-[var(--color-border-light)] bg-white focus:outline-none focus:border-[var(--research-blue)] focus:ring-2 focus:ring-[var(--research-blue)]/10 transition-[border-color,box-shadow] duration-200';
+export const orderInputClass = 'rounded-lg px-3 py-2 text-caption border border-[var(--color-border-light)] bg-white focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-[border-color,box-shadow] duration-200';
 
 export const OrderTextInput = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, ...props }, ref) => (

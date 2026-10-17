@@ -179,7 +179,7 @@ const ExpansionPage = () => {
                   )}
                   <Link
                     to={`/services/${s.id}`}
-                    className="inline-block mt-3 text-[13px] font-semibold underline text-black/70 hover:text-black"
+                    className="inline-block mt-3 text-[14px] font-semibold underline text-black/70 hover:text-black"
                   >
                     View {s.name} details →
                   </Link>
@@ -215,7 +215,7 @@ const ExpansionPage = () => {
                 >
                   <h3 className="font-semibold text-[16px] mb-2">{cs.h1}</h3>
                   <p className="text-[14px] text-black/60 leading-relaxed">{cs.outcome ?? cs.description}</p>
-                  <span className="inline-block mt-3 text-[13px] font-semibold underline text-black/70">Read case study →</span>
+                  <span className="inline-block mt-3 text-[14px] font-semibold underline text-black/70">Read case study →</span>
                 </Link>
               ))}
             </div>
@@ -230,7 +230,7 @@ const ExpansionPage = () => {
               {relatedTestimonials.map((t) => t && (
                 <blockquote key={t.name} className="border border-black/[0.18] rounded-2xl p-5">
                   <p className="text-[15px] text-black/75 leading-relaxed mb-3">"{t.quote}"</p>
-                  <footer className="text-[13px] font-semibold text-black/60">
+                  <footer className="text-[14px] font-semibold text-black/60">
                     {t.name} — {t.company}
                     {t.metric && <span className="ml-2 text-xs bg-black/5 rounded-full px-2 py-0.5">{t.metric}</span>}
                   </footer>

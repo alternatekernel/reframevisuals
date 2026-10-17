@@ -41,7 +41,7 @@ const ServiceFaq: React.FC<ServiceFaqProps> = ({ service }) => {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-black/40">
                 <HelpCircle size={20} />
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Support</span>
+                <span className="text-[12px] font-bold tracking-[0.2em] uppercase">Support</span>
               </div>
               <h2 className={cx('font-heading text-[var(--fluid-h2)] lg:text-[64px] font-bold tracking-[-0.04em] leading-[1.2]', typography.sectionTitleInk)}>
                 Common <br />

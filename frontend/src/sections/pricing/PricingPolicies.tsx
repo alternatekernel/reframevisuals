@@ -78,7 +78,7 @@ const PricingPolicies: React.FC = () => {
                   <h3 className="text-[18px] font-bold text-[var(--color-text-primary)] tracking-tight">{policy.title}</h3>
                 </div>
 
-                <p className="text-[13px] text-black/60 leading-relaxed mb-6 font-medium">
+                <p className="text-[14px] text-black/60 leading-relaxed mb-6 font-medium">
                   {policy.description}
                 </p>
 

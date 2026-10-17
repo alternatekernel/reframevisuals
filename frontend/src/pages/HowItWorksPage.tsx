@@ -166,7 +166,7 @@ const HowItWorksPage: React.FC = () => {
                  ].map(({ title, body }) => (
                    <div key={title} className="bg-white/[0.05] border border-white/[0.08] rounded-2xl p-5">
                      <div className="text-[14px] font-semibold text-white mb-1.5">{title}</div>
-                     <div className="text-[13px] text-white/45 leading-relaxed">{body}</div>
+                     <div className="text-[14px] text-white/45 leading-relaxed">{body}</div>
                    </div>
                  ))}
                </div>

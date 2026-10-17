@@ -49,7 +49,7 @@ const Integrations = () => {
 
                   <div className="min-w-0 w-full">
                     <h3 className="break-words whitespace-normal text-[16px] font-bold leading-tight text-black lg:text-[17px]">{item.name}</h3>
-                    <p className={cx('mt-1 text-[10px] font-black uppercase tracking-[0.1em]', 'text-black/38')}>
+                    <p className={cx('mt-1 text-[12px] font-black uppercase tracking-[0.1em]', 'text-black/38')}>
                       {item.status}
                     </p>
                   </div>
@@ -59,7 +59,7 @@ const Integrations = () => {
 
             <div className="mt-3 rounded-2xl border border-emerald-200 bg-emerald-50/50 px-4 py-3">
               <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-3">
-                <span className="whitespace-nowrap text-[10px] font-black uppercase tracking-[0.15em] text-emerald-600">Live · AI Ready</span>
+                <span className="whitespace-nowrap text-[12px] font-black uppercase tracking-[0.15em] text-emerald-600">Live · AI Ready</span>
                 <span className="hidden h-3.5 w-px bg-emerald-200 sm:block" />
                 <p className="text-[16px] leading-relaxed text-emerald-800/80">
                   Submit orders, track status, and manage revisions from any AI assistant or automation tool.

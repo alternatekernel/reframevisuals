@@ -98,7 +98,7 @@ const ResetPasswordPage = () => {
             ) : (
               <>
                 <div className="space-y-3">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Security Update</h3>
+                  <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Security Update</h3>
                   <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Set new password</h1>
                   <p className="text-[14px] sm:text-[15px] text-black/60 leading-relaxed">
                     Please choose a secure password for your account.
@@ -110,14 +110,14 @@ const ResetPasswordPage = () => {
                     <ShieldAlert className="text-red-600 shrink-0" size={20} />
                     <div className="space-y-1">
                       <p className="text-[14px] font-bold text-red-700">Invalid Reset Link</p>
-                      <p className="text-[13px] text-red-600 leading-relaxed">This link is missing a security token or has expired.</p>
-                      <Link to="/forgot-password" className="text-[13px] font-bold text-red-700 hover:underline mt-2 block transition-all">Request a new link</Link>
+                      <p className="text-[14px] text-red-600 leading-relaxed">This link is missing a security token or has expired.</p>
+                      <Link to="/forgot-password" className="text-[14px] font-bold text-red-700 hover:underline mt-2 block transition-all">Request a new link</Link>
                     </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="mt-8 space-y-4" noValidate>
                     <div>
-                      <label className="mb-1.5 block text-[13px] font-bold text-black/70">New Password <span className="text-red-600">*</span></label>
+                      <label className="mb-1.5 block text-[14px] font-bold text-black/70">New Password <span className="text-red-600">*</span></label>
                       <div className="relative">
                         <input
                           type={showPassword ? 'text' : 'password'}
@@ -139,7 +139,7 @@ const ResetPasswordPage = () => {
                     </div>
 
                     <div>
-                      <label className="mb-1.5 block text-[13px] font-bold text-black/70">Confirm New Password <span className="text-red-600">*</span></label>
+                      <label className="mb-1.5 block text-[14px] font-bold text-black/70">Confirm New Password <span className="text-red-600">*</span></label>
                       <input
                         type="password"
                         value={confirmPassword}
@@ -151,7 +151,7 @@ const ResetPasswordPage = () => {
                     </div>
 
                     {error && (
-                      <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                      <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                         {error}
                       </div>
                     )}
@@ -173,7 +173,7 @@ const ResetPasswordPage = () => {
 
           {/* RIGHT PANEL: Info content */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Password Guidelines</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Password Guidelines</h3>
             <div className="space-y-8">
               <div>
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Minimum Length</p>

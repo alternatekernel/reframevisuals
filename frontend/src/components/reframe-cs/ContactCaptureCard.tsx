@@ -57,7 +57,7 @@ const ContactCaptureCard = ({ conversationId, guestId, onCaptured }: Props) => {
         <p className="text-[12px] font-semibold leading-snug text-[#171717]">Where should we reach you?</p>
         <span title={note} aria-label={note} className="mt-[1px] cursor-help text-[#999]"><Info size={12} /></span>
       </div>
-      <p className="mb-2.5 text-[11px] leading-snug text-[#666]">
+      <p className="mb-2.5 text-[12px] leading-snug text-[#666]">
         So we can pick this up with you if you close the tab. Support replies only.
       </p>
       <form
@@ -74,7 +74,7 @@ const ContactCaptureCard = ({ conversationId, guestId, onCaptured }: Props) => {
           value={email}
           onChange={event => { setEmail(event.target.value); if (error) setError(''); }}
           disabled={isSubmitting}
-          className="h-9 min-w-0 flex-1 rounded-lg border border-black/[0.1] bg-white px-3 text-[13px] text-[#171717] placeholder-[#aaa] focus:border-[#171717] focus:outline-none focus:ring-2 focus:ring-black/[0.06]"
+          className="h-9 min-w-0 flex-1 rounded-lg border border-black/[0.1] bg-white px-3 text-[14px] text-[#171717] placeholder-[#aaa] focus:border-[#171717] focus:outline-none focus:ring-2 focus:ring-black/[0.06]"
         />
         <button
           type="submit"
@@ -84,11 +84,11 @@ const ContactCaptureCard = ({ conversationId, guestId, onCaptured }: Props) => {
           {isSubmitting ? 'Saving…' : 'Save'}
         </button>
       </form>
-      {error && <p role="alert" className="mt-1.5 text-[11px] font-medium text-red-600">{error}</p>}
+      {error && <p role="alert" className="mt-1.5 text-[12px] font-medium text-red-600">{error}</p>}
       <button
         type="button"
         onClick={() => setDismissed(true)}
-        className="mt-2 text-[11px] font-medium text-[#888] underline-offset-2 hover:text-[#555] hover:underline"
+        className="mt-2 text-[12px] font-medium text-[#888] underline-offset-2 hover:text-[#555] hover:underline"
       >
         Skip
       </button>

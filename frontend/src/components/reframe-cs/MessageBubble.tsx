@@ -30,7 +30,7 @@ export const TypingBubble = ({ label }: { label: string }) => (
   <div className="flex justify-start" role="status">
     <div className="flex items-center gap-2 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-2">
       <Dots tone="bg-blue-500" />
-      <span className="text-[11px] font-medium text-blue-700">{label}</span>
+      <span className="text-[12px] font-medium text-blue-700">{label}</span>
     </div>
   </div>
 );
@@ -50,12 +50,12 @@ const MessageExtras = ({ message, onNavigate }: { message: ChatMessage; onNaviga
         >
           <div className="flex items-start justify-between gap-2">
             <span className="font-bold">{orderCard.code || orderCard.orderId || 'Order'}</span>
-            <span className={`inline-flex rounded-full border px-2 py-0.5 text-[10px] font-semibold ${orderStatusTone(orderCard.status)}`}>
+            <span className={`inline-flex rounded-full border px-2 py-0.5 text-[12px] font-semibold ${orderStatusTone(orderCard.status)}`}>
               {(orderCard.status || 'new').replace(/_/g, ' ')}
             </span>
           </div>
           <div className="mt-1 font-semibold">{orderCard.title || 'Order details'}</div>
-          <div className="mt-2 text-[11px] text-[#666]">Updates automatically · <span className="font-bold underline">View order</span></div>
+          <div className="mt-2 text-[12px] text-[#666]">Updates automatically · <span className="font-bold underline">View order</span></div>
         </a>
       )}
       {attachments.length > 0 && (
@@ -67,11 +67,11 @@ const MessageExtras = ({ message, onNavigate }: { message: ChatMessage; onNaviga
                   <img src={attachment.url} alt={attachment.filename} loading="lazy" className="max-h-40 max-w-full object-cover" />
                 </a>
               )}
-              <div className="flex items-center gap-2 text-[11px]">
+              <div className="flex items-center gap-2 text-[12px]">
                 <Paperclip size={12} className="shrink-0" />
                 <span className="min-w-0 flex-1 truncate font-semibold">{attachment.filename}</span>
                 <span className="text-[#999]">{formatFileSize(attachment.size)}</span>
-                <a href={attachment.url} download target="_blank" rel="noreferrer" className="rounded-full bg-black px-2 py-1 text-[10px] font-bold text-white">
+                <a href={attachment.url} download target="_blank" rel="noreferrer" className="rounded-full bg-black px-2 py-1 text-[12px] font-bold text-white">
                   Download
                 </a>
               </div>
@@ -121,29 +121,29 @@ const MessageBubble = ({
             <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-600">
               <Check size={8} className="text-white" strokeWidth={4} />
             </span>
-            <span className="text-[10px] font-bold uppercase tracking-tight text-blue-700">Studio team</span>
+            <span className="text-[12px] font-bold uppercase tracking-tight text-blue-700">Studio team</span>
           </div>
         )}
 
         {isUser ? (
           <div
             {...gestures}
-            className={`rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed text-white ${message.failed ? 'bg-[#171717]/70' : 'bg-[#171717]'}`}
+            className={`rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed text-white ${message.failed ? 'bg-[#171717]/70' : 'bg-[#171717]'}`}
           >
             <MessageExtras message={message} onNavigate={onNavigate} />
           </div>
         ) : isHuman ? (
-          <div {...gestures} className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-2.5 text-[13px] leading-relaxed text-[#171717] shadow-sm">
+          <div {...gestures} className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-2.5 text-[14px] leading-relaxed text-[#171717] shadow-sm">
             <MessageExtras message={message} onNavigate={onNavigate} />
             {actions.length > 0 && <SuggestedActions actions={actions} onActionClick={onAction} />}
             {contactCard && <div className="mt-3">{contactCard}</div>}
             {handoff}
           </div>
         ) : (
-          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.16] bg-white text-[13px] text-[#171717] shadow-sm">
+          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.16] bg-white text-[14px] text-[#171717] shadow-sm">
             <div className="flex items-center gap-2 border-b border-black/[0.20] px-4 py-2">
               <span className="h-2 w-2 shrink-0 rounded-full bg-[#171717]" />
-              <span className="text-[11px] font-semibold tracking-tight">Reframe CS</span>
+              <span className="text-[12px] font-semibold tracking-tight">Reframe CS</span>
               {message.pending ? (
                 <span className="ml-auto"><Dots tone="bg-[#bbb]" /></span>
               ) : (
@@ -167,13 +167,13 @@ const MessageBubble = ({
           <button
             type="button"
             onClick={() => onRetry(message)}
-            className="flex items-center gap-1 px-1 text-[11px] font-medium text-red-600 hover:underline"
+            className="flex items-center gap-1 px-1 text-[12px] font-medium text-red-600 hover:underline"
           >
             <RotateCw size={11} />
             Not delivered · Retry
           </button>
         ) : time ? (
-          <div className="px-1 text-[10px] text-[#999]">
+          <div className="px-1 text-[12px] text-[#999]">
             {time}
             {isUser && message.id != null && (
               <span className={`ml-1.5 ${seen ? 'text-blue-600' : 'text-[#aaa]'}`} title={seen ? 'Seen' : 'Delivered'}>

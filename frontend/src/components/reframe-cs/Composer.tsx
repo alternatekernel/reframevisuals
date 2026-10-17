@@ -75,7 +75,7 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
         <button
           type="button"
           onClick={event => { event.stopPropagation(); onAttach(); }}
-          className="group relative flex h-10 w-10 items-center justify-center gap-2 rounded-full border border-black/80 bg-[#171717] text-[11px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_2px_3px_rgba(0,0,0,0.12),0_7px_16px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-black sm:w-auto sm:px-3.5"
+          className="group relative flex h-10 w-10 items-center justify-center gap-2 rounded-full border border-black/80 bg-[#171717] text-[12px] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_2px_3px_rgba(0,0,0,0.12),0_7px_16px_rgba(0,0,0,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-black sm:w-auto sm:px-3.5"
           aria-label={attachLabel}
           title={attachLabel}
         >
@@ -99,7 +99,7 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
 
       <div className="relative flex min-w-0 flex-1 items-center">
         {!isExpanded && hasText && (
-          <span className="mr-2 shrink-0 rounded-full bg-black/[0.06] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#555]">
+          <span className="mr-2 shrink-0 rounded-full bg-black/[0.06] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[#555]">
             Draft
           </span>
         )}
@@ -113,10 +113,10 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           onFocus={() => { if (!isExpanded) onExpand(); }}
           aria-label="Message Reframe CS"
           placeholder={isListening ? 'Listening…' : ''}
-          className="min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-[13px] leading-[1.35] text-black outline-none placeholder:text-[#A1A1AA]"
+          className="min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-[14px] leading-[1.35] text-black outline-none placeholder:text-[#A1A1AA]"
         />
         {replyPreview && !hasText && !isListening && (
-          <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-1.5 text-[13px]">
+          <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-1.5 text-[14px]">
             <span className="shrink-0 font-semibold text-[#171717]">New reply:</span>
             <span className="truncate text-[#555]">{replyPreview}</span>
           </span>
@@ -124,7 +124,7 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
         {showIdlePhrase && (
           <span
             aria-hidden
-            className={`pointer-events-none absolute inset-0 flex min-w-0 items-center text-[13px] text-[#A1A1AA] transition-opacity duration-200 ${
+            className={`pointer-events-none absolute inset-0 flex min-w-0 items-center text-[14px] text-[#A1A1AA] transition-opacity duration-200 ${
               isExpanded ? 'justify-start' : 'justify-center'
             } ${idlePhraseVisible ? 'opacity-100' : 'opacity-0'}`}
           >

@@ -92,7 +92,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
                 {title}
               </h5>
             )}
-            <div className="text-[13px] leading-relaxed text-inherit opacity-85">
+            <div className="text-[14px] leading-relaxed text-inherit opacity-85">
               {children}
             </div>
             {action && <div className="mt-3">{action}</div>}

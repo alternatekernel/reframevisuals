@@ -125,10 +125,10 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       </div>
 
       {/* Floating Badges */}
-      <div className="pointer-events-none absolute bottom-3.5 left-3.5 rounded-full bg-black/60 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-md">
+      <div className="pointer-events-none absolute bottom-3.5 left-3.5 rounded-full bg-black/60 px-3 py-1 text-[12px] font-semibold text-white backdrop-blur-md">
         {beforeLabel}
       </div>
-      <div className="pointer-events-none absolute bottom-3.5 right-3.5 rounded-full bg-black/60 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-md">
+      <div className="pointer-events-none absolute bottom-3.5 right-3.5 rounded-full bg-black/60 px-3 py-1 text-[12px] font-semibold text-white backdrop-blur-md">
         {afterLabel}
       </div>
     </div>

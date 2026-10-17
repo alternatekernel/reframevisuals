@@ -272,7 +272,7 @@ const ContactPage: React.FC = () => {
 
             {/* Sidebar */}
             <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-              <h2 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">What to expect</h2>
+              <h2 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">What to expect</h2>
               <div className="space-y-8">
                 <div>
                   <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Reply within 30 minutes</p>
@@ -292,7 +292,7 @@ const ContactPage: React.FC = () => {
 
           {/* How to ask tips */}
           <div className="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.09)] p-8 sm:p-10">
-            <h2 className="text-[13px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">Get a faster reply</h2>
+            <h2 className="text-[14px] font-bold uppercase tracking-[0.18em] text-black/35 mb-6">Get a faster reply</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
               <div className="border-l-2 border-black/[0.18] pl-4">
                 <p className="text-[15px] font-bold text-[var(--color-text-primary)] mb-1.5">Include your order ID</p>

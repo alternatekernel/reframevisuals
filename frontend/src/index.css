@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -51,7 +51,11 @@
 @layer base {
   :root {
     /* Typography Scale (Static rem units) */
-    --text-caption: 0.75rem;     /* 12px */
+    --text-nano: 0.625rem;       /* 10px — smallest readable label */
+    --text-micro: 0.6875rem;     /* 11px — widget / badge labels */
+    --text-12: 0.75rem;          /* 12px — compact UI text */
+    --text-14: 0.875rem;         /* 14px — widget body / small labels */
+    --text-caption: 0.8125rem;   /* 13px */
     --text-body-sm: 0.9375rem;   /* 15px */
     --text-body: 1rem;           /* 16px */
     --text-body-lg: 1.25rem;     /* 20px */
@@ -79,9 +83,12 @@
     --brand-rgb: 10, 10, 11;
     --brand-hover: #1F1F1F;
     --brand-hover-rgb: 31, 31, 31;
+    --brand-secondary: #D1E9FF;
+    --brand-secondary-light: #E1F0FF;
     --surface: #FFFFFF;
     --onyx: #0A0A0B;
     --soft-black: #1F1F1F;
+    --brand-ink-rgb: 10 10 11;            /* brand ink for Tailwind opacity modifiers (bg-brand-ink/10) */
 
     /* Semantic theme colors */
     --color-bg-primary: #ffffff;
@@ -91,9 +98,14 @@
     --color-text-primary: #171717;
     --color-text-secondary: #666666;
     --color-text-muted: #808080;
+    --color-text-subtle: #555555;          /* mid-gray: secondary actions, less emphasis */
+    --color-text-faint: #999999;           /* light gray: disabled / inactive text */
+    --color-text-placeholder: #bbbbbb;    /* lightest gray: input placeholder text */
     --color-border-subtle: #e0e0e0;
     --color-border-light: #c8c8c8;
     --color-brand-primary: var(--brand);
+    --color-focus: #3b82f6;               /* interactive focus rings */
+    --color-bg-soft: #fafafa;             /* near-white surface: input backgrounds, subtle tint */
 
     --cat-foundation: #EA580C;
     --cat-enhancement: #0284C7;
@@ -203,11 +215,11 @@
   .scroll-mt-nav { scroll-margin-top: 100px; }
 
   /* Research Palette Utilities */
-  .bg-research-blue { background-color: var(--research-blue-light); }
+  .bg-research-blue { background-color: var(--brand-secondary-light); }
   .bg-research-pink { background-color: var(--research-pink-light); }
   .bg-research-peach { background-color: var(--research-peach-light); }
   
-  .hover-research-blue:hover { background-color: var(--research-blue) !important; }
+  .hover-research-blue:hover { background-color: var(--brand-secondary) !important; }
   .hover-research-pink:hover { background-color: var(--research-pink) !important; }
   .hover-research-peach:hover { background-color: var(--research-peach) !important; }
 

@@ -125,7 +125,7 @@ const Stats = () => {
                 </a>
 
                 {/* Step index */}
-                <div className="font-mono text-[10px] sm:text-[11px] text-zinc-400 font-bold uppercase tracking-[0.25em] mb-4">
+                <div className="font-mono text-[12px] sm:text-[12px] text-zinc-400 font-bold uppercase tracking-[0.25em] mb-4">
                   0{i + 1}
                 </div>
 
@@ -145,7 +145,7 @@ const Stats = () => {
                     href={getSourceUrl(stat.source)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block text-[11px] font-mono font-bold tracking-[0.16em] text-black/35 hover:text-black/80 hover:underline underline-offset-4 decoration-black/20 transition-all duration-200 uppercase"
+                    className="inline-block text-[12px] font-mono font-bold tracking-[0.16em] text-black/35 hover:text-black/80 hover:underline underline-offset-4 decoration-black/20 transition-all duration-200 uppercase"
                   >
                     {stat.source}
                   </a>

@@ -55,7 +55,7 @@ const TrialAuditCta = () => {
             </button>
           </form>
 
-          <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px] font-medium text-black/70">
+          <div className="relative z-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[14px] font-medium text-black/70">
             <span>Replies within 30 min</span>
             <span className="hidden text-black/25 sm:inline">•</span>
             <span>No spam, ever</span>

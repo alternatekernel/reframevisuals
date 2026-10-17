@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+﻿import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Image, Download, X, ChevronLeft, ChevronRight, Loader2, Search, ScanSearch } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
@@ -112,7 +112,7 @@ const GalleryView = () => {
       ) : filteredAssets.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <p className="text-[14px] text-text-secondary">No assets matched "{searchTerm}"</p>
-          <button onClick={() => setSearchTerm('')} className="mt-3 text-[13px] font-medium text-text-primary underline underline-offset-2">
+          <button onClick={() => setSearchTerm('')} className="mt-3 text-[14px] font-medium text-text-primary underline underline-offset-2">
             Clear search
           </button>
         </div>
@@ -222,7 +222,7 @@ const GalleryView = () => {
                 <button
                   onClick={goPrev}
                   disabled={lightboxIndex === 0}
-                  className="flex items-center gap-1 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-bg-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  className="flex items-center gap-1 px-4 py-2 rounded-lg border border-borderSubtle text-[14px] font-medium text-text-secondary hover:bg-bg-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
                   <ChevronLeft size={15} /> Previous
                 </button>
@@ -241,7 +241,7 @@ const GalleryView = () => {
                 <button
                   onClick={goNext}
                   disabled={lightboxIndex === filteredAssets.length - 1}
-                  className="flex items-center gap-1 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-bg-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  className="flex items-center gap-1 px-4 py-2 rounded-lg border border-borderSubtle text-[14px] font-medium text-text-secondary hover:bg-bg-secondary disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                 >
                   Next <ChevronRight size={15} />
                 </button>

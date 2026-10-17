@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+﻿import React, { useRef, useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import OrderFlowUI, { OrderFlowUIHandle } from '../order/OrderFlowUI';
 import OrderSidebar from '../order/OrderSidebar';
@@ -230,7 +230,7 @@ const OrderFlowView: React.FC<OrderFlowViewProps> = ({
         <div className="w-[210px] shrink-0 border-r border-[var(--color-border-light)] flex flex-col">
           <div className="px-4 pt-4 pb-3 border-b border-[var(--color-border-light)]">
             <h1 className="text-[15px] font-bold tracking-tight text-[var(--color-text-primary)] leading-tight">{pageTitle}</h1>
-            {pageDescription && <p className="text-[11px] text-[var(--color-text-muted)] mt-0.5 leading-snug">{pageDescription}</p>}
+            {pageDescription && <p className="text-[12px] text-[var(--color-text-muted)] mt-0.5 leading-snug">{pageDescription}</p>}
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto">
             <OrderSidebar

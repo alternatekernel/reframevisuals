@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { cx } from '../../utils/theme';
 
 export const dashboardSurfaceClass = 'rounded-2xl border border-borderSubtle bg-white shadow-sm';
@@ -20,13 +20,13 @@ export const dashboardChatComposerClass = 'max-w-4xl mx-auto flex flex-col round
 export const dashboardChatIconButtonClass = 'rounded-full p-2.5 text-text-secondary transition-colors hover:bg-black/5';
 export const dashboardChatSecondaryPillClass = 'rounded-full border border-borderSubtle bg-white px-4 py-2 text-sm font-medium text-text-primary transition-all hover:bg-bg-secondary active:scale-[0.97]';
 export const dashboardChatMenuClass = 'absolute right-6 top-16 z-40 w-60 rounded-xl border border-borderSubtle bg-white p-2 shadow-xl';
-export const dashboardChatMenuItemClass = 'w-full rounded-lg px-3 py-2 text-left text-[13px] font-medium text-text-primary hover:bg-bg-secondary';
+export const dashboardChatMenuItemClass = 'w-full rounded-lg px-3 py-2 text-left text-[14px] font-medium text-text-primary hover:bg-bg-secondary';
 export const dashboardChatMutedTextClass = 'text-text-muted';
 export const dashboardChatBodyTextClass = 'text-text-secondary';
 
 export function dashboardNoticeClass(type: 'success' | 'error') {
   return cx(
-    'rounded-xl px-4 py-3 text-[13px]',
+    'rounded-xl px-4 py-3 text-[14px]',
     type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700',
   );
 }

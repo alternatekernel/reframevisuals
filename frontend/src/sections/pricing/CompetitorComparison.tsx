@@ -86,7 +86,7 @@ const CompetitorComparison: React.FC = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-black/[0.18]">
-                <th className="py-4 px-6 text-[10px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[18%] bg-[var(--color-bg-secondary)]" />
+                <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-black/40 w-[18%] bg-[var(--color-bg-secondary)]" />
                 <th className="py-4 px-6 text-[12px] font-semibold font-mono uppercase tracking-widest text-white w-[24%] bg-[var(--color-text-primary)] border-x border-white/10">
                   Reframe Visuals
                 </th>
@@ -156,7 +156,7 @@ const CompetitorComparison: React.FC = () => {
                   <div key={label} className="flex gap-2.5 items-start">
                     <StatusIcon status={data.status} />
                     <div>
-                      <span className="text-[11px] font-bold font-mono uppercase tracking-widest text-black/45 block mb-0.5">{label}</span>
+                      <span className="text-[12px] font-bold font-mono uppercase tracking-widest text-black/45 block mb-0.5">{label}</span>
                       <p className="text-[14px] text-black/70 leading-relaxed">{data.text}</p>
                     </div>
                   </div>

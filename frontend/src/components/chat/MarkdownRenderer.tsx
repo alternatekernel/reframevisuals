@@ -39,7 +39,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onNavigate
           <tr className="border-b border-black/[0.12] last:border-0">{children}</tr>
         ),
         th: ({ children }) => (
-          <th className="px-3 py-2 text-left text-[#171717] font-semibold uppercase tracking-wider text-[10px]">
+          <th className="px-3 py-2 text-left text-[#171717] font-semibold uppercase tracking-wider text-[12px]">
             {children}
           </th>
         ),
@@ -82,7 +82,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content, onNavigate
         h2: ({ children }) => <h2 className="text-xs font-bold mt-2 mb-1 uppercase tracking-tight">{children}</h2>,
         
         // Code
-        code: ({ children }) => <code className="bg-black/5 px-1 rounded text-[11px] font-mono">{children}</code>,
+        code: ({ children }) => <code className="bg-black/5 px-1 rounded text-[12px] font-mono">{children}</code>,
       }}
     >
       {content}

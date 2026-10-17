@@ -132,7 +132,7 @@ const AIProductVisualsPage = () => {
                       <div className="h-2 w-2 rounded-full bg-[#16A34A]"></div>
                       <span className="text-[12px] font-bold uppercase tracking-widest text-black/80">Campaign output</span>
                     </div>
-                    <span className="text-[11px] font-heading font-black uppercase tracking-[0.16em] text-[#7C3AED]">Reframe AI</span>
+                    <span className="text-[12px] font-heading font-black uppercase tracking-[0.16em] text-[#7C3AED]">Reframe AI</span>
                  </div>
                </div>
             </motion.div>
@@ -149,14 +149,14 @@ const AIProductVisualsPage = () => {
                 <Upload size={20} className="text-black/60 group-hover:text-[#7C3AED]" />
               </div>
               <p className="mt-4 font-heading text-[16px] font-bold text-black/80">Upload or drop your assets</p>
-              <p className="mt-1 text-[13px] text-black/45">Supports JPG, PNG, WEBP, or an ecommerce store link.</p>
+              <p className="mt-1 text-[14px] text-black/45">Supports JPG, PNG, WEBP, or an ecommerce store link.</p>
             </div>
           </motion.div>
         </div>
       </section>
 
       <section className={cx('border-y border-black/[0.14] bg-white py-8', layout.sectionGutter)}>
-        <div className={cx(layout.compactShell, 'flex flex-wrap items-center justify-center gap-3 text-[11px] font-heading font-black uppercase tracking-[0.16em]')}>
+        <div className={cx(layout.compactShell, 'flex flex-wrap items-center justify-center gap-3 text-[12px] font-heading font-black uppercase tracking-[0.16em]')}>
           {['PDP images', 'Fashion shots', 'Lifestyle scenes', 'UGC visuals', 'Product videos', 'Ads', 'Stories', 'Marketplace assets'].map((item, i) => {
             return <span key={item} className={cx("px-3 py-1.5 rounded-full border border-black/[0.18] bg-white text-black/70 shadow-sm")}>{item}</span>;
           })}
@@ -295,12 +295,12 @@ const AIProductVisualsPage = () => {
 const VisualCard = ({ label, img }: { label: string; img: string }) => (
   <div className={cx(tokens.surfaceCard, 'overflow-hidden p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)]')}>
     <img src={asset(img)} alt={label} className="aspect-square w-full bg-[#F3F4F6] object-cover" />
-    <div className="flex items-center justify-between px-2 py-3 text-[11px] font-heading font-black uppercase tracking-[0.16em] text-black/45"><span>{label}</span><span>Reframe</span></div>
+    <div className="flex items-center justify-between px-2 py-3 text-[12px] font-heading font-black uppercase tracking-[0.16em] text-black/45"><span>{label}</span><span>Reframe</span></div>
   </div>
 );
 
 const MiniProof = ({ label }: { label: string }) => (
-  <div className="border border-black/[0.18] bg-white px-5 py-4 text-center text-[11px] font-heading font-black uppercase tracking-[0.16em] text-black/45 shadow-sm">{label}</div>
+  <div className="border border-black/[0.18] bg-white px-5 py-4 text-center text-[12px] font-heading font-black uppercase tracking-[0.16em] text-black/45 shadow-sm">{label}</div>
 );
 
 const ShowcaseCard = ({ title, img, copy }: { title: string; img: string; copy: string }) => (

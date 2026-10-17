@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { ButtonWithIcon } from '../../components/ui/button-with-icon';
@@ -93,7 +93,7 @@ const BookMeetingForm: React.FC<BookMeetingFormProps> = ({
       {submitError && (
         <div className="flex items-center gap-3 p-4 rounded-lg bg-red-50 text-red-600 border border-red-100">
           <X size={16} />
-          <p className="text-[13px] font-medium">{submitError}</p>
+          <p className="text-[14px] font-medium">{submitError}</p>
         </div>
       )}
 
@@ -106,7 +106,7 @@ const BookMeetingForm: React.FC<BookMeetingFormProps> = ({
           type="submit"
           disabled={!isValid || isSubmitting}
         />
-        <p className="mt-2 text-center text-[11px] text-[var(--color-text-muted)]">
+        <p className="mt-2 text-center text-[12px] text-[var(--color-text-muted)]">
            Calendar invite sent after confirmation. No spam.
         </p>
       </div>

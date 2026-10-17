@@ -200,7 +200,7 @@ const StartPage: React.FC = () => {
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-8">
         <div className="w-full max-w-3xl text-center space-y-3 mb-6 sm:mb-8">
-          <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Instant Free Trial</h3>
+          <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Instant Free Trial</h3>
           <h1 className="text-[32px] sm:text-[44px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.08]">
             Drop your product photos.<br className="hidden sm:block" /> Get 3 edited free.
           </h1>
@@ -239,7 +239,7 @@ const StartPage: React.FC = () => {
                   <p className="text-[17px] sm:text-[19px] font-bold text-[var(--color-text-primary)]">
                     {isDragging ? 'Release to add your images' : 'Drag up to 3 images here'}
                   </p>
-                  <p className="mt-1 text-[13px] text-black/50">
+                  <p className="mt-1 text-[14px] text-black/50">
                     or <span className="text-black font-semibold underline underline-offset-4">browse your files</span> · JPG, PNG, WEBP · up to 15MB each
                   </p>
                 </div>
@@ -259,7 +259,7 @@ const StartPage: React.FC = () => {
                         <X size={12} />
                       </button>
                       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-2.5 pb-2 pt-6">
-                        <p className="text-[10px] font-medium text-white truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</p>
+                        <p className="text-[12px] font-medium text-white truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</p>
                       </div>
                     </div>
                   ))}
@@ -271,7 +271,7 @@ const StartPage: React.FC = () => {
                     >
                       <Plus size={20} />
                       <span className="text-[12px] font-semibold">Add more</span>
-                      <span className="text-[10px] text-black/40">{MAX_FILES - projectAssets.length} slot{MAX_FILES - projectAssets.length === 1 ? '' : 's'} left</span>
+                      <span className="text-[12px] text-black/40">{MAX_FILES - projectAssets.length} slot{MAX_FILES - projectAssets.length === 1 ? '' : 's'} left</span>
                     </button>
                   )}
                 </div>
@@ -283,13 +283,13 @@ const StartPage: React.FC = () => {
           {uploadNotice && (
             <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-[12px] text-amber-800">
               <div className="flex items-start gap-2 font-semibold"><AlertTriangle size={14} className="mt-0.5 shrink-0" />{uploadNotice}</div>
-              {rejectedFileNames.length > 0 && <p className="mt-1 text-[11px]">Not added: {rejectedFileNames.join(', ')}</p>}
+              {rejectedFileNames.length > 0 && <p className="mt-1 text-[12px]">Not added: {rejectedFileNames.join(', ')}</p>}
             </div>
           )}
 
           {hasFiles && (
             <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-[20px] border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 shadow-[0_8px_28px_rgba(0,0,0,0.10)]">
-              <p className="text-[13px] font-bold text-[var(--color-text-primary)] mb-3">
+              <p className="text-[14px] font-bold text-[var(--color-text-primary)] mb-3">
                 Last step — where do we send your edited images?
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
@@ -343,7 +343,7 @@ const StartPage: React.FC = () => {
               </div>
 
               {uploadStage !== 'idle' && (
-                <div className={cx('mt-3 p-3.5 rounded-xl border text-[13px] font-semibold',
+                <div className={cx('mt-3 p-3.5 rounded-xl border text-[14px] font-semibold',
                   uploadStage === 'uploading' && 'bg-blue-50 text-blue-700 border-blue-100',
                   uploadStage === 'done' && 'bg-green-50 text-green-700 border-green-100',
                   uploadStage === 'error' && 'bg-red-50 text-red-600 border-red-100'
@@ -355,7 +355,7 @@ const StartPage: React.FC = () => {
               )}
 
               {submitError && (
-                <div className="mt-3 p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                <div className="mt-3 p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                   {submitError}
                 </div>
               )}

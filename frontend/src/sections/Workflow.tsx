@@ -33,7 +33,7 @@ const Actor = ({ label, delay, color = '#C2410C', isMobile = false }: ActorProps
       <User size={isMobile ? 22 : 28} style={{ color }} strokeWidth={1.4} />
     </div>
     <span
-      className={cx("font-mono font-bold text-center leading-tight mt-1", isMobile ? "text-[10px] max-w-[76px]" : "text-[12px] whitespace-nowrap")}
+      className={cx("font-mono font-bold text-center leading-tight mt-1", isMobile ? "text-[12px] max-w-[76px]" : "text-[12px] whitespace-nowrap")}
       style={{ color }}
     >
       {label}
@@ -75,13 +75,13 @@ const NodeCard = ({ node, delay, isMobile = false }: NodeCardProps) => {
         {/* Labels on the right */}
         <div className="absolute left-[calc(100%+12px)] top-1/2 -translate-y-1/2 flex flex-col items-start gap-0.5 text-left max-w-[110px] sm:max-w-none">
           <span
-            className="text-[13px] font-bold tracking-tight leading-tight"
+            className="text-[14px] font-bold tracking-tight leading-tight"
             style={{ color: node.color }}
           >
             {node.label}
           </span>
           <span
-            className="text-[11px] font-semibold text-black/60 tracking-wide leading-tight max-w-[110px] sm:max-w-none"
+            className="text-[12px] font-semibold text-black/60 tracking-wide leading-tight max-w-[110px] sm:max-w-none"
           >
             {node.sublabel}
           </span>
@@ -125,7 +125,7 @@ const NodeCard = ({ node, delay, isMobile = false }: NodeCardProps) => {
 
       {/* sublabel below */}
       <span
-        className="text-[13px] font-semibold text-black/60 tracking-wide"
+        className="text-[14px] font-semibold text-black/60 tracking-wide"
       >
         {node.sublabel}
       </span>
@@ -556,7 +556,7 @@ const Workflow = ({
 
             {/* Top Label */}
             <motion.div initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 0.1 }} className="absolute inset-x-0 -top-6 flex justify-center z-20">
-              <span className="inline-flex items-center text-[11px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 relative z-20">
+              <span className="inline-flex items-center text-[12px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 relative z-20">
                 Your Inputs
               </span>
             </motion.div>
@@ -578,7 +578,7 @@ const Workflow = ({
             {/* Middle Label */}
             <div className="absolute z-20" style={{ top: '132px', left: '50%', transform: 'translateX(-50%)' }}>
               <motion.div initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 0.4 }} className="flex justify-center z-20">
-                <span className="inline-flex items-center text-[11px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 py-1 relative z-20">
+                <span className="inline-flex items-center text-[12px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 py-1 relative z-20">
                   Reframe production pipeline
                 </span>
               </motion.div>
@@ -606,7 +606,7 @@ const Workflow = ({
             {/* Outputs row */}
             {/* Bottom Label */}
             <motion.div initial={{ opacity: 0 }} animate={isInView ? { opacity: 1 } : {}} transition={{ delay: 1.0 }} className="absolute inset-x-0 z-20 flex justify-center" style={{ top: '686px' }}>
-              <span className="inline-flex items-center text-[11px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 py-1 relative z-20">
+              <span className="inline-flex items-center text-[12px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 py-1 relative z-20">
                 Your Outputs
               </span>
             </motion.div>
@@ -634,7 +634,7 @@ const Workflow = ({
           className="flex items-center justify-center gap-2 mt-10 lg:mt-16"
         >
           <Download size={15} className="text-[#047857]" strokeWidth={1.8} />
-          <span className="text-[12px] lg:text-[13px] font-mono font-bold text-[#047857] tracking-wider uppercase text-center">
+          <span className="text-[12px] lg:text-[14px] font-mono font-bold text-[#047857] tracking-wider uppercase text-center">
             {deliveryLabel}
           </span>
         </motion.div>
@@ -657,7 +657,7 @@ const Workflow = ({
               >
                 <Icon size={20} className="shrink-0 mt-0.5 sm:size-6" style={{ color: node.iconColor }} strokeWidth={1.5} />
                 <div className="flex flex-col min-w-0">
-                  <span className="text-[11px] sm:text-[11px] font-mono font-bold tracking-widest text-black/45 uppercase mb-1">
+                  <span className="text-[12px] sm:text-[12px] font-mono font-bold tracking-widest text-black/45 uppercase mb-1">
                     {`0${i + 1}`} · {node.label}
                   </span>
                   <p className="text-[14px] sm:text-[14px] text-black/70 leading-relaxed font-medium">
@@ -684,7 +684,7 @@ const Workflow = ({
                 key={label}
                 onMouseEnter={() => setHoveredBadge(label)}
                 onMouseLeave={() => setHoveredBadge(null)}
-                className="inline-flex items-center gap-2 sm:gap-2.5 text-[10px] sm:text-[11px] font-bold font-mono uppercase tracking-widest transition-all duration-300 cursor-default"
+                className="inline-flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[12px] font-bold font-mono uppercase tracking-widest transition-all duration-300 cursor-default"
                 style={{
                   color: isHovered ? brandColor : 'rgba(0, 0, 0, 0.55)',
                   transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',

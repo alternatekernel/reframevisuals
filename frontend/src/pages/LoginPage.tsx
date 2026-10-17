@@ -62,7 +62,7 @@ const LoginPage = () => {
           {/* LEFT PANEL: Sign In Form */}
           <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Identity Verification</h3>
+              <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Identity Verification</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Welcome back</h1>
               <p className="text-[16px] text-black/60 leading-relaxed">
                 Sign in to manage your editing orders, deliveries, and revision requests.
@@ -86,7 +86,7 @@ const LoginPage = () => {
               <div>
                 <div className="flex items-center justify-between mb-1.5">
                   <label htmlFor="login-password" className="text-[14px] font-semibold text-black/70">Password <span className="text-red-600">*</span></label>
-                  <Link to="/forgot-password" className="text-[11px] font-bold text-black/40 hover:text-black transition-colors">Forgot Password?</Link>
+                  <Link to="/forgot-password" className="text-[12px] font-bold text-black/40 hover:text-black transition-colors">Forgot Password?</Link>
                 </div>
                 <div className="relative">
                   <input
@@ -117,13 +117,13 @@ const LoginPage = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="w-4 h-4 rounded border-black/[0.18] text-black focus:ring-black accent-black cursor-pointer"
                 />
-                <label htmlFor="rememberMe" className="text-[13px] text-black/60 cursor-pointer select-none">
+                <label htmlFor="rememberMe" className="text-[14px] text-black/60 cursor-pointer select-none">
                   Keep me signed in for 30 days
                 </label>
               </div>
 
               {error && (
-                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                   {error}
                 </div>
               )}
@@ -141,7 +141,7 @@ const LoginPage = () => {
               {/* Divider */}
               <div className="flex items-center gap-3 pt-2">
                 <div className="h-px flex-1 bg-black/10" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-black/30">or</span>
+                <span className="text-[12px] font-semibold uppercase tracking-wider text-black/30">or</span>
                 <div className="h-px flex-1 bg-black/10" />
               </div>
 
@@ -167,7 +167,7 @@ const LoginPage = () => {
 
           {/* RIGHT PANEL: Stats / Info */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Reframe Platform</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Reframe Platform</h3>
             <div className="space-y-8">
               <div>
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Response Guarantee</p>

@@ -49,7 +49,7 @@ export const StatWidget: React.FC<StatWidgetProps> = ({
         {change && (
           <span
             className={cx(
-              "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[11px] font-semibold",
+              "inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[12px] font-semibold",
               trend === "up"
                 ? "bg-emerald-50 text-emerald-700"
                 : trend === "down"

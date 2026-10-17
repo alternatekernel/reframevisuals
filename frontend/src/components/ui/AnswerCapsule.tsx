@@ -51,8 +51,8 @@ export function TrustBadge({ value, label, source, className = '' }: TrustBadgeP
   return (
     <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/5 border border-black/[0.18] ${className}`}>
       <span className="text-[18px] font-heading font-black text-black/80">{value}</span>
-      <span className="text-[13px] text-black/60">{label}</span>
-      <span className="text-[10px] text-black/30">via {source}</span>
+      <span className="text-[14px] text-black/60">{label}</span>
+      <span className="text-[12px] text-black/30">via {source}</span>
     </div>
   );
 }

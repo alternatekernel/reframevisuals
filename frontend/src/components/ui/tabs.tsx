@@ -99,7 +99,7 @@ export const Tabs: React.FC<TabsProps> = ({
               onClick={() => !tab.disabled && onChange(tab.id)}
               className={cx(
                 "relative flex items-center font-medium transition-colors pb-3 pt-2 px-3 focus-visible:outline-none",
-                size === "sm" ? "text-[13px]" : "text-[14px] sm:text-[15px]",
+                size === "sm" ? "text-[14px]" : "text-[14px] sm:text-[15px]",
                 isActive
                   ? "text-[var(--color-text-primary,#0A0A0B)] font-semibold"
                   : "text-black/50 hover:text-black/80",

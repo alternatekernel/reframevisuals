@@ -180,7 +180,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
           duration: 1.0, 
           ease: [0.22, 1, 0.36, 1] // Slightly more "weighted" easing
         }}
-        className="fixed top-0 left-0 right-0 z-[200] bg-white/[0.92] backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.09] py-1 lg:py-2"
+        className="fixed top-0 left-0 right-0 z-[200] bg-white/[0.92] backdrop-blur-xl backdrop-saturate-150 py-1 lg:py-2"
         role="navigation" 
         aria-label="Main navigation"
       >
@@ -386,7 +386,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                             <div className="absolute inset-0 flex items-center">
                               <div className="w-full border-t border-black/[0.12]"></div>
                             </div>
-                            <div className="relative flex justify-center text-[10px] uppercase tracking-wider font-bold text-[#999]">
+                            <div className="relative flex justify-center text-[12px] uppercase tracking-wider font-bold text-[#999]">
                               <span className="bg-white/0 px-2 backdrop-blur-xl">or</span>
                             </div>
                           </div>
@@ -411,7 +411,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         </div>
                         <div className="space-y-1">
                           <h3 className="text-[14px] font-bold text-[#171717]">Message Received</h3>
-                          <p className="text-[11px] text-[#666] font-medium">We'll reach out within 5 minutes.</p>
+                          <p className="text-[12px] text-[#666] font-medium">We'll reach out within 5 minutes.</p>
                         </div>
                       </motion.div>
                     )}
@@ -461,13 +461,13 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           </div>
                         )}
                         <div className="min-w-0 flex-grow">
-                          <div className="text-[13px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
+                          <div className="text-[14px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
                           <div className="mt-0.5 truncate text-[12px] text-[#666]">{currentUser?.email}</div>
-                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.05] px-2 py-0.5 text-[10px] font-bold text-[#555]">{currentUser.customerCode}</div>}
+                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.05] px-2 py-0.5 text-[12px] font-bold text-[#555]">{currentUser.customerCode}</div>}
                         </div>
                       </div>
-                      <button onClick={() => { setProfileOpen(false); navigate('/dashboard'); }} className="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-semibold text-[#333] hover:bg-black/[0.04] touch-manipulation"><Settings size={14} /> Profile / dashboard</button>
-                      <button onClick={() => { setProfileOpen(false); userLogout(); }} className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[13px] font-semibold text-red-600 hover:bg-red-50 touch-manipulation"><LogOut size={14} /> Sign out</button>
+                      <button onClick={() => { setProfileOpen(false); navigate('/dashboard'); }} className="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[14px] font-semibold text-[#333] hover:bg-black/[0.04] touch-manipulation"><Settings size={14} /> Profile / dashboard</button>
+                      <button onClick={() => { setProfileOpen(false); userLogout(); }} className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[14px] font-semibold text-red-600 hover:bg-red-50 touch-manipulation"><LogOut size={14} /> Sign out</button>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -607,9 +607,9 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           </div>
                         )}
                         <div className="min-w-0 flex-grow">
-                          <div className="text-[13px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
+                          <div className="text-[14px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
                           <div className="mt-0.5 truncate text-[12px] text-[#666]">{currentUser?.email}</div>
-                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.06] px-2 py-0.5 text-[10px] font-bold text-[#555]">{currentUser.customerCode}</div>}
+                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.06] px-2 py-0.5 text-[12px] font-bold text-[#555]">{currentUser.customerCode}</div>}
                         </div>
                       </div>
                       <button

@@ -73,7 +73,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
                   className={cx(
-                    'whitespace-nowrap text-[10px] sm:text-[11px] font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-all pb-1 border-b-2',
+                    'whitespace-nowrap text-[12px] sm:text-[12px] font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-all pb-1 border-b-2',
                     isActive ? 'text-black border-black' : 'text-black/25 border-transparent hover:text-black/50'
                   )}
                 >
@@ -111,7 +111,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                   </div>
                 </div>
                 <div className="flex-1 p-6 md:py-10 md:pr-10 md:pl-0 flex flex-col justify-center gap-4">
-                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest flex-wrap">
+                  <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest flex-wrap">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-black text-white">Featured</span>
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full border ${getTopicPastel(featuredPost.topic)}`}>
                       {topicLabel(featuredPost.topic)}
@@ -127,7 +127,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
               {canEditBlogs && (
                 <Link
                   to="/admin/blog"
-                  className="absolute top-3 right-3 z-10 rounded-md border border-black/15 bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-black/70 hover:border-black/40 hover:text-black"
+                  className="absolute top-3 right-3 z-10 rounded-md border border-black/15 bg-white/90 px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.08em] text-black/70 hover:border-black/40 hover:text-black"
                 >
                   Edit
                 </Link>
@@ -159,14 +159,14 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                 {canEditBlogs && (
                   <Link
                     to="/admin/blog"
-                    className="absolute top-0 right-0 z-10 rounded-md border border-black/15 bg-white/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-black/60 hover:border-black/40 hover:text-black"
+                    className="absolute top-0 right-0 z-10 rounded-md border border-black/15 bg-white/90 px-2 py-0.5 text-[12px] font-bold uppercase tracking-[0.08em] text-black/60 hover:border-black/40 hover:text-black"
                   >
                     Edit
                   </Link>
                 )}
                 <Link to={`/blog/${post.slug}`} className="flex flex-col sm:flex-row gap-3 sm:gap-6 items-start">
                   <div className="flex-1 space-y-2.5 sm:space-y-3">
-                    <div className="flex items-center gap-2 text-[10px] font-bold text-black/30 uppercase tracking-[0.08em] sm:tracking-widest flex-wrap">
+                    <div className="flex items-center gap-2 text-[12px] font-bold text-black/30 uppercase tracking-[0.08em] sm:tracking-widest flex-wrap">
                       {post.category && categoryLabelMap[post.category] && (
                         <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-black/5 border border-black/[0.18] text-black/50">
                           {categoryLabelMap[post.category]}
@@ -211,7 +211,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({
                       onClick={() => handleLoadMore(viewKey)}
                       className="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-black/[0.18] hover:border-black/30 hover:bg-black/5 transition-all"
                     >
-                      <span className="text-[11px] sm:text-[12px] font-black uppercase tracking-[0.08em] sm:tracking-widest">Load More Articles</span>
+                      <span className="text-[12px] sm:text-[12px] font-black uppercase tracking-[0.08em] sm:tracking-widest">Load More Articles</span>
                       <div className="w-5 h-5 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all">
                         <TrendingUp size={12} className="rotate-90" />
                       </div>

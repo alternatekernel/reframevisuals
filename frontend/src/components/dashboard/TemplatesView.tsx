@@ -70,12 +70,12 @@ const TemplatesView = () => {
             </div>
 
             <h3 className="mb-1 text-[16px] font-semibold text-text-primary">{t.name}</h3>
-            <p className="text-[11px] text-gray-400 mb-4 uppercase tracking-widest font-bold">Created {t.createdAt}</p>
+            <p className="text-[12px] text-gray-400 mb-4 uppercase tracking-widest font-bold">Created {t.createdAt}</p>
 
             <div className="space-y-3 mb-6">
               <div className="flex flex-wrap gap-1.5">
                 {t.services.map(s => (
-                  <span key={s} className="px-2 py-0.5 rounded-md bg-gray-50 text-gray-500 text-[10px] font-semibold border border-gray-100">{serviceLabel(s)}</span>
+                  <span key={s} className="px-2 py-0.5 rounded-md bg-gray-50 text-gray-500 text-[12px] font-semibold border border-gray-100">{serviceLabel(s)}</span>
                 ))}
               </div>
               <div className="flex items-center gap-4 text-[12px] text-gray-500">
@@ -92,7 +92,7 @@ const TemplatesView = () => {
 
             <button 
               onClick={() => useTemplate(t)}
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-ink py-3 text-[13px] font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-ink py-3 text-[14px] font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
             >
               <Zap size={14} fill="currentColor" />
               Place One-Click Order
@@ -108,7 +108,7 @@ const TemplatesView = () => {
           <div className="w-12 h-12 rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center group-hover:scale-110 transition-transform">
             <Plus size={24} />
           </div>
-          <span className="text-[13px] font-medium">Create New Template</span>
+          <span className="text-[14px] font-medium">Create New Template</span>
         </button>
       </div>
     </div>

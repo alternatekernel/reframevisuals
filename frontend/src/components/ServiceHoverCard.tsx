@@ -68,7 +68,7 @@ const ServiceHoverCard: React.FC<ServiceHoverCardProps> = ({
                 ) : (
                   <div className="flex flex-col items-center gap-4 text-brand/20 select-none">
                     {Icon && <Icon size={48} strokeWidth={1} />}
-                    <p className="font-heading text-[10px] uppercase tracking-widest font-black opacity-40">Blueprint Mode</p>
+                    <p className="font-heading text-[12px] uppercase tracking-widest font-black opacity-40">Blueprint Mode</p>
                   </div>
                 )}
               </div>
@@ -80,7 +80,7 @@ const ServiceHoverCard: React.FC<ServiceHoverCardProps> = ({
                 </h3>
 
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-[11px] font-medium text-black/40 tracking-wide">
+                  <span className="text-[12px] font-medium text-black/40 tracking-wide">
                     Starting at ${startingPrice.toFixed(2)}
                   </span>
                 </div>

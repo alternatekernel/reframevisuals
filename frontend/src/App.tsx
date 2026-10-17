@@ -401,24 +401,24 @@ const PublicSite: React.FC = () => {
           setMobileMenuOpen={setMobileMenuOpen}
         />
         <main className={`${isPlatformPage ? '' : 'pt-16'} flex-grow flex flex-col min-w-0`}>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={transitionKey}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.22, ease: 'easeOut' }}
-              className="flex-grow flex flex-col min-w-0"
-              style={{ willChange: 'opacity' }}
-            >
-              <ScrollToTop />
-              <Suspense fallback={<RouteLoader />}>
+          <Suspense fallback={<RouteLoader />}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={transitionKey}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.22, ease: 'easeOut' }}
+                className="flex-grow flex flex-col min-w-0"
+                style={{ willChange: 'opacity' }}
+              >
+                <ScrollToTop />
                 <Outlet />
                 {showContinueBrowsing && <ContinueBrowsing />}
                 {!hideFooter && <Footer />}
-              </Suspense>
-            </motion.div>
-          </AnimatePresence>
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
         </main>
         <AnimatePresence>
           {!isPlatformPage && !shouldHideAssistant && <AssistantWrapper key="leica-assistant" />}
@@ -604,9 +604,11 @@ export const routes: RouteObject[] = [
 // ─── App ───
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const App: React.FC = () => {
+// Router must be created outside the component — recreating it on every render
+// tears down the entire route tree and causes a full content remount.
+const router = createBrowserRouter(routes);
 
-  const router = createBrowserRouter(routes);
+const App: React.FC = () => {
   return <RouterProvider router={router} />;
 };
 

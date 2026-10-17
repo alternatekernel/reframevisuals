@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle, FileImage, Zap } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
@@ -101,7 +101,7 @@ const OnboardingOverlay = ({ onDismiss }: Props) => {
           <button
             type="button"
             onClick={finish}
-            className="text-[13px] text-text-secondary hover:text-text-primary transition-colors"
+            className="text-[14px] text-text-secondary hover:text-text-primary transition-colors"
           >
             Skip
           </button>
@@ -110,7 +110,7 @@ const OnboardingOverlay = ({ onDismiss }: Props) => {
               <button
                 type="button"
                 onClick={() => setStep(s => s - 1)}
-                className={`${dashboardSecondaryButtonClass} px-4 py-2 text-[13px]`}
+                className={`${dashboardSecondaryButtonClass} px-4 py-2 text-[14px]`}
               >
                 Back
               </button>
@@ -118,7 +118,7 @@ const OnboardingOverlay = ({ onDismiss }: Props) => {
             <button
               type="button"
               onClick={handleCta}
-              className={`${dashboardPrimaryButtonClass} flex items-center gap-2 px-5 py-2 text-[13px]`}
+              className={`${dashboardPrimaryButtonClass} flex items-center gap-2 px-5 py-2 text-[14px]`}
             >
               {current.cta}
               <ArrowRight size={14} />

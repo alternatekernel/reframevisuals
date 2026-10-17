@@ -136,7 +136,7 @@ const PilotBatchPage: React.FC = () => {
             </p>
           </div>
           <div className="rounded-2xl border border-black/[0.18] bg-neutral-50 px-6 py-4 inline-block">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-black/40">Order Reference</p>
+            <p className="text-[12px] font-bold uppercase tracking-widest text-black/40">Order Reference</p>
             <p className="mt-1 text-[22px] font-bold text-black tracking-wider">{submittedOrderCode}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
@@ -168,7 +168,7 @@ const PilotBatchPage: React.FC = () => {
 
       <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.35fr_0.9fr]">
         <section className="rounded-[28px] border border-black/[0.18] bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.11)] sm:p-10">
-          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Paid Test Batch</p>
+          <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Paid Test Batch</p>
           <h1 className="mt-3 text-[34px] font-bold leading-tight tracking-tight text-black sm:text-[44px]">Test Batch Review</h1>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-black/60">
             Submit a small paid batch for review. Final price depends on service type and image complexity. We will send details within 30 minutes.
@@ -180,7 +180,7 @@ const PilotBatchPage: React.FC = () => {
                 <Lock size={18} className="mt-0.5 shrink-0" />
                 <div>
                   <p className="text-[14px] font-bold">Track your order in your dashboard</p>
-                  <p className="mt-1 text-[13px] leading-relaxed">Log in or create an account to track this batch and manage revisions. You can also continue as a guest — we'll email your quote within 30 minutes.</p>
+                  <p className="mt-1 text-[14px] leading-relaxed">Log in or create an account to track this batch and manage revisions. You can also continue as a guest — we'll email your quote within 30 minutes.</p>
                   <div className="mt-3 flex flex-wrap gap-2">
                     <button type="button" onClick={() => navigate('/login')} className="rounded-full bg-black px-4 py-2 text-[12px] font-bold text-white">Login</button>
                     <button type="button" onClick={() => navigate('/signup')} className="rounded-full border border-black/[0.18] bg-white px-4 py-2 text-[12px] font-bold text-black">Create account</button>
@@ -192,13 +192,13 @@ const PilotBatchPage: React.FC = () => {
 
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="mb-1 block text-[13px] font-bold text-black/70">Service</label>
+              <label className="mb-1 block text-[14px] font-bold text-black/70">Service</label>
               <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)} className="h-11 w-full rounded-xl border border-black/[0.18] bg-neutral-50 px-3 text-[14px] font-semibold outline-none focus:border-black/30">
                 {SERVICE_OPTIONS.map(service => <option key={service.id} value={service.id}>{service.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="mb-1 block text-[13px] font-bold text-black/70">Output format</label>
+              <label className="mb-1 block text-[14px] font-bold text-black/70">Output format</label>
               <select value={outputFormat} onChange={(e) => setOutputFormat(e.target.value)} className="h-11 w-full rounded-xl border border-black/[0.18] bg-neutral-50 px-3 text-[14px] font-semibold outline-none focus:border-black/30">
                 {FORMAT_OPTIONS.map(format => <option key={format} value={format}>{format}</option>)}
               </select>
@@ -209,19 +209,19 @@ const PilotBatchPage: React.FC = () => {
           </div>
 
           <div className="mt-5">
-            <label className="mb-1 block text-[13px] font-bold text-black/70">Project notes</label>
+            <label className="mb-1 block text-[14px] font-bold text-black/70">Project notes</label>
             <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} rows={5} placeholder="Describe the batch, references, background, color, and delivery needs..." className="min-h-[140px] max-h-[420px] w-full resize-y rounded-xl border border-black/[0.18] bg-neutral-50 px-3 py-3 text-[14px] outline-none focus:border-black/30" />
           </div>
 
           <div className="mt-5 rounded-2xl border border-black/[0.18] p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[13px] font-bold text-black">Main batch files</p>
+                <p className="text-[14px] font-bold text-black">Main batch files</p>
                 <p className="text-[12px] text-black/50">Up to 15 images. These count toward pilot quantity.</p>
               </div>
-              <span className="rounded-full bg-black px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-white">Counted</span>
+              <span className="rounded-full bg-black px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-white">Counted</span>
             </div>
-            <button type="button" onClick={() => mainInputRef.current?.click()} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-black/20 bg-neutral-50 p-4 text-[13px] font-bold text-black hover:border-black">
+            <button type="button" onClick={() => mainInputRef.current?.click()} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-black/20 bg-neutral-50 p-4 text-[14px] font-bold text-black hover:border-black">
               <Upload size={16} /> Upload main images
             </button>
             <input ref={mainInputRef} type="file" multiple accept="image/*,.psd,.psb,.tif,.tiff,.raw,.cr2,.nef,.arw,.dng" onChange={(e) => { addMainFiles(Array.from(e.target.files || [])); e.target.value = ''; }} className="hidden" />
@@ -231,12 +231,12 @@ const PilotBatchPage: React.FC = () => {
           <div className="mt-5 rounded-2xl border border-orange-200 bg-orange-50/60 p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <p className="text-[13px] font-bold text-black">Supporting images / references</p>
+                <p className="text-[14px] font-bold text-black">Supporting images / references</p>
                 <p className="text-[12px] text-black/55">References, briefs, examples, or PDFs. These stay separate from main files.</p>
               </div>
-              <span className="rounded-full bg-white px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-orange-600">Not counted</span>
+              <span className="rounded-full bg-white px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-orange-600">Not counted</span>
             </div>
-            <button type="button" onClick={() => supportInputRef.current?.click()} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-orange-300 bg-white/80 p-4 text-[13px] font-bold text-black hover:bg-white">
+            <button type="button" onClick={() => supportInputRef.current?.click()} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-orange-300 bg-white/80 p-4 text-[14px] font-bold text-black hover:bg-white">
               <Upload size={16} /> Upload supporting files
             </button>
             <input ref={supportInputRef} type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt" onChange={(e) => { addSupportFiles(Array.from(e.target.files || [])); e.target.value = ''; }} className="hidden" />
@@ -245,7 +245,7 @@ const PilotBatchPage: React.FC = () => {
 
           {!isAuthenticated && (
             <div className="mt-5">
-              <label className="mb-1 block text-[13px] font-bold text-black/70">
+              <label className="mb-1 block text-[14px] font-bold text-black/70">
                 Email for quote delivery <span className="text-red-500">*</span>
               </label>
               <input
@@ -258,12 +258,12 @@ const PilotBatchPage: React.FC = () => {
             </div>
           )}
 
-          <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-4 text-[13px] leading-relaxed text-blue-900">
+          <div className="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-4 text-[14px] leading-relaxed text-blue-900">
             Final price depends on service type and image complexity. {isAuthenticated ? 'After review, your estimate will appear in your dashboard.' : 'We will email your pricing breakdown within 30 minutes.'}
           </div>
 
           {submitError && (
-            <p className="mt-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-[13px] font-medium text-red-700">
+            <p className="mt-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-[14px] font-medium text-red-700">
               {submitError}
             </p>
           )}
@@ -284,18 +284,18 @@ const PilotBatchPage: React.FC = () => {
           <div className="mt-5 space-y-3">
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <p className="text-[14px] font-semibold text-black">Proof before scale</p>
-              <p className="mt-1 text-[13px] text-black/55 leading-relaxed">See actual Reframe quality on your own images before committing to a larger batch.</p>
+              <p className="mt-1 text-[14px] text-black/55 leading-relaxed">See actual Reframe quality on your own images before committing to a larger batch.</p>
             </div>
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <p className="text-[14px] font-semibold text-black">Workflow fit check</p>
-              <p className="mt-1 text-[13px] text-black/55 leading-relaxed">Confirm instructions, references, file handling, and turnaround expectations early.</p>
+              <p className="mt-1 text-[14px] text-black/55 leading-relaxed">Confirm instructions, references, file handling, and turnaround expectations early.</p>
             </div>
             <div className="rounded-2xl border border-black/[0.18] bg-white p-4">
               <p className="text-[14px] font-semibold text-black">Risk-free decision</p>
-              <p className="mt-1 text-[13px] text-black/55 leading-relaxed">Use the result to approve style direction, request adjustments, or brief the next batch with confidence.</p>
+              <p className="mt-1 text-[14px] text-black/55 leading-relaxed">Use the result to approve style direction, request adjustments, or brief the next batch with confidence.</p>
             </div>
           </div>
-          <Link to="/free-trial" className="mt-6 inline-flex text-[13px] font-bold text-black underline underline-offset-4">Need only 3 free samples?</Link>
+          <Link to="/free-trial" className="mt-6 inline-flex text-[14px] font-bold text-black underline underline-offset-4">Need only 3 free samples?</Link>
         </aside>
       </div>
     </div>

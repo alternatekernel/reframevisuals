@@ -29,7 +29,7 @@ const ReframeVisualsServicesPage = () => {
           {SERVICES.map((service) => (
             <li key={service.id} className="rounded-2xl border border-black/[0.18] px-5 py-4 hover:border-black/20 hover:shadow-sm transition-all flex flex-col">
               <span className="font-bold text-[15px] mb-1">{service.name}</span>
-              <span className="text-[13px] text-black/60 line-clamp-2">{service.description || "Professional image editing and processing."}</span>
+              <span className="text-[14px] text-black/60 line-clamp-2">{service.description || "Professional image editing and processing."}</span>
             </li>
           ))}
         </ul>

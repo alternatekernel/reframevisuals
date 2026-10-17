@@ -142,7 +142,7 @@ const JobsListView = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`flex-1 md:flex-none px-4 py-2.5 min-h-[44px] rounded-lg text-[13px] font-medium transition-all ${activeTab === tab ? 'text-text-primary' : 'text-text-secondary'}`}
+                  className={`flex-1 md:flex-none px-4 py-2.5 min-h-[44px] rounded-lg text-[14px] font-medium transition-all ${activeTab === tab ? 'text-text-primary' : 'text-text-secondary'}`}
                   style={{
                     backgroundColor: activeTab === tab ? '#ffffff' : 'transparent',
                     boxShadow: activeTab === tab ? '0 1px 3px rgba(0,0,0,0.11)' : 'none'
@@ -168,7 +168,7 @@ const JobsListView = () => {
               <select 
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className={`${dashboardInputClass} cursor-pointer py-2 text-[13px] font-medium hover:bg-bg-secondary`}
+                className={`${dashboardInputClass} cursor-pointer py-2 text-[14px] font-medium hover:bg-bg-secondary`}
               >
                 <option value="date-desc">Newest first</option>
                 <option value="date-asc">Oldest first</option>
@@ -219,7 +219,7 @@ const JobsListView = () => {
                     </div>
 
                     <div className="flex items-center justify-between md:col-span-2 md:block">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-text-muted md:hidden">Status</span>
+                      <span className="text-[12px] font-bold uppercase tracking-widest text-text-muted md:hidden">Status</span>
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: statusConfig.color }} />
                         <span className="text-[12px] font-medium" style={{ color: statusConfig.color }}>{statusConfig.label}</span>
@@ -227,14 +227,14 @@ const JobsListView = () => {
                     </div>
 
                     <div className="flex items-center justify-between md:col-span-2 md:block">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-text-muted md:hidden">Images</span>
+                      <span className="text-[12px] font-bold uppercase tracking-widest text-text-muted md:hidden">Images</span>
                       <p className="text-[14px] font-medium text-text-primary">{job.imageCount}</p>
                     </div>
 
                     <div className="flex items-center justify-between md:col-span-3 md:block">
-                      <span className="text-[11px] font-bold uppercase tracking-widest text-text-muted md:hidden">Details</span>
+                      <span className="text-[12px] font-bold uppercase tracking-widest text-text-muted md:hidden">Details</span>
                       <div className="space-y-0.5">
-                        {job.code && <p className="text-[11px] font-bold text-text-muted uppercase tracking-widest">{job.code}</p>}
+                        {job.code && <p className="text-[12px] font-bold text-text-muted uppercase tracking-widest">{job.code}</p>}
                         <p className="text-[12px] text-text-muted">{job.date}</p>
                         {job.totalPrice
                           ? <p className="text-[12px] font-semibold text-text-primary">{job.totalPrice}</p>
@@ -275,7 +275,7 @@ const JobsListView = () => {
               </p>
               <button
                 onClick={() => setCurrentView('orderFlow')}
-                className="group relative overflow-hidden rounded-full px-6 py-2.5 text-[13px] font-medium transition-all bg-text-primary text-white flex items-center gap-2"
+                className="group relative overflow-hidden rounded-full px-6 py-2.5 text-[14px] font-medium transition-all bg-text-primary text-white flex items-center gap-2"
               >
                 <Plus size={16} />
                 {hasAnyJobs ? 'Create New Job' : 'Create First Job'}

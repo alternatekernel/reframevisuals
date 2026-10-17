@@ -76,8 +76,8 @@ const AboutScale = () => {
                   {item.unit}
                 </span>
               </div>
-              <p className={cx(typography.vercelMono, "mb-4 text-black/60 uppercase tracking-widest text-[11px]")}>{item.label}</p>
-              <p className="text-[13px] text-[#333] font-normal leading-relaxed">{item.desc}</p>
+              <p className={cx(typography.vercelMono, "mb-4 text-black/60 uppercase tracking-widest text-[12px]")}>{item.label}</p>
+              <p className="text-[14px] text-[#333] font-normal leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>

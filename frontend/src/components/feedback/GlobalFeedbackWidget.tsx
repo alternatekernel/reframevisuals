@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useHeroSectionVisibility } from '../../hooks/useHeroSectionVisibility';
@@ -66,7 +66,7 @@ export const GlobalFeedbackWidget: React.FC = () => {
         aria-label="Open Reframe CS for human support"
       >
         <MessageSquare size={18} />
-        <span className="text-[13px] font-bold">Feedback</span>
+        <span className="text-[14px] font-bold">Feedback</span>
       </button>
     </div>
   );

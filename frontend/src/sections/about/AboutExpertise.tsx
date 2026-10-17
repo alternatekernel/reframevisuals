@@ -40,15 +40,15 @@ const AboutExpertise = () => {
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-black/50">Response SLA</p>
+              <p className="mb-1 text-[12px] font-semibold uppercase tracking-widest text-black/50">Response SLA</p>
               <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Within 30 minutes</p>
             </div>
             <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-black/50">Workflow</p>
+              <p className="mb-1 text-[12px] font-semibold uppercase tracking-widest text-black/50">Workflow</p>
               <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Dedicated editor + QA reviewer</p>
             </div>
             <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
-              <p className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-black/50">Revision Process</p>
+              <p className="mb-1 text-[12px] font-semibold uppercase tracking-widest text-black/50">Revision Process</p>
               <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Direct reply, fast resolution</p>
             </div>
           </div>

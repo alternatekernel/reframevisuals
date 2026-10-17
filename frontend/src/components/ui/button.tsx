@@ -38,7 +38,7 @@ const buttonVariants = cva(
       },
       size: {
         xs:      "h-8 px-3 text-[12px] gap-1.5",
-        sm:      "h-9 px-4 text-[13px] gap-1.5",
+        sm:      "h-9 px-4 text-[14px] gap-1.5",
         default: "h-11 px-6 py-2 text-[14px] sm:text-[15px] gap-2",
         compact: "px-5 py-3 text-[14px] gap-2",
         lg:      "h-13 px-8 text-[16px] gap-2.5 font-semibold",
@@ -88,8 +88,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button"
     const isDisabled = disabled || loading
 
+    // When asChild, pass children directly to Slot so it can merge classes onto the child element.
+    if (asChild) {
+      return (
+        <Slot
+          className={cx(buttonVariants({ variant, size, shape, className }))}
+          ref={ref}
+          aria-busy={loading}
+          {...props}
+        >
+          {children}
+        </Slot>
+      )
+    }
+
     return (
-      <Comp
+      <button
         className={cx(buttonVariants({ variant, size, shape, className }))}
         ref={ref}
         disabled={isDisabled}
@@ -117,7 +131,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             {rightIcon && <span className="inline-flex shrink-0 items-center">{rightIcon}</span>}
           </>
         )}
-      </Comp>
+      </button>
     )
   },
 )

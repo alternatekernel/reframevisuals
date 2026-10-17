@@ -72,7 +72,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
           <div className="space-y-1">
             {b.price !== null && (
               <p className={cx(
-                "text-[11px] font-black uppercase tracking-[0.18em]",
+                "text-[12px] font-black uppercase tracking-[0.18em]",
                 isHighlighted ? "text-white/45" : standardTone.priceSub
               )}>
                 Starting from

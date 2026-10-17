@@ -42,12 +42,12 @@ const ShopifyCard: React.FC<ShopifyCardProps> = ({
         {isConnected ? (
           <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-green-50 text-green-600">
             <CheckCircle2 size={14} />
-            <span className="text-[11px] font-medium uppercase tracking-wider">Connected</span>
+            <span className="text-[12px] font-medium uppercase tracking-wider">Connected</span>
           </div>
         ) : (
           <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-gray-500">
             <AlertCircle size={14} />
-            <span className="text-[11px] font-medium uppercase tracking-wider">Not Connected</span>
+            <span className="text-[12px] font-medium uppercase tracking-wider">Not Connected</span>
           </div>
         )}
       </div>
@@ -55,7 +55,7 @@ const ShopifyCard: React.FC<ShopifyCardProps> = ({
       {!isConnected ? (
         <div className="space-y-4">
           <div>
-            <label className="text-[11px] font-medium uppercase tracking-widest block mb-2 text-text-muted">
+            <label className="text-[12px] font-medium uppercase tracking-widest block mb-2 text-text-muted">
               Store Domain
             </label>
             <div className="flex gap-2">
@@ -68,13 +68,13 @@ const ShopifyCard: React.FC<ShopifyCardProps> = ({
               />
               <button 
                 onClick={() => onConnect?.(shop)}
-                className="rounded-lg bg-brand-ink px-4 py-2 text-[13px] font-medium text-white transition-all"
+                className="rounded-lg bg-brand-ink px-4 py-2 text-[14px] font-medium text-white transition-all"
               >
                 Connect
               </button>
             </div>
           </div>
-          <p className="text-[11px] text-text-muted">
+          <p className="text-[12px] text-text-muted">
             Requires a Shopify Custom App or Partner credentials. 
             <a href="#" className="inline-flex items-center gap-0.5 ml-1 text-black font-medium">
               View Guide <ExternalLink size={10} />
@@ -86,16 +86,16 @@ const ShopifyCard: React.FC<ShopifyCardProps> = ({
           <div className="p-4 rounded-xl border border-dashed border-gray-200">
             <div className="flex items-center justify-between">
               <span className="text-[14px] font-medium text-text-primary">{shopDomain}</span>
-              <button className="text-[13px] text-text-secondary hover:underline">
+              <button className="text-[14px] text-text-secondary hover:underline">
                 Disconnect
               </button>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <button className="py-2.5 rounded-lg text-[13px] font-medium bg-black text-white">
+            <button className="py-2.5 rounded-lg text-[14px] font-medium bg-black text-white">
               Sync Catalog
             </button>
-            <button className="py-2.5 rounded-lg text-[13px] font-medium border border-gray-200">
+            <button className="py-2.5 rounded-lg text-[14px] font-medium border border-gray-200">
               Settings
             </button>
           </div>

@@ -59,7 +59,7 @@ const PricingPilot: React.FC = () => {
                     <Check size={13} className="text-green-600 font-bold" />
                   </div>
                   <div>
-                    <h4 className="text-[13px] font-bold text-[var(--color-text-primary)] leading-none mb-1">
+                    <h4 className="text-[14px] font-bold text-[var(--color-text-primary)] leading-none mb-1">
                       {item.title}
                     </h4>
                     <p className="text-[12px] text-black/55 leading-relaxed">

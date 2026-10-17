@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { cx } from "../../utils/theme"
 import { Check, Minus } from "lucide-react"
 
@@ -64,7 +64,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
                 htmlFor={inputId}
                 onClick={handleClick}
                 className={cx(
-                  "text-[13px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight",
+                  "text-[14px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight",
                   !disabled && "cursor-pointer",
                 )}
               >
@@ -146,7 +146,7 @@ export const Switch: React.FC<SwitchProps> = ({
             <span
               onClick={handleToggle}
               className={cx(
-                "text-[13px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight",
+                "text-[14px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight",
                 !disabled && "cursor-pointer",
               )}
             >
@@ -215,7 +215,7 @@ export const Radio: React.FC<RadioProps> = ({
       {(label || description) && (
         <div className="flex flex-col text-left select-none">
           {label && (
-            <span className="text-[13px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight">
+            <span className="text-[14px] font-medium text-[var(--color-text-primary,#0A0A0B)] leading-tight">
               {label}
             </span>
           )}

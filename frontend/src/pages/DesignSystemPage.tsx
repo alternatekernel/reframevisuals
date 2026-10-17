@@ -299,15 +299,15 @@ export default function DesignSystemPage() {
             {/* Quick stats badges */}
             <div className="flex flex-wrap items-center gap-3">
               <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Mother Components</div>
+                <div className="text-[12px] font-bold uppercase tracking-wider text-black/45">Mother Components</div>
                 <div className="font-heading text-[22px] font-bold text-[var(--color-text-primary,#0A0A0B)]">29+ Components</div>
               </div>
               <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Accessibility</div>
+                <div className="text-[12px] font-bold uppercase tracking-wider text-black/45">Accessibility</div>
                 <div className="font-heading text-[22px] font-bold text-emerald-600">WCAG 2.1 AA</div>
               </div>
               <div className="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm text-left">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-black/45">Framework</div>
+                <div className="text-[12px] font-bold uppercase tracking-wider text-black/45">Framework</div>
                 <div className="font-heading text-[22px] font-bold text-[var(--brand,#0A0A0B)]">Tailwind + Radix</div>
               </div>
             </div>
@@ -324,7 +324,7 @@ export default function DesignSystemPage() {
                   <h3 className="font-heading text-[16px] font-semibold text-[var(--color-text-primary,#0A0A0B)]">
                     Live Mother Token Controller
                   </h3>
-                  <p className="text-[13px] text-black/55">
+                  <p className="text-[14px] text-black/55">
                     Adjust variables below to see instantaneous changes cascade across all components.
                   </p>
                 </div>
@@ -364,7 +364,7 @@ export default function DesignSystemPage() {
                       </button>
                     )
                   })}
-                  <span className="ml-2 font-mono text-[13px] text-black/60 font-semibold">
+                  <span className="ml-2 font-mono text-[14px] text-black/60 font-semibold">
                     {currentBrand.hex}
                   </span>
                 </div>
@@ -419,7 +419,7 @@ export default function DesignSystemPage() {
                 placeholder="Search components..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] pl-9 pr-3 py-2 text-[13px] text-black outline-none placeholder:text-black/40 focus:border-black/40 focus:bg-white"
+                className="w-full rounded-xl border border-black/[0.18] bg-black/[0.04] pl-9 pr-3 py-2 text-[14px] text-black outline-none placeholder:text-black/40 focus:border-black/40 focus:bg-white"
               />
             </div>
 
@@ -442,10 +442,10 @@ export default function DesignSystemPage() {
 
             <div className="mt-6 border-t border-black/[0.14] pt-4">
               <div className="rounded-xl bg-[var(--brand,#0A0A0B)]/8 border border-[var(--brand,#0A0A0B)]/20 p-3">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
+                <div className="text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                   Developer Quickstart
                 </div>
-                <code className="mt-1 block font-mono text-[11px] text-black/75 break-all">
+                <code className="mt-1 block font-mono text-[12px] text-black/75 break-all">
                   import &#123; Button &#125; from '@/components/ui';
                 </code>
               </div>
@@ -458,7 +458,7 @@ export default function DesignSystemPage() {
             <div className="rounded-2xl border border-black/[0.18] bg-gradient-to-r from-black/[0.03] to-transparent p-5 sm:p-6 shadow-sm">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
+                  <div className="text-[12px] font-bold uppercase tracking-wider text-[var(--brand,#0A0A0B)]">
                     Single-Page Quick Reference Architecture
                   </div>
                   <h3 className="font-heading text-[18px] sm:text-[20px] font-semibold text-[var(--color-text-primary,#0A0A0B)]">
@@ -487,7 +487,7 @@ export default function DesignSystemPage() {
                       <span>{item.name}</span>
                     </div>
                     <div className="mt-1 font-mono text-[10.5px] text-[var(--brand,#0A0A0B)]">{item.file}</div>
-                    <div className="text-[11px] text-black/50 truncate mt-0.5">{item.desc}</div>
+                    <div className="text-[12px] text-black/50 truncate mt-0.5">{item.desc}</div>
                   </div>
                 ))}
               </div>
@@ -511,6 +511,7 @@ export default function DesignSystemPage() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
                   { name: "Brand Primary", hex: currentBrand.hex, var: "--brand", role: "Key action, accents, highlights" },
+                  { name: "Brand Secondary", hex: "#D1E9FF", var: "--brand-secondary", role: "Active states, selected items, UI highlights" },
                   { name: "Onyx Dark", hex: "#0A0A0B", var: "--onyx", role: "Primary headings, dark buttons, text" },
                   { name: "Surface Crisp", hex: "#FFFFFF", var: "--surface", role: "Base application surface & cards" },
                   { name: "Surface Muted", hex: "#F8F9FD", var: "--color-bg-secondary", role: "Secondary backgrounds, strips" },
@@ -528,8 +529,8 @@ export default function DesignSystemPage() {
                       style={{ backgroundColor: swatch.hex }}
                     />
                     <div className="mt-3">
-                      <div className="text-[13px] font-bold text-black">{swatch.name}</div>
-                      <div className="mt-0.5 flex items-center justify-between font-mono text-[11px] text-black/50">
+                      <div className="text-[14px] font-bold text-black">{swatch.name}</div>
+                      <div className="mt-0.5 flex items-center justify-between font-mono text-[12px] text-black/50">
                         <span>{swatch.hex}</span>
                         <button
                           type="button"
@@ -540,7 +541,7 @@ export default function DesignSystemPage() {
                           {copiedKey === swatch.name ? <Check className="h-3 w-3 text-emerald-600" /> : <Copy className="h-3 w-3" />}
                         </button>
                       </div>
-                      <div className="mt-1 text-[11px] text-[#737373] truncate">{swatch.role}</div>
+                      <div className="mt-1 text-[12px] text-[#737373] truncate">{swatch.role}</div>
                     </div>
                   </div>
                 ))}
@@ -556,7 +557,7 @@ export default function DesignSystemPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-[13px]" style={{ tableLayout: "fixed" }}>
+                    <table className="w-full text-left text-[14px]" style={{ tableLayout: "fixed" }}>
                       <colgroup>
                         <col style={{ width: "72px" }} />
                         <col style={{ width: "160px" }} />
@@ -579,9 +580,9 @@ export default function DesignSystemPage() {
                           { role: "H1",      spec: "32px / 700", lead: "1.15", usage: "Major headings", preview: <span className="font-heading text-[16px] font-bold">12h Turnaround</span> },
                           { role: "H2",      spec: "24px / 600", lead: "1.2",  usage: "Card titles", preview: <span className="font-heading text-[15px] font-semibold">Ghost Mannequin</span> },
                           { role: "H3",      spec: "20px / 600", lead: "1.25", usage: "Modal titles", preview: <span className="font-heading text-[14px] font-semibold">Clipping Path</span> },
-                          { role: "Body",    spec: "16px / 400", lead: "1.6",  usage: "Reading copy", preview: <span className="text-[13px] text-[#404040]">Pen tool paths at 300% zoom.</span> },
-                          { role: "Small",   spec: "14px / 400", lead: "1.5",  usage: "Helper hints", preview: <span className="text-[12px] text-[#595959]">Replies within 30 min.</span> },
-                          { role: "Tiny",    spec: "12px / 500", lead: "1.4",  usage: "Labels, badges", preview: <span className="text-[11px] font-medium tracking-wide text-[#737373] uppercase">SLA 12H</span> },
+                          { role: "Body",    spec: "16px / 400", lead: "1.6",  usage: "Reading copy", preview: <span className="text-[14px] text-[#404040]">Pen tool paths at 300% zoom.</span> },
+                          { role: "Small",   spec: "15px / 400", lead: "1.5",  usage: "Helper hints", preview: <span className="text-[14px] text-[#595959]">Replies within 30 min.</span> },
+                          { role: "Caption", spec: "13px / 500", lead: "1.4",  usage: "Labels, badges", preview: <span className="text-[13px] font-medium tracking-wide text-[#737373] uppercase">SLA 12H</span> },
                         ].map(({ role, spec, lead, usage, preview }) => (
                           <tr key={role}>
                             <td className="py-2.5 font-bold text-[#0A0A0B]">{role}</td>
@@ -617,7 +618,7 @@ export default function DesignSystemPage() {
                     ].map((space) => (
                       <div key={space.size} className="rounded-xl border border-black/[0.14] bg-black/[0.04] p-3 text-left">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-[13px] font-bold text-[var(--brand,#0A0A0B)]">{space.size}</span>
+                          <span className="font-mono text-[14px] font-bold text-[var(--brand,#0A0A0B)]">{space.size}</span>
                           <span className="text-[12px] font-semibold text-black/70">{space.name}</span>
                         </div>
                         <div className="h-2 rounded-full bg-[var(--brand,#0A0A0B)]/30 overflow-hidden mb-2">
@@ -662,7 +663,7 @@ export default function DesignSystemPage() {
 
                   {/* Filled group */}
                   <div>
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Filled — high emphasis</div>
+                    <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373] mb-3">Filled — high emphasis</div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {([
                         { v: "default",     label: "Default (Onyx)", desc: "Primary action" },
@@ -680,7 +681,7 @@ export default function DesignSystemPage() {
 
                   {/* Outlined / surface group */}
                   <div className="border-t border-black/[0.14] pt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Outlined / surface — medium emphasis</div>
+                    <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373] mb-3">Outlined / surface — medium emphasis</div>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {([
                         { v: "brandWhite", label: "Brand White",  desc: "Inverted CTA on dark bg" },
@@ -698,7 +699,7 @@ export default function DesignSystemPage() {
 
                   {/* Ghost / text group */}
                   <div className="border-t border-black/[0.14] pt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Ghost / text — low emphasis</div>
+                    <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373] mb-3">Ghost / text — low emphasis</div>
                     <div className="flex flex-wrap items-center gap-6">
                       <div className="flex flex-col items-start gap-2">
                         <Button variant="ghost" loading={btnLoading}>Ghost</Button>
@@ -713,7 +714,7 @@ export default function DesignSystemPage() {
 
                   {/* Sizes */}
                   <div className="border-t border-black/[0.14] pt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Size Scale — xs · sm · default · lg · icon</div>
+                    <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373] mb-3">Size Scale — xs · sm · default · lg · icon</div>
                     <div className="flex flex-wrap items-center gap-3">
                       <Button size="xs"      variant="default">XS</Button>
                       <Button size="sm"      variant="default">Small (sm)</Button>
@@ -725,7 +726,7 @@ export default function DesignSystemPage() {
 
                   {/* Icons & composites */}
                   <div className="border-t border-black/[0.14] pt-6">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373] mb-3">Icons & Composites</div>
+                    <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373] mb-3">Icons & Composites</div>
                     <div className="flex flex-wrap items-center gap-3">
                       <Button leftIcon={<Send className="h-4 w-4" />}>Send Order</Button>
                       <Button variant="brand" rightIcon={<ArrowRight className="h-4 w-4" />}>Get 3 Free Edits</Button>
@@ -765,7 +766,7 @@ export default function DesignSystemPage() {
                     <CardTitle>Hierarchy Rules</CardTitle>
                     <CardDescription>Strictly one filled CTA per screen; support with outlined and ghost.</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-3 text-[13px]">
+                  <CardContent className="space-y-3 text-[14px]">
                     <div className="rounded-xl border-l-[3px] border-emerald-500 bg-emerald-50 p-3">
                       <div className="font-semibold text-emerald-800 mb-0.5">Primary — one per screen</div>
                       <p className="text-emerald-900/75 leading-relaxed text-[12.5px]">The single highest-priority action: "Start Free Trial", "Submit Order", "Confirm Payment".</p>
@@ -1042,7 +1043,7 @@ export default function DesignSystemPage() {
                     <CardDescription>Clean border with low elevation shadow for general content.</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-[13px] text-black/60">Ideal for dashboard widgets, articles, and data sections.</p>
+                    <p className="text-[14px] text-black/60">Ideal for dashboard widgets, articles, and data sections.</p>
                   </CardContent>
                 </Card>
 
@@ -1053,10 +1054,10 @@ export default function DesignSystemPage() {
                     <CardDescription>Hover over this card to observe tactile lift and shadow bloom.</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-[13px] text-black/60">Used for service offerings, case studies, and clickable items.</p>
+                    <p className="text-[14px] text-black/60">Used for service offerings, case studies, and clickable items.</p>
                   </CardContent>
                   <CardFooter>
-                    <span className="text-[13px] font-semibold text-[var(--brand,#0A0A0B)] flex items-center gap-1">
+                    <span className="text-[14px] font-semibold text-[var(--brand,#0A0A0B)] flex items-center gap-1">
                       Learn more <ArrowRight className="h-3.5 w-3.5" />
                     </span>
                   </CardFooter>
@@ -1069,7 +1070,7 @@ export default function DesignSystemPage() {
                     <CardDescription className="text-white/60">Rich obsidian background with subtle white border.</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-[13px] text-white/60">Used for conversion cards, CTA strips, and code blocks.</p>
+                    <p className="text-[14px] text-white/60">Used for conversion cards, CTA strips, and code blocks.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -1158,7 +1159,7 @@ export default function DesignSystemPage() {
 
                   <div className="space-y-3">
                     <div className="text-[12px] font-bold uppercase tracking-wider text-black/45">File Specs</div>
-                    <div className="rounded-xl border border-black/[0.14] p-3.5 text-[13px] space-y-2">
+                    <div className="rounded-xl border border-black/[0.14] p-3.5 text-[14px] space-y-2">
                       <div className="flex justify-between">
                         <span className="text-black/55">Resolution:</span>
                         <span className="font-mono font-semibold">300 DPI</span>
@@ -1383,7 +1384,7 @@ export default function DesignSystemPage() {
                             {row.cat.replace("cat", "")}
                           </Badge>
                         </TableCell>
-                        <TableCell className="font-mono text-[13px]">{row.time}</TableCell>
+                        <TableCell className="font-mono text-[14px]">{row.time}</TableCell>
                         <TableCell className="font-heading font-bold text-[var(--brand,#0A0A0B)]">{row.price}</TableCell>
                         <TableCell>
                           <span className="inline-flex items-center gap-1.5 text-emerald-600 font-semibold text-[12px]">
@@ -1529,7 +1530,7 @@ export default function DesignSystemPage() {
 
               {/* ─── Panel A: Always-Present Layout Components ─── */}
               <div className="space-y-3">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373]">
                   Always-Present Layout Components — mounted on every public page
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -1575,8 +1576,8 @@ export default function DesignSystemPage() {
                       <div className="font-heading text-[15px] font-bold text-[var(--color-text-primary,#0A0A0B)]">
                         {comp.name}
                       </div>
-                      <code className="block mt-0.5 text-[11px] font-mono text-black/40">{comp.path}</code>
-                      <p className="mt-2 text-[13px] text-black/60 leading-snug">{comp.role}</p>
+                      <code className="block mt-0.5 text-[12px] font-mono text-black/40">{comp.path}</code>
+                      <p className="mt-2 text-[14px] text-black/60 leading-snug">{comp.role}</p>
                       <div className="mt-3 border-t border-black/[0.14] pt-3 space-y-1.5">
                         <div className="text-[10.5px] font-bold uppercase tracking-wider text-black/40">
                           Mother Components Used
@@ -1584,14 +1585,14 @@ export default function DesignSystemPage() {
                         <div className="flex flex-wrap gap-1.5">
                           {comp.motherComponents.map((mc) => (
                             <a key={mc.label} href={`#${mc.anchor}`}>
-                              <Badge variant="outline" className="text-[11px] cursor-pointer hover:bg-black/5">
+                              <Badge variant="outline" className="text-[12px] cursor-pointer hover:bg-black/5">
                                 {mc.label}
                               </Badge>
                             </a>
                           ))}
                         </div>
                       </div>
-                      <div className="mt-2 text-[11px] text-black/40">Used on: {comp.pages}</div>
+                      <div className="mt-2 text-[12px] text-black/40">Used on: {comp.pages}</div>
                     </div>
                   ))}
                 </div>
@@ -1599,7 +1600,7 @@ export default function DesignSystemPage() {
 
               {/* ─── Panel B: Section Pattern Groups ─── */}
               <div className="space-y-3">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373]">
                   Section Pattern Groups — {SECTION_GROUPS.reduce((s, g) => s + g.count, 0)} sections across {SECTION_GROUPS.length} groups
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1617,7 +1618,7 @@ export default function DesignSystemPage() {
                       </div>
                       <div className="flex flex-wrap gap-1.5 mb-3">
                         {group.files.map((f) => (
-                          <Badge key={f} variant="outline" className="text-[10px] font-mono">
+                          <Badge key={f} variant="outline" className="text-[12px] font-mono">
                             {f}
                           </Badge>
                         ))}
@@ -1646,7 +1647,7 @@ export default function DesignSystemPage() {
 
               {/* ─── Panel C: Feature Cluster Sub-Components ─── */}
               <div className="space-y-3">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#737373]">
+                <div className="text-[12px] font-bold uppercase tracking-wider text-[#737373]">
                   Feature Cluster Sub-Components — sit between sections and atomic primitives
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1693,7 +1694,7 @@ export default function DesignSystemPage() {
                       </div>
                       <code className="block mt-0.5 text-[10.5px] font-mono text-black/40">{sub.path}</code>
                       <p className="mt-2 text-[12.5px] text-black/60 leading-snug">{sub.role}</p>
-                      <div className="mt-2 text-[11px] text-black/45">
+                      <div className="mt-2 text-[12px] text-black/45">
                         <span className="font-semibold">Used in:</span> {sub.usedIn}
                       </div>
                       {sub.motherLink && (

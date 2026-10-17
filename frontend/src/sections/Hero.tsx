@@ -282,7 +282,7 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.22, ease: 'easeOut', delay: d(720) }}
         >
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.20] bg-[var(--color-bg-secondary)]/90 px-2.5 py-1 text-[10px] font-semibold text-black/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_1px_2px_rgba(0,0,0,0.09)] backdrop-blur-sm">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-black/[0.20] bg-[var(--color-bg-secondary)]/90 px-2.5 py-1 text-[12px] font-semibold text-black/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_1px_2px_rgba(0,0,0,0.09)] backdrop-blur-sm">
             <span className="tracking-[0.16em] uppercase">Swipe to explore</span>
             <motion.span
               aria-hidden="true"
@@ -323,7 +323,7 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.32, ease: [0.0, 0, 0.2, 1], delay: d(80) }}
                 >
-                  <span className="font-heading font-medium uppercase tracking-[0.18em] text-[11px] lg:text-[12px] text-black/70">
+                  <span className="font-heading font-medium uppercase tracking-[0.18em] text-[12px] lg:text-[12px] text-black/70">
                     {headlines[headlineIndex].tag}
                   </span>
                 </motion.div>
@@ -370,10 +370,10 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, ease: [0.0, 0, 0.2, 1], delay: d(560) }}
             >
-              <Button asChild size="compact" className="min-h-11 sm:short:min-h-10 text-[13px] font-bold active:scale-95">
+              <Button asChild size="compact" className="min-h-11 sm:short:min-h-10 text-[14px] font-bold active:scale-95">
                 <Link to="/free-trial">Get 3 Free Sample Edits</Link>
               </Button>
-              <Button asChild variant="secondary" size="compact" className="min-h-11 sm:short:min-h-10 bg-[var(--color-bg-secondary)] text-[13px] font-bold active:scale-95">
+              <Button asChild variant="secondary" size="compact" className="min-h-11 sm:short:min-h-10 bg-[var(--color-bg-secondary)] text-[14px] font-bold active:scale-95">
                 <Link to="/services">View Editing Services</Link>
               </Button>
             </motion.div>
@@ -382,7 +382,7 @@ const Hero = () => {
 
             <div className="grid w-full max-w-[350px] grid-cols-3 gap-1.5 sm:hidden">
               {MOBILE_TRUST_POINTS.map((point) => (
-                <div key={point} className="flex min-h-10 items-center justify-center rounded-2xl border border-black/[0.16] bg-white/80 px-2 text-[10px] font-bold leading-tight text-black/55 shadow-sm">
+                <div key={point} className="flex min-h-10 items-center justify-center rounded-2xl border border-black/[0.16] bg-white/80 px-2 text-[12px] font-bold leading-tight text-black/55 shadow-sm">
                   {point}
                 </div>
               ))}

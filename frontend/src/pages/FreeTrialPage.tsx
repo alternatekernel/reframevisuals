@@ -268,7 +268,7 @@ const FreeTrialPage: React.FC = () => {
 
           <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Free Evaluation</h3>
+              <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Free Evaluation</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">
                 Get 3 images edited free
               </h1>
@@ -408,7 +408,7 @@ const FreeTrialPage: React.FC = () => {
                 {uploadNotice && (
                   <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-[12px] text-amber-800">
                     <div className="flex items-start gap-2 font-semibold"><AlertTriangle size={14} className="mt-0.5" />{uploadNotice}</div>
-                    {rejectedFileNames.length > 0 && <p className="mt-1 text-[11px]">Rejected: {rejectedFileNames.join(', ')}</p>}
+                    {rejectedFileNames.length > 0 && <p className="mt-1 text-[12px]">Rejected: {rejectedFileNames.join(', ')}</p>}
                   </div>
                 )}
 
@@ -426,7 +426,7 @@ const FreeTrialPage: React.FC = () => {
                             <X size={10} />
                           </button>
                           <ImageIcon size={14} className="text-white/70 shrink-0" />
-                          <span className="text-[11px] font-medium text-white truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</span>
+                          <span className="text-[12px] font-medium text-white truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</span>
                         </div>
                       ))}
                     </div>
@@ -458,7 +458,7 @@ const FreeTrialPage: React.FC = () => {
                           <X size={10} />
                         </button>
                         <ImageIcon size={14} className="text-orange-500 shrink-0" />
-                        <span className="text-[11px] font-medium text-black truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</span>
+                        <span className="text-[12px] font-medium text-black truncate">{asset.file.name} · {formatFileSize(asset.file.size)}</span>
                       </div>
                     ))}
                   </div>
@@ -491,7 +491,7 @@ const FreeTrialPage: React.FC = () => {
               </div>
 
               {uploadStage !== 'idle' && (
-                <div className={cx('p-3.5 rounded-xl border text-[13px] font-semibold',
+                <div className={cx('p-3.5 rounded-xl border text-[14px] font-semibold',
                   uploadStage === 'uploading' && 'bg-blue-50 text-blue-700 border-blue-100',
                   uploadStage === 'done' && 'bg-green-50 text-green-700 border-green-100',
                   uploadStage === 'error' && 'bg-red-50 text-red-600 border-red-100'
@@ -503,7 +503,7 @@ const FreeTrialPage: React.FC = () => {
               )}
 
               {submitError && (
-                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                   {submitError}
                 </div>
               )}
@@ -521,7 +521,7 @@ const FreeTrialPage: React.FC = () => {
           </div>
 
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Trial Standards</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Trial Standards</h3>
             <div className="space-y-8">
               <div>
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">3 Free Sample Edits</p>
@@ -540,7 +540,7 @@ const FreeTrialPage: React.FC = () => {
                   <div className="w-5 h-5 rounded-full bg-green-50 border border-green-100 flex items-center justify-center shrink-0 mt-0.5">
                     <Check size={11} className="text-green-600" />
                   </div>
-                  <p className="text-[13px] text-black/65">Need more than 3 files or a paid review? Use the dedicated Test Batch flow.</p>
+                  <p className="text-[14px] text-black/65">Need more than 3 files or a paid review? Use the dedicated Test Batch flow.</p>
                 </div>
               </div>
             </div>

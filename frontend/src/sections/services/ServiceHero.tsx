@@ -53,21 +53,21 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({ service, isUserAuthenticated 
               className="grid grid-cols-2 overflow-hidden rounded-2xl border border-white/70 bg-white/70 shadow-[0_18px_48px_rgba(15,23,42,0.06)] backdrop-blur-xl lg:grid-cols-4 lg:rounded-3xl"
             >
               <div className="p-4 lg:p-6 space-y-1 lg:space-y-2 border-r border-b lg:border-b-0 border-white/60">
-                <span className="block text-[9px] lg:text-[10px] font-bold tracking-widest text-black/40 uppercase">Starting</span>
+                <span className="block text-[9px] lg:text-[12px] font-bold tracking-widest text-black/40 uppercase">Starting</span>
                 <p className="text-xl lg:text-2xl font-bold text-[var(--color-text-primary)] tracking-tighter">{formatCurrency(convertFromUsd(price), currency)}</p>
               </div>
               <div className="p-4 lg:p-6 space-y-1 lg:space-y-2 border-b lg:border-b-0 lg:border-r border-white/60">
-                <span className="block text-[9px] lg:text-[10px] font-bold tracking-widest text-black/40 uppercase">Daily Capacity</span>
+                <span className="block text-[9px] lg:text-[12px] font-bold tracking-widest text-black/40 uppercase">Daily Capacity</span>
                 <p className="text-xl lg:text-2xl font-bold text-[var(--color-text-primary)] tracking-tighter">{service.servicePageContent?.dailyCapacity || '10k+'}</p>
               </div>
               <div className="p-4 lg:p-6 space-y-1 lg:space-y-2 border-r border-white/60">
-                <span className="block text-[9px] lg:text-[10px] font-bold tracking-[0.2em] text-black/40 uppercase">Precision</span>
+                <span className="block text-[9px] lg:text-[12px] font-bold tracking-[0.2em] text-black/40 uppercase">Precision</span>
                 <p className="text-xl lg:text-2xl font-bold tracking-tighter text-[var(--color-text-primary)]">
                   Pixel
                 </p>
               </div>
               <div className="p-4 lg:p-6 space-y-1 lg:space-y-2">
-                <span className="block text-[9px] lg:text-[10px] font-bold tracking-widest text-black/40 uppercase">Revisions</span>
+                <span className="block text-[9px] lg:text-[12px] font-bold tracking-widest text-black/40 uppercase">Revisions</span>
                 <p className="text-xl lg:text-2xl font-bold text-[var(--color-text-primary)] tracking-tighter">∞</p>
               </div>
             </motion.div>
@@ -133,7 +133,7 @@ const ServiceHero: React.FC<ServiceHeroProps> = ({ service, isUserAuthenticated 
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--color-brand-primary)]"></span>
               </div>
               <div>
-                <p className="text-[9px] lg:text-[10px] font-bold tracking-widest text-black/40 uppercase">Interactive</p>
+                <p className="text-[9px] lg:text-[12px] font-bold tracking-widest text-black/40 uppercase">Interactive</p>
                 <p className="text-[12px] lg:text-[14px] font-bold text-[var(--color-text-primary)] tracking-tight">Drag to Compare</p>
               </div>
             </motion.div>

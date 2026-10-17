@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { cx, typography } from '../utils/theme';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -92,14 +92,14 @@ const BlogPreview = () => {
             <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent" />
             <div className="flex flex-grow flex-col justify-between gap-12 sm:gap-16">
               <div>
-                <p className="mb-5 text-[11px] font-semibold uppercase tracking-widest text-white/40">{featuredPost.category}</p>
+                <p className="mb-5 text-[12px] font-semibold uppercase tracking-widest text-white/40">{featuredPost.category}</p>
                 <h3 className={cx(typography.displayMd, "max-w-2xl text-white")}>
                   {featuredPost.title}
                 </h3>
               </div>
 
               <div className="flex items-center justify-between border-t border-white/10 pt-5">
-                <span className="text-[13px] font-bold text-white/40">{featuredPost.readTime}</span>
+                <span className="text-[14px] font-bold text-white/40">{featuredPost.readTime}</span>
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-text-primary)] transition-transform group-hover:-rotate-45">
                   <ArrowRight size={16} />
                 </span>
@@ -119,7 +119,7 @@ const BlogPreview = () => {
                 className="group cursor-pointer rounded-[28px] border border-white/10 bg-white/[0.04] p-5 transition-all hover:-translate-y-0.5 hover:border-white/18 hover:bg-white/[0.06] sm:p-6 shadow-[0_20px_50px_-40px_rgba(0,0,0,0.55)] flex flex-col justify-between"
               >
                 <div>
-                  <p className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-white/35">{post.category}</p>
+                  <p className="mb-4 text-[12px] font-semibold uppercase tracking-widest text-white/35">{post.category}</p>
                   <h3 className="line-clamp-3 text-[19px] sm:text-[21px] font-semibold leading-tight tracking-[-0.025em] text-white/90">{post.title}</h3>
                 </div>
                 <div className="mt-7 flex items-center justify-between border-t border-white/10 pt-4">

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Check } from 'lucide-react';
 import { OrderFlowData, OrderFlowStep } from './types';
 import { SERVICES } from '../../data/services';
@@ -25,7 +25,7 @@ const SumRow: React.FC<{ label: string; value: string; valueClass?: string }> = 
 }) => (
   <div className="flex flex-col gap-0.5">
     <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-[var(--color-text-muted)]">{label}</span>
-    <span className={`text-[11px] font-medium leading-snug break-words ${valueClass ?? 'text-[var(--color-text-secondary)]'}`}>
+    <span className={`text-[12px] font-medium leading-snug break-words ${valueClass ?? 'text-[var(--color-text-secondary)]'}`}>
       {value}
     </span>
   </div>
@@ -70,7 +70,7 @@ const OrderSidebar: React.FC<OrderSidebarProps> = ({ orderFlowStep, orderData, o
     <aside className="h-full flex flex-col overflow-y-auto">
       {/* Steps */}
       <div className="p-4 pb-0">
-        <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-3">
+        <p className="text-[12px] font-medium tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-3">
           Steps
         </p>
         <div className="flex flex-col gap-0.5">
@@ -89,7 +89,7 @@ const OrderSidebar: React.FC<OrderSidebarProps> = ({ orderFlowStep, orderData, o
                 }`}
               >
                 <div
-                  className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[10px] font-semibold transition-all ${
+                  className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-[12px] font-semibold transition-all ${
                     isDone
                       ? 'bg-[var(--color-text-primary)] text-white'
                       : isCurrent
@@ -120,7 +120,7 @@ const OrderSidebar: React.FC<OrderSidebarProps> = ({ orderFlowStep, orderData, o
 
       {/* Live summary */}
       <div className="px-4 pb-5 space-y-2.5 flex-1">
-        <p className="text-[10px] font-medium tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-3">
+        <p className="text-[12px] font-medium tracking-[0.12em] uppercase text-[var(--color-text-muted)] mb-3">
           Summary
         </p>
         <SumRow label="Project" value={orderData.projectName || '—'} />

@@ -409,7 +409,7 @@ const BeforeAfterCard: React.FC<BeforeAfterCardProps> = ({
                   )}
                 </svg>
               </div>
-              <span className="text-[10px] font-bold tracking-[0.2em] text-black w-14 text-center">{animLabel}</span>
+              <span className="text-[12px] font-bold tracking-[0.2em] text-black w-14 text-center">{animLabel}</span>
             </div>
         </div>
       )}

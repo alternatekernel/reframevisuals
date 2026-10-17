@@ -94,7 +94,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
       <div className="flex flex-col w-full items-center justify-center gap-6 lg:gap-10">
         {/* Services Title */}
         <div className="text-center px-6">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-black/30 sm:hidden">
+          <p className="mb-2 text-[12px] font-semibold uppercase tracking-widest text-black/30 sm:hidden">
             Real before / after proof
           </p>
           <motion.h2
@@ -241,7 +241,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
                       e.stopPropagation();
                       navigate(`/order?serviceId=${img.id}`);
                     }}
-                    className="flex min-h-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-text-primary)] px-3.5 text-[13px] font-bold text-white shadow-md touch-manipulation"
+                    className="flex min-h-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-text-primary)] px-3.5 text-[14px] font-bold text-white shadow-md touch-manipulation"
                   >
                     from ${getStartingPrice(img.id, 0.39).toFixed(2)}
                   </button>
@@ -273,14 +273,14 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
           </Link>
 
           {/* Other Services Links */}
-          <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2.5 text-[13px] max-w-3xl mx-auto px-4 mt-6 lg:mt-10 text-black/40">
+          <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2.5 text-[14px] max-w-3xl mx-auto px-4 mt-6 lg:mt-10 text-black/40">
             {services
               .filter((s: any) => !['retouching', 'pattern-change', 'jewelry-retouch', 'color-correction', 'ghost-mannequin', 'background-removal'].includes(s.id))
               .map((service: any) => (
                 <Link
                   key={service.id}
                   to={`/services/${service.id}`}
-                  className="px-3.5 py-1.5 text-[13px] font-semibold text-black/55 bg-black/[0.05] hover:bg-black/[0.07] hover:text-[var(--color-text-primary)] rounded-full transition-all duration-200"
+                  className="px-3.5 py-1.5 text-[14px] font-semibold text-black/55 bg-black/[0.05] hover:bg-black/[0.07] hover:text-[var(--color-text-primary)] rounded-full transition-all duration-200"
                 >
                   {service.name}
                 </Link>
@@ -291,7 +291,7 @@ const ImageGridSection = ({ images }: { images: GridImage[] }) => {
           <div className="mt-5 sm:mt-6 flex justify-center w-full">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-[13px] font-semibold text-black/70 bg-white border border-black/[0.18] hover:border-black/20 hover:bg-black hover:text-white rounded-full transition-all duration-200 shadow-sm active:scale-95 group"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 text-[14px] font-semibold text-black/70 bg-white border border-black/[0.18] hover:border-black/20 hover:bg-black hover:text-white rounded-full transition-all duration-200 shadow-sm active:scale-95 group"
             >
               <span>Need anything custom? Let&apos;s give it a try</span>
               <ArrowRight size={13} className="text-black/40 group-hover:text-white/80 transition-all duration-300 group-hover:-rotate-45" />

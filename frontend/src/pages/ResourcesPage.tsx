@@ -55,7 +55,7 @@ const ResourcesPage = () => (
               <h2 className="text-[15px] font-semibold tracking-tight text-[var(--color-text-primary)] leading-snug mb-1.5">
                 {article.h1}
               </h2>
-              <p className="text-[13px] text-black/55 leading-relaxed line-clamp-2">{article.description}</p>
+              <p className="text-[14px] text-black/55 leading-relaxed line-clamp-2">{article.description}</p>
             </div>
             <ArrowRight
               size={14}

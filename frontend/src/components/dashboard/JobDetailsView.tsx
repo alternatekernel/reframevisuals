@@ -31,14 +31,14 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, placeholderCount, selecte
           ) : (
             <FileImage size={20} className="text-text-tertiary" />
           )}
-          <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/70 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white transition-transform group-hover:translate-y-0">
+          <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/70 px-2 py-1 text-[12px] font-bold uppercase tracking-wider text-white transition-transform group-hover:translate-y-0">
             Inspect
           </span>
         </button>
         <button
           type="button"
           onClick={() => onToggleSelect(img.id)}
-          className={`absolute right-1.5 top-1.5 h-5 w-5 rounded-full border text-[10px] font-bold transition-all ${
+          className={`absolute right-1.5 top-1.5 h-5 w-5 rounded-full border text-[12px] font-bold transition-all ${
             selectedAssetIds.includes(img.id) ? 'border-brand-ink bg-brand-ink text-white' : 'border-white bg-white/90 text-transparent'
           }`}
           aria-label={selectedAssetIds.includes(img.id) ? 'Deselect asset' : 'Select asset'}
@@ -55,7 +55,7 @@ const ImageGrid: React.FC<ImageGridProps> = ({ images, placeholderCount, selecte
         className="group relative aspect-square rounded-lg flex items-center justify-center cursor-pointer bg-surfaceMuted hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-brand-ink/20"
       >
         <FileImage size={20} className="text-text-tertiary" />
-        <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/70 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-white transition-transform group-hover:translate-y-0">
+        <span className="absolute inset-x-0 bottom-0 translate-y-full bg-black/70 px-2 py-1 text-[12px] font-bold uppercase tracking-wider text-white transition-transform group-hover:translate-y-0">
           Inspect
         </span>
       </button>
@@ -310,14 +310,14 @@ const JobDetailsView = () => {
                 <>
                   <button
                     onClick={() => setShowRevisionModal(true)}
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[14px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
                   >
                     <RotateCcw size={15} />
                     Request Revision
                   </button>
                   <button
                     onClick={handleApprove}
-                    className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-[13px] font-medium text-white hover:bg-green-700 transition-all"
+                    className="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-[14px] font-medium text-white hover:bg-green-700 transition-all"
                   >
                     <Check size={15} />
                     Approve Assets
@@ -328,12 +328,12 @@ const JobDetailsView = () => {
                 <>
                   <div className="flex items-center gap-2 rounded-full bg-green-50 border border-green-100 px-3 py-1.5">
                     <Check size={14} className="text-green-600" />
-                    <span className="text-[13px] font-medium text-green-600">Finalized</span>
+                    <span className="text-[14px] font-medium text-green-600">Finalized</span>
                   </div>
                   {isRevisionEligible && (
                     <button
                       onClick={() => setShowRevisionModal(true)}
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[13px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg border border-borderSubtle text-[14px] font-medium text-text-secondary hover:bg-black/[0.05] transition-all"
                     >
                       <RotateCcw size={15} />
                       Request Revision
@@ -342,7 +342,7 @@ const JobDetailsView = () => {
                   <button
                     onClick={handleDownloadAll}
                     disabled={downloading}
-                    className="flex items-center gap-2 rounded-lg bg-brand-ink px-4 py-2 text-[13px] font-medium text-white transition-all disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-brand-ink px-4 py-2 text-[14px] font-medium text-white transition-all disabled:opacity-50"
                   >
                     {downloading ? <Loader2 size={15} className="animate-spin" /> : <Download size={15} />}
                     {downloading ? 'Preparing ZIP...' : 'Download All'}
@@ -352,26 +352,26 @@ const JobDetailsView = () => {
               {job.status === 'In Progress' && (
                 <div className="flex items-center gap-2 rounded-full bg-amber-50 border border-amber-100 px-3 py-1.5">
                   <Clock size={14} className="text-amber-500" />
-                  <span className="text-[13px] font-medium text-amber-500">Editing — {job.progress}%</span>
+                  <span className="text-[14px] font-medium text-amber-500">Editing — {job.progress}%</span>
                 </div>
               )}
               {job.status === 'Pending Approval' && (
                 <div className="flex items-center gap-2 rounded-full bg-purple-50 border border-purple-100 px-3 py-1.5">
                   <Eye size={14} className="text-purple-600" />
-                  <span className="text-[13px] font-medium text-purple-600">Awaiting Your Approval</span>
+                  <span className="text-[14px] font-medium text-purple-600">Awaiting Your Approval</span>
                 </div>
               )}
               {job.status === 'Submitted' && (
                 <div className="flex items-center gap-2 rounded-full bg-black/5 border border-black/[0.14] px-3 py-1.5">
                   <Clock size={14} className="text-black/40" />
-                  <span className="text-[13px] font-medium text-black/50">In Queue</span>
+                  <span className="text-[14px] font-medium text-black/50">In Queue</span>
                 </div>
               )}
               {(job.status === 'Submitted' || job.status === 'Pending Approval') && (
                 <button
                   onClick={handleCancelOrder}
                   disabled={cancellingJob}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-200 text-[13px] font-medium text-red-600 hover:bg-red-50 transition-all disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg border border-red-200 text-[14px] font-medium text-red-600 hover:bg-red-50 transition-all disabled:opacity-50"
                 >
                   {cancellingJob ? <Loader2 size={14} className="animate-spin" /> : <X size={14} />}
                   {cancellingJob ? 'Cancelling...' : 'Cancel Order'}
@@ -395,7 +395,7 @@ const JobDetailsView = () => {
                 </div>
                 <div>
                   <h4 className="text-[16px] font-bold text-green-900">Project Approved!</h4>
-                  <p className="text-[13px] text-green-700">The assets have been finalized and added to your collection.</p>
+                  <p className="text-[14px] text-green-700">The assets have been finalized and added to your collection.</p>
                 </div>
               </div>
               <button 
@@ -427,7 +427,7 @@ const JobDetailsView = () => {
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-[18px] font-bold text-text-primary">Request a Revision</h3>
-                    <p className="mt-1 text-[13px] text-text-secondary">
+                    <p className="mt-1 text-[14px] text-text-secondary">
                       Tell the production team exactly what needs to change for {job.code || job.name}.
                     </p>
                   </div>
@@ -454,7 +454,7 @@ const JobDetailsView = () => {
                     <button
                       type="button"
                       onClick={() => setShowRevisionModal(false)}
-                      className="rounded-xl border border-borderSubtle px-4 py-2 text-[13px] font-medium text-text-secondary"
+                      className="rounded-xl border border-borderSubtle px-4 py-2 text-[14px] font-medium text-text-secondary"
                     >
                       Cancel
                     </button>
@@ -462,7 +462,7 @@ const JobDetailsView = () => {
                       type="button"
                       onClick={handleRequestRevision}
                       disabled={submittingRevision}
-                      className="flex items-center gap-2 rounded-xl bg-brand-ink px-4 py-2 text-[13px] font-medium text-white disabled:opacity-50"
+                      className="flex items-center gap-2 rounded-xl bg-brand-ink px-4 py-2 text-[14px] font-medium text-white disabled:opacity-50"
                     >
                       {submittingRevision ? <Loader2 size={15} className="animate-spin" /> : <RotateCcw size={15} />}
                       {submittingRevision ? 'Sending...' : 'Send Revision'}
@@ -493,7 +493,7 @@ const JobDetailsView = () => {
                 <div className="mb-5 flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-[18px] font-bold text-text-primary">Decline Proposal & Request Changes</h3>
-                    <p className="mt-1 text-[13px] text-text-secondary">
+                    <p className="mt-1 text-[14px] text-text-secondary">
                       Let the team know what needs to be changed in this proposal (e.g. incorrect image volume, pricing adjustment, service correction).
                     </p>
                   </div>
@@ -519,7 +519,7 @@ const JobDetailsView = () => {
                     <button
                       type="button"
                       onClick={() => setShowDeclineModal(false)}
-                      className="rounded-xl border border-borderSubtle px-4 py-2 text-[13px] font-medium text-text-secondary"
+                      className="rounded-xl border border-borderSubtle px-4 py-2 text-[14px] font-medium text-text-secondary"
                     >
                       Cancel
                     </button>
@@ -527,7 +527,7 @@ const JobDetailsView = () => {
                       type="button"
                       onClick={handleRejectProposal}
                       disabled={submittingDecline}
-                      className="flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-[13px] font-medium text-white hover:bg-red-700 disabled:opacity-50"
+                      className="flex items-center gap-2 rounded-xl bg-red-600 px-4 py-2 text-[14px] font-medium text-white hover:bg-red-700 disabled:opacity-50"
                     >
                       {submittingDecline ? <Loader2 size={15} className="animate-spin" /> : <X size={15} />}
                       {submittingDecline ? 'Submitting...' : 'Decline Proposal'}
@@ -553,7 +553,7 @@ const JobDetailsView = () => {
               <div className="mt-2 border-t border-borderSubtle pt-2 flex justify-between font-bold text-text-primary"><span>Final proposal total</span><span>${finalTotal.toFixed(2)}</span></div>
             </div>
             {(jobAny.description || '').includes('[Admin Note]:') && (
-              <div className="mt-4 rounded-lg bg-white p-3 text-[13px] text-text-secondary">
+              <div className="mt-4 rounded-lg bg-white p-3 text-[14px] text-text-secondary">
                 <span className="font-semibold text-text-primary">Admin Note: </span>
                 {String(jobAny.description).split('[Admin Note]:')[1]?.trim() || ''}
               </div>
@@ -602,7 +602,7 @@ const JobDetailsView = () => {
                   >
                     {isPast ? <Check size={18} /> : <step.icon size={18} className={isCurrent ? 'animate-pulse' : ''} />}
                   </div>
-                  <span className={`text-[11px] font-bold mt-3 uppercase tracking-wider ${
+                  <span className={`text-[12px] font-bold mt-3 uppercase tracking-wider ${
                     isCurrent ? 'text-text-primary' : 'text-gray-400'
                   }`}>
                     {step.label}
@@ -616,8 +616,8 @@ const JobDetailsView = () => {
         {(job.status === 'In Progress' || job.status === 'In Revision') && job.progress !== undefined && (
           <div className="py-6 border-b border-borderSubtle">
             <div className="flex justify-between items-end mb-2">
-              <span className="text-[13px] font-medium text-text-primary">Current Progress</span>
-              <span className="text-[13px] font-bold text-text-primary">{job.progress}%</span>
+              <span className="text-[14px] font-medium text-text-primary">Current Progress</span>
+              <span className="text-[14px] font-bold text-text-primary">{job.progress}%</span>
             </div>
             <div className="h-2 w-full rounded-full overflow-hidden bg-surfaceMuted">
               <motion.div 

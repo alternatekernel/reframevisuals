@@ -8,8 +8,10 @@ export const designTokens = {
   // Brand identity & core semantic palette
   colors: {
     brand: {
-      primary: 'var(--brand, #E97451)',
-      hover: 'var(--brand-hover, #D66140)',
+      primary: 'var(--brand, #0A0A0B)',
+      secondary: 'var(--brand-secondary, #D1E9FF)',
+      secondaryLight: 'var(--brand-secondary-light, #E1F0FF)',
+      hover: 'var(--brand-hover, #1F1F1F)',
       rgb: '233, 116, 81',
       subtle: 'rgba(233, 116, 81, 0.08)',
       muted: 'rgba(233, 116, 81, 0.16)',
@@ -19,7 +21,8 @@ export const designTokens = {
       softBlack: '#171717',
       onyx: '#131416',
       surface: 'var(--surface, #FFFFFF)',
-      surfaceSecondary: 'var(--color-bg-secondary, #F8F9FD)',
+      surfaceSoft: 'var(--color-bg-soft, #fafafa)',
+      surfaceSecondary: 'var(--color-bg-secondary, #F4F3F0)',
       surfaceTertiary: '#F1F2F6',
       borderSubtle: 'rgba(0, 0, 0, 0.12)',
       borderLight: 'rgba(0, 0, 0, 0.18)',
@@ -27,11 +30,17 @@ export const designTokens = {
       borderDark: 'rgba(0, 0, 0, 0.45)',
     },
     text: {
-      primary: 'var(--color-text-primary, #0A0A0B)',
+      primary: 'var(--color-text-primary, #171717)',
       secondary: 'var(--color-text-secondary, #666666)',
-      muted: 'var(--color-text-muted, #8A8A8E)',
+      muted: 'var(--color-text-muted, #808080)',
+      subtle: 'var(--color-text-subtle, #555555)',
+      faint: 'var(--color-text-faint, #999999)',
+      placeholder: 'var(--color-text-placeholder, #bbbbbb)',
       inverted: '#FFFFFF',
       invertedMuted: 'rgba(255, 255, 255, 0.65)',
+    },
+    interaction: {
+      focus: 'var(--color-focus, #3b82f6)',
     },
     // Core Service Category Accents (Used for service chips, workflows, pricing tags)
     categories: {
@@ -107,9 +116,13 @@ export const designTokens = {
       bodyLg: { size: '1.125rem', lineHeight: '1.5', tracking: '-0.01em', weight: '400' },
       body: { size: '1rem', lineHeight: '1.6', tracking: '0', weight: '400' },
       bodySm: { size: '0.875rem', lineHeight: '1.5', tracking: '0', weight: '400' },
-      caption: { size: '0.75rem', lineHeight: '1.4', tracking: '0.01em', weight: '500' },
-      eyebrow: { size: '0.6875rem', lineHeight: '1.3', tracking: '0.16em', weight: '800' },
-      micro: { size: '0.625rem', lineHeight: '1.2', tracking: '0.05em', weight: '600' },
+      caption: { size: '0.8125rem', lineHeight: '1.4', tracking: '0.01em', weight: '500' },
+      eyebrow: { size: '0.75rem', lineHeight: '1.3', tracking: '0.16em', weight: '800' },
+      micro: { size: '0.6875rem', lineHeight: '1.2', tracking: '0.05em', weight: '600' },
+      // UI widget scale (badge labels, timestamps, panel chrome)
+      '14': { size: '0.875rem', lineHeight: '1.4', tracking: '0', weight: '400' },
+      '12': { size: '0.75rem', lineHeight: '1.4', tracking: '0', weight: '400' },
+      nano: { size: '0.625rem', lineHeight: '1.3', tracking: '0.02em', weight: '500' },
     },
   },
 

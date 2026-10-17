@@ -139,7 +139,7 @@ const TrustProofRow = () => {
               <span className="text-[28px] font-black leading-none tracking-[-0.04em] text-[var(--color-text-primary)] sm:text-[32px]">
                 {stat.value}
               </span>
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-black/40">
+              <span className="text-[12px] font-semibold uppercase tracking-widest text-black/40">
                 {stat.label}
               </span>
             </div>
@@ -147,7 +147,7 @@ const TrustProofRow = () => {
           <div className="hidden h-10 w-px bg-black/[0.07] sm:block" />
           <div className="flex flex-1 items-center justify-center gap-2.5 sm:px-8">
             <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" className="h-4 w-4 shrink-0 object-contain opacity-30" />
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-black/35">
+            <span className="text-[12px] font-semibold uppercase tracking-widest text-black/35">
               Guaranteed by Reframe Visuals
             </span>
           </div>
@@ -183,7 +183,7 @@ const MobilePricingCard = React.memo(({ p, index }: { p: { name: string; price: 
         <div className="min-w-0">
           <h3
             className={cx(
-              "truncate text-[11px] font-black uppercase tracking-[0.16em]",
+              "truncate text-[12px] font-black uppercase tracking-[0.16em]",
               p.highlight ? "text-white/75" : tone?.title
             )}
           >
@@ -192,7 +192,7 @@ const MobilePricingCard = React.memo(({ p, index }: { p: { name: string; price: 
         </div>
         <span
           className={cx(
-            "shrink-0 rounded-full px-2 py-1 text-[10px] font-black uppercase tracking-[0.08em]",
+            "shrink-0 rounded-full px-2 py-1 text-[12px] font-black uppercase tracking-[0.08em]",
             p.highlight ? "bg-white/10 text-white/70" : tone?.chip
           )}
         >
@@ -204,14 +204,14 @@ const MobilePricingCard = React.memo(({ p, index }: { p: { name: string; price: 
         <div className="min-w-0">
           <div className="flex items-baseline gap-1.5">
             <span className="text-[25px] font-black leading-none tracking-[-0.04em]">{p.price !== null ? formatCurrency(convertFromUsd(p.price), currency) : 'Custom'}</span>
-            <span className={cx("text-[11px] font-medium", p.highlight ? "text-white/55" : tone?.sub)}>/image</span>
+            <span className={cx("text-[12px] font-medium", p.highlight ? "text-white/55" : tone?.sub)}>/image</span>
           </div>
           <div className="mt-2 flex min-w-0 gap-1.5">
             {services.map((service) => (
               <span
                 key={service}
                 className={cx(
-                  "max-w-[120px] truncate rounded-full px-2 py-1 text-[10px] font-semibold leading-none",
+                  "max-w-[120px] truncate rounded-full px-2 py-1 text-[12px] font-semibold leading-none",
                   p.highlight ? "bg-white/10 text-white/70" : tone?.chip
                 )}
               >
@@ -287,7 +287,7 @@ const Pricing = () => {
               <span className="font-heading text-[22px] sm:text-[26px] font-black tracking-[-0.04em] text-[var(--color-text-primary)]">
                 {stat.value}
               </span>
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-black/38">
+              <span className="text-[12px] font-semibold uppercase tracking-widest text-black/38">
                 {stat.label}
               </span>
             </div>

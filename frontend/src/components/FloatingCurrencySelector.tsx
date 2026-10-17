@@ -112,7 +112,7 @@ const FloatingCurrencySelector: React.FC = () => {
                   />
                   <span>{code}</span>
                 </span>
-                {currency === code ? <span className="text-[10px]">Active</span> : null}
+                {currency === code ? <span className="text-[12px]">Active</span> : null}
               </button>
             ))}
           </motion.div>

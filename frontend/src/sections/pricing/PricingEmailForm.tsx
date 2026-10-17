@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { cx, layout } from '../../utils/theme';
 import { PublicInput, publicInlineSubmitButtonClass } from '../../components/ui/form-controls';
@@ -58,7 +58,7 @@ const PricingEmailForm: React.FC = () => {
                   </button>
                 </form>
               )}
-              <p className="text-[13px] text-black/50 font-medium">
+              <p className="text-[14px] text-black/50 font-medium">
                 We'll analyze your images and provide accurate pricing tailored to your needs.
               </p>
             </div>

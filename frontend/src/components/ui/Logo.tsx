@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface LogoProps {
@@ -45,7 +45,7 @@ const Logo: React.FC<LogoProps> = ({ className = "", showText = true, light = fa
             REFRAME
           </span>
           <span 
-            className="text-[10px] font-medium tracking-[0.2em] leading-none overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-4 group-hover:opacity-50 group-hover:mt-1" 
+            className="text-[12px] font-medium tracking-[0.2em] leading-none overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-4 group-hover:opacity-50 group-hover:mt-1" 
             style={{ 
               fontFamily: 'var(--font-heading)', 
               color: light ? '#FFFFFF' : '#171717' 

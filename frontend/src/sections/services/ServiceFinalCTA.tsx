@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import { cx, layout, typography, tokens } from '../../utils/theme';
 import { useNavigate } from 'react-router-dom';
@@ -69,7 +69,7 @@ const ServiceFinalCTA: React.FC<ServiceFinalCTAProps> = ({ serviceName, isUserAu
                     <ArrowRight size={16} />
                   </div>
                 </button>
-                <div className="mt-6 text-[10px] lg:text-[11px] font-bold tracking-[0.15em] text-white/40 uppercase">
+                <div className="mt-6 text-[12px] lg:text-[12px] font-bold tracking-[0.15em] text-white/40 uppercase">
                   3 FREE IMAGE EDITS • NO CREDIT CARD REQUIRED
                 </div>
               </div>
@@ -77,7 +77,7 @@ const ServiceFinalCTA: React.FC<ServiceFinalCTAProps> = ({ serviceName, isUserAu
 
             {/* Right Column */}
             <div className="flex flex-col justify-center border-t border-white/10 pt-16 lg:border-t-0 lg:pt-0 lg:border-l lg:pl-16">
-              <div className="text-[11px] font-bold tracking-[0.1em] text-white/50 uppercase mb-5">
+              <div className="text-[12px] font-bold tracking-[0.1em] text-white/50 uppercase mb-5">
                 REQUEST A CUSTOM QUOTE
               </div>
               

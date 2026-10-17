@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Linkedin,
@@ -241,7 +241,7 @@ const Footer: React.FC = () => {
                 {linkGroups.map((group) => {
                   return (
                     <div key={group.title} className="col-span-1">
-                      <h5 className="font-heading font-bold text-[12px] sm:text-[13px] text-white/60 uppercase mb-2 sm:mb-2.5 tracking-[0.12em]">
+                      <h5 className="font-heading font-bold text-[12px] sm:text-[14px] text-white/60 uppercase mb-2 sm:mb-2.5 tracking-[0.12em]">
                         {group.title}
                       </h5>
                       <ul className="space-y-0.5 sm:space-y-1.5">
@@ -274,7 +274,7 @@ const Footer: React.FC = () => {
                         onClick={() => setOpenGroup((prev) => (prev === group.title ? null : group.title))}
                         className="w-full flex items-center justify-between px-4 py-3.5 text-left"
                       >
-                        <span className="font-heading font-bold text-[11px] text-white/55 uppercase tracking-[0.14em]">
+                        <span className="font-heading font-bold text-[12px] text-white/55 uppercase tracking-[0.14em]">
                           {group.title}
                         </span>
                         {isOpen ? <ChevronUp size={14} className="text-white/45" /> : <ChevronDown size={14} className="text-white/45" />}
@@ -285,7 +285,7 @@ const Footer: React.FC = () => {
                             <li key={link.label}>
                               <Link
                                 to={link.path}
-                                className="group flex min-h-8 items-center gap-2 text-[13px] text-white/55 hover:text-white transition-all touch-manipulation"
+                                className="group flex min-h-8 items-center gap-2 text-[14px] text-white/55 hover:text-white transition-all touch-manipulation"
                               >
                                 <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-[var(--brand)] transition-colors" />
                                 <span>{link.label}</span>
@@ -326,13 +326,13 @@ const Footer: React.FC = () => {
                     e.stopPropagation();
                     window.dispatchEvent(new CustomEvent('reframe-cs:open'));
                   }}
-                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[13px] font-semibold text-white transition-colors hover:bg-white/[0.08]"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-white/[0.08]"
                 >
                   Open chat
                 </button>
                 <Link
                   to="/book-meeting"
-                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[13px] font-semibold text-white transition-colors hover:bg-white/[0.08]"
+                  className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-white/[0.08]"
                 >
                   Book a meeting
                 </Link>
@@ -359,7 +359,7 @@ const Footer: React.FC = () => {
               <div className="w-5 h-5">
                 <img src="/logo.svg" alt="Reframe Visuals" className="w-full h-full object-contain opacity-85 brightness-0 invert" />
               </div>
-              <span className="text-[10px] sm:text-[11px] font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/75 text-center">
+              <span className="text-[12px] sm:text-[12px] font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/75 text-center">
                 Precision Design by Reframe Visuals
               </span>
             </div>

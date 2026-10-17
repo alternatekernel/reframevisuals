@@ -1,4 +1,4 @@
-import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
+﻿import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { ChevronRight, Zap, Save, RotateCcw, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { OrderFlowData, OrderFlowStep } from './types';
@@ -279,7 +279,7 @@ const OrderFlowUI = React.forwardRef<OrderFlowUIHandle, Props>(function OrderFlo
                 onClick={() => navigateTo(step.id as OrderFlowStep)}
                 className={`relative px-3 sm:px-4 py-1.5 rounded-full font-heading font-bold text-caption transition-colors duration-200 cursor-pointer whitespace-nowrap ${
                   orderFlowStep === step.id
-                    ? 'bg-[var(--research-blue-light)] text-[var(--color-text-primary)]'
+                    ? 'bg-[var(--brand-secondary-light)] text-[var(--color-text-primary)]'
                     : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]'
                 }`}
               >

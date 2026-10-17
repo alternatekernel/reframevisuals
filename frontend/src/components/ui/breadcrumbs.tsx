@@ -1,4 +1,4 @@
-import * as React from "react"
+﻿import * as React from "react"
 import { ChevronRight, Home } from "lucide-react"
 import { Link } from "react-router-dom"
 import { cx } from "../../utils/theme"
@@ -22,7 +22,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   className,
 }) => {
   return (
-    <nav aria-label="Breadcrumb" className={cx("flex items-center text-[13px]", className)}>
+    <nav aria-label="Breadcrumb" className={cx("flex items-center text-[14px]", className)}>
       <ol className="flex flex-wrap items-center gap-1.5 text-black/60">
         {showHome && (
           <li className="inline-flex items-center">

@@ -40,7 +40,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
         >
           <Menu size={20} />
         </button>
-        <div className="text-[13px] font-bold tracking-[-0.02em] text-text-primary">Reframe CS</div>
+        <div className="text-[14px] font-bold tracking-[-0.02em] text-text-primary">Reframe CS</div>
         <div className="h-10 w-10" aria-hidden="true" />
       </header>
 

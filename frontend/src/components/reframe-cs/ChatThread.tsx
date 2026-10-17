@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+﻿import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import ContactCaptureCard from './ContactCaptureCard';
 import MessageBubble, { TypingBubble } from './MessageBubble';
@@ -122,7 +122,7 @@ const ChatThread = ({ session, guestId, onAction, onOpenActions, onNavigate }: P
               {showDivider && (
                 <div className="flex items-center gap-3 py-1" role="separator">
                   <div className="h-px flex-1 bg-red-200" />
-                  <span className="text-[10px] font-bold uppercase tracking-wide text-red-600">New replies</span>
+                  <span className="text-[12px] font-bold uppercase tracking-wide text-red-600">New replies</span>
                   <div className="h-px flex-1 bg-red-200" />
                 </div>
               )}
@@ -149,7 +149,7 @@ const ChatThread = ({ session, guestId, onAction, onOpenActions, onNavigate }: P
           <button
             type="button"
             onClick={jumpToLatest}
-            className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-[#171717] px-3 py-1.5 text-[11px] font-semibold text-white shadow-lg transition-colors hover:bg-black"
+            className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-[#171717] px-3 py-1.5 text-[12px] font-semibold text-white shadow-lg transition-colors hover:bg-black"
           >
             <ArrowDown size={12} />
             {unseenCount > 0 ? `${unseenCount} new message${unseenCount === 1 ? '' : 's'}` : 'Latest'}

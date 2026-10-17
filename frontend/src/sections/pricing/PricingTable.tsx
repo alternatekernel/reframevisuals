@@ -255,7 +255,7 @@ const PricingTable: React.FC = () => {
 
                         {/* Column 2: Description */}
                         <div className="py-5 px-6 border-r border-neutral-200/70 hidden sm:flex items-center min-w-0">
-                          <span className="text-neutral-700 font-sans text-[13px] leading-relaxed">
+                          <span className="text-neutral-700 font-sans text-[14px] leading-relaxed">
                             {service.description || 'Professional image editing service'}
                           </span>
                         </div>
@@ -318,7 +318,7 @@ const PricingTable: React.FC = () => {
                   </button>
                 </form>
               )}
-              <p className="text-center text-[13px] text-black/40 mt-4">
+              <p className="text-center text-[14px] text-black/40 mt-4">
                 We'll analyze your images and provide accurate pricing tailored to your needs.
               </p>
             </div>

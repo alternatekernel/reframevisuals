@@ -1,4 +1,4 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, Download, Mail, CheckCircle2 } from 'lucide-react';
@@ -117,14 +117,14 @@ const LeadMagnet = () => {
               <>
                 <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/10 border border-white/10 mb-4 sm:mb-6">
                   <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                  <span className="text-[10px] font-bold text-white uppercase tracking-wider">Free Technical Guide</span>
+                  <span className="text-[12px] font-bold text-white uppercase tracking-wider">Free Technical Guide</span>
                 </div>
 
                 <h2 className="text-white text-xl sm:text-2xl font-bold leading-tight mb-3">
                   2024 E-commerce<br />Imaging Standard .
                 </h2>
                 
-                <p className="text-white/50 text-[13px] leading-relaxed mb-5 sm:mb-8">
+                <p className="text-white/50 text-[14px] leading-relaxed mb-5 sm:mb-8">
                   Get the definitive blueprint for high-conversion visual assets. Used by leading fashion and product studios.
                 </p>
 
@@ -142,14 +142,14 @@ const LeadMagnet = () => {
 
                   <button 
                     disabled={status === 'submitting'}
-                    className="w-full h-12 sm:h-14 bg-white text-black rounded-2xl font-bold text-[13px] flex items-center justify-center gap-2 hover:bg-white/90 transition-all active:scale-95 disabled:opacity-50"
+                    className="w-full h-12 sm:h-14 bg-white text-black rounded-2xl font-bold text-[14px] flex items-center justify-center gap-2 hover:bg-white/90 transition-all active:scale-95 disabled:opacity-50"
                   >
                     {status === 'submitting' ? 'Preparing guide...' : 'Download Guide'}
                     <Download size={16} />
                   </button>
                 </form>
 
-                <p className="text-white/20 text-[10px] text-center mt-4 sm:mt-6">
+                <p className="text-white/20 text-[12px] text-center mt-4 sm:mt-6">
                   Built by editors who've worked with top ecommerce brands.
                 </p>
               </>

@@ -159,7 +159,7 @@ const ServiceTable: React.FC = () => {
                         </span>
                       ))}
                       {svc.includes.length > 2 && (
-                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[11px] text-black/40 font-sans shrink-0">
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[12px] text-black/40 font-sans shrink-0">
                           + more
                         </span>
                       )}
@@ -236,7 +236,7 @@ const ServiceTable: React.FC = () => {
                         </span>
                       ))}
                       {svc.includes.length > 2 && (
-                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[11px] text-black/40 font-sans shrink-0">
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[12px] text-black/40 font-sans shrink-0">
                           + more
                         </span>
                       )}
@@ -262,7 +262,7 @@ const ServiceTable: React.FC = () => {
         </div>
         <button
           onClick={handleToggleExpand}
-          className="w-full py-4 bg-[var(--color-bg-secondary)] hover:bg-black/5 border-t border-black/20 text-[13px] font-heading font-bold text-black/50 hover:text-black flex items-center justify-center gap-2 transition-all duration-300 select-none"
+          className="w-full py-4 bg-[var(--color-bg-secondary)] hover:bg-black/5 border-t border-black/20 text-[14px] font-heading font-bold text-black/50 hover:text-black flex items-center justify-center gap-2 transition-all duration-300 select-none"
         >
           <span>{isExpanded ? 'Show less services' : 'Show all services'}</span>
           <ChevronDown size={14} className={cx("transition-transform duration-300", isExpanded && "rotate-180")} />

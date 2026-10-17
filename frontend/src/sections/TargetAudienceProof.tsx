@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+﻿import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { cx, layout, tokens } from '../utils/theme';
@@ -48,7 +48,7 @@ const TargetAudienceProof = () => {
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: i * 0.07 }}
             className="group flex flex-col py-2 text-center"
           >
-            <p className={`mb-3 text-[11px] font-semibold uppercase tracking-widest ${seg.eyebrowColor}`}>
+            <p className={`mb-3 text-[12px] font-semibold uppercase tracking-widest ${seg.eyebrowColor}`}>
               {seg.eyebrow}
             </p>
             <h3 className="flex-1 whitespace-pre-line text-[22px] lg:text-[26px] font-semibold tracking-[-0.03em] leading-[1.15] text-[var(--color-text-primary)] mb-6">

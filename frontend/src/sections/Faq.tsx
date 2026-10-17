@@ -83,7 +83,7 @@ const Faq: React.FC = () => {
                         <Icon size={15} />
                       </div>
                       <div className="flex flex-col">
-                        <span className={cx('mb-1 text-[10px] font-black uppercase tracking-widest', theme.label)}>
+                        <span className={cx('mb-1 text-[12px] font-black uppercase tracking-widest', theme.label)}>
                           {item.category || 'GENERAL'}
                         </span>
                         <span className="font-heading text-[14px] font-bold leading-snug tracking-tight text-black sm:text-[16px]">

@@ -87,11 +87,11 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className={cx(typography.vercelSection, "text-[#171717] mb-4 text-center")}
+            className={cx(typography.vercelSection, "text-text-primary mb-4 text-center")}
           >
             {title ?? "Need help with your order?"}
           </motion.h2>
-          <p className="text-[15px] sm:text-[18px] text-[#4d4d4d] leading-relaxed max-w-2xl mx-auto font-normal">
+          <p className="text-body-sm sm:text-[18px] text-text-subtle leading-relaxed max-w-2xl mx-auto font-normal">
             {subtitle ?? "Live support preview, right on the page."}
           </p>
         </div>
@@ -100,7 +100,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
       {/* Chat showcase */}
     <section id="reframe-cs-showcase" data-section="reframe-cs-showcase" className="relative overflow-visible bg-surface px-5 pt-10 pb-12 sm:pb-14 lg:px-12 lg:pt-14 lg:pb-16 text-black">
       <div className="pointer-events-none absolute left-1/2 top-16 h-72 w-[38rem] -translate-x-1/2 rounded-full bg-black/[0.035] blur-3xl" />
-      <div className="pointer-events-none absolute bottom-12 right-0 h-56 w-56 rounded-full bg-[var(--research-blue)]/16 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-12 right-0 h-56 w-56 rounded-full bg-[var(--brand-secondary)]/16 blur-3xl" />
 
       <div className="relative z-10 mx-auto grid grid-cols-1 lg:grid-cols-[1fr_3.1fr_1fr] items-center gap-8 lg:gap-10 w-full max-w-[1580px]">
         {/* Left Options (Desktop: Column 1, Mobile: Order 2) */}
@@ -117,7 +117,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
               <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
               <div className="flex flex-col min-w-0">
                 <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-[var(--color-text-primary)] leading-snug">{item.title}</h3>
-                <p className="mt-1 sm:mt-1.5 text-[13px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
+                <p className="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
               </div>
             </motion.div>
           ))}
@@ -155,7 +155,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
         >
           <div className={cx(
             "rounded-[16px] border bg-white shadow-[0_24px_72px_rgba(0,0,0,0.09)] overflow-hidden transition-all duration-700",
-            showGlow ? "border-[#3b82f6] ring-4 ring-[#3b82f6]/20 scale-[1.015]" : "border-black/[0.18] scale-100"
+            showGlow ? "border-focus ring-4 ring-focus/20 scale-[1.015]" : "border-black/[0.18] scale-100"
           )}>
             {/* Minimal Top Bar */}
             <div className="flex items-center gap-4 px-4 py-2.5 bg-[#f6f6f6] border-b border-black/[0.20] select-none">
@@ -192,7 +192,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
               <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
               <div className="flex flex-col min-w-0">
                 <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-[var(--color-text-primary)] leading-snug">{item.title}</h3>
-                <p className="mt-1 sm:mt-1.5 text-[13px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
+                <p className="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
               </div>
             </motion.div>
           ))}

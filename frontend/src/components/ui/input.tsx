@@ -149,7 +149,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
             </label>
           )}
           {showCount && maxLength && (
-            <span className="text-[11px] font-medium tabular-nums text-black/35">
+            <span className="text-[12px] font-medium tabular-nums text-black/35">
               {currentLength}/{maxLength}
             </span>
           )}

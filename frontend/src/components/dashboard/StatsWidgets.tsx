@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { portalFetch } from '../../lib/apiConfig';
 import { motion } from 'framer-motion';
 import { CreditCard, TrendingUp, Clock, MessageSquare, Package, CheckCircle2, AlertCircle } from 'lucide-react';
@@ -129,10 +129,10 @@ export const ActivityFeed: React.FC = () => {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start">
-                <p className="text-[13px] font-medium text-text-primary truncate">
+                <p className="text-[14px] font-medium text-text-primary truncate">
                   {item.title || (item.type === 'order' ? `Order #${item.code}` : item.type.toUpperCase())}
                 </p>
-                <span className="text-[11px] text-text-tertiary whitespace-nowrap ml-2">
+                <span className="text-[12px] text-text-tertiary whitespace-nowrap ml-2">
                   {new Date(item.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' })}
                 </span>
               </div>
@@ -144,7 +144,7 @@ export const ActivityFeed: React.FC = () => {
         ))}
         {activities.length === 0 && (
           <div className="text-center py-8">
-            <p className="text-[13px] text-text-tertiary">No recent activity to show.</p>
+            <p className="text-[14px] text-text-tertiary">No recent activity to show.</p>
           </div>
         )}
       </div>

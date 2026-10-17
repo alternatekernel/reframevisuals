@@ -139,7 +139,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
             currentUser?.avatarUrl ? (
               <img src={currentUser.avatarUrl} alt="User" className="h-7 w-7 rounded-full object-cover shrink-0 mb-0.5 border border-black/[0.12] shadow-sm" />
             ) : (
-              <div className="h-7 w-7 rounded-full bg-brand-ink text-white flex items-center justify-center font-bold text-[10px] shrink-0 mb-0.5 shadow-sm">
+              <div className="h-7 w-7 rounded-full bg-brand-ink text-white flex items-center justify-center font-bold text-[12px] shrink-0 mb-0.5 shadow-sm">
                 {currentUser?.name?.[0]?.toUpperCase() || 'U'}
               </div>
             )
@@ -157,7 +157,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
                 </a>
               )}
             </div>
-            {showMetadata && <div className={`absolute right-0 -bottom-6 flex items-center gap-1 text-[11px] text-[#999] transition-opacity duration-200 ${showTimestamp ? 'opacity-100' : 'opacity-30'}`}>
+            {showMetadata && <div className={`absolute right-0 -bottom-6 flex items-center gap-1 text-[12px] text-[#999] transition-opacity duration-200 ${showTimestamp ? 'opacity-100' : 'opacity-30'}`}>
               <Clock size={10} />
               <span>{formatTime(message.createdAt)}</span>
               {deliveryState && (
@@ -195,7 +195,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
             {isRichContent && (
               <div className="px-4 py-2.5 border-b border-black/[0.12] bg-gradient-to-r from-black/[0.02] to-transparent">
                 <div className="flex items-center gap-2">
-                  <span className="text-[13px] font-semibold text-[#171717]">Reframe CS</span>
+                  <span className="text-[14px] font-semibold text-[#171717]">Reframe CS</span>
                   <span className="px-1.5 py-0.5 bg-[#171717] text-white text-[9px] font-medium rounded">Support</span>
                 </div>
               </div>
@@ -228,7 +228,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, showAvatar = fal
           </div>
 
           {/* Timestamp - outside the card */}
-          {showMetadata && <div className={`flex items-center gap-1 text-[11px] text-[#999] mt-2 ml-1 transition-opacity duration-200 ${showTimestamp ? 'opacity-100' : 'opacity-30'}`}>
+          {showMetadata && <div className={`flex items-center gap-1 text-[12px] text-[#999] mt-2 ml-1 transition-opacity duration-200 ${showTimestamp ? 'opacity-100' : 'opacity-30'}`}>
             <Clock size={10} />
             <span>{formatTime(message.createdAt)}</span>
           </div>}
@@ -242,7 +242,7 @@ export const DateSeparator: React.FC<{ date: string }> = ({ date }) => (
   <div className="flex items-center justify-center my-6">
     <div className="flex items-center gap-3">
       <div className="h-px w-12 bg-black/10" />
-      <span className="text-[11px] font-medium text-[#999] uppercase tracking-wide">
+      <span className="text-[12px] font-medium text-[#999] uppercase tracking-wide">
         {formatDate(date)}
       </span>
       <div className="h-px w-12 bg-black/10" />

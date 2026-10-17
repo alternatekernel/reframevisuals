@@ -79,7 +79,7 @@ const ForgotPasswordPage = () => {
             ) : (
               <>
                 <div className="space-y-3">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Account Recovery</h3>
+                  <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Account Recovery</h3>
                   <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Forgot password?</h1>
                   <p className="text-[14px] sm:text-[15px] text-black/60 leading-relaxed">
                     Enter your work email and we'll send you a link to reset your password.
@@ -88,7 +88,7 @@ const ForgotPasswordPage = () => {
 
                 <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate>
                   <div>
-                    <label htmlFor="forgot-email" className="mb-1.5 block text-[13px] font-bold text-black/70">Work Email <span className="text-red-600">*</span></label>
+                    <label htmlFor="forgot-email" className="mb-1.5 block text-[14px] font-bold text-black/70">Work Email <span className="text-red-600">*</span></label>
                     <input
                       id="forgot-email"
                       type="email"
@@ -101,7 +101,7 @@ const ForgotPasswordPage = () => {
                   </div>
 
                   {error && (
-                    <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                    <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                       {error}
                     </div>
                   )}
@@ -128,7 +128,7 @@ const ForgotPasswordPage = () => {
 
           {/* RIGHT PANEL: Info content */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Verification Guidelines</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Verification Guidelines</h3>
             <div className="space-y-8">
               <div>
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">Secure Verification</p>

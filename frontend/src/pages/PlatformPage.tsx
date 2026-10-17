@@ -132,7 +132,7 @@ const PlatformPage = () => (
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="inline-flex items-center gap-2 bg-black/[0.04] border border-black/[0.16] rounded-full px-4 py-1.5 text-[13px] font-medium text-black/60 mb-6">
+            <div className="inline-flex items-center gap-2 bg-black/[0.04] border border-black/[0.16] rounded-full px-4 py-1.5 text-[14px] font-medium text-black/60 mb-6">
               Included free with every order
             </div>
             <h1 className="text-[44px] sm:text-[56px] lg:text-[72px] font-semibold tracking-[-0.04em] leading-[1.05] text-[var(--color-text-primary)] mb-6">
@@ -174,7 +174,7 @@ const PlatformPage = () => (
           ].map(({ value, label }) => (
             <div key={label}>
               <div className="text-[36px] sm:text-[42px] font-bold tracking-[-0.04em] text-black">{value}</div>
-              <div className="text-[13px] text-black/50 mt-1 font-medium">{label}</div>
+              <div className="text-[14px] text-black/50 mt-1 font-medium">{label}</div>
             </div>
           ))}
         </div>

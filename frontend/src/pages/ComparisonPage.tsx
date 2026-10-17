@@ -173,7 +173,7 @@ const ComparisonPage = () => {
         <p className="text-[16px] text-black/60 leading-relaxed max-w-2xl mb-10">{data.intro}</p>
 
         <div className="mb-12 rounded-2xl border border-black/[0.16] bg-[var(--color-bg-secondary)] p-6">
-          <p className="text-[11px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Direct answer</p>
+          <p className="text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3">Direct answer</p>
           <p className="text-[16px] leading-8 text-black/80">{data.directAnswer}</p>
         </div>
 
@@ -185,18 +185,18 @@ const ComparisonPage = () => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-[var(--color-text-primary)] text-white">
-                  <th className="text-left px-5 py-3.5 font-semibold text-[13px]">Feature</th>
-                  <th className="text-left px-5 py-3.5 font-semibold text-[13px]">Reframe Visuals</th>
-                  <th className="text-left px-5 py-3.5 font-semibold text-[13px]">{data.competitorLabel}</th>
+                  <th className="text-left px-5 py-3.5 font-semibold text-[14px]">Feature</th>
+                  <th className="text-left px-5 py-3.5 font-semibold text-[14px]">Reframe Visuals</th>
+                  <th className="text-left px-5 py-3.5 font-semibold text-[14px]">{data.competitorLabel}</th>
                 </tr>
               </thead>
               <tbody>
                 {data.tableRows.map((row, i) => (
                   <tr key={row.feature} className={i % 2 === 0 ? 'bg-white' : 'bg-black/[0.04]'}>
-                    <td className="px-5 py-3 text-black/55 text-[13px] font-medium">{row.feature}</td>
+                    <td className="px-5 py-3 text-black/55 text-[14px] font-medium">{row.feature}</td>
                     <td className="px-5 py-3">
                       <span
-                        className={`flex items-center gap-1.5 text-[13px] font-medium ${
+                        className={`flex items-center gap-1.5 text-[14px] font-medium ${
                           row.reframeWins === true ? 'text-[#16A34A]' : 'text-black/70'
                         }`}
                       >
@@ -204,7 +204,7 @@ const ComparisonPage = () => {
                         {row.reframe}
                       </span>
                     </td>
-                    <td className="px-5 py-3 text-[13px] text-black/45">{row.competitor}</td>
+                    <td className="px-5 py-3 text-[14px] text-black/45">{row.competitor}</td>
                   </tr>
                 ))}
               </tbody>
@@ -223,7 +223,7 @@ const ComparisonPage = () => {
                 className="rounded-2xl border border-black/[0.16] bg-white p-5 shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
               >
                 <h3 className="text-[15px] font-semibold tracking-tight mb-2">{reason.heading}</h3>
-                <p className="text-[13px] text-black/60 leading-relaxed">{reason.body}</p>
+                <p className="text-[14px] text-black/60 leading-relaxed">{reason.body}</p>
               </div>
             ))}
           </div>
@@ -235,7 +235,7 @@ const ComparisonPage = () => {
             {data.faqs.map((faq) => (
               <div key={faq.q} className="rounded-2xl border border-black/[0.16] p-5">
                 <h3 className="text-[15px] font-semibold mb-2">{faq.q}</h3>
-                <p className="text-[13px] text-black/65 leading-relaxed">{faq.a}</p>
+                <p className="text-[14px] text-black/65 leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>

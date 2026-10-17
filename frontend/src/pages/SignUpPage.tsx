@@ -73,7 +73,7 @@ const SignUpPage = () => {
           {/* LEFT PANEL: SignUp Form */}
           <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Account Deployment</h3>
+              <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Account Deployment</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Join the platform</h1>
               <p className="text-[16px] text-black/60 leading-relaxed">
                 Connect your studio to the high-performance visual processing engine.
@@ -121,7 +121,7 @@ const SignUpPage = () => {
               </div>
 
               {error && (
-                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                   {error}
                 </div>
               )}
@@ -139,7 +139,7 @@ const SignUpPage = () => {
               {/* Divider */}
               <div className="flex items-center gap-3 pt-2">
                 <div className="h-px flex-1 bg-black/10" />
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-black/30">or</span>
+                <span className="text-[12px] font-semibold uppercase tracking-wider text-black/30">or</span>
                 <div className="h-px flex-1 bg-black/10" />
               </div>
 
@@ -165,7 +165,7 @@ const SignUpPage = () => {
 
           {/* RIGHT PANEL: What's included */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">What's Included</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">What's Included</h3>
             <div className="space-y-6">
               {[
                 'Unlimited high-performance image processing',

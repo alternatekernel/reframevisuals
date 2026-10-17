@@ -40,7 +40,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
             navigate('/dashboard?view=new-project');
             onNavigate?.();
           }}
-          className="w-full flex items-center justify-center gap-2 bg-brand-ink text-white py-2.5 rounded-full text-[13px] font-semibold hover:opacity-90 transition-all active:scale-[0.98] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]"
+          className="w-full flex items-center justify-center gap-2 bg-brand-ink text-white py-2.5 rounded-full text-[14px] font-semibold hover:opacity-90 transition-all active:scale-[0.98] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]"
         >
           <Plus size={16} strokeWidth={2} />
           New Project
@@ -62,7 +62,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
                   navigate(item.path);
                   onNavigate?.();
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[14px] font-medium transition-all text-left tracking-[-0.01em] ${
                   isActive 
                     ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]' 
                     : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
@@ -78,7 +78,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
         {/* Conversations Section */}
         <div className="px-4 mb-4">
           <div className="flex items-center justify-between px-4 mb-3">
-            <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">Recent Chats</h3>
+            <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/30">Recent Chats</h3>
             <MessageSquare size={10} className="text-black/30" />
           </div>
           <div className="space-y-1">
@@ -98,12 +98,12 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
                 }`}
               >
                 <div className="flex justify-between items-start mb-0.5">
-                  <span className={`text-[13px] truncate tracking-[-0.01em] ${conv.unread ? 'font-bold text-text-primary' : 'font-medium'}`}>
+                  <span className={`text-[14px] truncate tracking-[-0.01em] ${conv.unread ? 'font-bold text-text-primary' : 'font-medium'}`}>
                     {conv.title}
                   </span>
                   {conv.unread && <div className="w-1.5 h-1.5 rounded-full bg-brand-ink mt-1.5 shadow-[0px_0px_4px_rgba(0,0,0,0.2)]" />}
                 </div>
-                <p className="text-[11px] text-black/40 truncate font-medium tracking-tight">{conv.lastMessage}</p>
+                <p className="text-[12px] text-black/40 truncate font-medium tracking-tight">{conv.lastMessage}</p>
               </button>
             ))}
           </div>
@@ -121,7 +121,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
                   navigate(item.path);
                   onNavigate?.();
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[14px] font-medium transition-all text-left tracking-[-0.01em] ${
                   isActive 
                     ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]' 
                     : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
@@ -139,7 +139,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
       <div className="p-6 border-t shrink-0 bg-[#FDFDFD] space-y-2" style={{ borderColor: 'rgba(0,0,0,0.09)' }}>
         <button
           onClick={() => { setCurrentView('account'); navigate('/dashboard/account'); onNavigate?.(); }}
-          className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium transition-all text-left tracking-[-0.01em] ${
+          className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[14px] font-medium transition-all text-left tracking-[-0.01em] ${
             currentView === 'account'
               ? 'bg-white text-text-primary shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.09)]'
               : 'text-text-secondary hover:bg-black/5 hover:text-text-primary'
@@ -157,7 +157,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
 
         <button
           onClick={() => { navigate('/'); onNavigate?.(); }}
-          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium text-text-secondary hover:bg-black/5 hover:text-text-primary transition-all text-left tracking-[-0.01em]"
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[14px] font-medium text-text-secondary hover:bg-black/5 hover:text-text-primary transition-all text-left tracking-[-0.01em]"
         >
           <ExternalLink size={14} strokeWidth={1.5} />
           View Website
@@ -169,7 +169,7 @@ const Sidebar = ({ onNavigate }: SidebarProps) => {
             navigate('/login');
             onNavigate?.();
           }}
-          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[13px] font-medium text-red-600 hover:bg-red-50 transition-all text-left tracking-[-0.01em]"
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-[14px] font-medium text-red-600 hover:bg-red-50 transition-all text-left tracking-[-0.01em]"
         >
           <LogOut size={14} strokeWidth={1.5} />
           Sign Out

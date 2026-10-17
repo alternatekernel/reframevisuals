@@ -33,12 +33,12 @@ export const typography = {
   // ── Body ──
   bodyLg: "text-[16px] lg:text-[18px] leading-relaxed",
   body: "text-[14px] lg:text-[15px] leading-relaxed",
-  bodySmall: "text-[13px] leading-relaxed",
+  bodySmall: "text-[14px] leading-relaxed",
 
   // ── Labels / UI ──
-  eyebrow: "font-heading font-black uppercase tracking-[0.18em] text-[10px] sm:text-[11px]",
-  caption: "text-[12px] leading-snug",
-  micro: "text-[10px] leading-none",
+  eyebrow: "font-heading font-black uppercase tracking-[0.18em] text-[11px] sm:text-[12px]",
+  caption: "text-[13px] leading-snug",
+  micro: "text-[11px] leading-none",
 
   // ── Special ──
   price: "font-heading font-black tracking-[-0.05em]",
@@ -49,9 +49,9 @@ export const typography = {
   sectionSubtitleSoft: "text-[var(--color-text-muted)]",
 
   // ── Legacy aliases (in use across pricing/about/insights) ──
-  label: "font-heading font-black uppercase tracking-[0.18em] text-[10px] sm:text-[11px]",
+  label: "font-heading font-black uppercase tracking-[0.18em] text-[11px] sm:text-[12px]",
   vercelSection: "font-heading font-semibold tracking-[-0.045em] leading-[1.06] text-[28px] sm:text-[42px] lg:text-[64px]",
-  vercelMono: "font-heading uppercase tracking-[0.18em] text-[11px]",
+  vercelMono: "font-heading uppercase tracking-[0.18em] text-[12px]",
   vercelCardTitle: "font-heading font-semibold tracking-[-0.04em] text-[20px] lg:text-[24px]",
   vercelHero: "font-heading font-black tracking-[-0.07em] leading-[1.0] text-[40px] sm:text-[56px] lg:text-[88px]",
 };

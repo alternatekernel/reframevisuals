@@ -41,7 +41,7 @@ const SuggestedActions: React.FC<SuggestedActionsProps> = ({ actions, onActionCl
           <button
             key={index}
             onClick={() => handleClick(action)}
-            className="group flex items-center gap-1.5 px-3 py-1 bg-white border border-black/[0.18] rounded-full text-[11px] font-medium text-[#171717] hover:border-[#171717] hover:bg-[#fafafa] transition-all duration-300 shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
+            className="group flex items-center gap-1.5 px-3 py-1 bg-white border border-black/[0.18] rounded-full text-[12px] font-medium text-[#171717] hover:border-[#171717] hover:bg-[#fafafa] transition-all duration-300 shadow-[0_1px_2px_rgba(0,0,0,0.02)]"
           >
             <span>{action.text}</span>
             {isExternal ? (

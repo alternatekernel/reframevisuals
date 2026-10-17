@@ -40,9 +40,9 @@ const badgeVariants = cva(
           "border border-purple-500/25 bg-purple-500/10 text-purple-600 font-semibold",
       },
       size: {
-        sm: "h-5 px-2 text-[11px] rounded-full",
+        sm: "h-5 px-2 text-[12px] rounded-full",
         default: "h-6 px-2.5 text-[12px] rounded-full",
-        lg: "h-7 px-3 text-[13px] rounded-full",
+        lg: "h-7 px-3 text-[14px] rounded-full",
       },
     },
     defaultVariants: {

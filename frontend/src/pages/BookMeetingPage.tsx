@@ -103,7 +103,7 @@ const BookMeetingPage: React.FC = () => {
           {/* LEFT PANEL: Form and Date Time Picker */}
           <div className="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
             <div className="space-y-3">
-              <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Walkthrough</h3>
+              <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Walkthrough</h3>
               <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Schedule call</h1>
               <p className="text-[16px] text-black/60 leading-relaxed">
                 Book a 30-minute call with our editing team to discuss your workflow, volume, and turnaround needs.
@@ -114,13 +114,13 @@ const BookMeetingPage: React.FC = () => {
               
               {/* Date & Time Picker */}
               <div className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-3 sm:p-4 space-y-3">
-                <div className="flex items-center gap-2 text-[13px] font-bold text-black/70">
+                <div className="flex items-center gap-2 text-[14px] font-bold text-black/70">
                   <CalendarDays size={16} />
                   <span>Choose preferred slot</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="meeting-date" className="mb-1 block text-[11px] font-semibold text-black/50">Date</label>
+                    <label htmlFor="meeting-date" className="mb-1 block text-[12px] font-semibold text-black/50">Date</label>
                     <input
                       id="meeting-date"
                       type="date"
@@ -132,7 +132,7 @@ const BookMeetingPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <div className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-black/50">
+                    <div className="mb-1 flex items-center gap-1 text-[12px] font-semibold text-black/50">
                       <Clock3 size={12} />
                       Time
                     </div>
@@ -225,7 +225,7 @@ const BookMeetingPage: React.FC = () => {
               </div>
 
               {submitError && (
-                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                   {submitError}
                 </div>
               )}
@@ -244,7 +244,7 @@ const BookMeetingPage: React.FC = () => {
 
           {/* RIGHT PANEL: Walkthrough Details */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-6">Meeting Details</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-6">Meeting Details</h3>
             
             <div className="space-y-6">
               <div className="space-y-3">
@@ -280,8 +280,8 @@ const BookMeetingPage: React.FC = () => {
                 <div className="grid grid-cols-3 gap-2">
                   {nextSteps.map((step, index) => (
                     <div key={step} className="rounded-lg bg-white p-3 border border-black/[0.12] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
-                      <span className="text-[10px] font-bold text-black/30">0{index + 1}</span>
-                      <p className="mt-1 text-[11px] font-bold text-[var(--color-text-primary)] leading-tight">{step}</p>
+                      <span className="text-[12px] font-bold text-black/30">0{index + 1}</span>
+                      <p className="mt-1 text-[12px] font-bold text-[var(--color-text-primary)] leading-tight">{step}</p>
                     </div>
                   ))}
                 </div>
@@ -291,7 +291,7 @@ const BookMeetingPage: React.FC = () => {
               <div className="rounded-xl border border-black/[0.18] bg-[var(--color-text-primary)] p-4 text-white shadow-sm space-y-2">
                 <div className="flex items-center gap-2">
                   <ShieldCheck size={16} className="text-white/60" />
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/60">QA Control</p>
+                  <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">QA Control</p>
                 </div>
                 <p className="text-[12px] leading-relaxed text-white/70">
                   Every order is reviewed by a senior editor before delivery.

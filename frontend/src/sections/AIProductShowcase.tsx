@@ -75,7 +75,7 @@ const AIProductShowcase = () => {
                   <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
                     <Sparkles size={20} className="text-brand" /> Our AI Product Photography service
                   </h3>
-                  <span className="text-[13px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
+                  <span className="text-[14px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                     Instant delivery
                   </span>
@@ -110,7 +110,7 @@ const AIProductShowcase = () => {
                   <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
                     <UserCheck size={22} className="text-green-600" /> After Human Editors Retouching
                   </h3>
-                  <span className="text-[13px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
+                  <span className="text-[14px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
                     <span className="w-1.5 h-1.5 rounded-full bg-red-500 opacity-50" />
                     6 hour
                   </span>

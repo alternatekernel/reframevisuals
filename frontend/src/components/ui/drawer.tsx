@@ -102,7 +102,7 @@ export const Drawer: React.FC<DrawerProps> = ({
                   </h3>
                 )}
                 {description && (
-                  <p className="mt-0.5 text-[13px] text-black/50">{description}</p>
+                  <p className="mt-0.5 text-[14px] text-black/50">{description}</p>
                 )}
               </div>
               <button

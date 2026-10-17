@@ -28,7 +28,7 @@ const AboutCTA = () => {
                 />
               </div>
 
-              <p className="text-[10px] sm:text-[11px] lg:text-[12px] font-heading font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/40">
+              <p className="text-[12px] sm:text-[12px] lg:text-[12px] font-heading font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/40">
                 3 free image edits &bull; no credit card required &bull; response within 30 minutes
               </p>
             </div>

@@ -156,7 +156,7 @@ const QuoteBuilderPage: React.FC = () => {
             ) : (
               <>
                 <div className="space-y-3">
-                  <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Interactive Estimator</h3>
+                  <h3 className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Interactive Estimator</h3>
                   <h1 className="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Estimate project</h1>
                   <p className="text-[16px] text-black/60 leading-relaxed">
                     Select your service mix, volume, and turnaround time to calculate an estimate.
@@ -176,7 +176,7 @@ const QuoteBuilderPage: React.FC = () => {
                             key={service.id}
                             type="button"
                             onClick={() => handleServiceToggle(service.id)}
-                            className={`flex items-center justify-between p-3 rounded-xl border transition-all text-left text-[13px] font-semibold ${
+                            className={`flex items-center justify-between p-3 rounded-xl border transition-all text-left text-[14px] font-semibold ${
                               isSelected
                                 ? 'bg-black text-white border-transparent'
                                 : 'bg-[var(--color-bg-secondary)] border-black/[0.18] text-black/70 hover:border-black/30'
@@ -207,7 +207,7 @@ const QuoteBuilderPage: React.FC = () => {
                         required
                       />
                       {discountPercent > 0 && (
-                        <p className="text-[11px] text-green-600 font-semibold mt-1 px-1">
+                        <p className="text-[12px] text-green-600 font-semibold mt-1 px-1">
                           ✓ Volume discount of {discountPercent}% applied
                         </p>
                       )}
@@ -229,18 +229,18 @@ const QuoteBuilderPage: React.FC = () => {
 
                   {/* Pricing metrics panel */}
                   <div className="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 space-y-2.5">
-                    <div className="flex justify-between text-[13px] text-black/60 font-semibold">
+                    <div className="flex justify-between text-[14px] text-black/60 font-semibold">
                       <span>Rate per image</span>
                       <span>${selectedBaseRate.toFixed(2)}</span>
                     </div>
                     {discountPercent > 0 && (
-                      <div className="flex justify-between text-[13px] text-green-600 font-semibold">
+                      <div className="flex justify-between text-[14px] text-green-600 font-semibold">
                         <span>Volume discount ({discountPercent}%)</span>
                         <span>-${(discountAmount / volume).toFixed(2)} /ea</span>
                       </div>
                     )}
                     {turnaroundMultiplier > 1 && (
-                      <div className="flex justify-between text-[13px] text-black/60 font-semibold">
+                      <div className="flex justify-between text-[14px] text-black/60 font-semibold">
                         <span>Turnaround fee (+{Math.round((turnaroundMultiplier - 1) * 100)}%)</span>
                         <span>x{turnaroundMultiplier}</span>
                       </div>
@@ -297,7 +297,7 @@ const QuoteBuilderPage: React.FC = () => {
                   </div>
 
                   {error && (
-                    <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[13px] font-semibold">
+                    <div className="p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold">
                       {error}
                     </div>
                   )}
@@ -318,7 +318,7 @@ const QuoteBuilderPage: React.FC = () => {
 
           {/* RIGHT PANEL: Pricing Standards */}
           <div className="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
-            <h3 className="text-[13px] font-bold uppercase tracking-widest text-black/40 mb-8">Pricing Standards</h3>
+            <h3 className="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Pricing Standards</h3>
             <div className="space-y-8">
               <div>
                 <p className="text-[16px] font-bold text-[var(--color-text-primary)]">100% Hand-Drawn Paths</p>

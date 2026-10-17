@@ -200,7 +200,7 @@ const InstantDropZone: React.FC = () => {
         ) : (
           <>
             <div className="mb-5 text-center sm:mb-6">
-              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">Instant Free Trial</p>
+              <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Instant Free Trial</p>
               <h2 className="mt-2 text-[26px] sm:text-[34px] font-bold tracking-tight leading-[1.1] text-[var(--color-text-primary)]">
                 Drop your product photos. Get 3 edited free.
               </h2>
@@ -258,7 +258,7 @@ const InstantDropZone: React.FC = () => {
                           <X size={11} />
                         </button>
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-2 pb-1.5 pt-5">
-                          <p className="truncate text-[10px] font-medium text-white">{asset.file.name} · {formatFileSize(asset.file.size)}</p>
+                          <p className="truncate text-[12px] font-medium text-white">{asset.file.name} · {formatFileSize(asset.file.size)}</p>
                         </div>
                       </div>
                     ))}
@@ -269,8 +269,8 @@ const InstantDropZone: React.FC = () => {
                         className="flex aspect-square flex-col items-center justify-center gap-1.5 rounded-xl border border-dashed border-black/20 text-black/50 transition-all hover:border-black hover:bg-black/[0.04] hover:text-black"
                       >
                         <Plus size={18} />
-                        <span className="text-[11px] font-semibold">Add more</span>
-                        <span className="text-[10px] text-black/40">{MAX_FILES - projectAssets.length} slot{MAX_FILES - projectAssets.length === 1 ? '' : 's'} left</span>
+                        <span className="text-[12px] font-semibold">Add more</span>
+                        <span className="text-[12px] text-black/40">{MAX_FILES - projectAssets.length} slot{MAX_FILES - projectAssets.length === 1 ? '' : 's'} left</span>
                       </button>
                     )}
                   </div>
@@ -282,13 +282,13 @@ const InstantDropZone: React.FC = () => {
             {uploadNotice && (
               <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-[12px] text-amber-800">
                 <div className="flex items-start gap-2 font-semibold"><AlertTriangle size={14} className="mt-0.5 shrink-0" />{uploadNotice}</div>
-                {rejectedFileNames.length > 0 && <p className="mt-1 text-[11px]">Not added: {rejectedFileNames.join(', ')}</p>}
+                {rejectedFileNames.length > 0 && <p className="mt-1 text-[12px]">Not added: {rejectedFileNames.join(', ')}</p>}
               </div>
             )}
 
             {hasFiles && (
               <form onSubmit={handleSubmit} noValidate className="mt-4 rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5">
-                <p className="mb-3 text-[13px] font-bold text-[var(--color-text-primary)]">
+                <p className="mb-3 text-[14px] font-bold text-[var(--color-text-primary)]">
                   Last step — where do we send your edited images?
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
@@ -342,12 +342,12 @@ const InstantDropZone: React.FC = () => {
                 </div>
 
                 {uploadStage === 'uploading' && (
-                  <div className="mt-3 rounded-xl border border-blue-100 bg-blue-50 p-3 text-[13px] font-semibold text-blue-700">
+                  <div className="mt-3 rounded-xl border border-blue-100 bg-blue-50 p-3 text-[14px] font-semibold text-blue-700">
                     Uploading your images...
                   </div>
                 )}
                 {submitError && (
-                  <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-3 text-[13px] font-semibold text-red-600">
+                  <div className="mt-3 rounded-xl border border-red-100 bg-red-50 p-3 text-[14px] font-semibold text-red-600">
                     {submitError}
                   </div>
                 )}

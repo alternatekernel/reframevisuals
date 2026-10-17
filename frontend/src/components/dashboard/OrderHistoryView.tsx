@@ -82,14 +82,14 @@ const OrderHistoryView = () => {
           </p>
           <button
             onClick={() => { setCurrentView('orderFlow'); navigate('/dashboard?view=new-project'); }}
-            className="flex items-center gap-2 rounded-full bg-text-primary text-white px-6 py-2.5 text-[13px] font-medium transition-all hover:opacity-90 active:scale-[0.98]"
+            className="flex items-center gap-2 rounded-full bg-text-primary text-white px-6 py-2.5 text-[14px] font-medium transition-all hover:opacity-90 active:scale-[0.98]"
           >
             Place your first order
           </button>
         </div>
       ) : (
         <div className="space-y-3 py-6">
-          <div className="hidden md:grid grid-cols-12 gap-3 px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-text-muted">
+          <div className="hidden md:grid grid-cols-12 gap-3 px-4 py-3 text-[12px] font-bold uppercase tracking-widest text-text-muted">
             <div className="col-span-4">Job</div>
             <div className="col-span-2">Images</div>
             <div className="col-span-2">Date</div>
@@ -103,28 +103,28 @@ const OrderHistoryView = () => {
                 <p className="text-[12px] mt-0.5 text-text-tertiary">{job.services.join(', ')}</p>
               </div>
               <div className="flex items-center justify-between md:col-span-2 md:block">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Images</span>
+                <span className="text-[12px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Images</span>
                 <span className="text-[14px] text-text-secondary">{job.imageCount}</span>
               </div>
               <div className="flex items-center justify-between md:col-span-2 md:block">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Date</span>
+                <span className="text-[12px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Date</span>
                 <span className="text-[14px] text-text-secondary">{job.date}</span>
               </div>
               <div className="flex items-center justify-between md:col-span-2 md:block">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Total</span>
+                <span className="text-[12px] font-bold uppercase tracking-widest text-text-tertiary md:hidden">Total</span>
                 <span className="text-[14px] font-semibold text-text-primary">{job.totalPrice || '—'}</span>
               </div>
               <div className="flex justify-end gap-2 border-t border-black/[0.12] pt-3 md:col-span-2 md:border-t-0 md:pt-0">
                 <button
                   onClick={() => setSelectedJob(job)}
-                  className="inline-flex items-center justify-center rounded-lg border border-borderSubtle px-4 py-2 text-[13px] font-medium text-text-secondary transition-all hover:bg-bg-secondary"
+                  className="inline-flex items-center justify-center rounded-lg border border-borderSubtle px-4 py-2 text-[14px] font-medium text-text-secondary transition-all hover:bg-bg-secondary"
                 >
                   View
                 </button>
                 <button
                   onClick={() => handleDownloadAll(job.id, job.code || 'assets')}
                   disabled={downloadingId === job.id}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-ink px-4 py-2 text-[13px] font-medium text-white transition-all disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-ink px-4 py-2 text-[14px] font-medium text-white transition-all disabled:opacity-50"
                 >
                   {downloadingId === job.id ? (
                     <Loader2 size={14} className="animate-spin" />

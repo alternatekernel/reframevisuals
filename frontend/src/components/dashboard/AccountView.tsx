@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { layout } from '../../utils/theme';
 import { Bell, User, Mail, Building, Phone, Briefcase, Trash2, Upload } from 'lucide-react';
 import { useContent } from '../../context/ContentBase';
@@ -230,7 +230,7 @@ const AccountView = () => {
               )}
             </div>
             <div>
-              <div className="text-[13px] font-semibold text-text-primary">{currentUser?.customerCode || 'Customer profile'}</div>
+              <div className="text-[14px] font-semibold text-text-primary">{currentUser?.customerCode || 'Customer profile'}</div>
               <div className="text-[12px] mt-1 text-text-secondary">Photo uploads are saved securely to your account profile.</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <label className={dashboardSecondaryButtonClass}>
@@ -312,7 +312,7 @@ const AccountView = () => {
               ] as { key: keyof NotifPrefs; label: string; desc: string }[]).map(({ key, label, desc }) => (
                 <div key={key} className="flex items-start justify-between gap-4 rounded-xl border border-borderSubtle px-4 py-3">
                   <div>
-                    <div className="text-[13px] font-medium text-text-primary">{label}</div>
+                    <div className="text-[14px] font-medium text-text-primary">{label}</div>
                     <div className="text-[12px] text-text-secondary mt-0.5">{desc}</div>
                   </div>
                   <button
@@ -337,7 +337,7 @@ const AccountView = () => {
             <p className={dashboardSectionDescriptionClass}>
               Password and advanced security controls are managed by our support team.
             </p>
-            <div className="mb-8 rounded-2xl border border-dashed border-borderLight bg-bg-secondary px-4 py-5 text-[13px] text-text-secondary">
+            <div className="mb-8 rounded-2xl border border-dashed border-borderLight bg-bg-secondary px-4 py-5 text-[14px] text-text-secondary">
               To change your password, set up MFA, or manage active sessions,{' '}
               <a href="mailto:support@reframevisuals.com" className="font-medium text-text-primary underline underline-offset-2">
                 contact support
