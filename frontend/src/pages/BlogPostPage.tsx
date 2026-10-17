@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useParams, Link, Navigate, useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Bookmark, BookmarkCheck, Copy, ExternalLink, Share2, Rss } from 'lucide-react';
@@ -351,7 +351,7 @@ const BlogPostPage: React.FC = () => {
               Share
             </button>
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(window.location.href)}`}
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(canonical)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"
@@ -359,7 +359,7 @@ const BlogPostPage: React.FC = () => {
               𝕏
             </a>
             <a
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5 transition-colors"

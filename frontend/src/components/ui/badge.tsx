@@ -1,4 +1,4 @@
-﻿import * as React from "react"
+import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cx } from "../../utils/theme"
 import { X } from "lucide-react"
@@ -21,11 +21,11 @@ const badgeVariants = cva(
         white:
           "border border-white/20 bg-white/10 text-white backdrop-blur-sm",
         success:
-          "border border-emerald-500/20 bg-emerald-50 text-emerald-700",
+          "border border-semantic-success-border bg-semantic-success-light text-semantic-success-text",
         warning:
-          "border border-amber-500/20 bg-amber-50 text-amber-800",
+          "border border-semantic-warning-border bg-semantic-warning-light text-semantic-warning-text",
         destructive:
-          "border border-rose-500/20 bg-rose-50 text-rose-700",
+          "border border-semantic-error-border bg-semantic-error-light text-semantic-error-text",
         ghost:
           "border border-transparent bg-transparent text-[var(--color-text-secondary,#666666)] hover:bg-black/5",
 
@@ -40,9 +40,9 @@ const badgeVariants = cva(
           "border border-purple-500/25 bg-purple-500/10 text-purple-600 font-semibold",
       },
       size: {
-        sm: "h-5 px-2 text-[12px] rounded-full",
-        default: "h-6 px-2.5 text-[12px] rounded-full",
-        lg: "h-7 px-3 text-[14px] rounded-full",
+        sm: "h-5 px-2 text-12 rounded-full",
+        default: "h-6 px-2.5 text-12 rounded-full",
+        lg: "h-7 px-3 text-14 rounded-full",
       },
     },
     defaultVariants: {

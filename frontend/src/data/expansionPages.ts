@@ -8,20 +8,73 @@ export type ExpansionPage = {
   bullets: string[];
   faq: Array<{ q: string; a: string }>;
   ctaLabel: string;
+  deepSections?: Array<{ title: string; subtitle?: string; content: string; keyPoints?: string[] }>;
 };
 
 export const INDUSTRY_PAGES: ExpansionPage[] = [
   {
     slug: 'amazon-product-image-editing',
     path: '/amazon-product-image-editing',
-    title: 'Amazon Listing Image Compliance & Editing Service | Reframe Visuals',
-    description: 'Amazon listing image editing focused on white-background compliance, main-image QA, and conversion-safe retouching for large SKU catalogs.',
-    h1: 'Amazon Listing Image Editing & Compliance',
-    intro: 'Ship Amazon-compliant listings faster with production-grade cutouts, retouching, and QC.',
-    bullets: ['Pure white background compliance', 'Batch consistency across variants', 'Fast turnaround for catalog updates'],
+    title: 'Amazon Product Image Editing & Compliance Service | Reframe Visuals',
+    description: 'Guaranteed Amazon-compliant image editing: pure white background RGB (255,255,255), 85%+ product frame fill, 2000px high-res zoom standards, and listing suppression prevention.',
+    h1: 'Amazon Listing Image Editing & Compliance Service',
+    intro: 'Amazon listing suppression caused by non-compliant hero images costs sellers organic rank, ad spend efficiency, and Buy Box visibility. Reframe Visuals provides guaranteed Amazon Seller Central and Vendor Central image compliance: pure white RGB (255, 255, 255) backgrounds, tight 85%+ frame fill, high-resolution zoom dimensions (2000px+), natural contact shadows, and secondary infographic shot editing that drives click-through and sales.',
+    bullets: [
+      'Guaranteed RGB (255, 255, 255) Pure White Backgrounds',
+      '85%+ Frame Fill Ratio Optimization for Main Search Thumbnails',
+      '1600px–3000px High-Resolution Zoom Compliance',
+      'Secondary Infographic, Dimension & Callout Image Preparation',
+      'Suppression Recovery & Fast 12h–24h Turnaround for Seasonal Catalogs',
+      'Batch Variant Consistency Across Multi-ASIN Parent-Child Listings',
+    ],
+    deepSections: [
+      {
+        title: 'Main Hero Image Compliance (RGB 255, 255, 255)',
+        subtitle: 'Zero-Tolerance Amazon Policy Compliance',
+        content: 'Amazon algorithms automatically scan and suppress listings whose hero images contain off-white borders, gray halos, or environmental backdrops. Our manual Pen Tool paths isolate products with sub-pixel precision, dropping pure RGB 255, 255, 255 white behind the item while creating subtle, realistic contact shadows that prevent products from looking artificially flat or floating.',
+        keyPoints: [
+          'Certified RGB 255, 255, 255 background verified via automated color sampler',
+          'Clean sub-pixel edge masking with no anti-aliasing color bleed',
+          'Natural grounded contact shadow that passes automated Amazon audit bots',
+        ],
+      },
+      {
+        title: '85%+ Frame Fill & Zoom Dimensions',
+        subtitle: 'Maximizing Search Impression Click-Through Rate',
+        content: 'In Amazon search results, products that fill 85% or more of the image frame appear visibly larger and more prominent than competing listings. We crop, re-center, and output files formatted to 2000px × 2000px (1:1 square), enabling smooth 300% hover-to-zoom on desktop and crystal-clear pinch-to-zoom on the Amazon mobile app.',
+        keyPoints: [
+          'Strict 85% to 90% frame fill ratio to dominate SERP real estate',
+          '2000px to 3000px high-resolution exports for fluid desktop hover-zoom',
+          'Consistent vertical and horizontal alignment across entire variant catalogs',
+        ],
+      },
+      {
+        title: 'Listing Suppression Recovery & Fast SLA',
+        subtitle: 'Turnaround Within 12 to 24 Hours',
+        content: 'When Amazon flags an ASIN for image non-compliance, every hour of suppression represents lost revenue and declining organic keyword rank. Reframe Visuals offers express 12-hour turnaround queues to fix rejected hero images, re-export compliant masters, and get your listings back online and selling immediately.',
+        keyPoints: [
+          'Emergency priority processing for suppressed ASINs',
+          'Detailed rejection diagnosis and remediation before re-submission',
+          'Unlimited revisions until Seller Central approves the image',
+        ],
+      },
+      {
+        title: 'Secondary Infographic & Lifestyle Image Editing',
+        subtitle: 'Conversion-Focused Supporting Gallery Assets',
+        content: 'While image #1 must be pure white, images #2 through #7 drive the buying decision. We composite clean product cutouts into curated lifestyle scenes, apply dimension annotations, create ingredient/feature callout graphics, and design comparison charts that answer buyer objections before they bounce.',
+        keyPoints: [
+          'Dimension and scale indicator overlays with clean brand typography',
+          'Feature callout callouts highlighting key selling points and materials',
+          'Packaging and included accessories compositing for multi-item sets',
+        ],
+      },
+    ],
     faq: [
-      { q: 'Do you follow Amazon image rules?', a: 'Yes. We deliver marketplace-ready assets aligned to common Amazon listing requirements and visual consistency standards.' },
-      { q: 'Can you process large SKU batches?', a: 'Yes. We support high-volume workflows with SLA-backed delivery windows and revision handling.' },
+      { q: 'What are Amazon’s main image requirements for 2026?', a: 'Amazon requires main hero images to feature a pure white background (RGB 255, 255, 255), have the product occupy at least 85% of the frame, have no text, logos, borders, or mannequins, and be at least 1,600 pixels on the longest side (2,000px recommended for high-res zoom).' },
+      { q: 'How do you ensure main images never trigger Amazon listing suppression?', a: 'Every image is clipped by hand using the Photoshop Pen Tool, placed on a verified RGB (255, 255, 255) background, inspected for edge halos or color fringe, and verified with color sample probes before export.' },
+      { q: 'Can you create natural drop shadows on Amazon white backgrounds?', a: 'Yes. We preserve or synthesize subtle contact and cast shadows directly beneath the product on the pure white canvas. This keeps the listing 100% Amazon-compliant while ensuring the product looks grounded and authentic.' },
+      { q: 'Can you edit secondary images and infographic callouts?', a: 'Yes. We build dimension guides, feature breakdown cards, comparison graphics, and lifestyle background composites for secondary image slots #2 through #7.' },
+      { q: 'How fast can you deliver Amazon photo edits for bulk catalogs?', a: 'We offer 12-hour express turnaround for urgent updates or suppressed ASINs, with 24-hour standard and 48-hour relaxed options for large multi-ASIN product catalogs.' },
     ],
     ctaLabel: 'Start Amazon-ready free trial',
   },
@@ -70,14 +123,68 @@ export const INDUSTRY_PAGES: ExpansionPage[] = [
   {
     slug: 'jewelry-photo-retouching-service',
     path: '/jewelry-photo-retouching-service',
-    title: 'Jewelry Photo Retouching Service | Reframe Visuals',
-    description: 'Jewelry retouching service for sparkle control, dust cleanup, metal tone consistency, and premium marketplace presentation.',
-    h1: 'Jewelry Photo Retouching Service',
-    intro: 'Precision retouching for gemstones and metals with clean highlights and premium detail handling.',
-    bullets: ['Dust and scratch cleanup', 'Metal and stone color balancing', 'High-detail zoom-ready output'],
+    title: 'Jewelry Photo Retouching Service for E-commerce | Reframe Visuals',
+    description: 'Specialized jewelry photo retouching: focus stacking (10-50 frames), gemstone fire restoration, metal polish, scratch/dust removal, and 500% macro inspection with 24h turnaround.',
+    h1: 'Jewelry Photo Retouching Service for Luxury Brands & E-commerce',
+    intro: 'Jewelry is the most demanding category in e-commerce photography. At 500% macro zoom, microscopic scratches, fingerprints, dust particles, and reflections on high-polish gold or silver can destroy the perceived value of a luxury piece. Reframe Visuals provides publication-grade jewelry photo retouching that restores brilliance, neutralizes unwanted studio reflections, and renders razor-sharp gemstone facets while preserving natural metallic warmth.',
+    bullets: [
+      'Focus Stacking & Depth of Field Compositing (10–50 shot alignment)',
+      'Gemstone Fire, Facet Contrast & Color Purity Restoration',
+      'Metal Smoothing, Reflection Control & Hallmarking Preservation',
+      '500% Macro Inspection for Micro-Dust & Bench Scratches',
+      'Natural Drop & Contact Shadow Creation for White PDPs',
+      'Batch Consistency for Collections, Variants & Marketplace Zooms',
+    ],
+    deepSections: [
+      {
+        title: 'Focus Stacking & Edge-to-Edge Sharpness',
+        subtitle: '10 to 50 Shot Focus Plane Blending',
+        content: 'Physical camera lenses have extremely shallow depth of field when capturing macro jewelry. Even at f/11, either the front prongs or the rear shank will be blurred. Our editors composite bracketed multi-focus captures, meticulously aligning each focus slice and painting clean transitions along edge boundaries so that every facet, prong, and engraving is pin-sharp across the entire piece.',
+        keyPoints: [
+          'Sub-pixel image alignment compensating for lens breathing and focal shifts',
+          'Manual mask feathering preventing ghosting or halo artifacts on stone facets',
+          'Preservation of micro-engravings, hallmarks, and delicate pave settings',
+        ],
+      },
+      {
+        title: 'Gemstone Fire & Brilliance Restoration',
+        subtitle: 'Preserving Natural Dispersion Without Cartoon Flatness',
+        content: 'Studio lighting often blows out diamond tables or creates muddy, gray reflections in colored gemstones like emeralds, rubies, and sapphires. We independently adjust table reflections, pavilion contrast, and girdle highlights. We eliminate cloudy milkiness while ensuring stones never look like synthetic 3D CAD renders.',
+        keyPoints: [
+          'Individual facet contrast adjustment restoring internal light refraction',
+          'Hue and saturation purity balancing for emeralds, tanzanites, and sapphires',
+          'Custom catchlight synthesis accentuating natural brilliance on high-res PDPs',
+        ],
+      },
+      {
+        title: 'Precious Metal Polish & Reflection Control',
+        subtitle: 'Neutralizing Studio Clutter on Mirror Finishes',
+        content: 'Polished gold, platinum, and silver act like convex mirrors, capturing the camera lens, lightboxes, and room clutter. We neutralize distracting reflections and smooth out porous casting flaws, buffing wheel marks, and solder seams, replacing chaotic reflections with smooth, luxurious gradient transitions that reflect real craft.',
+        keyPoints: [
+          'Color temperature balancing between yellow gold, rose gold, white gold, and platinum',
+          'Removal of photographer and studio environment reflections on curved shanks',
+          'Smooth tone gradients that accentuate the volume and weight of the piece',
+        ],
+      },
+      {
+        title: '500% Zoom Macro Flaw Elimination',
+        subtitle: 'Defect-Free Inspection for High-Ticket E-commerce',
+        content: 'Shoppers zooming into a $3,000 diamond ring will spot any stray bench dust or polishing hair immediately. We inspect every image at 500% zoom, systematically cloning out lint, bench scratches, glue residue, and fingerprint oils without softening metal edges or blurring stone prongs.',
+        keyPoints: [
+          'Elimination of airborne dust, lint, and fingerprint smudges',
+          'Preservation of sharp facet junctions and crisp metal edges',
+          'Multi-monitor color calibration ensuring true metal and stone rendition',
+        ],
+      },
+    ],
     faq: [
-      { q: 'Can you improve shine without fake-looking output?', a: 'Yes. We balance highlights to keep products premium while staying realistic.' },
-      { q: 'Do you support macro-detail correction?', a: 'Yes. We handle micro-defects and fine-detail cleanup for close-up product views.' },
+      { q: 'How do you handle focus stacking for macro jewelry shots?', a: 'You send us the bracketed RAW or TIFF sequence (typically 5 to 50 exposures taken at shifting focus points). We align the layers, blend the in-focus zones across every focal plane, and clean up any alignment artifacts so the entire piece is razor-sharp from front to back.' },
+      { q: 'How do you prevent diamonds and gemstones from looking fake or cartoonish?', a: 'We never paint flat colors or use destructive AI smoothing over gemstones. Instead, we perform selective dodge-and-burn, restore facet-by-facet contrast, remove muddy gray reflections, and enhance natural brilliance while preserving the authentic stone anatomy.' },
+      { q: 'Can you match color consistency across an entire fine jewelry collection?', a: 'Yes. We calibrate RGB values across metal types (e.g. 14k vs 18k yellow gold, rose gold, platinum) so that all rings, earrings, pendants, and bracelets in a collection display identical metal tones across your e-commerce catalog.' },
+      { q: 'What resolution and zoom levels do you inspect for jewelry retouching?', a: 'Every piece is edited and inspected at 300% to 500% zoom on calibrated monitors. This guarantees that when customers use e-commerce hover-to-zoom on desktop or mobile, no flaws, dust specks, or edge halos are visible.' },
+      { q: 'Do you provide white background RGB 255 compliance for luxury marketplaces?', a: 'Yes. We isolate the piece with a hand-drawn vector Pen Tool path, drop pure RGB (255, 255, 255) white behind it, and retain or synthesize a subtle, natural contact shadow or mirror reflection beneath the piece.' },
+      { q: 'What turnaround times are available for bulk jewelry retouching orders?', a: 'We offer 12-hour express turnaround for urgent drops, 24-hour standard turnaround, and 48-hour relaxed options for large seasonal catalog batches.' },
+      { q: 'Can I test your jewelry retouching quality before placing a volume order?', a: 'Yes. You can upload up to 3 jewelry images for a free sample edit. You will receive fully retouched production masters to evaluate our quality before committing to a paid order.' },
     ],
     ctaLabel: 'Get jewelry editing sample',
   },

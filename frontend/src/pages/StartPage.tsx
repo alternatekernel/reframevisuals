@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Upload, X, Plus, Clock, Sparkles, CreditCard, ShieldCheck, AlertTriangle, ArrowRight } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
@@ -36,7 +36,7 @@ const StartPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    email: new URLSearchParams(window.location.search).get('email') || '',
+    email: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('email') || '' : '',
     instructions: '',
     sourceLink: '',
   });

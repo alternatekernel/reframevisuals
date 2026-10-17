@@ -66,25 +66,25 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-[#f5f5f5]"
+              className="relative bg-white rounded-3xl shadow-2xl w-full max-w-md overflow-hidden border border-borderSubtle"
             >
               <div className="p-8">
                 <div className="flex items-start gap-4 mb-6">
                   <div className={`p-3 rounded-2xl ${
-                    modal.variant === 'danger' ? 'bg-red-50 text-red-600' :
-                    modal.variant === 'warning' ? 'bg-orange-50 text-orange-600' :
-                    modal.variant === 'success' ? 'bg-green-50 text-green-600' :
-                    'bg-gray-50 text-gray-600'
+                    modal.variant === 'danger' ? 'bg-semantic-error-light text-semantic-error' :
+                    modal.variant === 'warning' ? 'bg-semantic-warning-light text-semantic-warning' :
+                    modal.variant === 'success' ? 'bg-semantic-success-light text-semantic-success' :
+                    'bg-semantic-info-light text-semantic-info'
                   }`}>
                     {modal.variant === 'danger' ? <AlertCircle size={24} /> :
                      modal.variant === 'success' ? <CheckCircle2 size={24} /> :
                      <Info size={24} />}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-[18px] font-bold text-[#171717] mb-2">
+                    <h3 className="text-20 font-bold text-text-primary mb-2">
                       {modal.title || (modal.type === 'confirm' ? 'Confirm Action' : 'Notice')}
                     </h3>
-                    <p className="text-[14px] text-[#666] leading-relaxed">
+                    <p className="text-14 text-text-secondary leading-relaxed">
                       {modal.message}
                     </p>
                   </div>
@@ -94,16 +94,16 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                   {modal.type === 'confirm' && (
                     <button
                       onClick={() => handleClose(false)}
-                      className="flex-1 px-6 py-3 rounded-xl text-[14px] font-semibold transition-all hover:bg-gray-100 text-[#666]"
+                      className="flex-1 px-6 py-3 rounded-xl text-14 font-semibold transition-all hover:bg-black/5 text-text-secondary"
                     >
                       {modal.cancelLabel || 'Cancel'}
                     </button>
                   )}
                   <button
                     onClick={() => handleClose(true)}
-                    className={`flex-1 px-6 py-3 rounded-xl text-[14px] font-semibold transition-all shadow-lg active:scale-[0.98] ${
-                      modal.variant === 'danger' ? 'bg-red-600 hover:bg-red-700 text-white' :
-                      'bg-[#171717] hover:bg-black text-white'
+                    className={`flex-1 px-6 py-3 rounded-xl text-14 font-semibold transition-all shadow-lg active:scale-[0.98] ${
+                      modal.variant === 'danger' ? 'bg-semantic-error hover:opacity-90 text-white' :
+                      'bg-text-primary hover:bg-black text-white'
                     }`}
                   >
                     {modal.confirmLabel || (modal.type === 'confirm' ? 'Confirm' : 'Got it')}

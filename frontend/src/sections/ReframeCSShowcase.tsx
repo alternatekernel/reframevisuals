@@ -1,4 +1,4 @@
-﻿import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Monitor, MessageSquare, PackageCheck, UploadCloud, Headphones, Bot } from 'lucide-react';
 import ReframeCS from '../components/ReframeCS';
 import { motion } from 'framer-motion';
@@ -77,7 +77,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
   return (
     <>
       {/* Hero header — matches the style of Blog, Portfolio, and other page openers */}
-      <section className="px-5 sm:px-6 lg:px-12 pt-8 sm:pt-10 pb-8 sm:pb-12 bg-white relative overflow-hidden border-b border-[#f5f5f5]">
+      <section className="px-5 sm:px-6 lg:px-12 pt-8 sm:pt-10 pb-8 sm:pb-12 bg-white relative overflow-hidden border-b border-borderSubtle">
         <div className="pointer-events-none absolute top-1/2 left-0 -translate-y-1/2 opacity-[0.02]">
           <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" className="w-[260px] h-[260px] sm:w-[420px] sm:h-[420px] -translate-x-1/2" />
         </div>
@@ -116,7 +116,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
             >
               <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
               <div className="flex flex-col min-w-0">
-                <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-[var(--color-text-primary)] leading-snug">{item.title}</h3>
+                <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-text-primary leading-snug">{item.title}</h3>
                 <p className="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
               </div>
             </motion.div>
@@ -158,7 +158,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
             showGlow ? "border-focus ring-4 ring-focus/20 scale-[1.015]" : "border-black/[0.18] scale-100"
           )}>
             {/* Minimal Top Bar */}
-            <div className="flex items-center gap-4 px-4 py-2.5 bg-[#f6f6f6] border-b border-black/[0.20] select-none">
+            <div className="flex items-center gap-4 px-4 py-2.5 bg-bg-soft border-b border-black/[0.20] select-none">
               {/* Traffic lights */}
               <div className="flex items-center gap-1.5 shrink-0">
                 <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57] block" />
@@ -191,7 +191,7 @@ const ReframeCSShowcase = ({ title, subtitle }: ReframeCSShowcaseProps = {}) => 
             >
               <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
               <div className="flex flex-col min-w-0">
-                <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-[var(--color-text-primary)] leading-snug">{item.title}</h3>
+                <h3 className="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-text-primary leading-snug">{item.title}</h3>
                 <p className="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
               </div>
             </motion.div>

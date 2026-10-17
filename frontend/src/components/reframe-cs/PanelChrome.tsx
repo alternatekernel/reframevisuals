@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ArrowRight, MessageSquare, Minus, Plus } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { conversationTitle, sortConversations, type WidgetNavItem } from './Sidebar';
@@ -165,9 +165,9 @@ export const AccountTab = ({ tab, onStartOrder, onOpenPath }: {
                   <div className="mb-2 flex items-center justify-between gap-2">
                     <span className="flex min-w-0 items-center gap-2">
                       <span className="truncate text-14 font-semibold text-text-primary">{job.title}</span>
-                      {job.isPriority && <span className="rounded-md bg-semantic-error-light px-1.5 py-0.5 text-[9px] font-bold uppercase text-semantic-error-text">Priority</span>}
+                      {job.isPriority && <span className="rounded-md bg-semantic-error-light px-1.5 py-0.5 text-nano font-bold uppercase text-semantic-error-text">Priority</span>}
                     </span>
-                    <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-text-primary ${statusTone(job.status)}`}>{job.status}</span>
+                    <span className={`shrink-0 rounded-full border px-2 py-0.5 text-nano font-bold uppercase tracking-wider text-text-primary ${statusTone(job.status)}`}>{job.status}</span>
                   </div>
                   <div className="text-12 text-text-muted">{job.itemCount} items · ${job.totalPrice || '0.00'}</div>
                 </button>

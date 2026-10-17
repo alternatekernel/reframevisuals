@@ -1,4 +1,4 @@
-﻿import { forwardRef, useCallback, useLayoutEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useCallback, useLayoutEffect, useImperativeHandle, useRef } from 'react';
 import { ArrowUp, AudioLines, ChevronUp, Paperclip } from 'lucide-react';
 
 interface Props {
@@ -89,8 +89,8 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           aria-label={isListening ? 'Stop voice typing' : 'Voice typing'}
           className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-300 sm:h-10 sm:w-10 ${
             isListening
-              ? 'border-red-100 bg-red-50 text-red-500 ring-2 ring-red-200'
-              : 'border-black/[0.20] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:border-black/[0.18] hover:bg-white'
+              ? 'border-semantic-error-border bg-semantic-error-light text-semantic-error ring-2 ring-semantic-error/20'
+              : 'border-black/[0.20] bg-bg-soft text-text-primary hover:-translate-y-0.5 hover:border-black/[0.18] hover:bg-white'
           }`}
         >
           <AudioLines size={14} className={isListening ? 'animate-pulse' : ''} />
@@ -99,7 +99,7 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
 
       <div className="relative flex min-w-0 flex-1 items-center">
         {!isExpanded && hasText && (
-          <span className="mr-2 shrink-0 rounded-full bg-black/[0.06] px-2 py-0.5 text-[12px] font-bold uppercase tracking-wide text-[#555]">
+          <span className="mr-2 shrink-0 rounded-full bg-black/[0.06] px-2 py-0.5 text-12 font-bold uppercase tracking-wide text-text-subtle">
             Draft
           </span>
         )}
@@ -113,18 +113,18 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
           onFocus={() => { if (!isExpanded) onExpand(); }}
           aria-label="Message Reframe CS"
           placeholder={isListening ? 'Listening…' : ''}
-          className="min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-[14px] leading-[1.35] text-black outline-none placeholder:text-[#A1A1AA]"
+          className="min-h-10 w-full resize-none border-none bg-transparent py-2.5 text-left text-14 leading-[1.35] text-text-primary outline-none placeholder:text-text-placeholder"
         />
         {replyPreview && !hasText && !isListening && (
-          <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-1.5 text-[14px]">
-            <span className="shrink-0 font-semibold text-[#171717]">New reply:</span>
-            <span className="truncate text-[#555]">{replyPreview}</span>
+          <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-1.5 text-14">
+            <span className="shrink-0 font-semibold text-text-primary">New reply:</span>
+            <span className="truncate text-text-subtle">{replyPreview}</span>
           </span>
         )}
         {showIdlePhrase && (
           <span
             aria-hidden
-            className={`pointer-events-none absolute inset-0 flex min-w-0 items-center text-[14px] text-[#A1A1AA] transition-opacity duration-200 ${
+            className={`pointer-events-none absolute inset-0 flex min-w-0 items-center text-14 text-text-placeholder transition-opacity duration-200 ${
               isExpanded ? 'justify-start' : 'justify-center'
             } ${idlePhraseVisible ? 'opacity-100' : 'opacity-0'}`}
           >
@@ -144,9 +144,9 @@ const Composer = forwardRef<ComposerHandle, Props>(function Composer({
         aria-label={!isExpanded && !hasText ? 'Open chat' : 'Send message'}
         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 sm:h-10 sm:w-10 ${
           canSend
-            ? 'border-black/80 bg-[#171717] text-white hover:-translate-y-0.5 hover:bg-black'
+            ? 'border-black/80 bg-text-primary text-white hover:-translate-y-0.5 hover:bg-black'
             : !isExpanded
-              ? 'border-black/[0.20] bg-[#f8f8f6] text-[#171717] hover:-translate-y-0.5 hover:bg-white'
+              ? 'border-black/[0.20] bg-bg-soft text-text-primary hover:-translate-y-0.5 hover:bg-white'
               : 'cursor-not-allowed border-black/[0.20] bg-black/[0.06] text-black/30'
         }`}
       >

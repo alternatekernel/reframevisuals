@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { SERVICES } from '../../../data/services';
 import { OrderFlowData } from '../types';
 import { orderFooterClass, orderPrimaryButtonClass, orderSecondaryButtonClass } from '../flow-controls';
@@ -35,7 +35,7 @@ const ReviewStep: React.FC<Props> = ({ orderData, isSubmitting, error, isTemplat
   return (
     <div className="flex flex-col flex-1 space-y-3 px-2 sm:px-3 py-2 sm:py-3 min-h-0">
       {error && (
-        <div className="p-3 bg-red-50 border border-red-100 rounded-lg text-red-600 text-caption font-medium animate-in fade-in slide-in-from-top-1">
+        <div className="p-3 bg-semantic-error-light border border-semantic-error-border rounded-lg text-semantic-error-text text-caption font-medium animate-in fade-in slide-in-from-top-1">
           {error}
         </div>
       )}

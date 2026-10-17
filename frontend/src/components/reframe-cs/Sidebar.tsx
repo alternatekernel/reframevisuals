@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MessageSquare, Pin, Plus, Settings, Trash2, Zap } from 'lucide-react';
 import type { ConversationPreview } from './types';
 
@@ -69,8 +69,8 @@ const Sidebar = ({
             onClick={onOrderAction}
             className={`group mb-3 flex w-full items-center gap-2.5 rounded-full bg-text-primary px-3 py-2 text-12 font-medium text-white transition-all hover:bg-black ${
               orderGlow
-                ? 'shadow-[0_0_0_2px_rgba(59,130,246,0.88),0_0_0_8px_rgba(59,130,246,0.18),0_0_24px_rgba(59,130,246,0.42)]'
-                : 'shadow-token-subtle'
+                ? 'shadow-focus ring-4 ring-focus/25'
+                : 'shadow-subtle'
             }`}
           >
             <Plus size={14} className={`text-white/70 group-hover:text-white ${orderGlow ? 'animate-pulse' : ''}`} />

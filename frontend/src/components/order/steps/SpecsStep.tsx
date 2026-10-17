@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { OrderFlowData } from '../types';
 import { OrderLabel, OrderTextInput, orderChoiceClass, orderFooterClass, orderPrimaryButtonClass, orderSecondaryButtonClass } from '../flow-controls';
 
@@ -18,9 +18,9 @@ const BG_OPTIONS = ['White', 'Transparent', 'Original', 'Custom'];
 
 const TURNAROUND_OPTIONS = [
   { value: '12', label: '12h', color: 'var(--research-peach)' },
-  { value: '24', label: '24h', color: '#999' },
-  { value: '48', label: '48h', color: '#999' },
-  { value: '72', label: '72h', color: '#999' },
+  { value: '24', label: '24h', color: 'var(--color-text-faint)' },
+  { value: '48', label: '48h', color: 'var(--color-text-faint)' },
+  { value: '72', label: '72h', color: 'var(--color-text-faint)' },
 ];
 
 /* ── Reusable Pill Toggle ── */
@@ -303,7 +303,7 @@ const SpecsStep: React.FC<Props> = ({ orderData, setOrderData, onNext, onBack })
             min={new Date().toISOString().slice(0, 10)}
             onChange={(e) => setField('deadline', e.target.value)}
             aria-label="Requested delivery date"
-            className="w-full px-2.5 py-2 text-[12px] border border-[#e5e5e5] rounded-lg bg-white focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all"
+            className="w-full px-2.5 py-2 text-12 border border-[var(--color-border-subtle)] rounded-lg bg-white focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all"
           />
           <p className="text-caption text-[var(--color-text-muted)]">
             We will confirm if the date is not achievable for this volume.

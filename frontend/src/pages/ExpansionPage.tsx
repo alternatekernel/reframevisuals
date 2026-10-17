@@ -1,4 +1,4 @@
-﻿import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { INDUSTRY_PAGES, GEO_PAGES, CASE_STUDIES } from '../data/expansionPages';
 import { SERVICES } from '../data/services';
@@ -157,6 +157,32 @@ const ExpansionPage = () => {
             <div key={b} className="border border-black/[0.18] rounded-2xl p-4 text-[16px] text-black/75 font-medium">{b}</div>
           ))}
         </div>
+
+        {/* Deep Technical Capabilities & Standards */}
+        {page.deepSections && page.deepSections.length > 0 && (
+          <div className="mb-14">
+            <h2 className="text-2xl font-semibold tracking-tight mb-6">Production standards & precision workflows</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {page.deepSections.map((sec) => (
+                <div key={sec.title} className="border border-black/[0.18] rounded-2xl p-6 bg-stone-50/60">
+                  <h3 className="font-semibold text-[19px] mb-1 text-black">{sec.title}</h3>
+                  {sec.subtitle && <p className="text-[12px] uppercase tracking-wider text-black/50 font-bold mb-3">{sec.subtitle}</p>}
+                  <p className="text-[15px] text-black/75 leading-relaxed mb-4">{sec.content}</p>
+                  {sec.keyPoints && sec.keyPoints.length > 0 && (
+                    <ul className="space-y-2 pt-3 border-t border-black/10">
+                      {sec.keyPoints.map((kp) => (
+                        <li key={kp} className="text-xs text-black/70 flex items-start gap-2">
+                          <span className="text-emerald-600 font-bold">✓</span>
+                          <span>{kp}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Services section — pulled from existing service data */}
         {relatedServices.length > 0 && (

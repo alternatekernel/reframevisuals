@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -51,13 +51,17 @@
 @layer base {
   :root {
     /* Typography Scale (Static rem units) */
-    --text-nano: 0.625rem;       /* 10px — smallest readable label */
-    --text-micro: 0.6875rem;     /* 11px — widget / badge labels */
+    --text-nano: 0.5625rem;      /* 9px — smallest readable label */
+    --text-micro: 0.625rem;      /* 10px */
+    --text-11: 0.6875rem;        /* 11px — widget / badge labels */
     --text-12: 0.75rem;          /* 12px — compact UI text */
+    --text-13: 0.8125rem;        /* 13px */
     --text-14: 0.875rem;         /* 14px — widget body / small labels */
+    --text-15: 0.9375rem;        /* 15px */
     --text-caption: 0.8125rem;   /* 13px */
     --text-body-sm: 0.9375rem;   /* 15px */
     --text-body: 1rem;           /* 16px */
+    --text-20: 1.25rem;          /* 20px */
     --text-body-lg: 1.25rem;     /* 20px */
     --text-heading-4: 1.5625rem; /* 25px */
     --text-heading-3: 1.9375rem; /* 31px */

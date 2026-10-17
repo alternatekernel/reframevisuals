@@ -1,4 +1,4 @@
-﻿import { memo, useRef, type ReactNode } from 'react';
+import { memo, useRef, type ReactNode } from 'react';
 import { Check, Paperclip, RotateCw, Users } from 'lucide-react';
 import MarkdownRenderer from '../chat/MarkdownRenderer';
 import SuggestedActions from '../chat/SuggestedActions';
@@ -55,23 +55,23 @@ const MessageExtras = ({ message, onNavigate }: { message: ChatMessage; onNaviga
             </span>
           </div>
           <div className="mt-1 font-semibold">{orderCard.title || 'Order details'}</div>
-          <div className="mt-2 text-[12px] text-[#666]">Updates automatically · <span className="font-bold underline">View order</span></div>
+          <div className="mt-2 text-12 text-text-secondary">Updates automatically · <span className="font-bold underline">View order</span></div>
         </a>
       )}
       {attachments.length > 0 && (
         <div className="mt-2 space-y-2">
           {attachments.map(attachment => (
-            <div key={attachment.url} className="rounded-xl border border-black/[0.18] bg-white/80 p-2 text-[#171717]">
+            <div key={attachment.url} className="rounded-xl border border-black/[0.18] bg-white/80 p-2 text-text-primary">
               {isImageAttachment(attachment) && (
                 <a href={attachment.url} target="_blank" rel="noreferrer" className="mb-2 block overflow-hidden rounded-lg">
                   <img src={attachment.url} alt={attachment.filename} loading="lazy" className="max-h-40 max-w-full object-cover" />
                 </a>
               )}
-              <div className="flex items-center gap-2 text-[12px]">
+              <div className="flex items-center gap-2 text-12">
                 <Paperclip size={12} className="shrink-0" />
                 <span className="min-w-0 flex-1 truncate font-semibold">{attachment.filename}</span>
-                <span className="text-[#999]">{formatFileSize(attachment.size)}</span>
-                <a href={attachment.url} download target="_blank" rel="noreferrer" className="rounded-full bg-black px-2 py-1 text-[12px] font-bold text-white">
+                <span className="text-text-faint">{formatFileSize(attachment.size)}</span>
+                <a href={attachment.url} download target="_blank" rel="noreferrer" className="rounded-full bg-black px-2 py-1 text-12 font-bold text-white">
                   Download
                 </a>
               </div>
@@ -128,26 +128,26 @@ const MessageBubble = ({
         {isUser ? (
           <div
             {...gestures}
-            className={`rounded-2xl px-4 py-2.5 text-[14px] leading-relaxed text-white ${message.failed ? 'bg-[#171717]/70' : 'bg-[#171717]'}`}
+            className={`rounded-2xl px-4 py-2.5 text-14 leading-relaxed text-white ${message.failed ? 'bg-text-primary/70' : 'bg-text-primary'}`}
           >
             <MessageExtras message={message} onNavigate={onNavigate} />
           </div>
         ) : isHuman ? (
-          <div {...gestures} className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-2.5 text-[14px] leading-relaxed text-[#171717] shadow-sm">
+          <div {...gestures} className="rounded-2xl border border-semantic-info-border bg-semantic-info-light px-4 py-2.5 text-14 leading-relaxed text-text-primary shadow-sm">
             <MessageExtras message={message} onNavigate={onNavigate} />
             {actions.length > 0 && <SuggestedActions actions={actions} onActionClick={onAction} />}
             {contactCard && <div className="mt-3">{contactCard}</div>}
             {handoff}
           </div>
         ) : (
-          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.16] bg-white text-[14px] text-[#171717] shadow-sm">
+          <div {...gestures} className="w-full overflow-hidden rounded-2xl border border-black/[0.16] bg-white text-14 text-text-primary shadow-sm">
             <div className="flex items-center gap-2 border-b border-black/[0.20] px-4 py-2">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-[#171717]" />
-              <span className="text-[12px] font-semibold tracking-tight">Reframe CS</span>
+              <span className="h-2 w-2 shrink-0 rounded-full bg-text-primary" />
+              <span className="text-12 font-semibold tracking-tight">Reframe CS</span>
               {message.pending ? (
-                <span className="ml-auto"><Dots tone="bg-[#bbb]" /></span>
+                <span className="ml-auto"><Dots tone="bg-text-placeholder" /></span>
               ) : (
-                <span className="ml-auto text-[9px] font-bold uppercase tracking-widest text-[#999]">AI</span>
+                <span className="ml-auto text-nano font-bold uppercase tracking-widest text-text-faint">AI</span>
               )}
             </div>
             <div className="px-4 py-3 leading-relaxed">
@@ -167,16 +167,16 @@ const MessageBubble = ({
           <button
             type="button"
             onClick={() => onRetry(message)}
-            className="flex items-center gap-1 px-1 text-[12px] font-medium text-red-600 hover:underline"
+            className="flex items-center gap-1 px-1 text-12 font-medium text-semantic-error hover:underline"
           >
             <RotateCw size={11} />
             Not delivered · Retry
           </button>
         ) : time ? (
-          <div className="px-1 text-[12px] text-[#999]">
+          <div className="px-1 text-12 text-text-faint">
             {time}
             {isUser && message.id != null && (
-              <span className={`ml-1.5 ${seen ? 'text-blue-600' : 'text-[#aaa]'}`} title={seen ? 'Seen' : 'Delivered'}>
+              <span className={`ml-1.5 ${seen ? 'text-semantic-info' : 'text-text-placeholder'}`} title={seen ? 'Seen' : 'Delivered'}>
                 {seen ? '✓✓ Seen' : '✓'}
               </span>
             )}

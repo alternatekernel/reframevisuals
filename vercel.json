@@ -1,18 +1,34 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "regions": ["sin1"],
+  "trailingSlash": false,
   "installCommand": "npm install && npm install --prefix frontend && npm install --prefix backend",
-  "buildCommand": "npm run db:generate && cd frontend && npx vite build",
+  "buildCommand": "npm run db:generate && npm run build --prefix frontend",
   "outputDirectory": "frontend/dist",
   "functions": {
     "api/index.ts": { "maxDuration": 60, "includeFiles": "backend/{prisma,src}/**" }
   },
   "redirects": [
-    { "source": "/:path*", "has": [{ "type": "host", "value": "www.reframevisuals.com" }], "destination": "https://reframevisuals.com/:path*", "permanent": true }
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.reframevisuals.com" }], "destination": "https://reframevisuals.com/:path*", "statusCode": 301 },
+    { "source": "/services/jewelry-retouch", "destination": "/jewelry-photo-retouching-service", "statusCode": 301 },
+    { "source": "/insights/:slug", "destination": "/blog/:slug", "statusCode": 301 },
+    { "source": "/insights", "destination": "/blog", "statusCode": 301 }
   ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/((?!api/|assets/|.*\\..*).*)", "destination": "/index.html" }
+    { "source": "/dashboard/(.*)", "destination": "/index.csr.html" },
+    { "source": "/dashboard", "destination": "/index.csr.html" },
+    { "source": "/admin/(.*)", "destination": "/index.csr.html" },
+    { "source": "/admin", "destination": "/index.csr.html" },
+    { "source": "/portal/(.*)", "destination": "/index.csr.html" },
+    { "source": "/portal", "destination": "/index.csr.html" },
+    { "source": "/order/(.*)", "destination": "/index.csr.html" },
+    { "source": "/order", "destination": "/index.csr.html" },
+    { "source": "/p/(.*)", "destination": "/index.csr.html" },
+    { "source": "/login", "destination": "/index.csr.html" },
+    { "source": "/signup", "destination": "/index.csr.html" },
+    { "source": "/forgot-password", "destination": "/index.csr.html" },
+    { "source": "/reset-password", "destination": "/index.csr.html" }
   ],
   "headers": [
     {

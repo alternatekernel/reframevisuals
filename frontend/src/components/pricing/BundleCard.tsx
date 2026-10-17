@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { cx, tokens, typography } from '../../utils/theme';
 import { Activity } from 'lucide-react';
@@ -48,7 +48,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
       <div className={cx(
         "absolute inset-0 overflow-hidden border transition-all duration-300",
         tokens.radiusCard,
-        isHighlighted ? "bg-[#1F1F1F]" : standardTone.shell,
+        isHighlighted ? "bg-brand-hover" : standardTone.shell,
         isHovered && !isHighlighted ? "shadow-[0_18px_40px_rgba(0,0,0,0.12)] border-black/[0.18]" : ""
       )}>
         {!isHighlighted && <div className="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]" />}
@@ -72,7 +72,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
           <div className="space-y-1">
             {b.price !== null && (
               <p className={cx(
-                "text-[12px] font-black uppercase tracking-[0.18em]",
+                "text-12 font-black uppercase tracking-[0.18em]",
                 isHighlighted ? "text-white/45" : standardTone.priceSub
               )}>
                 Starting from
@@ -119,7 +119,7 @@ const BundleCard: React.FC<BundleCardProps> = ({ b, i }) => {
           {b.savings && (
             <div className="pt-2">
               <div className={cx(
-                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[12px] font-black uppercase tracking-wider",
+                  "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-12 font-black uppercase tracking-wider",
                   isHighlighted ? "bg-white/10 text-white/70" : standardTone.chip
                 )}>
                   <Activity size={12} />

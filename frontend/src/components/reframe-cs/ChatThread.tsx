@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import ContactCaptureCard from './ContactCaptureCard';
 import MessageBubble, { TypingBubble } from './MessageBubble';
@@ -121,9 +121,9 @@ const ChatThread = ({ session, guestId, onAction, onOpenActions, onNavigate }: P
             <div key={renderKey(message, index)} className="space-y-1">
               {showDivider && (
                 <div className="flex items-center gap-3 py-1" role="separator">
-                  <div className="h-px flex-1 bg-red-200" />
-                  <span className="text-[12px] font-bold uppercase tracking-wide text-red-600">New replies</span>
-                  <div className="h-px flex-1 bg-red-200" />
+                  <div className="h-px flex-1 bg-semantic-error-border" />
+                  <span className="text-12 font-bold uppercase tracking-wide text-semantic-error">New replies</span>
+                  <div className="h-px flex-1 bg-semantic-error-border" />
                 </div>
               )}
               <MessageBubble

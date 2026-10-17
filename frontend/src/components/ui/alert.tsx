@@ -1,4 +1,4 @@
-﻿import * as React from "react"
+import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import {
   Info,
@@ -15,11 +15,11 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        info:        "border-blue-200 border-l-blue-500 bg-blue-50 text-blue-950",
-        success:     "border-emerald-200 border-l-emerald-500 bg-emerald-50 text-emerald-950",
-        warning:     "border-amber-200 border-l-amber-500 bg-amber-50 text-amber-950",
-        destructive: "border-rose-200 border-l-rose-500 bg-rose-50 text-rose-950",
-        tip:         "border-black/[0.18] border-l-black/50 bg-black/[0.05] text-[var(--color-text-primary,#0A0A0B)]",
+        info:        "border-semantic-info-border border-l-semantic-info bg-semantic-info-light text-semantic-info-text",
+        success:     "border-semantic-success-border border-l-semantic-success bg-semantic-success-light text-semantic-success-text",
+        warning:     "border-semantic-warning-border border-l-semantic-warning bg-semantic-warning-light text-semantic-warning-text",
+        destructive: "border-semantic-error-border border-l-semantic-error bg-semantic-error-light text-semantic-error-text",
+        tip:         "border-black/[0.18] border-l-black/50 bg-black/[0.05] text-text-primary",
       },
     },
     defaultVariants: {
@@ -33,11 +33,11 @@ const iconContainerVariants = cva(
   {
     variants: {
       variant: {
-        info:        "bg-blue-100 text-blue-600",
-        success:     "bg-emerald-100 text-emerald-600",
-        warning:     "bg-amber-100 text-amber-600",
-        destructive: "bg-rose-100 text-rose-600",
-        tip:         "bg-black/8 text-[var(--color-text-primary,#0A0A0B)]",
+        info:        "bg-semantic-info-light text-semantic-info",
+        success:     "bg-semantic-success-light text-semantic-success",
+        warning:     "bg-semantic-warning-light text-semantic-warning",
+        destructive: "bg-semantic-error-light text-semantic-error",
+        tip:         "bg-black/8 text-text-primary",
       },
     },
     defaultVariants: { variant: "info" },

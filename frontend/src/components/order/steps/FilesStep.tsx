@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState, useMemo, useEffect } from 'react';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, Link2, Plus, Trash2, X } from 'lucide-react';
 import {
@@ -211,7 +211,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                         <img src={imageUrls[i]} alt={file.name} className="w-full h-full object-cover" />
                         <button
                           onClick={() => removeFile(file)}
-                          className="absolute inset-0 bg-red-500/80 text-white flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover/item:opacity-100 transition-opacity"
+                          className="absolute inset-0 bg-semantic-error/80 text-white flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover/item:opacity-100 transition-opacity"
                         >
                           <Trash2 size={16} />
                         </button>
@@ -259,7 +259,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                     setSourceLinkDraft('');
                     setSourceLinkError(null);
                   }}
-                  className="text-caption text-red-500 hover:text-red-700 hover:underline font-semibold"
+                  className="text-caption text-semantic-error hover:text-semantic-error-text hover:underline font-semibold"
                 >
                   Cancel
                 </button>
@@ -282,13 +282,13 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                   Add
                 </button>
               </div>
-              {sourceLinkError && <p className="text-caption text-red-500">{sourceLinkError}</p>}
+              {sourceLinkError && <p className="text-caption text-semantic-error">{sourceLinkError}</p>}
               {(orderData.sourceLinks || []).length > 0 && (
                 <div className="space-y-1.5">
                   {(orderData.sourceLinks || []).map(link => (
-                    <div key={link} className="flex items-center justify-between gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-[var(--color-bg-soft)] px-3 py-2">
+                    <div key={link} className="flex items-center justify-between gap-2 rounded-lg border border-[var(--color-border-subtle)] bg-bg-soft px-3 py-2">
                       <span className="truncate text-caption text-[var(--color-text-secondary)]">{link}</span>
-                      <button type="button" onClick={() => removeSourceLink(link)} className="text-[var(--color-text-muted)] hover:text-red-500 transition-colors" aria-label="Remove link">
+                      <button type="button" onClick={() => removeSourceLink(link)} className="text-[var(--color-text-muted)] hover:text-semantic-error transition-colors" aria-label="Remove link">
                         <X size={14} />
                       </button>
                     </div>
@@ -332,7 +332,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                 </div>
                 <button
                   onClick={e => { e.stopPropagation(); removeFile(file); }}
-                  className="flex min-w-[44px] min-h-[44px] items-center justify-center hover:bg-red-50 text-red-400 opacity-100 sm:opacity-0 sm:group-hover/file:opacity-100 transition-opacity rounded-lg"
+                  className="flex min-w-[44px] min-h-[44px] items-center justify-center hover:bg-semantic-error-light text-semantic-error opacity-100 sm:opacity-0 sm:group-hover/file:opacity-100 transition-opacity rounded-lg"
                   aria-label={`Remove ${file.name}`}
                 >
                   <Trash2 size={14} />
@@ -367,7 +367,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                       setShowCustomLinkInput(false);
                       setOrderData(prev => ({ ...prev, customFilesLink: '', customFilesCount: undefined }));
                     }}
-                    className="text-caption text-red-500 hover:text-red-700 hover:underline font-semibold"
+                    className="text-caption text-semantic-error hover:text-semantic-error-text hover:underline font-semibold"
                   >
                     Clear Link
                   </button>
@@ -392,7 +392,7 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
                         const val = parseInt(e.target.value);
                         setOrderData(prev => ({ ...prev, customFilesCount: Number.isNaN(val) ? undefined : val }));
                       }}
-                      className="w-full h-10 px-3 bg-white border border-[#e5e7eb] rounded-xl text-caption font-medium text-[#171717] focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all placeholder-[#999] shadow-sm"
+                      className="w-full h-10 px-3 bg-white border border-[var(--color-border-subtle)] rounded-xl text-caption font-medium text-text-primary focus:outline-none focus:border-[var(--brand-secondary)] focus:ring-2 focus:ring-[var(--brand-secondary)]/10 transition-all placeholder:text-text-placeholder shadow-sm"
                     />
                   </div>
                 </div>
@@ -405,16 +405,16 @@ const FilesStep: React.FC<Props> = ({ orderData, setOrderData, isTemplateMode, i
         )}
 
         {isTemplateMode && (
-          <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-start">
-            <div className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center shrink-0 text-caption font-bold">i</div>
+          <div className="mt-4 p-4 bg-semantic-info-light border border-semantic-info-border rounded-xl flex gap-3 items-start">
+            <div className="w-5 h-5 rounded-full bg-semantic-info text-white flex items-center justify-center shrink-0 text-caption font-bold">i</div>
             <div>
-              <p className="text-caption text-blue-700 font-semibold">Template Mode</p>
-              <p className="text-caption text-blue-600 mt-0.5">Files are not saved in templates. This step is optional during template creation.</p>
+              <p className="text-caption text-semantic-info-text font-semibold">Template Mode</p>
+              <p className="text-caption text-semantic-info mt-0.5">Files are not saved in templates. This step is optional during template creation.</p>
             </div>
           </div>
         )}
         {!isTemplateMode && !hasAssets && (
-          <div className="mt-3 p-3 bg-amber-50 border border-amber-200 text-amber-700 text-caption font-medium rounded-xl text-center animate-in fade-in slide-in-from-top-1">
+          <div className="mt-3 p-3 bg-semantic-warning-light border border-semantic-warning-border text-semantic-warning-text text-caption font-medium rounded-xl text-center animate-in fade-in slide-in-from-top-1">
             Please upload at least one image, add a source link, or paste a folder link to proceed.
           </div>
         )}

@@ -1,4 +1,4 @@
-﻿import React, { useState, lazy, useEffect, Suspense } from 'react';
+import React, { useState, lazy, useEffect, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation, Outlet, RouteObject } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -606,9 +606,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 // Router must be created outside the component — recreating it on every render
 // tears down the entire route tree and causes a full content remount.
-const router = createBrowserRouter(routes);
+const router = typeof window !== 'undefined' ? createBrowserRouter(routes) : (null as any);
 
 const App: React.FC = () => {
+  if (!router) return null;
   return <RouterProvider router={router} />;
 };
 

@@ -28,6 +28,8 @@ export interface SsrRenderResult {
    * extract it from the markup defensively.
    */
   title: string | null;
+  /** Meta description rendered by the route, extracted before stripping. */
+  description?: string | null;
   /** Status code resolved by the router (e.g. 404 for unknown routes). */
   status: number;
   /** Set instead of appHtml when the route resolved to a redirect. */
@@ -41,8 +43,20 @@ export interface SsrRenderResult {
  * the head tags the Express server owns via injectSeoMeta (single source of
  * truth). JSON-LD <script> blocks are left in place — they are valid in body.
  */
-const stripHeadLevelTags = (html: string): { html: string; title: string | null } => {
+const stripHeadLevelTags = (
+  html: string
+): { html: string; title: string | null; description: string | null } => {
   let title: string | null = null;
+  let description: string | null = null;
+
+  // Extract description if present before stripping
+  const descMatch =
+    html.match(/<meta\s[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*\/?>/i) ||
+    html.match(/<meta\s[^>]*content=["']([^"']*)["'][^>]*name=["']description["'][^>]*\/?>/i);
+  if (descMatch) {
+    description = descMatch[1];
+  }
+
   let out = html.replace(/<title[^>]*>([\s\S]*?)<\/title>/gi, (_match, text: string) => {
     if (title === null) title = text;
     return '';
@@ -52,7 +66,7 @@ const stripHeadLevelTags = (html: string): { html: string; title: string | null 
     ''
   );
   out = out.replace(/<link\s[^>]*rel="(?:canonical|alternate|amphtml)"[^>]*\/?>/gi, '');
-  return { html: out, title };
+  return { html: out, title, description };
 };
 
 const handler = createStaticHandler(routes);
@@ -142,7 +156,7 @@ export async function render(
       }
     : null;
 
-  const { html: cleanedHtml, title } = stripHeadLevelTags(appHtml);
+  const { html: cleanedHtml, title, description } = stripHeadLevelTags(appHtml);
 
-  return { appHtml: cleanedHtml, helmet, title, status: context.statusCode || 200 };
+  return { appHtml: cleanedHtml, helmet, title, description, status: context.statusCode || 200 };
 }

@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Upload, X, Image as ImageIcon, Check, AlertTriangle } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
@@ -51,7 +51,7 @@ const FreeTrialPage: React.FC = () => {
   const [formData, setFormData] = useState({
     description: '',
     name: '',
-    email: new URLSearchParams(window.location.search).get('email') || '',
+    email: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('email') || '' : '',
     platform: '',
     volume: '',
     customVolume: '',

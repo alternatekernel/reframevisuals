@@ -120,9 +120,13 @@ export const designTokens = {
       eyebrow: { size: '0.75rem', lineHeight: '1.3', tracking: '0.16em', weight: '800' },
       micro: { size: '0.6875rem', lineHeight: '1.2', tracking: '0.05em', weight: '600' },
       // UI widget scale (badge labels, timestamps, panel chrome)
+      '20': { size: '1.25rem', lineHeight: '1.5', tracking: '-0.01em', weight: '500' },
+      '15': { size: '0.9375rem', lineHeight: '1.5', tracking: '0', weight: '400' },
       '14': { size: '0.875rem', lineHeight: '1.4', tracking: '0', weight: '400' },
+      '13': { size: '0.8125rem', lineHeight: '1.4', tracking: '0', weight: '400' },
       '12': { size: '0.75rem', lineHeight: '1.4', tracking: '0', weight: '400' },
-      nano: { size: '0.625rem', lineHeight: '1.3', tracking: '0.02em', weight: '500' },
+      '11': { size: '0.6875rem', lineHeight: '1.3', tracking: '0.02em', weight: '500' },
+      nano: { size: '0.5625rem', lineHeight: '1.3', tracking: '0.02em', weight: '500' },
     },
   },
 
@@ -161,6 +165,7 @@ export const designTokens = {
     conversion: '0 24px 64px rgba(15, 23, 42, 0.18)',
     insetGlass: 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.06)',
     glowBrand: '0 0 28px -4px rgba(var(--brand-rgb, 233, 116, 81), 0.35)',
+    focus: '0 0 0 2px rgba(59, 130, 246, 0.88)',
   },
 
   // Motion Transitions & Timings

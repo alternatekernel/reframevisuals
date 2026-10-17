@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useModal } from '../context/ModalContext';
 import { Menu, X, ChevronDown, ChevronRight, ArrowRight, Mail, UserCircle, LogOut, Settings } from 'lucide-react';
@@ -315,8 +315,8 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                     {!isContactSubmitted ? (
                       <div className="space-y-4">
                         <div className="space-y-1">
-                          <h3 className="text-[14px] font-bold text-[#171717]">Quick Contact</h3>
-                          <p className="text-[12px] text-[#666] font-medium leading-relaxed">
+                          <h3 className="text-14 font-bold text-text-primary">Quick Contact</h3>
+                          <p className="text-12 text-text-secondary font-medium leading-relaxed">
                             Leave your email and we'll reach out, or contact us directly.
                           </p>
                         </div>
@@ -330,10 +330,10 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                                 value={contactEmail}
                                 onChange={(e) => setContactEmail(e.target.value)}
                                 disabled={isSubmittingContact}
-                                className="w-full min-h-11 px-3 bg-white/50 border border-black/[0.18] rounded-xl text-[12px] font-medium text-[#171717] outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder-[#999] focus:border-black/35 focus:bg-white focus:ring-1 focus:ring-black/5 disabled:opacity-50"
+                                className="w-full min-h-11 px-3 bg-white/50 border border-black/[0.18] rounded-xl text-12 font-medium text-text-primary outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-text-placeholder focus:border-black/35 focus:bg-white focus:ring-1 focus:ring-black/5 disabled:opacity-50"
                               />
                             </div>
-                            <p className="text-[12px] text-[#999] px-1 italic">
+                            <p className="text-12 text-text-faint px-1 italic">
                               * No spam or annoying sales messages, guaranteed.
                             </p>
                           </div>
@@ -375,7 +375,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                                 });
                               }
                             }}
-                            className="w-full min-h-11 bg-[#1F1F1F] text-white text-[12px] font-bold rounded-xl hover:bg-black transition-all flex items-center justify-center disabled:bg-[#666] touch-manipulation"
+                            className="w-full min-h-11 bg-brand-hover text-white text-12 font-bold rounded-xl hover:bg-black transition-all flex items-center justify-center disabled:bg-text-secondary touch-manipulation"
                           >
                             {isSubmittingContact ? (
                               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -386,14 +386,14 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                             <div className="absolute inset-0 flex items-center">
                               <div className="w-full border-t border-black/[0.12]"></div>
                             </div>
-                            <div className="relative flex justify-center text-[12px] uppercase tracking-wider font-bold text-[#999]">
+                            <div className="relative flex justify-center text-12 uppercase tracking-wider font-bold text-text-faint">
                               <span className="bg-white/0 px-2 backdrop-blur-xl">or</span>
                             </div>
                           </div>
 
                           <a
                             href="mailto:hello@reframevisuals.com"
-                            className="flex items-center justify-center gap-2 w-full min-h-11 border border-black/[0.18] rounded-xl text-[12px] font-bold text-[#171717] hover:bg-black/5 transition-all touch-manipulation"
+                            className="flex items-center justify-center gap-2 w-full min-h-11 border border-black/[0.18] rounded-xl text-12 font-bold text-text-primary hover:bg-black/5 transition-all touch-manipulation"
                           >
                             <Mail size={14} />
                             Email hello@reframevisuals.com
@@ -407,11 +407,11 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         className="py-6 flex flex-col items-center justify-center text-center space-y-3"
                       >
                         <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center">
-                          <ArrowRight size={20} className="text-[#171717]" />
+                          <ArrowRight size={20} className="text-text-primary" />
                         </div>
                         <div className="space-y-1">
-                          <h3 className="text-[14px] font-bold text-[#171717]">Message Received</h3>
-                          <p className="text-[12px] text-[#666] font-medium">We'll reach out within 5 minutes.</p>
+                          <h3 className="text-14 font-bold text-text-primary">Message Received</h3>
+                          <p className="text-12 text-text-secondary font-medium">We'll reach out within 5 minutes.</p>
                         </div>
                       </motion.div>
                     )}
@@ -434,7 +434,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
               <div ref={profileRef} className="relative hidden sm:block">
                 <button
                   onClick={() => setProfileOpen((open) => !open)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden bg-[#1F1F1F] text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
+                  className="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden bg-brand-hover text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
                   aria-label="Open customer profile"
                   aria-expanded={profileOpen}
                 >
@@ -456,18 +456,18 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         {currentUser?.avatarUrl ? (
                           <img src={currentUser.avatarUrl} alt={currentUser.name} className="h-10 w-10 rounded-full object-cover shrink-0" />
                         ) : (
-                          <div className="h-10 w-10 rounded-full bg-[#1F1F1F] text-white flex items-center justify-center font-bold text-[14px] shrink-0">
+                          <div className="h-10 w-10 rounded-full bg-brand-hover text-white flex items-center justify-center font-bold text-14 shrink-0">
                             {currentUser?.name?.[0]?.toUpperCase() || 'C'}
                           </div>
                         )}
                         <div className="min-w-0 flex-grow">
-                          <div className="text-[14px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
-                          <div className="mt-0.5 truncate text-[12px] text-[#666]">{currentUser?.email}</div>
-                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.05] px-2 py-0.5 text-[12px] font-bold text-[#555]">{currentUser.customerCode}</div>}
+                          <div className="text-14 font-bold text-text-primary truncate">{currentUser?.name || 'Customer'}</div>
+                          <div className="mt-0.5 truncate text-12 text-text-secondary">{currentUser?.email}</div>
+                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.05] px-2 py-0.5 text-12 font-bold text-text-subtle">{currentUser.customerCode}</div>}
                         </div>
                       </div>
-                      <button onClick={() => { setProfileOpen(false); navigate('/dashboard'); }} className="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[14px] font-semibold text-[#333] hover:bg-black/[0.04] touch-manipulation"><Settings size={14} /> Profile / dashboard</button>
-                      <button onClick={() => { setProfileOpen(false); userLogout(); }} className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-[14px] font-semibold text-red-600 hover:bg-red-50 touch-manipulation"><LogOut size={14} /> Sign out</button>
+                      <button onClick={() => { setProfileOpen(false); navigate('/dashboard'); }} className="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-14 font-semibold text-text-primary hover:bg-black/[0.04] touch-manipulation"><Settings size={14} /> Profile / dashboard</button>
+                      <button onClick={() => { setProfileOpen(false); userLogout(); }} className="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-14 font-semibold text-semantic-error hover:bg-semantic-error-light touch-manipulation"><LogOut size={14} /> Sign out</button>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -475,8 +475,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
             ) : null}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden min-h-12 min-w-12 -mr-3 p-2 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded touch-manipulation"
-              style={{ color: '#666666' }}
+              className="lg:hidden min-h-12 min-w-12 -mr-3 p-2 flex items-center justify-center text-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded touch-manipulation"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
@@ -516,8 +515,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                 <Logo onClick={() => setMobileMenuOpen(false)} />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="min-h-12 min-w-12 p-2 flex items-center justify-center rounded-full border border-black/[0.18] hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
-                  style={{ color: '#171717' }}
+                  className="min-h-12 min-w-12 p-2 flex items-center justify-center rounded-full border border-black/[0.18] text-text-primary hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
                   aria-label="Close menu"
                 >
                   <X size={20} aria-hidden="true" />
@@ -567,7 +565,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         <Link
                           to="/login"
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex min-h-12 items-center justify-center text-[15px] font-bold rounded-full border border-black/[0.18] text-[#171717] hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
+                          className="flex min-h-12 items-center justify-center text-15 font-bold rounded-full border border-black/[0.18] text-text-primary hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
                           role="menuitem"
                         >
                           Sign In
@@ -583,7 +581,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                             navigate('/signup');
                             setMobileMenuOpen(false);
                           }}
-                          className="flex min-h-12 w-full items-center justify-center text-[15px] font-bold rounded-full bg-[#1F1F1F] text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation"
+                          className="flex min-h-12 w-full items-center justify-center text-15 font-bold rounded-full bg-brand-hover text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation"
                           role="menuitem"
                         >
                           Sign Up
@@ -602,14 +600,14 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                         {currentUser?.avatarUrl ? (
                           <img src={currentUser.avatarUrl} alt={currentUser.name} className="h-10 w-10 rounded-full object-cover shrink-0" />
                         ) : (
-                          <div className="h-10 w-10 rounded-full bg-[#1F1F1F] text-white flex items-center justify-center font-bold text-[14px] shrink-0">
+                          <div className="h-10 w-10 rounded-full bg-brand-hover text-white flex items-center justify-center font-bold text-14 shrink-0">
                             {currentUser?.name?.[0]?.toUpperCase() || 'C'}
                           </div>
                         )}
                         <div className="min-w-0 flex-grow">
-                          <div className="text-[14px] font-bold text-[#171717] truncate">{currentUser?.name || 'Customer'}</div>
-                          <div className="mt-0.5 truncate text-[12px] text-[#666]">{currentUser?.email}</div>
-                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.06] px-2 py-0.5 text-[12px] font-bold text-[#555]">{currentUser.customerCode}</div>}
+                          <div className="text-14 font-bold text-text-primary truncate">{currentUser?.name || 'Customer'}</div>
+                          <div className="mt-0.5 truncate text-12 text-text-secondary">{currentUser?.email}</div>
+                          {currentUser?.customerCode && <div className="mt-1 inline-flex rounded-full bg-black/[0.06] px-2 py-0.5 text-12 font-bold text-text-subtle">{currentUser.customerCode}</div>}
                         </div>
                       </div>
                       <button
@@ -617,7 +615,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           navigate('/dashboard');
                           setMobileMenuOpen(false);
                         }}
-                        className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/[0.18] bg-white py-3 text-[14px] font-semibold text-[#171717] hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
+                        className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/[0.18] bg-white py-3 text-14 font-semibold text-text-primary hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation"
                         role="menuitem"
                       >
                         <Settings size={15} /> Profile / dashboard
@@ -627,7 +625,7 @@ const Navigation: React.FC<NavigationProps> = ({ mobileMenuOpen, setMobileMenuOp
                           userLogout();
                           setMobileMenuOpen(false);
                         }}
-                        className="mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1F1F1F] py-3 text-[14px] font-semibold text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation"
+                        className="mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-hover py-3 text-14 font-semibold text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation"
                         role="menuitem"
                       >
                         <LogOut size={15} /> Sign out

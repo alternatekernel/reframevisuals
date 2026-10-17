@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Camera, Video, Sparkles, UserCheck, Upload } from 'lucide-react';
@@ -31,7 +31,7 @@ const AIProductShowcase = () => {
         {/* Photography Showcase */}
         <div className="space-y-16">
           <div className="text-center">
-            <h2 className={cx(typography.displayLg, "text-[var(--color-text-primary)]")}>
+            <h2 className={cx(typography.displayLg, "text-text-primary")}>
               Intelligent scaling.<br />
               <span className="text-black/40">Pixel perfect results.</span>
             </h2>
@@ -55,7 +55,7 @@ const AIProductShowcase = () => {
               />
               <button 
                 onClick={handleOrder}
-                className="w-full max-w-[400px] xl:w-[320px] bg-[var(--color-text-primary)] text-white py-4 px-6 rounded-xl font-heading font-bold text-[14px] tracking-tight hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 group mt-2"
+                className="w-full max-w-[400px] xl:w-[320px] bg-text-primary text-white py-4 px-6 rounded-xl font-heading font-bold text-14 tracking-tight hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 group mt-2"
               >
                 <Upload size={18} className="group-hover:-translate-y-0.5 transition-transform" />
                 Upload yours
@@ -72,11 +72,11 @@ const AIProductShowcase = () => {
                 className="space-y-5"
               >
                 <div className="flex items-center justify-between border-b border-black/[0.18] pb-4">
-                  <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
+                  <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-text-primary flex items-center gap-3">
                     <Sparkles size={20} className="text-brand" /> Our AI Product Photography service
                   </h3>
-                  <span className="text-[14px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-14 font-bold text-semantic-error flex items-center gap-1.5 uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-semantic-error animate-pulse" />
                     Instant delivery
                   </span>
                 </div>
@@ -107,11 +107,11 @@ const AIProductShowcase = () => {
                 className="space-y-5"
               >
                 <div className="flex items-center justify-between border-b border-black/[0.18] pb-4">
-                  <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
-                    <UserCheck size={22} className="text-green-600" /> After Human Editors Retouching
+                  <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-text-primary flex items-center gap-3">
+                    <UserCheck size={22} className="text-semantic-success" /> After Human Editors Retouching
                   </h3>
-                  <span className="text-[14px] md:text-[14px] font-bold text-red-500 flex items-center gap-1.5 uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 opacity-50" />
+                  <span className="text-14 font-bold text-semantic-error flex items-center gap-1.5 uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-semantic-error opacity-50" />
                     6 hour
                   </span>
                 </div>
@@ -138,7 +138,7 @@ const AIProductShowcase = () => {
         {/* Videography Showcase */}
         <div className="space-y-16 pt-20 border-t border-black/[0.18]">
           <div className="text-center">
-            <h2 className={cx(typography.displayLg, "text-[var(--color-text-primary)]")}>
+            <h2 className={cx(typography.displayLg, "text-text-primary")}>
               Cinematic motion.<br />
               <span className="text-black/40">From a single frame.</span>
             </h2>
@@ -158,7 +158,7 @@ const AIProductShowcase = () => {
               <PlaceholderImage className="w-full aspect-[4/5] shadow-sm rounded-xl" label="Original Product" />
               <button 
                 onClick={handleOrder}
-                className="w-full bg-[var(--color-text-primary)] text-white py-4 px-6 rounded-xl font-heading font-bold text-[14px] tracking-tight hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 group mt-2"
+                className="w-full bg-text-primary text-white py-4 px-6 rounded-xl font-heading font-bold text-14 tracking-tight hover:bg-black transition-all duration-300 flex items-center justify-center gap-2 group mt-2"
               >
                 <Upload size={18} className="group-hover:-translate-y-0.5 transition-transform" />
                 Upload yours
@@ -173,7 +173,7 @@ const AIProductShowcase = () => {
               transition={{ delay: 0.1 }}
               className="w-full flex flex-col gap-5 items-center"
             >
-              <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-[var(--color-text-primary)] flex items-center gap-3">
+              <h3 className="font-heading font-bold text-[18px] md:text-[20px] tracking-tight text-text-primary flex items-center gap-3">
                 <Video size={20} className="text-brand" /> Our AI Product Videography service
               </h3>
               <div className="w-full aspect-video rounded-xl shadow-lg bg-white border border-black/[0.18] overflow-hidden relative">

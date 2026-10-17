@@ -84,10 +84,14 @@ module.exports = {
       },
       fontSize: {
         // UI widget scale (panel chrome, sidebar, badge labels)
-        'nano': ['var(--text-nano)', { lineHeight: '1.3' }],    /* 10px */
-        'micro': ['var(--text-micro)', { lineHeight: '1.3' }],  /* 11px */
+        'nano': ['var(--text-nano)', { lineHeight: '1.3' }],    /* 9px */
+        'micro': ['var(--text-micro)', { lineHeight: '1.3' }],  /* 10px */
+        '11': ['var(--text-11, var(--text-micro))', { lineHeight: '1.3' }],   /* 11px */
         '12': ['var(--text-12)', { lineHeight: '1.4' }],        /* 12px */
+        '13': ['var(--text-13, var(--text-caption))', { lineHeight: '1.4' }], /* 13px */
         '14': ['var(--text-14)', { lineHeight: '1.4' }],        /* 14px */
+        '15': ['var(--text-15, var(--text-body-sm))', { lineHeight: '1.5' }], /* 15px */
+        '20': ['var(--text-20, var(--text-body-lg))', { lineHeight: '1.5' }], /* 20px */
         // Public site tokens
         'caption': ['var(--text-caption)', { lineHeight: '1.4' }],
         'body-sm': ['var(--text-body-sm)', { lineHeight: '1.5' }],
@@ -142,6 +146,10 @@ module.exports = {
         'token-md': 'var(--radius-md, 16px)',
         'token-lg': 'var(--radius-lg, 32px)',
         'token-xl': 'var(--radius-xl, 64px)',
+        'sm-token': 'var(--radius-sm, 8px)',
+        'md-token': 'var(--radius-md, 16px)',
+        'lg-token': 'var(--radius-lg, 32px)',
+        'xl-token': 'var(--radius-xl, 64px)',
       },
       boxShadow: {
         'token-subtle': '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05)',
@@ -151,6 +159,14 @@ module.exports = {
         'token-inset-glass': 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.06)',
         'token-glow-brand': '0 0 28px -4px rgba(var(--brand-rgb, 233, 116, 81), 0.35)',
         'token-focus': '0 0 0 2px rgba(59, 130, 246, 0.88)',
+        subtle: '0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05)',
+        standard: '0 8px 24px rgba(0, 0, 0, 0.09)',
+        showcase: '0 16px 40px rgba(0, 0, 0, 0.13)',
+        conversion: '0 24px 64px rgba(15, 23, 42, 0.18)',
+        'inset-glass': 'inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.06)',
+        'glow-brand': '0 0 28px -4px rgba(var(--brand-rgb, 233, 116, 81), 0.35)',
+        focus: '0 0 0 2px rgba(59, 130, 246, 0.88)',
+        'shadow-focus': '0 0 0 2px rgba(59, 130, 246, 0.88)',
       },
       transitionDuration: {
         'fast': '120ms',

@@ -49,9 +49,11 @@
   if (!canonicalEl) {
     canonicalEl = document.createElement('link');
     canonicalEl.setAttribute('rel', 'canonical');
+    canonicalEl.setAttribute('data-rh', 'true');
     document.head.appendChild(canonicalEl);
   }
   canonicalEl.setAttribute('href', canonicalUrl);
+  canonicalEl.setAttribute('data-rh', 'true');
 
   var ogUrl = document.querySelector('meta[property="og:url"]');
   if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);

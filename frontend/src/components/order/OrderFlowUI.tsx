@@ -1,4 +1,4 @@
-﻿import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { ChevronRight, Zap, Save, RotateCcw, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { OrderFlowData, OrderFlowStep } from './types';
@@ -191,10 +191,10 @@ const OrderFlowUI = React.forwardRef<OrderFlowUIHandle, Props>(function OrderFlo
         </div>
         <div className="w-full max-w-sm space-y-2.5">
           {emailError && (
-            <p className="text-caption text-red-500 font-medium">{emailError}</p>
+            <p className="text-caption text-semantic-error font-medium">{emailError}</p>
           )}
           {error && (
-            <p className="text-caption text-red-500 font-medium">{error}</p>
+            <p className="text-caption text-semantic-error font-medium">{error}</p>
           )}
           <input
             type="email"

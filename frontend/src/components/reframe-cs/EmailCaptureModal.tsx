@@ -1,4 +1,4 @@
-﻿import { createPortal } from 'react-dom';
+import { createPortal } from 'react-dom';
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getApiEndpoint } from '../../lib/apiConfig';
@@ -118,14 +118,14 @@ const EmailCaptureModal = ({
 
       {/* Card */}
       <motion.div
-        className="relative w-full max-w-lg overflow-hidden rounded-[24px] bg-[var(--color-text-primary,#171717)] shadow-[0_32px_80px_rgba(0,0,0,0.22),0_0_0_1px_rgba(0,0,0,0.06)]"
+        className="relative w-full max-w-lg overflow-hidden rounded-[24px] bg-text-primary shadow-[0_32px_80px_rgba(0,0,0,0.22),0_0_0_1px_rgba(0,0,0,0.06)]"
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 20, scale: 0.97 }}
         transition={{ type: 'spring', stiffness: 340, damping: 28 }}
       >
         {/* Brand header */}
-        <div className="flex flex-col items-center bg-[var(--color-text-primary,#171717)] px-8 pb-8 pt-9">
+        <div className="flex flex-col items-center bg-text-primary px-8 pb-8 pt-9">
           <span className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-white/10">
             <RMark size={28} />
           </span>
@@ -135,7 +135,7 @@ const EmailCaptureModal = ({
           >
             {copy.heading}
           </h2>
-          <p className="mt-2.5 text-center text-[15px] leading-relaxed text-white/60">
+          <p className="mt-2.5 text-center text-15 leading-relaxed text-white/60">
             {copy.sub}
           </p>
         </div>
@@ -161,7 +161,7 @@ const EmailCaptureModal = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="h-[52px] w-full rounded-xl bg-[var(--color-text-primary,#171717)] text-[16px] font-semibold text-white shadow-sm transition-all duration-200 hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
+              className="h-[52px] w-full rounded-xl bg-text-primary text-body font-semibold text-white shadow-sm transition-all duration-200 hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
             >
               {isSubmitting ? 'Saving…' : copy.cta}
             </button>
