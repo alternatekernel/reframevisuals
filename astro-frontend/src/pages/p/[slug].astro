@@ -4,10 +4,11 @@ import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
 import CmsPageView from '../../islands/views/CmsPageView';
 import { apiGet } from '../../lib/serverApi';
 import { CACHE_CONTROL } from '../../lib/blogSeed';
+import { getCmsPage } from '../../lib/cms';
 
 const { slug } = Astro.params;
-const data = await apiGet<{ page?: any }>(`/blog/pages/${slug}`);
-const page = data?.page ?? null;
+const cmsPage = await getCmsPage(slug!);
+const page = cmsPage !== undefined ? cmsPage : ((await apiGet<{ page?: any }>(`/blog/pages/${slug}`))?.page ?? null);
 if (page) Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
 else Astro.response.status = 404;
 ---

@@ -33,3 +33,10 @@ Root Directory `astro-frontend`; env vars: `PUBLIC_SITE_URL` (test domain, https
 - `/contact-us` has an SEO map entry but no route in the SPA either; left unrouted.
 - Landing/service JSON-LD uses each view's own output (you chose "Astro default").
 - Cutover (Phase 10) untouched: Express HTML/SEO code, `ssrRenderer.ts`, root `vercel.json` all still in place.
+
+## EmDash CMS (blog, pages; sections not yet)
+- Integration is opt-in: set `EMDASH_DATABASE_URL` (+ `REDIS_URL`, `S3_*`) and the build adds EmDash (admin at `/_emdash/admin`); unset, the site uses the REST API / bundled posts exactly as before. Both modes build.
+- Content layer `src/lib/cms.ts`: posts feed the blog pages, topic/series pages and `sitemap-blog.xml`; `pages` feed `/p/:slug`. Fields are in `scripts/build-emdash-seed.ts` (post body is a Markdown `text` field so the existing renderer keeps working; switching to rich text later needs a Markdown to Portable Text conversion).
+- Setup order: `CREATE SCHEMA IF NOT EXISTS emdash;` in Supabase, set the env vars in Vercel, `npx tsx scripts/build-emdash-seed.ts`, `node scripts/export-prod-content.mjs --pages slug1,slug2` (needs production API access), then `npx emdash seed seed/emdash.json` against the same env, then open `/_emdash/admin` to create the first user (passkey sign-in).
+- Gotchas found: EmDash admin sign-in needs a session driver and Vercel has none, so Redis is required; the EmDash admin CSS is Tailwind 4, so `astro.config.mjs` runs our Tailwind 3 chain on everything except `@emdash-cms`; files importing `emdash` are generated per mode (`emdash/*.template`, git-ignored outputs) because its virtual modules only exist when the integration is on.
+- Not verified: a real Supabase connection, migrations, admin login, and the seed run (no credentials or network here). Site sections (`/api/sections` into `site_sections`) are modelled in the seed but not wired into the pages yet; the old admin stays the source for them until then.

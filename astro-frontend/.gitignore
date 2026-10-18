@@ -6,3 +6,5 @@ public/spa-assets
 public/csr-shell.html
 spa/dist
 .env
+src/live.config.ts
+src/lib/cms-emdash.ts
