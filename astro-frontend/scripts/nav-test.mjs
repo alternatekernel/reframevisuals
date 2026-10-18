@@ -7,6 +7,7 @@ import { chromium } from 'playwright-core';
 const root = 'dist/client';
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 let inquiry = null;
+const BASE = process.env.ASTRO_URL || 'http://localhost:4440'; // ASTRO_URL: a running `astro dev` (server-rendered routes)
 const srv = http.createServer((q, r) => {
   const p = new URL(q.url, 'http://x').pathname;
   if (p === '/api/portal/inquiry') { let b = ''; q.on('data', (d) => (b += d)); q.on('end', () => { inquiry = b; r.writeHead(200, { 'content-type': 'application/json' }); r.end('{"success":true}'); }); return; }
@@ -27,10 +28,16 @@ const check = (name, ok) => { console.log(ok ? 'PASS' : 'FAIL', name); if (!ok) 
 {
   const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
+  await ctx.route('**/api/**', async (r) => {
+    const u = new URL(r.request().url()).pathname;
+    if (u === '/api/portal/inquiry') inquiry = r.request().postData();
+    const body = u === '/api/portal/auth/me' ? { success: true, data: { name: 'Ada Lovelace', email: 'ada@example.com', customerCode: 'RV-001' } } : { success: true };
+    await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+  });
   const p = await ctx.newPage();
   const errs = [];
   p.on('pageerror', (e) => errs.push(e.message));
-  await p.goto('http://localhost:4440/privacy', { waitUntil: 'networkidle' });
+  await p.goto(BASE + '/privacy', { waitUntil: 'networkidle' });
   const menu = p.locator('[data-services-menu]');
   check('mega menu closed initially', (await menu.getAttribute('data-open')) !== 'true');
   await p.locator('[data-services-trigger]').hover();
@@ -66,8 +73,14 @@ const check = (name, ok) => { console.log(ok ? 'PASS' : 'FAIL', name); if (!ok) 
   const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
   await ctx.addInitScript(() => { localStorage.setItem('portal_token', 'tok'); localStorage.setItem('reframe-current-user', JSON.stringify({ name: 'Ada Lovelace', email: 'ada@example.com' })); localStorage.setItem('reframe-cookie-consent', 'declined'); });
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
+  await ctx.route('**/api/**', async (r) => {
+    const u = new URL(r.request().url()).pathname;
+    if (u === '/api/portal/inquiry') inquiry = r.request().postData();
+    const body = u === '/api/portal/auth/me' ? { success: true, data: { name: 'Ada Lovelace', email: 'ada@example.com', customerCode: 'RV-001' } } : { success: true };
+    await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+  });
   const p = await ctx.newPage();
-  await p.goto('http://localhost:4440/about', { waitUntil: 'networkidle' });
+  await p.goto(BASE + '/about', { waitUntil: 'networkidle' });
   await p.waitForTimeout(500);
   check('signed-in: Sign In button hidden, profile shown', !(await p.locator('a[data-guest-only]').first().isVisible()) && (await p.locator('[data-profile-toggle]').isVisible()));
   await p.locator('[data-profile-toggle]').click();
@@ -83,8 +96,14 @@ const check = (name, ok) => { console.log(ok ? 'PASS' : 'FAIL', name); if (!ok) 
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 } });
   await ctx.addInitScript(() => localStorage.setItem('reframe-cookie-consent', 'declined'));
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
+  await ctx.route('**/api/**', async (r) => {
+    const u = new URL(r.request().url()).pathname;
+    if (u === '/api/portal/inquiry') inquiry = r.request().postData();
+    const body = u === '/api/portal/auth/me' ? { success: true, data: { name: 'Ada Lovelace', email: 'ada@example.com', customerCode: 'RV-001' } } : { success: true };
+    await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(body) });
+  });
   const p = await ctx.newPage();
-  await p.goto('http://localhost:4440/pricing', { waitUntil: 'networkidle' });
+  await p.goto(BASE + '/pricing', { waitUntil: 'networkidle' });
   await p.locator('[data-mobile-open]').click();
   await p.waitForTimeout(500);
   check('mobile drawer opens', (await p.locator('[data-mobile-menu]').getAttribute('data-open')) === 'true' && (await p.locator('[data-mobile-menu]').isVisible()));

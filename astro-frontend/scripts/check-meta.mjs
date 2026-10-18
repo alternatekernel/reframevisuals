@@ -8,10 +8,13 @@ const m = src.match(/SEO_META_BY_PATH[^=]*=\s*(\{[\s\S]*?\n\});/);
 const map = new Function(`return ${m[1]}`)();
 const dec = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 let checked = 0, diff = 0, missing = 0;
+const remote = process.env.ASTRO_URL; // set to a running dev/preview server to also check server-rendered routes
 for (const [path, want] of Object.entries(map)) {
   const file = path === '/' ? 'dist/client/index.html' : `dist/client${path}/index.html`;
-  if (!existsSync(file)) { missing++; console.log('MISSING', path); continue; }
-  const html = readFileSync(file, 'utf8');
+  let html;
+  if (existsSync(file)) html = readFileSync(file, 'utf8');
+  else if (remote) { try { const r = await fetch(remote + path); if (!r.ok) throw new Error(String(r.status)); html = await r.text(); } catch { missing++; console.log('MISSING', path); continue; } }
+  else { missing++; console.log('MISSING', path); continue; }
   const title = dec((html.match(/<title>([^<]*)<\/title>/) || [])[1] || '');
   const desc = dec((html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '');
   checked++;

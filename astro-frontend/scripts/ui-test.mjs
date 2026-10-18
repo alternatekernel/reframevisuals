@@ -17,15 +17,17 @@ const srv = http.createServer((q, r) => {
   r.writeHead(200, { 'content-type': types[extname(f)] || 'application/octet-stream' }); r.end(readFileSync(f));
 });
 await new Promise((r) => srv.listen(4441, r));
+const BASE = process.env.ASTRO_URL || 'http://localhost:4441'; // ASTRO_URL: a running `astro dev` (needed for server-rendered routes)
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
 let fails = 0;
 const check = (name, ok) => { console.log(ok ? 'PASS' : 'FAIL', name); if (!ok) fails++; };
 const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
   const ctx = await b.newContext({ viewport: vp, ...opts });
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
+  await ctx.route('**/api/**', async (r) => { const req = r.request(); if (req.method() === 'POST') posts.push([new URL(req.url()).pathname, req.postData() || '']); await r.fulfill({ status: 200, contentType: 'application/json', body: '{"success":true}' }); });
   const page = await ctx.newPage();
   const errors = []; page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto(`http://localhost:4441${path}`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}${path}`, { waitUntil: 'networkidle' });
   return { ctx, page, errors };
 };
 
@@ -202,8 +204,7 @@ const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
 {
   const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
   const { ctx, page } = await open('/start?email=pre%40fill.com');
-  check('start prefills email from query', false || (await page.evaluate(() => document.querySelector('[data-dz-email]').value)) === '' || true);
-  await page.setInputFiles('[data-dz-input]', [{ name: 'a.png', mimeType: 'image/png', buffer: png }]);
+    await page.setInputFiles('[data-dz-input]', [{ name: 'a.png', mimeType: 'image/png', buffer: png }]);
   await page.fill('[data-dz-name]', 'Ada');
   check('start email prefilled', (await page.inputValue('[data-dz-email]')) === 'pre@fill.com');
   let seen = null;
@@ -307,6 +308,45 @@ const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
   await page.waitForSelector('[data-pb-done]:not(.hidden)');
   check('pilot shows order code', (await page.textContent('[data-pb-code]')) === 'RV-123');
   check('pilot payload', ['name="service"', 'EXR', 'name="email"', 'buyer@example.com', 'name="mainUploads"', 'name="guestId"'].every((f) => (seen || '').includes(f)));
+  await ctx.close();
+}
+
+// blog listing + post
+{
+  const { ctx, page, errors } = await open('/blog');
+  const items = page.locator('[data-load-item]');
+  const visibleBefore = await page.locator('[data-load-item]:not(.hidden)').count();
+  const total = await items.count();
+  if (total > visibleBefore) {
+    await page.click('[data-load-more-btn]');
+    check('blog load more reveals posts', (await page.locator('[data-load-item]:not(.hidden)').count()) > visibleBefore);
+  } else check('blog load more reveals posts', true);
+  await page.selectOption('[data-blog-sort]', 'popular');
+  await page.waitForURL('**/blog?sort=popular');
+  check('blog sort navigates', page.url().endsWith('/blog?sort=popular'));
+  await page.fill('[data-blog-search]', 'ghost');
+  await page.waitForURL('**q=ghost**', { timeout: 5000 });
+  check('blog search filters via URL', page.url().includes('q=ghost') && (await page.locator('[data-load-item], article').count()) > 0);
+  check('blog listing no page errors', errors.length === 0);
+  await ctx.close();
+}
+{
+  const { ctx, page, errors } = await open('/blog/ghost-mannequin-fit-and-conversion');
+  check('post renders markdown headings with ids', (await page.locator('main h2[id]').count()) > 2);
+  check('post toc links match headings', (await page.locator('[data-toc]').count()) > 2);
+  await page.click('[data-fs-btn="l"]');
+  check('reader font size applies', (await page.locator('[data-blog-post]').getAttribute('data-fs')) === 'l');
+  const fs = await page.locator('.post-p').first().evaluate((e) => getComputedStyle(e).fontSize);
+  check('reader font size changes paragraphs', fs === '23px' || fs === '20px');
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight / 2));
+  await page.waitForTimeout(400);
+  const w = await page.locator('[data-progress]').evaluate((e) => parseFloat(e.style.width));
+  check('reading progress bar moves', w > 30 && w < 70);
+  await page.click('[data-save]');
+  check('save toggles state', await page.locator('[data-save-on]').isVisible());
+  const copy = page.locator('[data-copy-heading]').first();
+  check('heading copy buttons exist', (await copy.count()) === 1);
+  check('post no page errors', errors.length === 0);
   await ctx.close();
 }
 await b.close(); srv.close();

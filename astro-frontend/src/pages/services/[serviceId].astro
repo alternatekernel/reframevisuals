@@ -1,16 +1,17 @@
 ---
+export const prerender = false;
 import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
 import ServiceDetailPage from '../../views/ServiceDetailPage.astro';
-import { SERVICES } from '../../data/services';
-import { isExcludedService } from '../../context/ServicesContext';
+import { getServiceById } from '../../data/services';
+import { isExcludedService } from '../../lib/serviceData';
 import { resolvePageSeo } from '../../data/seoMeta';
+import { CACHE_CONTROL } from '../../lib/blogSeed';
 
-export function getStaticPaths() {
-  return SERVICES.filter((s) => !isExcludedService(s)).map((s) => ({ params: { serviceId: s.id } }));
-}
 const { serviceId } = Astro.params;
-const path = `/services/${serviceId}`;
-const seo = resolvePageSeo(path);
+const service = getServiceById(serviceId || '');
+if (!service || isExcludedService(service)) return Astro.rewrite('/404');
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+const seo = resolvePageSeo(`/services/${serviceId}`);
 ---
 <PublicPageLayout title={seo.title} description={seo.description}>
   <ServiceDetailPage />

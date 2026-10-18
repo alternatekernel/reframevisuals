@@ -10,8 +10,6 @@ const direct: Record<string, string[]> = {
   "ContactPage": ["/contact"],
   "QuoteBuilderPage": ["/quote-builder"],
 
-  "ServicesPage": ["/services"],
-  "PricingPage": ["/pricing"],
   "PortfolioPage": ["/portfolio"],
   "TestimonialsPage": ["/testimonials"],
   "AIProductVisualsPage": ["/ai-product-visuals"],

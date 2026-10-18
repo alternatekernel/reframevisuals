@@ -21,8 +21,6 @@ import PilotBatchPage from '../views/PilotBatchPage.astro';
 import BookMeetingPage from '../views/BookMeetingPage.astro';
 import ContactPage from '../views/ContactPage.astro';
 import QuoteBuilderPage from '../views/QuoteBuilderPage.astro';
-import ServicesPage from '../views/ServicesPage.astro';
-import PricingPage from '../views/PricingPage.astro';
 import PortfolioPage from '../views/PortfolioPage.astro';
 import TestimonialsPage from '../views/TestimonialsPage.astro';
 import AIProductVisualsPage from '../views/AIProductVisualsPage.astro';
@@ -50,8 +48,6 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'ComparisonPage' && <ComparisonPage />}
   {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage />}
   {view === 'InsightAndTrustPage' && <InsightAndTrustPage />}
-  {view === 'ServicesPage' && <ServicesPage />}
-  {view === 'PricingPage' && <PricingPage />}
   {view === 'PortfolioPage' && <PortfolioPage />}
   {view === 'TestimonialsPage' && <TestimonialsPage />}
   {view === 'AIProductVisualsPage' && <AIProductVisualsPage />}

@@ -1,8 +1,11 @@
 ---
+export const prerender = false;
 import PublicPageLayout from '../layouts/PublicPageLayout.astro';
 import LandingPage from '../views/LandingPage.astro';
 import { SEO_META_BY_PATH } from '../data/seoMeta';
 import { faqSchema, howToSchema, orgSchema, priceSchema, websiteSchema, softwareAppSchema } from '../sections/landing/landingSchemas';
+import { CACHE_CONTROL } from '../lib/blogSeed';
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
 const seo = SEO_META_BY_PATH['/'];
 ---
 <PublicPageLayout title={seo.title} description={seo.description} jsonLd={[faqSchema, orgSchema, websiteSchema, priceSchema, howToSchema, softwareAppSchema]}>

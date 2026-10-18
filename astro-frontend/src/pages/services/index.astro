@@ -1,0 +1,13 @@
+---
+export const prerender = false;
+import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
+import ServicesPage from '../../views/ServicesPage.astro';
+import { SEO_META_BY_PATH } from '../../data/seoMeta';
+import { CACHE_CONTROL } from '../../lib/blogSeed';
+
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+const seo = SEO_META_BY_PATH['/services'];
+---
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <ServicesPage />
+</PublicPageLayout>
