@@ -20,14 +20,14 @@ const serve = (root, port, spa) => new Promise((res) => {
   s.listen(port, () => res(s));
 });
 const s1 = await serve(spaRoot, 4420, true);
-const s2 = await serve('dist/client', 4421, false);
+const s2 = process.env.ASTRO_URL ? { close() {} } : await serve('dist/client', 4421, false);
 const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
 const grab = async (port) => {
   const ctx = await b.newContext({ viewport: { width: Number(width), height: 900 } });
   await ctx.addInitScript(() => { sessionStorage.setItem('reframe_boot_loader_seen', '1'); localStorage.setItem('reframe-cookie-consent', 'declined'); });
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
   const p = await ctx.newPage();
-  await p.goto(`http://localhost:${port}${route}`, { waitUntil: 'networkidle' });
+  await p.goto(`${port === 4421 && process.env.ASTRO_URL ? process.env.ASTRO_URL : 'http://localhost:' + port}${route}`, { waitUntil: 'networkidle' });
   await p.waitForTimeout(1500);
   const rows = await p.evaluate(() => [...document.querySelectorAll('main h1, main h2, main h3, main p, main a, main li, main span, main section, main div')].filter((e) => e.children.length === 0 && e.textContent.trim()).map((e) => { const r = e.getBoundingClientRect(); return { t: e.textContent.trim().slice(0, 40), x: Math.round(r.x), y: Math.round(r.y + scrollY), w: Math.round(r.width), h: Math.round(r.height) }; }));
   await ctx.close();

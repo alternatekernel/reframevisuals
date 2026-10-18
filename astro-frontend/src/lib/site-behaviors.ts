@@ -5,6 +5,8 @@ const loggedIn = () => {
 
 function syncAuthCtas() {
   if (!loggedIn()) return;
+  document.querySelectorAll<HTMLElement>('[data-guest-note]').forEach((e) => e.classList.add('hidden'));
+  document.querySelectorAll<HTMLElement>('[data-auth-note]').forEach((e) => e.classList.remove('hidden'));
   document.querySelectorAll<HTMLAnchorElement>('[data-auth-cta]').forEach((a) => {
     const text = a.dataset.authLabel || 'Start New Job';
     a.href = a.dataset.authHref || '/dashboard?view=new-project';

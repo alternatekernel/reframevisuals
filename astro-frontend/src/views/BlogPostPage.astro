@@ -1,0 +1,225 @@
+---
+import { Bookmark, BookmarkCheck, ExternalLink, Share2, Rss } from 'lucide-react';
+import { SERVICES } from '../data/services';
+import { absoluteCanonicalUrl } from '../utils/seo';
+import { NEWSLETTER_EMAIL } from '../constants/contact';
+import { extractToc, inferCtaType, readMinutesToNumber, topicLabel, getTopicPastel } from '../utils/blog';
+import { renderMarkdown } from '../lib/markdown';
+import { loadBlogPosts } from '../lib/blogSeed';
+import { apiGet } from '../lib/serverApi';
+
+export interface Props { post: any }
+const { post } = Astro.props;
+const BLOG_POSTS = await loadBlogPosts();
+const related = await apiGet<{ posts?: any[] }>(`/blog/posts/${post.slug}/related`);
+const relatedFromApi: any[] = related?.posts ?? [];
+
+const toc = extractToc(post.content);
+const bodyHtml = renderMarkdown(post.content);
+const others = BLOG_POSTS.filter((p) => p.slug !== post.slug);
+const relatedByTopic = others.filter((p) => p.topic === post.topic).slice(0, 3);
+const popularPosts = [...others].sort((a, b) => (b.id % 9) - (a.id % 9)).slice(0, 3);
+const updatedPosts = [...others].sort((a, b) => Date.parse(b.updatedAt || b.date) - Date.parse(a.updatedAt || a.date)).slice(0, 3);
+const nextPost = relatedByTopic[0] || others[0];
+const canonical = absoluteCanonicalUrl(`/blog/${post.canonicalSlug || post.slug}`);
+const readMins = readMinutesToNumber(post.readTime);
+const ctaType = post.ctaType || inferCtaType(post);
+const currentSeries = post.seriesId ? BLOG_POSTS.filter((p) => p.seriesId === post.seriesId).sort((a, b) => (a.seriesOrder || 0) - (b.seriesOrder || 0)) : [];
+const seriesIndex = currentSeries.findIndex((p) => p.slug === post.slug);
+const prevSeries = seriesIndex > 0 ? currentSeries[seriesIndex - 1] : null;
+const nextSeries = seriesIndex >= 0 && seriesIndex < currentSeries.length - 1 ? currentSeries[seriesIndex + 1] : null;
+const ctaHref = ctaType === 'quote' ? '/quote-builder' : ctaType === 'trial' ? '/free-trial' : '/contact';
+const ctaLabel = ctaType === 'quote' ? 'Request Sample Pricing' : ctaType === 'trial' ? 'Start Free Trial' : 'Book a 15-min Audit';
+
+const slugWords = post.slug.split('-');
+const relatedServices = SERVICES.filter((s: any) => !s.hidden && (s.keywords || []).some((k: string) => slugWords.some((w: string) => w.length > 3 && k.toLowerCase().includes(w)))).slice(0, 3);
+
+const faqMatch = post.content.match(/##\s+FAQ\s*\n([\s\S]*)$/i);
+const faqItems = faqMatch
+  ? Array.from(faqMatch[1].matchAll(/###\s+(.+)\n([\s\S]*?)(?=\n###\s+|$)/g)).map((m: any) => ({ question: m[1].trim(), answer: m[2].replace(/\n+/g, ' ').trim() })).filter((i: any) => i.question && i.answer)
+  : [];
+const seoDescription = post.metaDescription || post.excerpt;
+const seoKeywords = (post.focusKeywords || '').split(',').map((k: string) => k.trim()).filter(Boolean);
+const geoRegions = (post.geoRegions || '').split(',').map((r: string) => r.trim()).filter(Boolean);
+const hreflang = post.hreflang || 'en';
+let customSchema: string | null = null;
+try { if (post.schemaMarkup) { const parsed = JSON.parse(post.schemaMarkup); if (parsed && typeof parsed === 'object') customSchema = JSON.stringify(parsed); } } catch { /* ignore */ }
+
+const articleJsonLd = {
+  '@context': 'https://schema.org', '@type': post.schemaType || 'BlogPosting', headline: post.title, description: seoDescription,
+  ...(seoKeywords.length > 0 && { keywords: seoKeywords.join(', ') }),
+  ...(geoRegions.length > 0 && { spatialCoverage: geoRegions.map((region: string) => ({ '@type': 'Place', name: region })) }),
+  inLanguage: hreflang, datePublished: post.date, dateModified: post.updatedAt || post.date,
+  author: { '@type': 'Organization', '@id': 'https://reframevisuals.com/#organization', name: 'Reframe Editorial Team', url: 'https://reframevisuals.com/blog' },
+  publisher: { '@type': 'Organization', '@id': 'https://reframevisuals.com/#organization', name: 'Reframe Visuals', url: 'https://reframevisuals.com', logo: { '@type': 'ImageObject', url: 'https://reframevisuals.com/logo.svg', width: 300, height: 100 } },
+  mainEntityOfPage: canonical, image: [post.image],
+  speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.article-summary', 'h1', 'h2'] },
+};
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteCanonicalUrl('/') },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: absoluteCanonicalUrl('/blog') },
+    { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
+  ],
+};
+const faqJsonLd = faqItems.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqItems.map((i: any) => ({ '@type': 'Question', name: i.question, acceptedAnswer: { '@type': 'Answer', text: i.answer } })) } : null;
+
+const pill = 'inline-flex items-center gap-1 rounded-full border border-black/[0.18] px-3 py-1.5 text-[12px] font-semibold hover:bg-black/5';
+const sideCard = 'rounded-2xl border border-black/[0.18] bg-white p-4';
+const sideH = 'font-heading text-[12px] font-black uppercase tracking-[0.2em] text-black/40 mb-3';
+const serif = "font-family: 'Charter', 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, serif";
+---
+<Fragment>
+  {[articleJsonLd, breadcrumbJsonLd, faqJsonLd].filter(Boolean).map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  {customSchema && <script type="application/ld+json" set:html={customSchema} />}
+</Fragment>
+<div data-blog-post data-slug={post.slug} data-minutes={readMins} data-title={post.title} data-canonical={canonical} class="post-article min-h-screen bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] antialiased" style="font-family: Inter, 'Helvetica Neue', Arial, sans-serif">
+  <div data-progress class="fixed top-0 left-0 z-[260] h-1 bg-[var(--color-text-primary)]" style="width: 0%"></div>
+
+  <nav class="px-6 py-4 bg-white border-b border-black/[0.18] sticky top-0 z-[240]">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="/" class="text-[14px] font-black uppercase tracking-tighter hover:text-brand transition-colors">Reframe Visuals</a>
+        <a href="/api/blog/rss" title="Subscribe via RSS" class="hidden sm:inline-flex items-center gap-1 text-[12px] font-semibold text-black/35 hover:text-orange-500 transition-colors"><Rss size={13} />RSS</a>
+      </div>
+      <div class="hidden md:flex items-center gap-4">
+        <span class="text-[12px] text-black/40"><span data-remaining>{readMins}</span> min left</span>
+        <button type="button" data-save class={pill}>
+          <span data-save-off class="inline-flex"><Bookmark size={14} /></span><span data-save-on class="hidden"><BookmarkCheck size={14} /></span>Save
+        </button>
+        <button type="button" data-share class={pill}><Share2 size={14} />Share</button>
+        <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(canonical)}`} target="_blank" rel="noopener noreferrer" class={`${pill} transition-colors`}>𝕏</a>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(canonical)}`} target="_blank" rel="noopener noreferrer" class={`${pill} transition-colors`}>in</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-14 lg:py-20">
+    <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+      <article class="flex-1 w-full max-w-[700px] min-w-0">
+        <header class="mb-14">
+          <div class="flex items-center gap-2 mb-4 flex-wrap">
+            <a href="/blog" class="text-[12px] uppercase font-bold tracking-wider text-black/40 hover:text-black">Blog</a>
+            <span class="text-black/20">•</span>
+            <a href={`/blog/topic/${post.topic}`} class={`inline-flex items-center px-2.5 py-1 rounded-full border text-[12px] sm:text-[12px] uppercase font-bold tracking-widest transition-all ${getTopicPastel(post.topic)}`}>{topicLabel(post.topic)}</a>
+          </div>
+          <h1 class="font-heading text-[30px] sm:text-[36px] md:text-[52px] font-black leading-[1.1] tracking-tight mb-6 text-black break-words">{post.title}</h1>
+          <div class="flex flex-wrap items-center gap-3 text-[14px] sm:text-[14px] text-black/40 font-medium italic">
+            <span>By Reframe Editorial Team</span><span>·</span><span>{post.date}</span><span>·</span><span>Updated {post.updatedAt || post.date}</span>
+          </div>
+        </header>
+
+        <figure class="mb-10 overflow-hidden rounded-3xl border border-black/[0.18] bg-white shadow-sm">
+          <img src={post.image} alt={post.imageAlt || `${post.title} cover image`} class="w-full aspect-[16/10] object-cover" loading="eager" />
+          {post.imageCaption && <figcaption class="px-5 py-3 text-[14px] text-black/50">{post.imageCaption}</figcaption>}
+        </figure>
+
+        <div class="mb-8 rounded-2xl border border-black/[0.18] bg-white p-4 flex flex-wrap gap-2 items-center">
+          <span class="text-[12px] font-semibold text-black/60">Reading view</span>
+          <div class="flex gap-2">
+            {['s', 'm', 'l'].map((size) => <button type="button" data-fs-btn={size} data-active={String(size === 'm')} class="px-2.5 py-1 rounded-full text-[12px] font-bold border data-[active=true]:bg-black data-[active=true]:text-white data-[active=true]:border-black data-[active=false]:border-black/15 data-[active=false]:text-black/60">{size.toUpperCase()}</button>)}
+            {['normal', 'relaxed'].map((h) => <button type="button" data-lh-btn={h} data-active={String(h === 'normal')} class="px-2.5 py-1 rounded-full text-[12px] font-bold border data-[active=true]:bg-black data-[active=true]:text-white data-[active=true]:border-black data-[active=false]:border-black/15 data-[active=false]:text-black/60">{h}</button>)}
+          </div>
+        </div>
+
+        <main class="prose prose-neutral max-w-none">
+          <div class="mb-8 rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-5">
+            <p class="text-[16px] text-black/70 mb-3">See this technique in our production workflow.</p>
+            <a href={ctaHref} class="inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-wider text-white bg-[var(--color-text-primary)] px-4 py-2 rounded-full">{ctaLabel} <ExternalLink size={12} /></a>
+          </div>
+
+          <div set:html={bodyHtml} />
+
+          {/(table|checklist|protocol)/i.test(post.content) && (
+            <div class="mt-8 rounded-2xl border border-black/[0.18] bg-white p-5">
+              <h4 class="font-heading text-[18px] font-bold mb-2">Download Resources</h4>
+              <p class="text-[16px] text-black/65 mb-3">Download-ready checklist and prep SOP for this workflow style.</p>
+              <div class="flex flex-wrap gap-2">
+                {['Checklist PDF', 'Prep SOP', 'Shot list'].map((l) => <button type="button" class="px-3 py-2 rounded-full border border-black/20 text-[14px] font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors">{l}</button>)}
+              </div>
+            </div>
+          )}
+
+          <div class="mt-8 rounded-2xl border border-black/[0.18] bg-[#f8f8f8] p-5" data-feedback>
+            <p class="text-[16px] text-black/65 mb-3">Was this useful?</p>
+            <div class="flex gap-2 mb-3">
+              {['yes', 'no'].map((v) => <button type="button" data-fb={v} data-active="false" class="px-4 py-2 rounded-full text-[14px] font-semibold border transition-colors data-[active=true]:bg-[var(--color-text-primary)] data-[active=true]:text-white data-[active=true]:border-[var(--color-text-primary)] data-[active=false]:border-black/15 data-[active=false]:hover:bg-black/5">{v === 'yes' ? 'Yes' : 'No'}</button>)}
+            </div>
+            <textarea placeholder="Optional feedback" class="w-full min-h-20 rounded-lg border border-black/[0.18] px-3 py-2 text-[16px] bg-white focus-visible:ring-2 focus-visible:ring-black/30 outline-none"></textarea>
+          </div>
+
+          <div class="mt-8 rounded-2xl border border-black/[0.18] bg-white p-5" data-subscribe>
+            <h4 class="font-heading text-[18px] font-bold mb-2">Newsletter preferences</h4>
+            <p class="text-[16px] text-black/60 mb-3">Get weekly updates on this topic and adjacent workflows.</p>
+            <div class="flex flex-wrap gap-2 mb-3">
+              {[topicLabel(post.topic), 'Conversion', 'QA', 'Marketplace'].map((item) => <button type="button" class="px-3 py-1.5 rounded-full border border-black/15 text-[14px] font-semibold hover:bg-black/5 transition-colors">{item}</button>)}
+            </div>
+            <p data-sub-ok class="hidden text-[15px] font-semibold text-green-700"></p>
+            <form data-sub-form class="flex flex-col sm:flex-row gap-2">
+              <input type="email" name="email" placeholder="Email address" required class="flex-1 min-h-12 rounded-full border border-black/[0.18] px-4 text-[16px] focus-visible:ring-2 focus-visible:ring-black/30 outline-none" />
+              <button type="submit" data-sub-btn class="min-h-12 px-6 rounded-full bg-[var(--color-text-primary)] text-white text-[15px] font-bold uppercase tracking-wider hover:bg-black/90 transition-colors disabled:opacity-50">Subscribe</button>
+            </form>
+            <p data-sub-error class="hidden text-[14px] text-red-600 mt-1"></p>
+            <p class="mt-4 text-[14px] text-black/55">Prefer direct email?{' '}<a href={`mailto:${NEWSLETTER_EMAIL}`} class="underline text-black hover:text-[var(--color-text-primary)] transition-colors">{NEWSLETTER_EMAIL}</a></p>
+          </div>
+        </main>
+      </article>
+
+      <aside class="hidden lg:block w-[320px] sticky top-24 space-y-8">
+        <div class={sideCard}>
+          <h5 class={sideH}>On this page</h5>
+          {toc.length === 0 ? <p class="text-[14px] text-black/45">No section headings available.</p> : (
+            <div class="space-y-2">
+              {toc.map((item) => <a data-toc={item.id} href={`#${item.id}`} class={`block text-[14px] ${item.level === 3 ? 'pl-3' : ''} text-black/55 hover:text-[var(--color-text-primary)] transition-colors [&.is-active]:text-[var(--color-text-primary)] [&.is-active]:font-semibold`}>{item.text}</a>)}
+            </div>
+          )}
+        </div>
+        <div class={sideCard}>
+          <h5 class={sideH}>Related articles</h5>
+          <div class="space-y-2">{(relatedFromApi.length ? relatedFromApi : relatedByTopic).slice(0, 4).map((i: any) => <a href={`/blog/${i.slug}`} class="block text-[14px] text-black/70 hover:text-black leading-snug">{i.title}</a>)}</div>
+        </div>
+        {relatedServices.length > 0 && (
+          <div class={sideCard}>
+            <h5 class={sideH}>Related Services</h5>
+            <div class="space-y-2">{relatedServices.map((s: any) => <a href={`/services/${s.id}`} class="block text-[14px] text-black/70 hover:text-black">{s.name}</a>)}</div>
+          </div>
+        )}
+        <div class={sideCard}>
+          <h5 class={sideH}>Popular this week</h5>
+          <div class="space-y-2">{popularPosts.map((i) => <a href={`/blog/${i.slug}`} class="block text-[14px] text-black/70 hover:text-black">{i.title}</a>)}</div>
+        </div>
+        <div class={sideCard}>
+          <h5 class={sideH}>Recently updated</h5>
+          <div class="space-y-2">{updatedPosts.map((i) => <a href={`/blog/${i.slug}`} class="block text-[14px] text-black/70 hover:text-black">{i.title}</a>)}</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div data-toast class="hidden fixed top-[76px] right-6 z-[280] rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[12px] font-medium text-black shadow-md"></div>
+
+  {currentSeries.length > 1 && (
+    <section class="px-6 pb-10">
+      <div class="max-w-4xl mx-auto rounded-2xl border border-black/[0.18] bg-white p-5">
+        <p class="text-[12px] uppercase tracking-wider font-bold text-black/40 mb-2">Series</p>
+        <h4 class="font-heading text-[18px] font-bold mb-3">{topicLabel(post.seriesId || 'workflow-series')}</h4>
+        <div class="flex flex-wrap gap-2">
+          {prevSeries && <a href={`/blog/${prevSeries.slug}`} class="px-3 py-1.5 rounded-full border border-black/20 text-[12px] font-semibold">← Previous part</a>}
+          {nextSeries && <a href={`/blog/${nextSeries.slug}`} class="px-3 py-1.5 rounded-full border border-black/20 text-[12px] font-semibold">Next part</a>}
+          <a href={`/blog/series/${post.seriesId}`} class="px-3 py-1.5 rounded-full border border-black/20 text-[12px] font-semibold">View full series</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {nextPost && (
+    <div data-continue class="hidden fixed bottom-5 right-5 z-[260] max-w-sm rounded-2xl border border-black/15 bg-white/95 backdrop-blur p-4 shadow-xl">
+      <p class="text-[12px] uppercase tracking-wider font-bold text-black/45 mb-2">Continue reading</p>
+      <a href={`/blog/${nextPost.slug}`} class="block text-[14px] font-semibold text-black hover:text-brand">{nextPost.title}</a>
+    </div>
+  )}
+</div>
+<script>
+  import '../lib/ui/blog-post';
+</script>

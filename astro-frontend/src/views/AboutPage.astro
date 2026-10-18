@@ -2,7 +2,7 @@
 import AboutPhilosophy from '../sections/about/AboutPhilosophy.astro';
 import AboutExpertise from '../sections/about/AboutExpertise.astro';
 import AboutFAQ from '../sections/about/AboutFAQ.astro';
-import AboutCTA from '../islands/wrapped/AboutCTA';
+import AboutCTA from '../sections/about/AboutCTA.astro';
 
 const aboutSchema = {
   '@context': 'https://schema.org',
@@ -65,5 +65,5 @@ const aboutSchema = {
       <AboutPhilosophy />
       <AboutExpertise />
       <AboutFAQ />
-      <AboutCTA client:visible path={Astro.url.pathname} />
+      <AboutCTA />
     </div>

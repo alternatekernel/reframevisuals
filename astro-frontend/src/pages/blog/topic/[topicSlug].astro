@@ -1,16 +1,5 @@
 ---
 export const prerender = false;
-import PublicPageLayout from '../../../layouts/PublicPageLayout.astro';
-import BlogTopicPage from '../../../islands/views/BlogTopicPage';
-import { collectHead } from '../../../lib/collectHead';
-import { loadBlogSeed, CACHE_CONTROL } from '../../../lib/blogSeed';
-
-Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
 const { topicSlug } = Astro.params;
-const path = `/blog/topic/${topicSlug}`;
-const seed = await loadBlogSeed();
-const head = collectHead('BlogTopicPage', path, { topicSlug }, seed);
+return Astro.redirect(topicSlug ? `/blog?topic=${encodeURIComponent(topicSlug)}` : '/blog', 301);
 ---
-<PublicPageLayout title={head.title ?? 'Reframe Visuals Blog'} description={head.description ?? 'Practical guides on product visuals, editing workflows, and conversion-focused image strategy.'}>
-  <BlogTopicPage client:load path={path} params={{ topicSlug }} seed={seed} />
-</PublicPageLayout>

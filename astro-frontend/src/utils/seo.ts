@@ -1,5 +1,5 @@
 export const getCanonicalBaseUrl = (): string => {
-  const envBase = (import.meta as any)?.env?.VITE_CANONICAL_BASE_URL as string | undefined;
+  const envBase = import.meta.env.VITE_CANONICAL_BASE_URL as string | undefined;
 
   if (envBase && envBase.trim()) {
     return envBase.replace(/\/$/, '').replace('://www.', '://');

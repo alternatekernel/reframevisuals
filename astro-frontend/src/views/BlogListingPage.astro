@@ -1,0 +1,121 @@
+---
+import { BookOpen, Scissors, Palette, TrendingUp, Search, X } from 'lucide-react';
+import { cx, layout, typography } from '../utils/theme';
+import BlogHero from '../sections/blog/BlogHero.astro';
+import BlogGrid from '../sections/blog/BlogGrid.astro';
+import BlogCTA from '../sections/blog/BlogCTA.astro';
+import { loadBlogPosts } from '../lib/blogSeed';
+import { searchPosts, sortPosts, topicLabel, type BlogSort } from '../utils/blog';
+
+const CATEGORIES = [
+  { id: 'all', label: 'All Posts' }, { id: 'techniques', label: 'Techniques' }, { id: 'services', label: 'Services' }, { id: 'industry', label: 'Industry' },
+];
+const params = Astro.url.searchParams;
+const q = params.get('q') || '';
+const activeCategory = params.get('category') || 'all';
+const activeTopic = params.get('topic') || 'all';
+const activeSeries = params.get('series') || 'all';
+const sort = (params.get('sort') as BlogSort) || 'latest';
+
+const BLOG_POSTS = await loadBlogPosts();
+const topics = ['all', ...Array.from(new Set(BLOG_POSTS.map((p) => p.topic))).sort()];
+let list = activeCategory === 'all' ? BLOG_POSTS : BLOG_POSTS.filter((p) => p.category === activeCategory);
+if (activeTopic !== 'all') list = list.filter((p) => p.topic === activeTopic);
+if (activeSeries !== 'all') list = list.filter((p) => p.seriesId === activeSeries);
+const gridPosts = sortPosts(searchPosts(list, q), sort);
+const featuredPost = BLOG_POSTS.find((p) => p.featured);
+const hasActiveFilters = !!q || activeTopic !== 'all' || activeSeries !== 'all' || sort !== 'latest';
+const popularPosts = sortPosts(BLOG_POSTS, 'popular').slice(0, 4);
+const updatedPosts = sortPosts(BLOG_POSTS, 'updated').slice(0, 4);
+
+const href = (key: string, value: string) => {
+  const next = new URLSearchParams(params);
+  if (!value || value === 'all') next.delete(key); else next.set(key, value);
+  if (key !== 'page') next.delete('page');
+  const s = next.toString();
+  return s ? `/blog?${s}` : '/blog';
+};
+const clearHref = (() => { const n = new URLSearchParams(params); ['q', 'topic', 'series', 'sort'].forEach((k) => n.delete(k)); const s = n.toString(); return s ? `/blog?${s}` : '/blog'; })();
+const listingSchema = {
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Ecommerce Photo Editing Guides & Tutorials',
+  description: 'Expert guides on clipping path, background removal, ghost mannequin, retouching, and color correction for ecommerce and Amazon sellers.',
+  url: 'https://reframevisuals.com/blog', publisher: { '@type': 'Organization', name: 'Reframe Visuals', url: 'https://reframevisuals.com' },
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(listingSchema)} />
+<div class="min-h-screen bg-surface" data-blog-listing>
+  <BlogHero />
+
+  <section class="px-5 sm:px-6 py-4 sm:py-5 bg-white border-b border-black/[0.12]">
+    <div class="max-w-5xl mx-auto space-y-3">
+      <form method="get" action="/blog" data-blog-form class="flex flex-col sm:flex-row gap-3 sm:items-center">
+        {activeCategory !== 'all' && <input type="hidden" name="category" value={activeCategory} />}
+        {activeTopic !== 'all' && <input type="hidden" name="topic" value={activeTopic} />}
+        {activeSeries !== 'all' && <input type="hidden" name="series" value={activeSeries} />}
+        <div class="relative flex-1 max-w-md">
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-black/30" />
+          <input name="q" value={q} data-blog-search placeholder="Search guides, techniques, topics…" class="w-full rounded-full border border-black/[0.18] bg-white py-2.5 pl-10 pr-9 text-[14px] outline-none transition-colors focus:border-black/40" />
+          {q && <a href={href('q', '')} class="absolute right-3 top-1/2 -translate-y-1/2 text-black/30 hover:text-black" aria-label="Clear search"><X size={14} /></a>}
+        </div>
+        <select name="sort" data-blog-sort class="rounded-full border border-black/[0.18] bg-white px-4 py-2.5 text-[14px] font-semibold outline-none cursor-pointer focus:border-black/40" aria-label="Sort articles">
+          <option value="latest" selected={sort === 'latest'}>Newest first</option>
+          <option value="updated" selected={sort === 'updated'}>Recently updated</option>
+          <option value="popular" selected={sort === 'popular'}>Editor's picks</option>
+        </select>
+        {hasActiveFilters && <a href={clearHref} data-btn class="text-[12px] font-bold uppercase tracking-wider text-black/40 hover:text-black whitespace-nowrap">Clear all</a>}
+        <noscript><button type="submit" class="rounded-full bg-black px-4 py-2 text-[12px] font-bold text-white">Search</button></noscript>
+      </form>
+
+      {topics.length > 2 && (
+        <div class="flex gap-2 overflow-x-auto no-scrollbar pb-0.5">
+          {topics.map((t) => (
+            <a href={href('topic', t)} data-btn class={`whitespace-nowrap rounded-full border px-3 py-1.5 text-[12px] font-bold uppercase tracking-[0.08em] transition-all ${activeTopic === t ? 'border-black bg-black text-white' : 'border-black/[0.18] bg-white text-black/50 hover:border-black/25 hover:text-black'}`}>{t === 'all' ? 'All topics' : topicLabel(t)}</a>
+          ))}
+        </div>
+      )}
+
+      {hasActiveFilters && <p class="text-[12px] text-black/40">{gridPosts.length} article{gridPosts.length !== 1 ? 's' : ''} match{gridPosts.length === 1 ? 'es' : ''} your filters</p>}
+    </div>
+  </section>
+
+  <BlogGrid allPosts={BLOG_POSTS} gridPosts={gridPosts} featuredPost={hasActiveFilters ? undefined : featuredPost} activeCategory={activeCategory} categories={CATEGORIES} categoryHref={(id) => href('category', id)} />
+
+  <section class="px-6 pt-16 sm:pt-20 pb-16 lg:pb-24">
+    <div class={cx(layout.compactShell, 'grid grid-cols-1 gap-4 lg:grid-cols-3')}>
+      <div class="rounded-xl border border-black/[0.18] bg-white p-4">
+        <h3 class="mb-3 text-[14px] font-bold">Editor's picks</h3>
+        <div class="space-y-2">{popularPosts.map((p) => <a href={`/blog/${p.slug}`} class="block text-[14px] text-black/70 hover:text-black">{p.title}</a>)}</div>
+      </div>
+      <div class="rounded-xl border border-black/[0.18] bg-white p-4">
+        <h3 class="mb-3 text-[14px] font-bold">Recently updated</h3>
+        <div class="space-y-2">{updatedPosts.map((p) => <a href={`/blog/${p.slug}`} class="block text-[14px] text-black/70 hover:text-black">{p.title}</a>)}</div>
+      </div>
+      <div class="rounded-xl border border-black/[0.18] bg-white p-4" data-reading-history data-posts={JSON.stringify(BLOG_POSTS.map((p) => ({ slug: p.slug, title: p.title })))}>
+        <h3 class="mb-3 text-[14px] font-bold">Continue reading</h3>
+        <p data-history-empty class="text-[14px] text-black/50">Your reading history appears here after opening articles.</p>
+        <div data-history-list class="hidden space-y-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <BlogCTA />
+
+  <section class="px-6 pb-10">
+    <div class={cx(layout.compactShell)}>
+      <h2 class="mb-4 text-[20px] font-semibold text-black">Browse All Guides</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {BLOG_POSTS.slice(0, 18).map((p) => <a href={`/blog/${p.slug}`} class="rounded-lg border border-black/[0.18] px-4 py-3 text-sm font-medium transition-colors hover:bg-black hover:text-white">{p.title}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 pb-12">
+    <div class={cx(layout.compactShell)}>
+      <p class={cx(typography.vercelMono, 'text-center text-black/45')}>© 2026 Reframe Visuals &bull; Reframing the industry, one image at a time.</p>
+    </div>
+  </section>
+</div>
+<script>
+  import '../lib/ui/blog-listing';
+  import '../lib/ui/forms';
+</script>

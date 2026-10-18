@@ -1,0 +1,37 @@
+---
+import { cx, layout, typography } from '../../utils/theme';
+import Frame from '../../components/ui/Frame';
+import { NEWSLETTER_EMAIL } from '../../constants/contact';
+---
+<section class="px-5 pb-12 sm:px-6 sm:pb-24">
+  <div class={cx(layout.compactShell)}>
+    <Frame size="lg" className="border-none bg-[#171717]">
+      <div class="relative overflow-hidden px-6 py-12 sm:px-12 sm:py-20 lg:p-20 text-center lg:text-left">
+        <div class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03]"><img src="/logo.svg" alt="Reframe Brand Element CTA" class="h-[400px] w-[400px] invert" /></div>
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
+          <div class="space-y-6 lg:space-y-8">
+            <h2 class="font-heading text-[28px] font-black leading-tight tracking-tight text-white sm:text-[36px] lg:text-[44px]">Ready to See <br /><span class="text-white/60">the Difference?</span></h2>
+            <p class="max-w-xl text-[15px] leading-relaxed text-white/60 sm:text-[16px] lg:text-[17px] mx-auto lg:mx-0">Put these techniques to work. Start with 3 free edits and experience professional image editing firsthand.</p>
+            <div class="flex flex-col items-center lg:items-start gap-4">
+              <a href="/free-trial" class="inline-flex min-h-[52px] items-center justify-center rounded-full bg-white px-6 text-[15px] font-bold text-[#171717] transition-all hover:bg-white/90 active:scale-95 leading-[normal]">Get 3 Free Sample Edits</a>
+              <p class={cx(typography.vercelMono, 'text-[12px] text-white/45 tracking-widest text-center lg:text-left')}>3 FREE IMAGE EDITS &bull; NO CREDIT CARD REQUIRED</p>
+            </div>
+          </div>
+          <div class="w-full space-y-4 lg:border-l lg:border-white/10 lg:pl-12" data-inquiry data-meta='{"type":"Blog Newsletter Subscription","source":"Blog Page"}'>
+            <p class="text-[12px] font-bold tracking-widest text-white/40 uppercase text-center lg:text-left">Get blog updates weekly</p>
+            <div data-inquiry-form class="group relative max-w-sm mx-auto lg:mx-0">
+              <input type="email" id="insights-newsletter-email" data-inquiry-input placeholder="Your email address" class="h-12 w-full rounded-full border border-white/10 bg-white/5 pl-5 pr-[7.5rem] text-[14px] font-medium text-white transition-[border-color,box-shadow,background-color] duration-200 placeholder-white/40 focus:border-white/30 focus:bg-white/10 focus:outline-none focus:ring-1 focus:ring-white/20 sm:h-14 sm:pl-6 sm:pr-[8.5rem] sm:text-[14px]" />
+              <button type="button" data-inquiry-submit class="absolute right-1.5 top-1.5 h-9 rounded-full border border-white/10 bg-white px-4 text-[12px] font-bold text-black transition-all hover:bg-gray-100 active:scale-95 disabled:opacity-50 sm:right-2 sm:top-2 sm:h-10 sm:px-5"><span data-inquiry-label>Subscribe</span></button>
+            </div>
+            <div data-inquiry-success class="hidden rounded-2xl border border-white/20 bg-white/10 p-4 text-center lg:text-left">
+              <p class="text-[14px] font-bold text-white">Subscription Confirmed</p>
+              <p class="mt-1 text-[12px] font-medium text-white/60">No spam, just blog updates. Guaranteed.</p>
+            </div>
+            <p class="text-[12px] font-medium italic text-white/25 text-center lg:text-left">* No spam or annoying sales messages, guaranteed.</p>
+            <p class="text-[12px] font-medium text-white/40 text-center lg:text-left">Prefer email?{' '}<a href={`mailto:${NEWSLETTER_EMAIL}`} class="underline decoration-white/30 hover:decoration-white">{NEWSLETTER_EMAIL}</a></p>
+          </div>
+        </div>
+      </div>
+    </Frame>
+  </div>
+</section>

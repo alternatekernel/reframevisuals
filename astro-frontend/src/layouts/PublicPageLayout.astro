@@ -14,7 +14,7 @@ const currentPath = Astro.url.pathname;
 const NO_CONTINUE = ['/', '/order', '/login', '/signup', '/forgot-password', '/reset-password', '/free-trial', '/start', '/pilot-batch', '/contact', '/order/new', '/about', '/about-reframe-visuals'];
 ---
 <BaseLayout {...seo}>
-  <ClientRouter slot="head" />
+  <Fragment slot="head"><ClientRouter /><slot name="head" /></Fragment>
   <div class="min-h-screen flex flex-col bg-[var(--surface)] text-black overflow-x-hidden min-w-0 antialiased" style="isolation: isolate">
     <Navigation />
     <main class="pt-16 flex-grow flex flex-col min-w-0"><slot />{!NO_CONTINUE.includes(currentPath) && <ContinueBrowsing />}</main>

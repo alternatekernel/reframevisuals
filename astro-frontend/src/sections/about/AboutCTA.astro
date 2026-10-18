@@ -5,7 +5,6 @@ import Frame from '../../components/ui/Frame';
 
 import ButtonWithIcon from '../../components/astro/ButtonWithIcon.astro';
 
-const isUserAuthenticated = false;
 ---
 <section class="px-5 sm:px-6 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-white">
       <div class={cx(layout.compactShell)}>
@@ -20,9 +19,11 @@ const isUserAuthenticated = false;
               <div class="flex justify-center mb-5 sm:mb-7 lg:mb-10">
                 <ButtonWithIcon
                   variant="white"
-                  label={isUserAuthenticated ? 'Start Editing' : 'Get 3 Free Sample Edits'}
+                  label="Get 3 Free Sample Edits"
                   animated={false}
-                  href={isUserAuthenticated ? '/dashboard?view=new-project' : '/free-trial'}
+                  href="/free-trial"
+                  authCta
+                  data-auth-label="Start Editing"
                 />
               </div>
 

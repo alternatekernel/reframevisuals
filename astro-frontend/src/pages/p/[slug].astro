@@ -1,10 +1,10 @@
 ---
 export const prerender = false;
 import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
-import CmsPageView from '../../islands/views/CmsPageView';
 import { apiGet } from '../../lib/serverApi';
 import { CACHE_CONTROL } from '../../lib/blogSeed';
 import { getCmsPage } from '../../lib/cms';
+import { renderMarkdownPlain } from '../../lib/markdown';
 
 const { slug } = Astro.params;
 const cmsPage = await getCmsPage(slug!);
@@ -17,5 +17,17 @@ else Astro.response.status = 404;
   description={page?.metaDescription || page?.excerpt || 'Reframe Visuals'}
   ogImage={page?.coverImage ?? undefined}
   noindexOverride={!page}>
-  <CmsPageView client:load path={`/p/${slug}`} params={{ slug }} seed={{ page }} />
+  {page ? (
+    <article class="mx-auto max-w-3xl px-5 py-16 sm:py-20">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-black">{page.title}</h1>
+      {page.excerpt && <p class="mt-4 text-lg text-black/55">{page.excerpt}</p>}
+      {page.coverImage && <img src={page.coverImage} alt={page.title} class="mt-8 w-full rounded-2xl object-cover" />}
+      <div class="prose prose-neutral mt-10 max-w-none prose-headings:font-semibold prose-a:text-black" set:html={renderMarkdownPlain(page.content)} />
+    </article>
+  ) : (
+    <div class="mx-auto max-w-3xl px-5 py-24 text-center">
+      <h1 class="text-2xl font-bold text-black/80">Page not found</h1>
+      <p class="mt-2 text-black/50">The page you’re looking for doesn’t exist.</p>
+    </div>
+  )}
 </PublicPageLayout>

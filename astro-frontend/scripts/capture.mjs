@@ -13,6 +13,7 @@ const root = arg('root');
 const mode = arg('mode', 'astro');
 const out = arg('out');
 const port = Number(arg('port', 4410));
+const remote = arg('url'); // capture a running server (astro dev) instead of serving a static build
 export const ROUTES = (arg('routes') || '/,/services,/services/background-removal,/services/ghost-mannequin,/pricing,/about,/portfolio,/testimonials,/how-it-works,/platform,/free-trial,/contact,/quote-builder,/start,/book-meeting,/amazon-product-image-editing,/us-photo-editing-service,/privacy,/quality-assurance-process,/resources,/resources/clipping-path-vs-background-removal,/pixelz-alternative,/case-studies,/ai-product-visuals,/blog').split(',');
 
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.json': 'application/json', '.xml': 'application/xml', '.txt': 'text/plain', '.png': 'image/png' };
@@ -32,7 +33,8 @@ const server = http.createServer((req, res) => {
   res.writeHead(200, { 'content-type': types[extname(file)] || 'application/octet-stream' });
   res.end(readFileSync(file));
 });
-await new Promise((r) => server.listen(port, r));
+if (!remote) await new Promise((r) => server.listen(port, r));
+const base = remote || `http://localhost:${port}`;
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
 for (const [label, vp] of [['1440', { width: 1440, height: 900 }], ['390', { width: 390, height: 844 }]]) {
@@ -44,7 +46,7 @@ for (const [label, vp] of [['1440', { width: 1440, height: 900 }], ['390', { wid
     });
     await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
     const page = await ctx.newPage();
-    await page.goto(`http://localhost:${port}${route}`, { waitUntil: 'networkidle' }).catch(() => {});
+    await page.goto(`${base}${route}`, { waitUntil: 'networkidle' }).catch(() => {});
     await page.addStyleTag({ content: '[class*="animate-marquee"],[class*="animate-pulse"],[class*="animate-spin"],[class*="animate-shimmer"],[class*="animate-focal"],[class*="animate-glass"],[class*="animate-ping"]{animation-play-state:paused !important}*{caret-color:transparent !important}[data-reveal="load"]{animation:none !important;opacity:1 !important;transform:none !important}html{scroll-behavior:auto !important}' });
     // Bring every section into view (instant) so once-only reveal animations fire, independent of smooth-scroll libraries.
     const count = await page.evaluate(() => document.querySelectorAll('section, footer, h2, h3').length);

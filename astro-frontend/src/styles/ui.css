@@ -72,3 +72,11 @@
 [data-hc-card][data-revealed='true'] [data-hc-divider] { left: 0%; }
 [data-hc-card][data-fast] [data-hc-before], [data-hc-card][data-fast] [data-hc-divider] { transition-duration: 0.8s; transition-delay: 0s; }
 [data-hc-card][data-instant] [data-hc-before], [data-hc-card][data-instant] [data-hc-divider] { transition: none; }
+
+/* Blog post reader preferences (set on the article by lib/ui/blog-post.ts) */
+.post-article { --post-fs: 18px; --post-fs-sm: 21px; --post-lh: 1.75; --post-lh-sm: 1.8; }
+.post-article[data-fs='s'] { --post-fs: 17px; --post-fs-sm: 18px; }
+.post-article[data-fs='l'] { --post-fs: 20px; --post-fs-sm: 23px; }
+.post-article[data-lh='relaxed'] { --post-lh: 1.9; --post-lh-sm: 2; }
+.post-article .post-p { font-size: var(--post-fs); line-height: var(--post-lh); }
+@media (min-width: 640px) { .post-article .post-p { font-size: var(--post-fs-sm); line-height: var(--post-lh-sm); } }

@@ -29,12 +29,12 @@ const { isUserAuthenticated } = Astro.props;
             </p>
 
             <div class="flex flex-col items-center gap-6">
-              <a href={isUserAuthenticated ? '/dashboard?view=new-project' : '/free-trial'} class={cx(buttonVariants({ variant: "default" }), "h-12 px-6 font-bold tracking-wide")}>
-                  {isUserAuthenticated ? 'Start New Job' : 'Get 3 Free Sample Edits'}
+              <a href="/free-trial" data-auth-cta class={cx(buttonVariants({ variant: "default" }), "h-12 px-6 font-bold tracking-wide")}>
+                  <span data-auth-cta-label>Get 3 Free Sample Edits</span>
                 </a>
 
               <p class="text-[12px] text-black/45 font-medium tracking-wide uppercase">
-                {isUserAuthenticated ? '3 free edits remaining' : 'No credit card required'} | Review first, always
+                <span data-guest-note>No credit card required</span><span data-auth-note class="hidden">3 free edits remaining</span> | Review first, always
               </p>
               <p class="text-[16px] font-medium text-black/65">Need custom scope? Email <a href="mailto:hello@reframevisuals.com" class="underline">hello@reframevisuals.com</a></p>
             </div>

@@ -1,0 +1,104 @@
+---
+import { TrendingUp } from 'lucide-react';
+import { cx } from '../../utils/theme';
+import { getTopicPastel, topicLabel } from '../../utils/blog';
+
+export interface Props {
+  allPosts: any[];
+  gridPosts: any[];
+  featuredPost?: any;
+  activeCategory: string;
+  categories: { id: string; label: string }[];
+  /** Builds the listing URL for a category (keeps the other filters). */
+  categoryHref: (id: string) => string;
+}
+const { allPosts, gridPosts, featuredPost, activeCategory, categories, categoryHref } = Astro.props;
+const INITIAL_VISIBLE = 8;
+const categoryLabel: Record<string, string> = Object.fromEntries(categories.map((c) => [c.id, c.label]));
+const getOptimizedUrl = (url: string, width = 400) => {
+  if (!url) return url;
+  if (url.includes('unsplash.com')) return url.replace('w=800', `w=${width}`);
+  if (url.includes('res.cloudinary.com') && url.includes('/upload/')) {
+    const firstSegment = (url.split('/upload/')[1] || '').split('/')[0];
+    if (!/(^|,)[a-z]{1,3}_/.test(firstSegment)) return url.replace('/upload/', `/upload/f_auto,q_auto,w_${width}/`);
+  }
+  return url;
+};
+const showFeaturedHero = !!featuredPost && activeCategory === 'all';
+const postsToShow = (activeCategory === 'all' ? gridPosts : gridPosts.filter((p) => p.category === activeCategory)).filter((p) => !(showFeaturedHero && p.slug === featuredPost?.slug));
+---
+<div class="bg-[var(--color-bg-secondary)]">
+  <section class="px-5 sm:px-6 border-b border-black/[0.12] sticky top-[64px] sm:top-[72px] bg-white/90 backdrop-blur-xl z-20">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center gap-4 sm:gap-10 overflow-x-auto no-scrollbar py-2.5 sm:py-4">
+        {categories.map((cat) => (
+          <a href={categoryHref(cat.id)} data-btn class={cx('whitespace-nowrap text-[12px] sm:text-[12px] font-black uppercase tracking-[0.1em] sm:tracking-[0.15em] transition-all pb-1 border-b-2', activeCategory === cat.id ? 'text-black border-black' : 'text-black/25 border-transparent hover:text-black/50')}>
+            {cat.label}{cat.id === 'all' ? ` (${allPosts.length})` : ''}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-5 sm:px-6 py-6 sm:py-10 lg:py-12">
+    <div class="max-w-5xl mx-auto space-y-12 sm:space-y-24">
+      {showFeaturedHero && (
+        <article data-reveal style="--reveal-y:12px" class="group relative">
+          <a href={`/blog/${featuredPost.slug}`} class="flex flex-col md:flex-row gap-6 md:gap-10 items-stretch rounded-3xl border border-black/[0.18] bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="md:w-[46%] shrink-0">
+              <div class="h-full min-h-[220px] md:min-h-[300px] overflow-hidden bg-black/5">
+                <img src={getOptimizedUrl(featuredPost.image, 800)} alt={featuredPost.imageAlt || `${featuredPost.title} - Reframe Visuals Blog`} loading="eager" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            </div>
+            <div class="flex-1 p-6 md:py-10 md:pr-10 md:pl-0 flex flex-col justify-center gap-4">
+              <div class="flex items-center gap-2 text-[12px] font-bold uppercase tracking-widest flex-wrap">
+                <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-black text-white">Featured</span>
+                <span class={`inline-flex items-center px-2 py-0.5 rounded-full border ${getTopicPastel(featuredPost.topic)}`}>{topicLabel(featuredPost.topic)}</span>
+                <span class="text-black/30">{featuredPost.date} · {featuredPost.readTime}</span>
+              </div>
+              <h2 class="font-heading text-[26px] sm:text-[32px] lg:text-[38px] font-black leading-[1.08] tracking-tight group-hover:text-black/70 transition-colors">{featuredPost.title}</h2>
+              <p class="text-[16px] text-black/60 leading-7 line-clamp-3">{featuredPost.excerpt}</p>
+            </div>
+          </a>
+          <a data-admin-only href="/admin/blog" class="hidden absolute top-3 right-3 z-10 rounded-md border border-black/15 bg-white/90 px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.08em] text-black/70 hover:border-black/40 hover:text-black">Edit</a>
+        </article>
+      )}
+
+      {postsToShow.length > 0 && (
+        <div class="space-y-6 sm:space-y-10" data-load-more data-step="8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 sm:gap-y-10">
+            {postsToShow.map((post, i) => (
+              <article data-load-item class={cx('group relative will-change-transform', i >= INITIAL_VISIBLE && 'hidden')}>
+                <a data-admin-only href="/admin/blog" class="hidden absolute top-0 right-0 z-10 rounded-md border border-black/15 bg-white/90 px-2 py-0.5 text-[12px] font-bold uppercase tracking-[0.08em] text-black/60 hover:border-black/40 hover:text-black">Edit</a>
+                <a href={`/blog/${post.slug}`} class="flex flex-col sm:flex-row gap-3 sm:gap-6 items-start">
+                  <div class="flex-1 space-y-2.5 sm:space-y-3">
+                    <div class="flex items-center gap-2 text-[12px] font-bold text-black/30 uppercase tracking-[0.08em] sm:tracking-widest flex-wrap">
+                      {post.category && categoryLabel[post.category] && <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-black/5 border border-black/[0.18] text-black/50">{categoryLabel[post.category]}</span>}
+                      <span class={`inline-flex items-center px-2 py-0.5 rounded-full border ${getTopicPastel(post.topic)}`}>{topicLabel(post.topic)}</span>
+                      <span>{post.date}</span><span>·</span><span>{post.readTime}</span>
+                    </div>
+                    <h3 class="font-heading line-clamp-3 text-[22px] leading-[1.12] tracking-[-0.015em] sm:line-clamp-2 sm:text-[18px] lg:text-[20px] font-black sm:leading-snug group-hover:text-black/60 transition-colors">{post.title}</h3>
+                    <p class="text-[16px] text-black/60 leading-7 line-clamp-3 not-italic">{post.excerpt}</p>
+                  </div>
+                  <div class="shrink-0 w-full sm:w-24 md:w-28">
+                    <div class="aspect-[16/10] sm:aspect-[4/5] rounded-2xl overflow-hidden bg-black/5 shadow-[0_0_0_1px_rgba(0,0,0,0.08)]">
+                      <img src={getOptimizedUrl(post.image)} alt={post.imageAlt || `${post.title} - Reframe Visuals Insights`} loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    </div>
+                  </div>
+                </a>
+              </article>
+            ))}
+          </div>
+          {postsToShow.length > INITIAL_VISIBLE && (
+            <div class="pt-5 sm:pt-8 flex justify-center">
+              <button type="button" data-load-more-btn class="group flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full border border-black/[0.18] hover:border-black/30 hover:bg-black/5 transition-all">
+                <span class="text-[12px] sm:text-[12px] font-black uppercase tracking-[0.08em] sm:tracking-widest">Load More Articles</span>
+                <div class="w-5 h-5 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-all"><TrendingUp size={12} className="rotate-90" /></div>
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+</div>

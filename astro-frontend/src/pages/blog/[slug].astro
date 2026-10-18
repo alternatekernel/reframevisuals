@@ -1,24 +1,33 @@
 ---
 export const prerender = false;
 import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
-import BlogPostPage from '../../islands/views/BlogPostPage';
-import { collectHead } from '../../lib/collectHead';
+import BlogPostPage from '../../views/BlogPostPage.astro';
+import { absoluteCanonicalUrl } from '../../utils/seo';
 import { loadBlogSeed, CACHE_CONTROL } from '../../lib/blogSeed';
 import { BLOG_POSTS } from '../../data/insightsData';
 
 const { slug } = Astro.params;
-const path = `/blog/${slug}`;
 const seed = await loadBlogSeed();
 const post = (seed?.posts ?? BLOG_POSTS).find((p) => p.slug === slug);
 if (!post) {
-  Astro.response.status = 404;
-} else {
-  Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+  return Astro.rewrite('/404');
 }
-const head = collectHead('BlogPostPage', path, { slug }, seed);
-const title = post?.metaTitle || head.title || `${post?.title ?? 'Blog'} | Reframe Visuals`;
-const description = post?.metaDescription || head.description || post?.excerpt || 'Practical guides on product visuals and editing workflows.';
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+const title = post.metaTitle || `${post.title} | Reframe Visuals`;
+const description = post.metaDescription || post.excerpt;
+const canonical = absoluteCanonicalUrl(`/blog/${post.canonicalSlug || post.slug}`);
+const keywords = (post.focusKeywords || '').split(',').map((k) => k.trim()).filter(Boolean);
+const regions = (post.geoRegions || '').split(',').map((r) => r.trim()).filter(Boolean);
+const hreflang = post.hreflang || 'en';
 ---
-<PublicPageLayout title={title} description={description} ogImage={post?.image} noindexOverride={!post}>
-  <BlogPostPage client:load path={path} params={{ slug }} seed={seed} />
+<PublicPageLayout title={title} description={description} canonical={canonical} ogImage={post.image}>
+  <Fragment slot="head">
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content={hreflang.replace('-', '_')} />
+    {regions.length > 0 && <meta name="geo.placename" content={regions.join(', ')} />}
+    <link rel="alternate" hreflang={hreflang} href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+  </Fragment>
+  <BlogPostPage post={post} />
 </PublicPageLayout>
