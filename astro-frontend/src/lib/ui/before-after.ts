@@ -142,6 +142,9 @@ function init(root: HTMLElement) {
   };
 
   const activate = () => { active = true; refresh(); start(); };
+  const deactivate = () => { active = false; run++; cancelAnimationFrame(raf); complete = false; seqIndex = 0; syncImages(); split(50); setLabel('AFTER'); refresh(); };
+  // External control (mobile image grid): data-ba-active="external".
+  (root as any).baSetActive = (on: boolean) => { if (on && !active) activate(); else if (!on && active) deactivate(); };
   if (mode === 'true') activate();
   else if (mode === 'view' && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); activate(); } }, { threshold: 0.4 });

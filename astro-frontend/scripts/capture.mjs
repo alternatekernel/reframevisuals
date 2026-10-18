@@ -45,7 +45,7 @@ for (const [label, vp] of [['1440', { width: 1440, height: 900 }], ['390', { wid
     await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
     const page = await ctx.newPage();
     await page.goto(`http://localhost:${port}${route}`, { waitUntil: 'networkidle' }).catch(() => {});
-    await page.addStyleTag({ content: '[class*="animate-marquee"],[class*="animate-pulse"],[class*="animate-spin"],[class*="animate-shimmer"],[class*="animate-focal"],[class*="animate-glass"],[class*="animate-ping"]{animation-play-state:paused !important}*{caret-color:transparent !important}html{scroll-behavior:auto !important}' });
+    await page.addStyleTag({ content: '[class*="animate-marquee"],[class*="animate-pulse"],[class*="animate-spin"],[class*="animate-shimmer"],[class*="animate-focal"],[class*="animate-glass"],[class*="animate-ping"]{animation-play-state:paused !important}*{caret-color:transparent !important}[data-reveal="load"]{animation:none !important;opacity:1 !important;transform:none !important}html{scroll-behavior:auto !important}' });
     // Bring every section into view (instant) so once-only reveal animations fire, independent of smooth-scroll libraries.
     const count = await page.evaluate(() => document.querySelectorAll('section, footer, h2, h3').length);
     for (let i = 0; i < count; i++) {

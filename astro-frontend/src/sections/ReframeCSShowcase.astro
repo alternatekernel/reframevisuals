@@ -1,0 +1,119 @@
+---
+import { Monitor, MessageSquare, PackageCheck, UploadCloud, Headphones, Bot } from 'lucide-react';
+import { cx, typography } from '../utils/theme';
+import EmbeddedChat from '../islands/wrapped/EmbeddedChat';
+
+const featureItems = [
+  {
+    icon: MessageSquare,
+    title: 'Skip email loops',
+    text: 'Direct support chat without inbox delays.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+  {
+    icon: PackageCheck,
+    title: 'Place and manage orders',
+    text: 'Start new orders and track progress live.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+  {
+    icon: UploadCloud,
+    title: 'Upload files',
+    text: 'Drag & drop images, briefs, and references.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+  {
+    icon: Headphones,
+    title: 'Support anytime',
+    text: 'Instant human help for any project updates.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+  {
+    icon: Monitor,
+    title: 'Desktop app coming soon',
+    text: 'Stay connected with native apps for macOS and Windows.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+  {
+    icon: Bot,
+    title: 'AI Agent Ready',
+    text: 'Your AI agent can interact and manage orders.',
+    bg: 'bg-white',
+    border: 'border border-black/[0.18] hover:border-black/20 hover:shadow-md shadow-sm',
+    iconColor: 'text-black/80',
+  },
+];
+
+
+export interface Props { title?: string; subtitle?: string }
+const { title, subtitle } = Astro.props;
+const columns = [{ items: featureItems.slice(0, 3), offset: 0, order: 'order-2 lg:order-1' }, { items: featureItems.slice(3, 6), offset: 3, order: 'order-3' }];
+---
+<section class="px-5 sm:px-6 lg:px-12 pt-8 sm:pt-10 pb-8 sm:pb-12 bg-white relative overflow-hidden border-b border-borderSubtle">
+  <div class="pointer-events-none absolute top-1/2 left-0 -translate-y-1/2 opacity-[0.02]">
+    <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" class="w-[260px] h-[260px] sm:w-[420px] sm:h-[420px] -translate-x-1/2" />
+  </div>
+  <div class="relative z-10 mx-auto max-w-4xl text-center px-4">
+    <h2 data-reveal style="--reveal-duration:0.7s;--reveal-y:20px" class={cx(typography.vercelSection, 'text-text-primary mb-4 text-center')}>{title ?? 'Need help with your order?'}</h2>
+    <p class="text-body-sm sm:text-[18px] text-text-subtle leading-relaxed max-w-2xl mx-auto font-normal">{subtitle ?? 'Live support preview, right on the page.'}</p>
+  </div>
+</section>
+
+<section id="reframe-cs-showcase" data-section="reframe-cs-showcase" class="relative overflow-visible bg-surface px-5 pt-10 pb-12 sm:pb-14 lg:px-12 lg:pt-14 lg:pb-16 text-black">
+  <div class="pointer-events-none absolute left-1/2 top-16 h-72 w-[38rem] -translate-x-1/2 rounded-full bg-black/[0.035] blur-3xl"></div>
+  <div class="pointer-events-none absolute bottom-12 right-0 h-56 w-56 rounded-full bg-[var(--brand-secondary)]/16 blur-3xl"></div>
+  <div class="relative z-10 mx-auto grid grid-cols-1 lg:grid-cols-[1fr_3.1fr_1fr] items-center gap-8 lg:gap-10 w-full max-w-[1580px]">
+    <div class="order-2 lg:order-1 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6 sm:gap-8 lg:gap-10">
+      {columns[0].items.map((item, i) => (
+        <div data-reveal data-reveal-variant="rise-scale" data-reveal-threshold="0.15" style={`--reveal-duration:0.6s;--reveal-y:25px;--reveal-delay:${i * 0.05}s`} class="flex gap-3 items-start py-2 lg:py-4">
+          <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
+          <div class="flex flex-col min-w-0">
+            <h3 class="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-text-primary leading-snug">{item.title}</h3>
+            <p class="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div data-cs-showcase data-reveal data-reveal-variant="spring-scale" data-reveal-threshold="0.1" style="--reveal-y:45px" class="order-1 lg:order-2 relative mx-auto w-full max-w-[1040px] px-1 sm:px-2 lg:px-0">
+      <div data-cs-glow data-glow="false" class="rounded-[16px] border bg-white shadow-[0_24px_72px_rgba(0,0,0,0.09)] overflow-hidden transition-all duration-700 border-black/[0.18] scale-100 data-[glow=true]:border-focus data-[glow=true]:ring-4 data-[glow=true]:ring-focus/20 data-[glow=true]:scale-[1.015]">
+        <div class="flex items-center gap-4 px-4 py-2.5 bg-bg-soft border-b border-black/[0.20] select-none">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57] block"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#ffbd2e] block"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-[#28c840] block"></span>
+          </div>
+          <div class="text-[12.5px] font-medium text-black/35 tracking-tight font-sans">https://reframevisuals.com/support</div>
+        </div>
+        <div class="overflow-hidden bg-white [&>div]:!border-none [&>div]:!shadow-none [&>div]:!rounded-none">
+          <EmbeddedChat client:interaction path="/" />
+        </div>
+      </div>
+    </div>
+
+    <div class="order-3 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-6 sm:gap-8 lg:gap-10">
+      {columns[1].items.map((item, i) => (
+        <div data-reveal data-reveal-variant="rise-scale" data-reveal-threshold="0.15" style={`--reveal-duration:0.6s;--reveal-y:25px;--reveal-delay:${(i + 3) * 0.05}s`} class="flex gap-3 items-start py-2 lg:py-4">
+          <item.icon size={20} className={`shrink-0 mt-0.5 sm:mt-1 sm:size-5 ${item.iconColor}`} />
+          <div class="flex flex-col min-w-0">
+            <h3 class="text-[15px] sm:text-[17px] lg:text-[19px] font-bold tracking-tight text-text-primary leading-snug">{item.title}</h3>
+            <p class="mt-1 sm:mt-1.5 text-[14px] sm:text-[14px] lg:text-[14.5px] leading-relaxed text-black/55">{item.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  import '../lib/ui/cs-showcase';
+</script>

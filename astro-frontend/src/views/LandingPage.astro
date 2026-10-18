@@ -3,13 +3,13 @@ import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import Reveal from '../components/astro/Reveal.astro';
 import { tokens } from '../utils/theme';
 import Hero from '../islands/wrapped/Hero';
-import InstantDropZone from '../islands/wrapped/InstantDropZone';
-import ImageGridSection from '../islands/wrapped/ImageGridSection';
+import InstantDropZone from '../sections/landing/InstantDropZone.astro';
+import ImageGridSection from '../sections/landing/ImageGridSection.astro';
 import Testimonials from '../islands/wrapped/Testimonials';
 import Workflow from '../islands/wrapped/Workflow';
 import ClientCategoryStrip from '../sections/ClientCategoryStrip.astro';
 import TrialAuditCta from '../sections/TrialAuditCta.astro';
-import ReframeCSShowcase from '../islands/wrapped/ReframeCSShowcase';
+import ReframeCSShowcase from '../sections/ReframeCSShowcase.astro';
 import Stats from '../sections/Stats.astro';
 import BlogPreview from '../sections/BlogPreview.astro';
 import Pricing from '../sections/Pricing.astro';
@@ -30,9 +30,9 @@ const points = [
 ---
 <div class="bg-surface pb-12 lg:pb-14">
   <Hero client:load path={path} />
-  <Reveal variant="fade" duration={0.7}><InstantDropZone client:visible path={path} /></Reveal>
+  <Reveal variant="fade" duration={0.7}><InstantDropZone /></Reveal>
   <Reveal variant="fade" duration={0.55} class="hidden sm:block"><BeatPixelzBanner /></Reveal>
-  <Reveal variant="fade" duration={0.9}><ImageGridSection client:visible path={path} images={landingImages.slice(0, 6)} /></Reveal>
+  <Reveal variant="fade" duration={0.9}><ImageGridSection images={landingImages.slice(0, 6)} /></Reveal>
   <Reveal variant="fade" duration={0.7}><Testimonials client:visible path={path} /></Reveal>
 
   <section class="relative z-20 max-w-[1600px] mx-auto px-5 sm:px-6 lg:px-12 pt-10 pb-10 lg:pt-16 lg:pb-12">
@@ -87,7 +87,7 @@ const points = [
     </section>
   </Reveal>
 
-  <Reveal variant="fade-slide" y={40} class="hidden sm:block"><ReframeCSShowcase client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={40} class="hidden sm:block"><ReframeCSShowcase /></Reveal>
   <Reveal variant="fade-slide" y={40}><CompetitorComparison /></Reveal>
   <Reveal variant="spring-scale"><Stats /></Reveal>
   <Reveal variant="fade-slide" y={30} class="hidden sm:block"><BlogPreview /></Reveal>

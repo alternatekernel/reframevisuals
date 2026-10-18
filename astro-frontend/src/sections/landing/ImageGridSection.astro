@@ -1,0 +1,117 @@
+---
+import { ArrowRight } from 'lucide-react';
+import { cx, tokens } from '../../utils/theme';
+import { loadServices, getStartingPrice } from '../../lib/serviceData';
+import BeforeAfter from '../../components/astro/BeforeAfter.astro';
+import Price from '../../components/astro/Price.astro';
+import type { GridImage } from './ImageGridSection';
+
+export interface Props { images: GridImage[] }
+const { images } = Astro.props;
+const services = await loadServices();
+const getOptimizedUrl = (url: string, width = 800) => url.replace('f_auto,q_auto,w_1200', `f_auto,q_auto:best,fl_progressive:steep,dpr_auto,c_scale,w_${width}`);
+const shortSummary = (text: string) => {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  if (!normalized) return '';
+  const first = normalized.split('. ')[0]?.trim() || normalized;
+  return first.length <= 62 ? first.replace(/\.$/, '') : `${first.slice(0, 59).trimEnd()}...`;
+};
+const summaryById = Object.fromEntries(services.map((s: any) => [s.id, shortSummary(s.description || s.detail || '')])) as Record<string, string>;
+const pills = [['12h', 'Express'], ['24h', 'Standard'], ['48h', 'Relaxed'], ['72h', 'Economy']];
+const otherServices = services.filter((s: any) => !['retouching', 'pattern-change', 'jewelry-retouch', 'color-correction', 'ghost-mannequin', 'background-removal'].includes(s.id));
+---
+<section id="image-grid" data-section="image-grid" class="pt-10 pb-4 lg:pt-16 lg:pb-6 bg-white overflow-hidden relative">
+  <div class="flex flex-col w-full items-center justify-center gap-6 lg:gap-10">
+    <div class="text-center px-6">
+      <p class="mb-2 text-[12px] font-semibold uppercase tracking-widest text-black/30 sm:hidden">Real before / after proof</p>
+      <h2 data-reveal data-reveal-threshold="0.2" style="--reveal-duration:0.7s;--reveal-y:28px" class="font-heading text-[34px] md:text-[48px] lg:text-[62px] font-semibold tracking-[-0.04em] leading-[1.08] text-[var(--color-text-primary)] mb-3 sm:mb-5">
+        See the edit. <br />
+        <span class="text-black/40 sm:hidden">Then order it.</span>
+        <span class="hidden sm:inline text-black/45">Everything human handled.</span>
+      </h2>
+      <p class="mx-auto mb-5 max-w-[330px] text-[16px] font-medium leading-relaxed text-black/55 sm:hidden">Compare real edits, choose the service, and start your order in seconds.</p>
+      <div class="w-full mt-6 sm:mt-10 px-4">
+        <div class="grid grid-cols-2 gap-2 max-w-[320px] mx-auto sm:flex sm:flex-wrap sm:justify-center sm:max-w-none">
+          {pills.map(([time, label]) => (
+            <div class={cx('flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border px-3 sm:px-4 py-1.5 sm:py-2 cursor-default w-full sm:w-auto', label === 'Standard' ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white' : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]')}>
+              <span class="text-[14px] font-bold">{time}</span>
+              <span class={cx('text-[12px] font-medium', label === 'Standard' ? 'text-white/65' : 'text-black/45')}>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8 w-full max-w-[1600px] px-5 sm:px-6 lg:px-12">
+      {images.map((img, i) => {
+        const price = getStartingPrice(services, img.id, 0.39);
+        return (
+          <div
+            data-mobile-card-index={i}
+            data-href={`/services/${img.id}`}
+            data-reveal
+            data-reveal-variant="rise-scale"
+            data-reveal-threshold="0.1"
+            style={`--reveal-duration:0.6s;--reveal-y:30px;--reveal-delay:${i * 0.05}s`}
+            class="group relative overflow-hidden rounded-[24px] border border-black/[0.16] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] cursor-pointer touch-manipulation [content-visibility:auto] [contain-intrinsic-size:520px] sm:aspect-[4/5] sm:rounded-none sm:border-0 sm:bg-[var(--color-bg-secondary)] sm:shadow-none"
+          >
+            <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-bg-secondary)] sm:hidden">
+              <BeforeAfter beforeImage={getOptimizedUrl(img.before, 640)} afterImage={getOptimizedUrl(img.after, 640)} aspectRatio="aspect-[4/5]" active="external" hideLabels hideHandle hideInteractionUI disableHoverInteraction sweepDuration={1800} returnDuration={1200} class="h-full" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
+
+            <div class="relative hidden aspect-[4/5] overflow-hidden bg-[var(--color-bg-secondary)] sm:absolute sm:inset-0 sm:block sm:aspect-auto">
+              <img src={getOptimizedUrl(img.before, 640)} srcset={`${getOptimizedUrl(img.before, 360)} 360w, ${getOptimizedUrl(img.before, 640)} 640w, ${getOptimizedUrl(img.before, 960)} 960w`} sizes="(max-width: 640px) calc((100vw - 40px) / 2), (max-width: 1024px) 50vw, 33vw" alt={`${img.alt} product photo editing before - Reframe Visuals`} loading="lazy" decoding="async" class="absolute inset-y-0 left-0 block w-1/2 h-full object-cover object-left transition-opacity duration-300 ease-in-out sm:inset-0 sm:w-full sm:object-center sm:opacity-0 sm:group-hover:opacity-100" />
+              <img src={getOptimizedUrl(img.after, 640)} srcset={`${getOptimizedUrl(img.after, 360)} 360w, ${getOptimizedUrl(img.after, 640)} 640w, ${getOptimizedUrl(img.after, 960)} 960w`} sizes="(max-width: 640px) calc((100vw - 40px) / 2), (max-width: 1024px) 50vw, 33vw" alt={`${img.alt} product photo editing after - Reframe Visuals`} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" class="absolute inset-y-0 right-0 w-1/2 h-full object-cover object-right transition-opacity duration-300 ease-in-out sm:inset-0 sm:w-full sm:object-center sm:group-hover:opacity-0" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
+
+            <div class="absolute bottom-0 inset-x-0 hidden overflow-hidden sm:block">
+              <div class="opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-between bg-white/95 backdrop-blur-sm border-t border-black/[0.18] p-4 text-[var(--color-text-primary)] shadow-[0_-16px_40px_rgba(0,0,0,0.10)]">
+                <div class="flex flex-col items-start gap-1 min-w-0 pr-4">
+                  <span class="text-[12px] font-bold uppercase tracking-wider text-black/55 whitespace-nowrap leading-none">Before applying:</span>
+                  <span class="text-[17px] font-black text-[var(--color-text-primary)] truncate leading-tight max-w-[130px] md:max-w-[170px] pb-0.5">{img.alt}</span>
+                </div>
+                <div class="w-[2px] h-10 bg-black/10 self-center mx-2"></div>
+                <a href={`/order?serviceId=${img.id}`} class="group inline-flex min-h-[48px] items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-[var(--color-text-primary)] py-1.5 pl-6 pr-1.5 text-[16px] font-bold text-white shadow-[0_8px_24px_rgba(0,0,0,0.10)] transition-all hover:bg-black active:scale-95 cursor-pointer shrink-0">
+                  <span class="font-black leading-none">from <Price usd={price} /></span>
+                  <div class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/90 text-black"><ArrowRight size={16} className="transition-transform duration-300 group-hover:-rotate-45" /></div>
+                </a>
+              </div>
+            </div>
+
+            <div class="flex flex-col px-3 pt-3 pb-3 gap-1.5 sm:hidden">
+              <div class="flex items-center justify-between gap-3">
+                <p class="truncate text-[16px] font-bold tracking-tight text-black/90">{img.alt}</p>
+                <a href={`/order?serviceId=${img.id}`} class="flex min-h-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-text-primary)] px-3.5 text-[14px] font-bold text-white shadow-md touch-manipulation leading-[normal]">from <Price usd={price} /></a>
+              </div>
+              <p class="text-[13.5px] font-medium text-black/55 line-clamp-1">{summaryById[img.id] || 'Before to after preview'}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div data-reveal data-reveal-threshold="0.1" style="--reveal-duration:0.6s;--reveal-delay:0.15s" class="mb-8 sm:mb-10 flex flex-col items-center">
+      <a href="/services" class="group inline-flex items-center justify-center gap-1.5 text-base sm:text-[18px] font-bold text-[var(--color-text-primary)] transition-all">
+        <span class="relative">Explore all services<span class={tokens.interactiveUnderline}></span></span>
+        <ArrowRight size={16} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/70 shrink-0" />
+      </a>
+      <div class="flex flex-wrap justify-center items-center gap-x-3 gap-y-2.5 text-[14px] max-w-3xl mx-auto px-4 mt-6 lg:mt-10 text-black/40">
+        {otherServices.map((service: any) => (
+          <a href={`/services/${service.id}`} class="px-3.5 py-1.5 text-[14px] font-semibold text-black/55 bg-black/[0.05] hover:bg-black/[0.07] hover:text-[var(--color-text-primary)] rounded-full transition-all duration-200">{service.name}</a>
+        ))}
+      </div>
+      <div class="mt-5 sm:mt-6 flex justify-center w-full">
+        <a href="/contact" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-[14px] font-semibold text-black/70 bg-white border border-black/[0.18] hover:border-black/20 hover:bg-black hover:text-white rounded-full transition-all duration-200 shadow-sm active:scale-95 group">
+          <span>Need anything custom? Let's give it a try</span>
+          <ArrowRight size={13} className="text-black/40 group-hover:text-white/80 transition-all duration-300 group-hover:-rotate-45" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import '../../lib/ui/image-grid';
+  import '../../lib/ui/links';
+</script>
