@@ -3,6 +3,13 @@ import { INDUSTRY_PAGES, GEO_PAGES, CASE_STUDIES } from './expansionPages';
 export type StaticRoute = { path: string; view: string; noindex?: boolean };
 
 const direct: Record<string, string[]> = {
+  "FreeTrialPage": ["/free-trial"],
+  "StartPage": ["/start"],
+  "PilotBatchPage": ["/pilot-batch"],
+  "BookMeetingPage": ["/book-meeting"],
+  "ContactPage": ["/contact"],
+  "QuoteBuilderPage": ["/quote-builder"],
+
   "ServicesPage": ["/services"],
   "PricingPage": ["/pricing"],
   "PortfolioPage": ["/portfolio"],

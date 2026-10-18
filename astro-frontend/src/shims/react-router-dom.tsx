@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-type RouteState = { pathname: string; params: Record<string, string | undefined> };
+type RouteState = { pathname: string; params: Record<string, string | undefined>; seed?: unknown };
 const RouteCtx = createContext<RouteState | null>(null);
-export const RouteProvider: React.FC<RouteState & { children: React.ReactNode }> = ({ pathname, params, children }) => (
-  <RouteCtx.Provider value={useMemo(() => ({ pathname, params }), [pathname, params])}>{children}</RouteCtx.Provider>
+export const RouteProvider: React.FC<RouteState & { children: React.ReactNode }> = ({ pathname, params, seed, children }) => (
+  <RouteCtx.Provider value={useMemo(() => ({ pathname, params, seed }), [pathname, params, seed])}>{children}</RouteCtx.Provider>
 );
+export const useSeed = <T,>() => (useContext(RouteCtx)?.seed ?? null) as T | null;
 export const useParams = <T extends Record<string, string | undefined> = Record<string, string | undefined>>() => (useContext(RouteCtx)?.params ?? {}) as T;
 
 type To = string | { pathname?: string; search?: string; hash?: string };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSeed } from 'react-router-dom';
 import { BLOG_POSTS, type BlogPost } from '../data/insightsData';
 
 // Module-level cache so we fetch the DB-backed posts once per page load.
@@ -14,6 +15,19 @@ let settled = false;
 // versions authoritative even when the CMS database still has an older draft.
 const STATIC_PRIORITY_SLUGS = new Set(['ghost-mannequin-fit-and-conversion', 'support-images-in-product-photography']);
 
+export const mergeWithStatic = (dbPosts: BlogPost[]): BlogPost[] => {
+  const staticPriorityPosts = new Map(
+    BLOG_POSTS.filter((post) => STATIC_PRIORITY_SLUGS.has(post.slug)).map((post) => [post.slug, post])
+  );
+  const mergedPosts = dbPosts.map((post) => staticPriorityPosts.get(post.slug) || post);
+  BLOG_POSTS.forEach((post) => {
+    if (STATIC_PRIORITY_SLUGS.has(post.slug) && !mergedPosts.some((item) => item.slug === post.slug)) {
+      mergedPosts.push(post);
+    }
+  });
+  return mergedPosts;
+};
+
 const API_BASE = import.meta.env.VITE_API_URL
   || (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
 
@@ -24,16 +38,7 @@ const loadPosts = (): Promise<BlogPost[]> => {
       .then((res) => (res.ok ? res.json() : Promise.reject(new Error(String(res.status)))))
       .then((data) => {
         if (Array.isArray(data?.posts) && data.posts.length > 0) {
-          const staticPriorityPosts = new Map(
-            BLOG_POSTS.filter((post) => STATIC_PRIORITY_SLUGS.has(post.slug)).map((post) => [post.slug, post])
-          );
-          const mergedPosts = (data.posts as BlogPost[]).map((post) => staticPriorityPosts.get(post.slug) || post);
-          BLOG_POSTS.forEach((post) => {
-            if (STATIC_PRIORITY_SLUGS.has(post.slug) && !mergedPosts.some((item) => item.slug === post.slug)) {
-              mergedPosts.push(post);
-            }
-          });
-          cache = mergedPosts;
+          cache = mergeWithStatic(data.posts as BlogPost[]);
         }
         return cache || BLOG_POSTS;
       })
@@ -50,13 +55,13 @@ const loadPosts = (): Promise<BlogPost[]> => {
  * last code deploy) look missing during the first render and get bounced.
  */
 export function useBlogFeed(): { posts: BlogPost[]; loaded: boolean } {
-  const [state, setState] = useState<{ posts: BlogPost[]; loaded: boolean }>(() => ({
-    posts: cache || BLOG_POSTS,
-    loaded: settled,
-  }));
+  const seed = useSeed<{ posts: BlogPost[] }>();
+  const [state, setState] = useState<{ posts: BlogPost[]; loaded: boolean }>(() =>
+    seed?.posts ? { posts: seed.posts, loaded: true } : { posts: cache || BLOG_POSTS, loaded: settled }
+  );
 
   useEffect(() => {
-    if (state.loaded && cache) return;
+    if (seed?.posts || (state.loaded && cache)) return;
     let active = true;
     loadPosts().then((posts) => {
       if (active) setState({ posts, loaded: true });

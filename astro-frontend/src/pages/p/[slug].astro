@@ -1,0 +1,20 @@
+---
+export const prerender = false;
+import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
+import CmsPageView from '../../islands/views/CmsPageView';
+import { apiGet } from '../../lib/serverApi';
+import { CACHE_CONTROL } from '../../lib/blogSeed';
+
+const { slug } = Astro.params;
+const data = await apiGet<{ page?: any }>(`/blog/pages/${slug}`);
+const page = data?.page ?? null;
+if (page) Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+else Astro.response.status = 404;
+---
+<PublicPageLayout
+  title={page ? `${page.metaTitle || page.title} | Reframe Visuals` : 'Page not found | Reframe Visuals'}
+  description={page?.metaDescription || page?.excerpt || 'Reframe Visuals'}
+  ogImage={page?.coverImage ?? undefined}
+  noindexOverride={!page}>
+  <CmsPageView client:load path={`/p/${slug}`} params={{ slug }} seed={{ page }} />
+</PublicPageLayout>

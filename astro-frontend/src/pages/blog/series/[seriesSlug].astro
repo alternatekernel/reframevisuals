@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+import PublicPageLayout from '../../../layouts/PublicPageLayout.astro';
+import BlogSeriesPage from '../../../islands/views/BlogSeriesPage';
+import { collectHead } from '../../../lib/collectHead';
+import { loadBlogSeed, CACHE_CONTROL } from '../../../lib/blogSeed';
+
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+const { seriesSlug } = Astro.params;
+const path = `/blog/series/${seriesSlug}`;
+const seed = await loadBlogSeed();
+const head = collectHead('BlogSeriesPage', path, { seriesSlug }, seed);
+---
+<PublicPageLayout title={head.title ?? 'Reframe Visuals Blog'} description={head.description ?? 'Practical guides on product visuals, editing workflows, and conversion-focused image strategy.'}>
+  <BlogSeriesPage client:load path={path} params={{ seriesSlug }} seed={seed} />
+</PublicPageLayout>

@@ -1,0 +1,24 @@
+---
+export const prerender = false;
+import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
+import BlogPostPage from '../../islands/views/BlogPostPage';
+import { collectHead } from '../../lib/collectHead';
+import { loadBlogSeed, CACHE_CONTROL } from '../../lib/blogSeed';
+import { BLOG_POSTS } from '../../data/insightsData';
+
+const { slug } = Astro.params;
+const path = `/blog/${slug}`;
+const seed = await loadBlogSeed();
+const post = (seed?.posts ?? BLOG_POSTS).find((p) => p.slug === slug);
+if (!post) {
+  Astro.response.status = 404;
+} else {
+  Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+}
+const head = collectHead('BlogPostPage', path, { slug }, seed);
+const title = post?.metaTitle || head.title || `${post?.title ?? 'Blog'} | Reframe Visuals`;
+const description = post?.metaDescription || head.description || post?.excerpt || 'Practical guides on product visuals and editing workflows.';
+---
+<PublicPageLayout title={title} description={description} ogImage={post?.image} noindexOverride={!post}>
+  <BlogPostPage client:load path={path} params={{ slug }} seed={seed} />
+</PublicPageLayout>

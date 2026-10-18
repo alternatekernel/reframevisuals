@@ -15,6 +15,12 @@ import ComparisonPage from '../islands/views/ComparisonPage';
 import CaseStudyDetailPage from '../islands/views/CaseStudyDetailPage';
 import InsightAndTrustPage from '../islands/views/InsightAndTrustPage';
 import ExpansionPage from '../islands/views/ExpansionPage';
+import FreeTrialPage from '../islands/views/FreeTrialPage';
+import StartPage from '../islands/views/StartPage';
+import PilotBatchPage from '../islands/views/PilotBatchPage';
+import BookMeetingPage from '../islands/views/BookMeetingPage';
+import ContactPage from '../islands/views/ContactPage';
+import QuoteBuilderPage from '../islands/views/QuoteBuilderPage';
 import ServicesPage from '../islands/views/ServicesPage';
 import PricingPage from '../islands/views/PricingPage';
 import PortfolioPage from '../islands/views/PortfolioPage';
@@ -24,13 +30,15 @@ import AIProductVisualsPage from '../islands/views/AIProductVisualsPage';
 export function getStaticPaths() {
   return STATIC_ROUTES.map((r) => ({ params: { slug: r.path.slice(1) }, props: r }));
 }
+const HIDE_FOOTER = ['/free-trial', '/start', '/pilot-batch', '/book-meeting'];
+const FOCUSED = ['/free-trial', '/start', '/pilot-batch', '/contact'];
 const { path, view, noindex } = Astro.props;
 const mapped = SEO_META_BY_PATH[path];
 const own = mapped ? undefined : collectHead(view, path);
 const fallback = resolvePageSeo(path);
 const seo = mapped ?? { title: own?.title || fallback.title, description: own?.description || fallback.description };
 ---
-<PublicPageLayout title={seo.title} description={seo.description} noindexOverride={noindex}>
+<PublicPageLayout title={seo.title} description={seo.description} noindexOverride={noindex} hideFooter={HIDE_FOOTER.includes(path)} hideCurrency={FOCUSED.includes(path)}>
   {view === 'AboutPage' && <AboutPage client:load path={path} />}
   {view === 'AboutReframeVisualsPage' && <AboutReframeVisualsPage client:load path={path} />}
   {view === 'ReframeVisualsServicesPage' && <ReframeVisualsServicesPage client:load path={path} />}
@@ -47,5 +55,11 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'PortfolioPage' && <PortfolioPage client:load path={path} />}
   {view === 'TestimonialsPage' && <TestimonialsPage client:load path={path} />}
   {view === 'AIProductVisualsPage' && <AIProductVisualsPage client:load path={path} />}
+  {view === 'FreeTrialPage' && <FreeTrialPage client:load path={path} />}
+  {view === 'StartPage' && <StartPage client:load path={path} />}
+  {view === 'PilotBatchPage' && <PilotBatchPage client:load path={path} />}
+  {view === 'BookMeetingPage' && <BookMeetingPage client:load path={path} />}
+  {view === 'ContactPage' && <ContactPage client:load path={path} />}
+  {view === 'QuoteBuilderPage' && <QuoteBuilderPage client:load path={path} />}
   {view === 'ExpansionPage' && <ExpansionPage client:load path={path} />}
 </PublicPageLayout>

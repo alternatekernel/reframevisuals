@@ -8,7 +8,7 @@ import { HeadCollectorCtx, type HeadCollector } from '../shims/react-helmet-asyn
 const views = import.meta.glob('../views/*.tsx', { eager: true }) as Record<string, { default: React.ComponentType }>;
 
 // Renders a view once at build time to read the <title>/<meta description> it sets via Helmet.
-export function collectHead(view: string, path: string, params: Record<string, string | undefined> = {}): HeadCollector {
+export function collectHead(view: string, path: string, params: Record<string, string | undefined> = {}, seed?: unknown): HeadCollector {
   const View = views[`../views/${view}.tsx`]?.default;
   const collector: HeadCollector = {};
   if (!View) return collector;
@@ -16,7 +16,7 @@ export function collectHead(view: string, path: string, params: Record<string, s
     renderToString(
       <HeadCollectorCtx.Provider value={collector}>
         <Providers>
-          <RouteProvider pathname={path} params={params}>
+          <RouteProvider pathname={path} params={params} seed={seed}>
             <View />
           </RouteProvider>
         </Providers>

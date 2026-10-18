@@ -1,0 +1,14 @@
+---
+export const prerender = false;
+import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
+import BlogListingPage from '../../islands/views/BlogListingPage';
+import { SEO_META_BY_PATH } from '../../data/seoMeta';
+import { loadBlogSeed, CACHE_CONTROL } from '../../lib/blogSeed';
+
+Astro.response.headers.set('Cache-Control', CACHE_CONTROL);
+const seed = await loadBlogSeed();
+const seo = SEO_META_BY_PATH['/blog'];
+---
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <BlogListingPage client:load path="/blog" seed={seed} />
+</PublicPageLayout>
