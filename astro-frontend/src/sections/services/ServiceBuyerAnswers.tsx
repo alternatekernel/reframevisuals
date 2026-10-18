@@ -1,0 +1,26 @@
+﻿import React from 'react';
+import { cx, layout, tokens, typography } from '../../utils/theme';
+
+interface ServiceBuyerAnswersProps {
+  aiAnswerBlocks: { q: string; a: string }[];
+}
+
+const ServiceBuyerAnswers: React.FC<ServiceBuyerAnswersProps> = ({ aiAnswerBlocks }) => {
+  return (
+    <section className="py-12 lg:py-20 bg-white">
+      <div className={cx(layout.compactShell, 'px-5 sm:px-6 lg:px-10')}>
+        <h2 className={cx('text-[32px] lg:text-[40px] font-bold tracking-tight mb-12', typography.sectionTitleInk)}>Short answers for buyers</h2>
+        <div className="grid gap-8 lg:gap-12 lg:grid-cols-2">
+          {aiAnswerBlocks.map((block) => (
+            <article key={block.q} className={cx('rounded-[28px] p-10 lg:p-16 border border-black/[0.18] bg-white shadow-[0_24px_60px_-15px_rgba(0,0,0,0.10)]', tokens.motionLift)}>
+              <h3 className="text-[20px] lg:text-[24px] font-bold text-[var(--color-text-primary)]">{block.q}</h3>
+              <p className="mt-4 text-[16px] lg:text-[18px] font-medium leading-relaxed text-black/60">{block.a}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ServiceBuyerAnswers;

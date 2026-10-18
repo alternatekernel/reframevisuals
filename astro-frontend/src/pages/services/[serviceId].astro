@@ -1,0 +1,17 @@
+---
+import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
+import ServiceDetailPage from '../../islands/views/ServiceDetailPage';
+import { SERVICES } from '../../data/services';
+import { isExcludedService } from '../../context/ServicesContext';
+import { resolvePageSeo } from '../../data/seoMeta';
+
+export function getStaticPaths() {
+  return SERVICES.filter((s) => !isExcludedService(s)).map((s) => ({ params: { serviceId: s.id } }));
+}
+const { serviceId } = Astro.params;
+const path = `/services/${serviceId}`;
+const seo = resolvePageSeo(path);
+---
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <ServiceDetailPage client:load path={path} params={{ serviceId }} />
+</PublicPageLayout>

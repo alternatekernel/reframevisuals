@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.vercel
+public/spa-assets
+public/csr-shell.html
+spa/dist
+.env

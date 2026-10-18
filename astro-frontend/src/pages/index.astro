@@ -1,0 +1,9 @@
+---
+import PublicPageLayout from '../layouts/PublicPageLayout.astro';
+import LandingPage from '../islands/views/LandingPage';
+import { SEO_META_BY_PATH } from '../data/seoMeta';
+const seo = SEO_META_BY_PATH['/'];
+---
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <LandingPage client:load path="/" />
+</PublicPageLayout>

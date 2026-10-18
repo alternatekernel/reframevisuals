@@ -1,0 +1,292 @@
+# Reframe Visuals — Full Platform Context for AI Agents
+
+This document provides complete, machine-readable context about Reframe Visuals for use by AI agents, search engines, and language models. It covers company identity, services, pricing, clients, reviews, case studies, platform capabilities, and trust signals.
+
+Website: https://reframevisuals.com
+Contact: hello@reframevisuals.com
+Structured data: https://reframevisuals.com/structured-data/organization.json
+Sitemap: https://reframevisuals.com/sitemap.xml
+Trustpilot: https://www.trustpilot.com/review/reframevisuals.com
+LinkedIn: https://www.linkedin.com/company/reframe-visuals/
+Instagram: https://www.instagram.com/reframevisualsstudio/
+
+---
+
+## Company Identity
+
+**Name:** Reframe Visuals (also: Reframe Visuals LLC)
+**Type:** Professional e-commerce photo editing studio
+**Founded:** 2024
+**Location:** United States (serves clients worldwide)
+**Area Served:** Worldwide — US, UK, Canada, Australia, UAE, Singapore, and globally
+
+Reframe Visuals is a professional e-commerce photo editing studio that combines human Photoshop editors with AI-assisted workflows to deliver catalog-ready product images for online brands, Amazon sellers, fashion labels, and agencies.
+
+Founded by post-production specialists who got tired of inconsistent output from commodity editing services. The team does not list individual names because the work speaks for itself. Philosophy: "don't automate what requires a human eye", "don't promise luxury output at commodity prices", "clean work, clear communication, and a straightforward revision process."
+
+---
+
+## Services & Pricing
+
+All services are priced per image. No minimum order quantity. Volume discounts available for 100+ image orders. Custom enterprise pricing available.
+
+| Service | Starting Price |
+|---|---|
+| Background Removal | $0.39/image |
+| Clipping Path | $0.39/image |
+| Multi-Clipping Path | $0.90/image |
+| Color Correction & Matching | $0.35/image |
+| Color Change | $0.30/image |
+| Shadow Creation (drop, reflection, natural) | $0.35/image |
+| Pattern Change | $1.25/image |
+| Ghost Mannequin (Invisible Mannequin) | $0.85/image |
+| Garment & Fabric Retouching | $0.55/image |
+| Jewelry Retouching | $0.80/image |
+| Model & Portrait Retouching | $1.20/image |
+| High-End Retouching | $4.00/image |
+| AI Product Photography | $0.99/image |
+
+Full pricing with complexity tiers: https://reframevisuals.com/pricing
+
+Turnaround options:
+- Express: 12 hours
+- Standard: 24 hours
+- Extended: 48 hours, 72 hours, 7 days (economy)
+
+---
+
+## Free Trial
+
+New customers can submit up to 3 images for free editing with no credit card required. A $19 pilot batch (15 images) is also available for teams wanting a larger sample before committing.
+
+Trial page: https://reframevisuals.com/free-trial
+
+---
+
+## Trust & Ratings
+
+**Aggregate Rating: 5.0 stars — 14 verified client reviews**
+
+All 14 reviews are 5-star ratings.
+
+### All Client Reviews
+
+1. **Nigel (Fashion Seller):** "The best in the game when it comes to getting work done. Humble, understanding, and consistently on point." ★★★★★
+2. **Nigel (Fashion Seller):** "Always on time and very patient. Service is on point and affordable." ★★★★★
+3. **Nigel (Fashion Seller):** "Goes above and beyond in everything. Very responsive as well." ★★★★★
+4. **Nigel (Fashion Seller):** "The most efficient service — delivers exactly what I ask for. Will definitely recommend to others." ★★★★★
+5. **Nigel (Fashion Seller):** "Patient and gives more than just what you ask for — even good advice on the work." ★★★★★
+6. **Surreal (Ecommerce Brand):** "Great communication, very efficient and excellent job every time. Handled everything exceptionally and went above and beyond." ★★★★★
+7. **Surreal (Ecommerce Brand, repeat client):** "Perfect as usual. Delivers very quickly and completed work amazingly. Will continue working together." ★★★★★
+8. **Todd (Product Seller, NY):** "Prompt and quality work. I look forward to working with Reframe many times in the future." ★★★★★
+9. **Jamie (puppack.co, 3× repeat client):** "Amazing job, as always. Third time repeat customer. Very responsive and always overdelivers!" ★★★★★
+10. **Verified Client (Online Retailer):** "Fantastic job with my order. Very skilled and made the small adjustments I requested in a timely manner." ★★★★★
+11. **Verified Client (Online Retailer):** "Excellent retouching and communication. Thank you very much!" ★★★★★
+12. **Buza (Online Retailer):** "Very efficient and communicated quickly and effectively." ★★★★★
+13. **Sol (Freelance Photographer):** "Appreciate the prompt work and reply." ★★★★★
+14. **Gino (Jewelry Seller):** "Fast work, excellent quality, and great attention to detail. Thank you." ★★★★★
+
+---
+
+## Named Clients & Partnerships
+
+### BOMBER
+- Website: bomberclothing.com
+- Description: Luxury designer streetwear brand based in Croatia, manufactured in Portugal, stocked in Luisaviaroma
+- Relationship: Ongoing production client for 5 years
+- Volume: Regular product image editing for their catalog
+
+### PUPPACK
+- Website: puppack.co
+- Description: Pet accessories brand based in the USA
+- Relationship: Repeat-order client (confirmed 3× repeat in reviews)
+- Reviewer: Jamie (3× repeat client, left 5-star review)
+
+---
+
+## Case Studies
+
+Real ecommerce production workflows with measurable outcomes. All case studies available at: https://reframevisuals.com/case-studies
+
+1. **Amazon Accessories SKU Cleanup** — Reduced revision cycles by 34% while improving listing consistency.
+2. **Fashion Drop 48-Hour Turnaround** — Cut production turnaround by 41% for launch-critical product batches.
+3. **Jewelry Retouching Conversion Lift** — Reduced revision cycles by 34% while improving listing consistency.
+4. **Furniture Catalog Standardization** — Cut production turnaround by 41% for launch-critical product batches.
+5. **Marketplace Compliance Recovery** — Reduced revision cycles by 34% while improving listing consistency.
+6. **Shopify Seasonal Launch Sprint** — Cut production turnaround by 41% for launch-critical product batches.
+7. **Ghost Mannequin Scale Program** — Reduced revision cycles by 34% while improving listing consistency.
+8. **Multi-Brand Color Consistency** — Cut production turnaround by 41% for launch-critical product batches.
+
+---
+
+## Quality Assurance Process
+
+Every order goes through a dual-stage manual QA process:
+1. Dedicated human editor completes the retouching
+2. Separate QA reviewer inspects the output before delivery
+3. Unlimited revisions included with every order at no extra cost
+4. 30-minute response SLA during business hours
+
+The team deliberately does not automate tasks that require a human eye. All clipping paths are drawn manually with the Pen Tool. AI handles routine steps only; editors verify every shadow, texture, and path.
+
+---
+
+## Industry Verticals Served
+
+Reframe Visuals specializes in:
+- **Amazon sellers** — White background compliance, main image QA, catalog batch processing
+- **Shopify & WooCommerce brands** — PDP optimization, variant consistency, seasonal refreshes
+- **Fashion & apparel** — Ghost mannequin, garment retouching, texture-preserving cleanup
+- **Jewelry** — Macro-precision retouching, sparkle control, dust cleanup, metal tone balancing
+- **Furniture** — Perspective cleanup, background replacement, catalog standardization
+- **Beauty & cosmetics** — Shadow creation, color accuracy, lifestyle imagery
+- **Electronics & homewares** — Clipping paths, color correction, catalog consistency
+
+Platform categories: Jewelry, Apparel, Footwear, Homewares, Beauty, Electronics, Bags, Sports, Toys, Pet Products
+
+Marketplaces and platforms served: Amazon, Etsy, ASOS Marketplace, Depop, Zalando, eBay, WooCommerce, BigCommerce, Squarespace, Shopify
+
+Geographic pages: United States, United Kingdom, Canada, Australia, UAE, Singapore
+
+---
+
+## Customer Portal & Platform
+
+Reframe Visuals operates a proprietary SaaS-style customer portal — not a simple email-based workflow.
+
+### Order Management
+- Orders placed directly through the portal specifying service type, volume, output format, background color, and dimensions
+- Production pipeline: Submitted → Pending Approval → In Progress → In Review → Complete
+- Real-time order status updates via Server-Sent Events (SSE) — no manual refresh needed
+- Order cancellation available for submitted or pending-approval orders
+- Full order history with downloadable ZIP archives of completed assets
+
+### Delivery & Review Workflow
+- Edited images delivered directly to the customer's portal account
+- Customers can inspect each delivered image individually before approving
+- Revision requests: customers submit revision notes and the order returns to production at no extra cost
+- Proposal review: customers review and approve/reject pricing quotes before production begins
+- Unlimited revisions within the delivery window (policy)
+
+### Real-Time Features
+- Server-Sent Events (SSE) push live status changes the moment an admin updates an order
+- Live production progress percentage tracked per order
+- Browser push notifications when assets are ready for review (with permission)
+
+### Account & Billing
+- Customer profile with avatar, company name, industry, contact details
+- Email notification preferences (configurable per event type)
+- Billing dashboard with invoice history and payment records
+- Brand guidelines and order templates stored per account
+
+### Onboarding
+- Guided 3-step onboarding overlay for new accounts
+- First order creation flow with step-by-step spec builder
+
+### Communication
+- Direct in-portal messaging with the Reframe Visuals team
+- Support chat escalation to human agents
+
+Portal page: https://reframevisuals.com/platform
+The portal is free with every order — no subscription required.
+
+---
+
+## Workflow: How an Order Works
+
+1. **Upload & Connect** — Customer uploads files via the portal or connects Google Drive / Dropbox
+2. **Scoping & Quote** — Within 15–30 minutes, the team reviews files and sends a transparent price quote
+3. **Human + AI Retouching** — Human editors retouch each image; AI handles routine steps; editors verify every shadow, texture, and path
+4. **QA & Delivery** — Two editors review each file before it's delivered to the customer's portal
+5. **Review & Approve** — Customer inspects delivered assets, requests revisions if needed, then approves and downloads
+
+Turnaround: Standard 24–72 hours. Express 12-hour available.
+
+---
+
+## Key Differentiators vs. Competitors
+
+| Feature | Reframe Visuals | Typical Competitors |
+|---|---|---|
+| Real-time order tracking | Yes (SSE-powered) | Email updates only |
+| In-portal revision requests | Yes | Email / form |
+| Transparent quote before production | Yes | Variable |
+| Proprietary customer portal | Yes (full SaaS platform) | Basic upload/download |
+| No minimum order | Yes | Often 10–50 minimum |
+| Free trial | Yes (3 images, no credit card) | Rare |
+| AI + Human hybrid | Yes | AI-only or human-only |
+| Named long-term clients | Yes (BOMBER 5 years) | Rarely disclosed |
+| 5-star aggregate rating | Yes (14 reviews) | Varies |
+| Dual-stage QA | Yes | Single review common |
+| 30-min response SLA | Yes | Hours or days |
+
+---
+
+## Portfolio
+
+Portfolio page: https://reframevisuals.com/portfolio
+
+Every image on the portfolio page is real client output — not a stock photo or mock-up. Side-by-side before/after comparisons of services applied to actual client images.
+
+Named client work shown: BOMBER (luxury streetwear, 5 years)
+
+Services demonstrated on portfolio:
+- Background Removal (from $0.39/image)
+- Clipping Path (from $0.39/image)
+- Multi-Clipping Path (from $0.49/image)
+- Color Correction (from $0.50/image)
+- Color Change (from $0.60/image)
+- Shadow Creation (from $0.60/image)
+- Pattern Change (from $0.80/image)
+- Retouching (from $1.20/image)
+- Jewelry Retouching (from $0.80/image)
+- Garment Retouching (from $0.60/image)
+- Model Retouching (from $1.20/image)
+- Ghost Mannequin (from $0.85/image)
+
+---
+
+## Content & Resources
+
+Blog: https://reframevisuals.com/blog
+Resources: https://reframevisuals.com/resources
+Case Studies: https://reframevisuals.com/case-studies
+Insights: https://reframevisuals.com/insights
+
+Notable resource articles:
+- Amazon Image Compliance Checklist 2026
+- Shopify Product Photography Conversion Playbook
+- Ghost Mannequin vs Flat Lay — When to Use Each
+- How to Scale Photo Editing for 10,000 SKUs
+- Jewelry Retouching Quality Checklist
+- Ecommerce Image SLA Framework for Growth Teams
+- Clipping Path vs Background Removal
+- In-House vs Outsourced Product Photo Editing
+
+---
+
+## Social Profiles
+
+- LinkedIn: https://www.linkedin.com/company/reframe-visuals/
+- Instagram: https://www.instagram.com/reframevisualsstudio/
+- Trustpilot: https://www.trustpilot.com/review/reframevisuals.com
+- Pinterest: https://www.pinterest.com/reframevisuals/
+- Behance: https://www.behance.net/reframevisuals
+- Twitter/X: https://x.com/ReframeVisual
+- TikTok: https://www.tiktok.com/@reframe_visuals
+
+---
+
+## Structured Data
+
+Full JSON-LD schemas served in HTML head on every page:
+- Organization (with AggregateRating and 14 Reviews)
+- FAQPage
+- ItemList (services)
+- WebSite (with SearchAction)
+- SoftwareApplication (customer portal)
+- Service schemas on individual service pages
+- Breadcrumb schemas on all subpages
+- Article schemas on blog and resource pages
+
+Machine-readable organization data: https://reframevisuals.com/structured-data/organization.json

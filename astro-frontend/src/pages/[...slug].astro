@@ -1,0 +1,65 @@
+---
+import PublicPageLayout from '../layouts/PublicPageLayout.astro';
+import { STATIC_ROUTES } from '../data/staticRoutes';
+import { SEO_META_BY_PATH, resolvePageSeo } from '../data/seoMeta';
+import { collectHead } from '../lib/collectHead';
+import AboutPage from '../islands/views/AboutPage';
+import AboutReframeVisualsPage from '../islands/views/AboutReframeVisualsPage';
+import ReframeVisualsServicesPage from '../islands/views/ReframeVisualsServicesPage';
+import HowItWorksPage from '../islands/views/HowItWorksPage';
+import PlatformPage from '../islands/views/PlatformPage';
+import PolicyPage from '../islands/views/PolicyPage';
+import CaseStudiesHubPage from '../islands/views/CaseStudiesHubPage';
+import ResourcesPage from '../islands/views/ResourcesPage';
+import ComparisonPage from '../islands/views/ComparisonPage';
+import CaseStudyDetailPage from '../islands/views/CaseStudyDetailPage';
+import InsightAndTrustPage from '../islands/views/InsightAndTrustPage';
+import ExpansionPage from '../islands/views/ExpansionPage';
+import FreeTrialPage from '../islands/views/FreeTrialPage';
+import StartPage from '../islands/views/StartPage';
+import PilotBatchPage from '../islands/views/PilotBatchPage';
+import BookMeetingPage from '../islands/views/BookMeetingPage';
+import ContactPage from '../islands/views/ContactPage';
+import QuoteBuilderPage from '../islands/views/QuoteBuilderPage';
+import ServicesPage from '../islands/views/ServicesPage';
+import PricingPage from '../islands/views/PricingPage';
+import PortfolioPage from '../islands/views/PortfolioPage';
+import TestimonialsPage from '../islands/views/TestimonialsPage';
+import AIProductVisualsPage from '../islands/views/AIProductVisualsPage';
+
+export function getStaticPaths() {
+  return STATIC_ROUTES.map((r) => ({ params: { slug: r.path.slice(1) }, props: r }));
+}
+const HIDE_FOOTER = ['/free-trial', '/start', '/pilot-batch', '/book-meeting'];
+const FOCUSED = ['/free-trial', '/start', '/pilot-batch', '/contact'];
+const { path, view, noindex } = Astro.props;
+const mapped = SEO_META_BY_PATH[path];
+const own = mapped ? undefined : collectHead(view, path);
+const fallback = resolvePageSeo(path);
+const seo = mapped ?? { title: own?.title || fallback.title, description: own?.description || fallback.description };
+---
+<PublicPageLayout title={seo.title} description={seo.description} noindexOverride={noindex} hideFooter={HIDE_FOOTER.includes(path)} hideCurrency={FOCUSED.includes(path)}>
+  {view === 'AboutPage' && <AboutPage client:load path={path} />}
+  {view === 'AboutReframeVisualsPage' && <AboutReframeVisualsPage client:load path={path} />}
+  {view === 'ReframeVisualsServicesPage' && <ReframeVisualsServicesPage client:load path={path} />}
+  {view === 'HowItWorksPage' && <HowItWorksPage client:load path={path} />}
+  {view === 'PlatformPage' && <PlatformPage client:load path={path} />}
+  {view === 'PolicyPage' && <PolicyPage client:load path={path} />}
+  {view === 'CaseStudiesHubPage' && <CaseStudiesHubPage client:load path={path} />}
+  {view === 'ResourcesPage' && <ResourcesPage client:load path={path} />}
+  {view === 'ComparisonPage' && <ComparisonPage client:load path={path} />}
+  {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage client:load path={path} />}
+  {view === 'InsightAndTrustPage' && <InsightAndTrustPage client:load path={path} />}
+  {view === 'ServicesPage' && <ServicesPage client:load path={path} />}
+  {view === 'PricingPage' && <PricingPage client:load path={path} />}
+  {view === 'PortfolioPage' && <PortfolioPage client:load path={path} />}
+  {view === 'TestimonialsPage' && <TestimonialsPage client:load path={path} />}
+  {view === 'AIProductVisualsPage' && <AIProductVisualsPage client:load path={path} />}
+  {view === 'FreeTrialPage' && <FreeTrialPage client:load path={path} />}
+  {view === 'StartPage' && <StartPage client:load path={path} />}
+  {view === 'PilotBatchPage' && <PilotBatchPage client:load path={path} />}
+  {view === 'BookMeetingPage' && <BookMeetingPage client:load path={path} />}
+  {view === 'ContactPage' && <ContactPage client:load path={path} />}
+  {view === 'QuoteBuilderPage' && <QuoteBuilderPage client:load path={path} />}
+  {view === 'ExpansionPage' && <ExpansionPage client:load path={path} />}
+</PublicPageLayout>
