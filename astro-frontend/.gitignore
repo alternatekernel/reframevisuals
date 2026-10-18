@@ -8,3 +8,6 @@ spa/dist
 .env
 src/live.config.ts
 src/lib/cms-emdash.ts
+tests/baseline
+tests/shots
+tests/diff

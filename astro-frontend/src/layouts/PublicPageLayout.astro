@@ -5,6 +5,7 @@ import NavigationIsland from '../islands/NavigationIsland';
 import FooterIsland from '../islands/FooterIsland';
 import CurrencySelectorIsland from '../islands/CurrencySelectorIsland';
 import BootLoaderIsland from '../islands/BootLoaderIsland';
+import ContinueBrowsingIsland from '../islands/ContinueBrowsingIsland';
 import SiteExtrasIsland from '../islands/SiteExtrasIsland';
 export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindexOverride?: boolean; hideFooter?: boolean; hideCurrency?: boolean }
 const { hideFooter = false, hideCurrency = false, ...seo } = Astro.props;
@@ -14,7 +15,7 @@ const currentPath = Astro.url.pathname;
   <ClientRouter slot="head" />
   <div class="min-h-screen flex flex-col bg-[var(--surface)] text-black overflow-x-hidden min-w-0 antialiased" style="isolation: isolate">
     <NavigationIsland client:load transition:persist path={currentPath} />
-    <main class="pt-16 flex-grow flex flex-col min-w-0"><slot /></main>
+    <main class="pt-16 flex-grow flex flex-col min-w-0"><slot /><ContinueBrowsingIsland client:idle path={currentPath} /></main>
     {!hideFooter && <FooterIsland client:visible path={currentPath} />}
     <BootLoaderIsland client:load path={currentPath} />
     <SiteExtrasIsland client:idle transition:persist path={currentPath} />
