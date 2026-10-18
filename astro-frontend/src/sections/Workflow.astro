@@ -1,0 +1,122 @@
+---
+import { Download } from 'lucide-react';
+import { cx, layout, typography } from '../utils/theme';
+import { WORKFLOW_INTEGRATIONS, WORKFLOW_NODES, WORKFLOW_STEP_DESCRIPTIONS, type WorkflowNode } from './workflow/workflowData';
+import { DESKTOP, MOBILE, pathD, delay } from '../lib/workflowGeom';
+import WorkflowNodeEl from '../components/astro/WorkflowNode.astro';
+import WorkflowActor from '../components/astro/WorkflowActor.astro';
+
+export interface Props {
+  titleHtml?: string;
+  description?: string;
+  nodes?: WorkflowNode[];
+  stepDescriptions?: string[];
+  integrations?: string[];
+  inputActors?: string[];
+  outputActors?: string[];
+  deliveryLabel?: string;
+}
+const {
+  titleHtml = 'From raw <span class="text-black/30">to ready.</span>',
+  description = 'Connect cloud storage, Dropbox, Amazon, or automated app syncs. Edited files come back the same way they went in.',
+  nodes = WORKFLOW_NODES,
+  stepDescriptions = WORKFLOW_STEP_DESCRIPTIONS,
+  integrations = WORKFLOW_INTEGRATIONS,
+  inputActors = ['Dropbox', 'Google Drive / S3', 'App Automation'],
+  outputActors = ['Customer Dashboard', 'Email', 'Instant Sync Feeds'],
+  deliveryLabel = 'Delivered to dashboard within your selected SLA',
+} = Astro.props;
+const BRAND_COLORS: Record<string, string> = { Amazon: '#D97706', 'Google Drive': '#16A34A', Dropbox: '#2563EB', WeTransfer: '#0284C7', 'App Sync': '#7C3AED', 'Direct Connect': '#0D9488' };
+const inColors = ['#3B82F6', '#C2410C', '#8B5CF6'];
+const outColors = ['#DB2777', '#4F46E5', '#0D9488'];
+const inDelays = [0.3, 0.4, 0.5];
+const outDelays = [1.1, 1.15, 1.2];
+const nodeDelays = [0.5, 0.65, 0.8, 0.95];
+const nodeLeft = ['20%', '38%', '62%', '80%'];
+const nodeTop = ['170px', '310px', '450px', '590px'];
+const fade = (d: number, dur = 0.4, from = 'none') => `--wf-d:${d}s; --wf-dur:${dur}s; --wf-from:${from}`;
+const swim = 'inline-flex items-center text-[12px] font-bold font-mono uppercase tracking-widest text-black/50 whitespace-nowrap';
+const mobLabel = 'inline-flex items-center text-[12px] font-bold font-mono uppercase tracking-widest text-black/55 whitespace-nowrap bg-white px-3 relative z-20';
+---
+<section id="workflow" data-workflow class={cx('pt-10 pb-10 sm:pt-12 sm:pb-12 lg:pt-16 lg:pb-16 bg-[#F7F6F3] sm:bg-white relative z-10 scroll-mt-nav overflow-hidden', layout.sectionGutter)}>
+  <div class={cx(layout.compactShell, 'relative z-10 space-y-6 lg:space-y-8')}>
+    <div class="text-center space-y-2 max-w-2xl mx-auto">
+      <h2 class={cx('wf-anim', typography.displayMd, 'text-[var(--color-text-primary)]')} style={fade(0.08, 0.65, 'translateY(25px)')} set:html={titleHtml} />
+      <p class="wf-anim text-[15px] sm:text-[16px] text-black/50 leading-relaxed max-w-xl mx-auto" style={fade(0.15, 0.6, 'translateY(15px)')}>{description}</p>
+    </div>
+
+    <div class="w-full">
+      <div class="hidden lg:block pt-4">
+        <div class="relative mb-8 flex items-center h-8">
+          <div class="absolute z-10" style="left: 0%; transform: translateX(-50%)"><div class="wf-anim" style={fade(0.1, 0.4, 'translateY(5px)')}><span class={swim}>Your Inputs</span></div></div>
+          <div class="absolute z-10" style="left: 50%; transform: translateX(-50%)"><div class="wf-anim" style={fade(0.2, 0.4, 'translateY(5px)')}><span class={swim}>Reframe production pipeline</span></div></div>
+          <div class="absolute z-10" style="right: 0%; transform: translateX(50%)"><div class="wf-anim" style={fade(0.3, 0.4, 'translateY(5px)')}><span class={swim}>Your Outputs</span></div></div>
+        </div>
+        <div data-wf-desktop class="relative" style="height: 300px">
+          <svg data-wf-svg width="1200" height="300" class="absolute inset-0 w-full h-full pointer-events-none z-0" overflow="visible">
+            {DESKTOP.map((c) => <path data-wf-path d={pathD(c, 1200)} stroke={c.color} stroke-width="1.5" fill="none" stroke-linecap="round" class="workflow-flowing-path wf-anim" style={fade(delay(c.i))} />)}
+          </svg>
+          <div class="absolute inset-0 flex items-center">
+            <div class="absolute inset-y-0" style="left: 0%; transform: translateX(-50%); width: 68px">
+              {[0, 1, 2].map((i) => <div style={`position:absolute; top:${i * 116}px; left:0; right:0`}><WorkflowActor label={inputActors[i]} delay={inDelays[i]} color={inColors[i]} /></div>)}
+            </div>
+            {nodes.map((node, i) => <div class="absolute" style={`left:${nodeLeft[i]}; transform: translateX(-50%)`}><WorkflowNodeEl node={node} delay={nodeDelays[i]} /></div>)}
+            <div class="absolute inset-y-0" style="right: 0%; transform: translateX(50%); width: 68px">
+              {[0, 1, 2].map((i) => <div style={`position:absolute; top:${i * 116}px; left:0; right:0`}><WorkflowActor label={outputActors[i]} delay={outDelays[i]} color={outColors[i]} /></div>)}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-wf-mobile class="lg:hidden relative mx-auto w-full max-w-[360px] sm:max-w-[480px] md:max-w-[560px] mt-10" style="height: 820px">
+        <svg data-wf-svg width="360" height="820" class="absolute inset-0 w-full h-full pointer-events-none z-0" overflow="visible">
+          {MOBILE.map((c) => <path data-wf-path d={pathD(c, 360)} stroke={c.color} stroke-width="1.5" fill="none" stroke-linecap="round" class="workflow-flowing-path wf-anim" style={fade(delay(c.i))} />)}
+        </svg>
+        <div class="wf-anim absolute inset-x-0 -top-6 flex justify-center z-20" style={fade(0.1, 0.5)}><span class={mobLabel}>Your Inputs</span></div>
+        <div class="absolute top-[10px] inset-x-0 flex justify-between" style="height: 80px">
+          {[0, 1, 2].map((i) => <div style="width: 33%; display: flex; justify-content: center"><WorkflowActor label={inputActors[i]} delay={inDelays[i]} color={inColors[i]} mobile /></div>)}
+        </div>
+        <div class="absolute z-20" style="top: 132px; left: 50%; transform: translateX(-50%)">
+          <div class="wf-anim flex justify-center z-20" style={fade(0.4, 0.5)}><span class={`${mobLabel} py-1`}>Reframe production pipeline</span></div>
+        </div>
+        {nodes.map((node, i) => <div class="absolute" style={`top:${nodeTop[i]}; left: 50%; transform: translateX(-50%)`}><WorkflowNodeEl node={node} delay={nodeDelays[i]} mobile /></div>)}
+        <div class="wf-anim absolute inset-x-0 z-20 flex justify-center" style={`top: 686px; ${fade(1.0, 0.5)}`}><span class={`${mobLabel} py-1`}>Your Outputs</span></div>
+        <div class="absolute inset-x-0 flex justify-between" style="top: 720px; height: 80px">
+          {[0, 1, 2].map((i) => <div style="width: 33%; display: flex; justify-content: center"><WorkflowActor label={outputActors[i]} delay={outDelays[i]} color={outColors[i]} mobile /></div>)}
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-anim flex items-center justify-center gap-2 mt-10 lg:mt-16" style={fade(1.4, 0.5, 'translateY(10px)')}>
+      <Download size={15} className="text-[#047857]" strokeWidth={1.8} />
+      <span class="text-[12px] lg:text-[14px] font-mono font-bold text-[#047857] tracking-wider uppercase text-center">{deliveryLabel}</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 pt-12 lg:pt-16 lg:mt-16">
+      {nodes.map((node, i) => {
+        const [Icon] = node.icons;
+        return (
+          <div class={cx('wf-anim flex gap-4 items-start', i !== nodes.length - 1 && 'lg:border-r lg:border-black/[0.20] lg:pr-6')} style={fade(1.1 + i * 0.08, 0.35, 'translateY(8px)')}>
+            <Icon size={20} className="shrink-0 mt-0.5 sm:size-6" style={{ color: node.iconColor }} strokeWidth={1.5} />
+            <div class="flex flex-col min-w-0">
+              <span class="text-[12px] sm:text-[12px] font-mono font-bold tracking-widest text-black/45 uppercase mb-1">{`0${i + 1}`} · {node.label}</span>
+              <p class="text-[14px] sm:text-[14px] text-black/70 leading-relaxed font-medium">{stepDescriptions[i]}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div class="wf-anim flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-12 sm:gap-y-6 mt-10 sm:mt-16 lg:mt-24 pt-8" style={fade(1.5, 0.4, 'translateY(8px)')}>
+      {integrations.map((label) => (
+        <span class="wf-badge inline-flex items-center gap-2 sm:gap-2.5 text-[12px] sm:text-[12px] font-bold font-mono uppercase tracking-widest cursor-default" style={`--bc:${BRAND_COLORS[label] || '#666'}`}>
+          <i class="w-1.5 h-1.5 rounded-full inline-block"></i>
+          {label}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  import '../lib/ui/workflow';
+</script>

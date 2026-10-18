@@ -1,0 +1,11 @@
+---
+import { User } from 'lucide-react';
+export interface Props { label: string; delay: number; color?: string; mobile?: boolean }
+const { label, delay, color = '#C2410C', mobile = false } = Astro.props;
+---
+<div class="wf-anim flex flex-col items-center gap-2" style={`--wf-from: scale(0.85); --wf-d:${delay}s; --wf-dur:0.4s`}>
+  <div class={`rounded-sm flex items-center justify-center ${mobile ? 'w-[54px] h-[54px]' : 'w-[68px] h-[68px]'}`} style={`border:1.5px solid ${color}; background-color:${color}12`}>
+    <User size={mobile ? 22 : 28} style={{ color }} strokeWidth={1.4} />
+  </div>
+  <span class={`font-mono font-bold text-center leading-tight mt-1 ${mobile ? 'text-[12px] max-w-[76px]' : 'text-[12px] whitespace-nowrap'}`} style={`color:${color}`}>{label}</span>
+</div>

@@ -6,7 +6,7 @@ import Hero from '../islands/wrapped/Hero';
 import InstantDropZone from '../sections/landing/InstantDropZone.astro';
 import ImageGridSection from '../sections/landing/ImageGridSection.astro';
 import Testimonials from '../sections/Testimonials.astro';
-import Workflow from '../islands/wrapped/Workflow';
+import Workflow from '../sections/Workflow.astro';
 import ClientCategoryStrip from '../sections/ClientCategoryStrip.astro';
 import TrialAuditCta from '../sections/TrialAuditCta.astro';
 import ReframeCSShowcase from '../sections/ReframeCSShowcase.astro';
@@ -66,7 +66,7 @@ const points = [
     </div>
   </section>
 
-  <Reveal variant="fade-slide" y={50} threshold={0.04}><Workflow client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={50} threshold={0.04}><Workflow /></Reveal>
   <Reveal variant="fade-slide" y={30}><TargetAudienceProof /></Reveal>
   <Reveal variant="fade" delay={0.05} duration={0.6}><ClientCategoryStrip /></Reveal>
   <Reveal variant="spring-scale"><TrialAuditCta /></Reveal>
