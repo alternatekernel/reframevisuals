@@ -17,9 +17,9 @@ const isHighlighted = b.highlight ?? i === 1;
       <div class="space-y-1">
         {b.price !== null && <p class={cx('text-12 font-black uppercase tracking-[0.18em]', isHighlighted ? 'text-white/45' : 'text-black/40')}>Starting from</p>}
         <div class="flex items-baseline gap-2">
-          <span class={cx(typography.price, 'text-[30px] leading-none', isHighlighted ? 'text-white' : 'text-black')}>
-            {b.price !== null ? <Price usd={b.price} /> : 'Custom'}
-          </span>
+          {b.price !== null
+            ? <Price usd={b.price} class={cx(typography.price, 'text-[30px] leading-none', isHighlighted ? 'text-white' : 'text-black')} />
+            : <span class={cx(typography.price, 'text-[30px] leading-none', isHighlighted ? 'text-white' : 'text-black')}>Custom</span>}
           <span class={cx('text-[16px] font-medium', isHighlighted ? 'text-white/50' : 'text-black/40')}>/image</span>
         </div>
       </div>

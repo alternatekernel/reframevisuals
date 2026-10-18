@@ -18,7 +18,7 @@ const { label, href, variant = 'default', class: cls, ariaLabel, animated = true
 <a
   href={href}
   aria-label={ariaLabel || label}
-  class={cx(buttonVariants({ variant }), 'group relative h-12 p-1 ps-6 pe-16 overflow-hidden', animated && 'transition-[padding] duration-200 hover:ps-16 hover:pe-6', cls)}
+  class={cx(buttonVariants({ variant }), 'group relative h-12 p-1 ps-6 pe-16 overflow-hidden leading-[normal]', animated && 'transition-[padding] duration-200 hover:ps-16 hover:pe-6', cls)}
   data-auth-cta={authCta ? '' : undefined}
   {...rest}
 >

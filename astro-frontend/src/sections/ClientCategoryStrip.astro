@@ -1,0 +1,103 @@
+---
+import Reveal from '../components/astro/Reveal.astro';
+
+// Named clients — add logoUrl (Cloudinary or absolute URL) when available
+const NAMED_CLIENTS = [
+  {
+    name: 'BOMBER',
+    detail: 'Bold Streetwear',
+    websiteUrl: 'https://bomberclothing.com/',
+    logoUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781635028/reframe-assets/bomber-logo-2026-06-16.jpg',
+  },
+  {
+    name: 'PUPPACK',
+    detail: 'Pet Accessories · USA',
+    websiteUrl: 'https://puppack.co/',
+    logoUrl: 'https://res.cloudinary.com/dnmj4altq/image/upload/v1781635030/reframe-assets/pup-pack-logo-2026-06-16.jpg',
+  },
+];
+
+const PLATFORMS = [
+  'Amazon',
+  'Etsy',
+  'ASOS Marketplace',
+  'Depop',
+  'Zalando',
+  'eBay',
+  'WooCommerce',
+  'BigCommerce',
+  'Squarespace',
+];
+
+const CATEGORIES = [
+  'Jewelry & Fine Accessories',
+  'Apparel & Fashion',
+  'Footwear',
+  'Homewares & Furniture',
+  'Beauty & Skincare',
+  'Consumer Electronics',
+  'Bags & Leather Goods',
+  'Sports & Outdoor',
+  'Toys & Kids',
+  'Pet Products',
+];
+
+
+// 8 copies ensures it spans ultra-wide monitors. -12.5% translates exactly 1 copy, looping perfectly.
+const tracks = [
+  { items: Array(8).fill(PLATFORMS).flat() as string[], reverse: false, dim: false },
+  { items: Array(8).fill(CATEGORIES).flat() as string[], reverse: true, dim: true },
+];
+---
+<Reveal variant="fade-slide" delay={0.1}>
+  <section class="bg-white pt-6 pb-14 overflow-hidden">
+    <div class="mx-auto mb-8 flex w-full max-w-3xl flex-col items-center gap-5 px-4">
+      <p class="text-[12px] font-bold uppercase tracking-[0.3em] text-black/60">Trusted by</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 sm:gap-x-16">
+        {NAMED_CLIENTS.map((client) => (
+          <a
+            href={client.websiteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${client.name} website`}
+            class="flex min-w-[150px] items-center justify-center rounded-2xl px-4 py-2 transition duration-200 hover:bg-black/[0.05] focus:outline-none focus-visible:ring-2 focus-visible:ring-black/30"
+            itemscope
+            itemtype="https://schema.org/Organization"
+          >
+            <meta itemprop="name" content={client.name} />
+            <meta itemprop="url" content={client.websiteUrl} />
+            <div class="flex flex-col items-center gap-2">
+              {client.logoUrl ? (
+                <img src={client.logoUrl} alt={`${client.name} ecommerce photo editing clients - Reframe Visuals`} itemprop="logo" loading="eager" class="h-12 w-auto object-contain sm:h-14" />
+              ) : (
+                <span class="font-black tracking-[0.15em] text-[18px] text-black/60 uppercase">{client.name}</span>
+              )}
+              {client.detail && <span class="text-[12px] font-medium tracking-[0.08em] text-black/35 uppercase">{client.detail}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="mb-8 text-center">
+      <p class="text-[12px] font-semibold uppercase tracking-[0.25em] text-black/25">We work across</p>
+    </div>
+
+    <div class="flex flex-col gap-5">
+      {tracks.map((track) => (
+        <div class="relative overflow-hidden">
+          <div class="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-white to-transparent"></div>
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-gradient-to-l from-white to-transparent"></div>
+          <div class="flex items-center w-max" style={`animation: ${track.reverse ? 'marquee-right' : 'marquee-left'} 45s linear infinite; will-change: transform`}>
+            {track.items.map((item) => (
+              <span class="inline-flex items-center shrink-0">
+                <span class={`whitespace-nowrap font-sans text-[17px] font-medium tracking-[0.02em] ${track.dim ? 'text-black/28' : 'text-black/50'}`}>{item}</span>
+                <span class="mx-6 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-black/20 self-center"></span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Reveal>

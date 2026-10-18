@@ -7,12 +7,12 @@ import InstantDropZone from '../islands/wrapped/InstantDropZone';
 import ImageGridSection from '../islands/wrapped/ImageGridSection';
 import Testimonials from '../islands/wrapped/Testimonials';
 import Workflow from '../islands/wrapped/Workflow';
-import ClientCategoryStrip from '../islands/wrapped/ClientCategoryStrip';
-import TrialAuditCta from '../islands/wrapped/TrialAuditCta';
+import ClientCategoryStrip from '../sections/ClientCategoryStrip.astro';
+import TrialAuditCta from '../sections/TrialAuditCta.astro';
 import ReframeCSShowcase from '../islands/wrapped/ReframeCSShowcase';
-import Stats from '../islands/wrapped/Stats';
-import BlogPreview from '../islands/wrapped/BlogPreview';
-import Pricing from '../islands/wrapped/Pricing';
+import Stats from '../sections/Stats.astro';
+import BlogPreview from '../sections/BlogPreview.astro';
+import Pricing from '../sections/Pricing.astro';
 import BeatPixelzBanner from '../sections/BeatPixelzBanner.astro';
 import TargetAudienceProof from '../sections/TargetAudienceProof.astro';
 import CompetitorComparison from '../sections/pricing/CompetitorComparison.astro';
@@ -68,8 +68,8 @@ const points = [
 
   <Reveal variant="fade-slide" y={50} threshold={0.04}><Workflow client:visible path={path} /></Reveal>
   <Reveal variant="fade-slide" y={30}><TargetAudienceProof /></Reveal>
-  <Reveal variant="fade" delay={0.05} duration={0.6}><ClientCategoryStrip client:visible path={path} /></Reveal>
-  <Reveal variant="spring-scale"><TrialAuditCta client:visible path={path} /></Reveal>
+  <Reveal variant="fade" delay={0.05} duration={0.6}><ClientCategoryStrip /></Reveal>
+  <Reveal variant="spring-scale"><TrialAuditCta /></Reveal>
 
   <Reveal variant="fade-slide" y={20}>
     <section class="max-w-5xl mx-auto px-6 lg:px-10 pt-4 pb-4 lg:pt-6 lg:pb-6 overflow-visible">
@@ -89,9 +89,9 @@ const points = [
 
   <Reveal variant="fade-slide" y={40} class="hidden sm:block"><ReframeCSShowcase client:visible path={path} /></Reveal>
   <Reveal variant="fade-slide" y={40}><CompetitorComparison /></Reveal>
-  <Reveal variant="spring-scale"><Stats client:visible path={path} /></Reveal>
-  <Reveal variant="fade-slide" y={30} class="hidden sm:block"><BlogPreview client:visible path={path} /></Reveal>
-  <Reveal variant="spring-scale"><Pricing client:visible path={path} /></Reveal>
+  <Reveal variant="spring-scale"><Stats /></Reveal>
+  <Reveal variant="fade-slide" y={30} class="hidden sm:block"><BlogPreview /></Reveal>
+  <Reveal variant="spring-scale"><Pricing /></Reveal>
   <Reveal variant="fade-slide" y={30}><Integrations /></Reveal>
   <Reveal variant="fade"><Faq /></Reveal>
 

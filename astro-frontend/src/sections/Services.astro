@@ -1,0 +1,89 @@
+---
+import { ArrowRight, FileText, List, Hash, ChevronDown } from 'lucide-react';
+import { cx, tokens } from '../utils/theme';
+import { SERVICES, sortServicesByDisplayOrder } from '../data/services';
+import { isExcludedService } from '../lib/serviceData';
+import Price from '../components/astro/Price.astro';
+
+const pastel = [
+  { hover: 'hover:bg-red-50/10', tag: 'bg-red-50 text-black/60 border-red-100' },
+  { hover: 'hover:bg-orange-50/10', tag: 'bg-orange-50 text-black/60 border-orange-100' },
+  { hover: 'hover:bg-emerald-50/10', tag: 'bg-emerald-50 text-black/60 border-emerald-100' },
+  { hover: 'hover:bg-blue-50/10', tag: 'bg-blue-50 text-black/60 border-blue-100' },
+  { hover: 'hover:bg-purple-50/10', tag: 'bg-purple-50 text-black/60 border-purple-100' },
+];
+const ordered = sortServicesByDisplayOrder(SERVICES.filter((s: any) => !s.hidden && !isExcludedService(s)));
+const first = ordered.slice(0, 3);
+const rest = ordered.slice(3);
+const pills = [['12h', 'Express'], ['24h', 'Standard'], ['48h', 'Relaxed'], ['72h', 'Economy']];
+const rowBase = 'group grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch text-[16px] transition-all duration-300 ease-in-out min-h-[64px] py-3 sm:py-0 sm:h-[64px]';
+---
+<div class="relative w-full">
+  <div class="max-w-5xl mx-auto px-4 pt-3 pb-8 sm:pt-4 sm:pb-12 lg:pt-4 lg:pb-12">
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-6 sm:mb-8 mt-2">
+      {pills.map(([time, label]) => (
+        <div class={cx('inline-flex items-center gap-2 rounded-full border px-4 py-2', label === 'Standard' ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white' : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]')}>
+          <span class="text-[14px] font-bold">{time}</span>
+          <span class={cx('text-[12px] font-medium', label === 'Standard' ? 'text-white/65' : 'text-black/45')}>{label}</span>
+        </div>
+      ))}
+    </div>
+
+    <div data-expand data-open="false" class={cx('group/exp relative w-full overflow-hidden', tokens.surfacePanel)}>
+      <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(23,23,23,0.18),transparent)]"></div>
+      <div class="w-full">
+        <div class="w-full">
+          <div class="grid grid-cols-[1fr_120px] sm:grid-cols-[25%_50%_25%] w-full items-stretch bg-[var(--color-bg-secondary)] border-b border-neutral-300/80 text-[12px] font-heading font-semibold text-neutral-600 uppercase tracking-[0.18em] select-none h-11">
+            <div class="flex items-center gap-1.5 border-r border-neutral-300/60 px-6"><FileText size={13} className="text-neutral-400 shrink-0" /><span>Service</span></div>
+            <div class="hidden sm:flex items-center gap-1.5 border-r border-neutral-300/60 px-6"><List size={13} className="text-neutral-400 shrink-0" /><span>Included Features</span></div>
+            <div class="flex items-center pl-4 pr-6 whitespace-nowrap">
+              <div class="flex-1 flex items-center justify-center gap-1.5"><Hash size={13} className="text-neutral-400 shrink-0" /><span class="whitespace-nowrap">Starting price</span></div>
+              <div class="hidden sm:block w-8 ml-3 shrink-0"></div>
+            </div>
+          </div>
+          {[{ list: first, offset: 0, body: false }, { list: rest, offset: 3, body: true }].map(({ list, offset, body }) => {
+            const rows = list.map((svc: any, idx: number) => {
+              const index = idx + offset;
+              const Icon = svc.icon;
+              const style = pastel[index % pastel.length];
+              const border = body ? 'border-b border-black/[0.18] last:border-b-0' : index === 2 ? 'group-data-[open=true]/exp:border-b group-data-[open=true]/exp:border-black/[0.18]' : 'border-b border-black/[0.18]';
+              return (
+                <a href={`/services/${svc.id}`} class={cx(rowBase, border, style.hover)}>
+                  <div class="flex items-center gap-3 border-r border-neutral-200/70 px-6 min-w-0">
+                    <div class="flex h-5 w-5 shrink-0 items-center justify-center text-neutral-400 group-hover:text-neutral-800 group-hover:scale-105 transition-all duration-200">{Icon && <Icon size={16} className="shrink-0" />}</div>
+                    <div class="flex flex-col min-w-0">
+                      <span class="font-heading text-[15px] font-semibold text-neutral-900 group-hover:text-black transition-colors leading-tight">{svc.name}</span>
+                      <div class="sm:hidden mt-1 text-[12px] text-neutral-500 leading-normal">{svc.includes.join(' · ')}</div>
+                    </div>
+                  </div>
+                  <div class="hidden sm:flex items-center gap-1.5 border-r border-black/[0.18] px-5 min-w-0 overflow-hidden whitespace-nowrap">
+                    {svc.includes.slice(0, 2).map((inc: string, i: number) => (
+                      <span class={cx('inline-flex items-center px-2.5 py-1 rounded-full border text-[12px] font-sans shrink-0 transition-colors duration-200', pastel[(index + i) % pastel.length].tag)}>{inc}</span>
+                    ))}
+                    {svc.includes.length > 2 && <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[12px] text-black/40 font-sans shrink-0">+ more</span>}
+                  </div>
+                  <div class="flex items-center min-w-0 py-5 pl-4 pr-6">
+                    <div class="flex-1 flex items-center justify-center">
+                      <Price usd={svc.price} class="font-heading text-[16px] font-semibold text-neutral-900 tabular-nums tracking-tight whitespace-nowrap group-hover:scale-105 transition-transform duration-300 inline-block" />
+                    </div>
+                    <div class="hidden sm:flex items-center justify-center h-8 w-8 ml-3 rounded-full bg-[var(--color-bg-secondary)] border border-neutral-300 text-neutral-500 group-hover:bg-neutral-900 group-hover:border-neutral-900 group-hover:text-white transition-all duration-200 shrink-0">
+                      <ArrowRight size={14} className="transition-transform duration-300 group-hover:-rotate-45" />
+                    </div>
+                  </div>
+                </a>
+              );
+            });
+            return body ? <div data-expand-body><div>{rows}</div></div> : <div>{rows}</div>;
+          })}
+        </div>
+      </div>
+      <button type="button" data-expand-toggle aria-expanded="false" class="w-full py-4 bg-[var(--color-bg-secondary)] hover:bg-black/5 border-t border-black/20 text-[14px] font-heading font-bold text-black/50 hover:text-black flex items-center justify-center gap-2 transition-all duration-300 select-none">
+        <span data-expand-label data-open-label="Show less services" data-closed-label="Show all services">Show all services</span>
+        <ChevronDown size={14} className="transition-transform duration-300 group-data-[open=true]/exp:rotate-180" />
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/ui/expand';
+</script>

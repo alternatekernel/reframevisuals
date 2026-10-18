@@ -1,0 +1,103 @@
+---
+import { Activity, ArrowRight } from 'lucide-react';
+import { loadSections, getSection } from '../lib/content';
+import { cx, layout, tokens, typography } from '../utils/theme';
+import ButtonWithIcon from '../components/astro/ButtonWithIcon.astro';
+import Price from '../components/astro/Price.astro';
+import ServiceTable from './Services.astro';
+
+const sections = await loadSections();
+const bundlesData = getSection(sections, 'bundles');
+const pricingContent = getSection(sections, 'pricingPage');
+const plans = (bundlesData.bundles || []).filter((b: any) => b.price !== null).slice(0, 3);
+const strip = [['12–72h', 'Turnaround'], ['100%', 'QA reviewed'], ['$0.39', 'Per image, from'], ['3 free', 'To start, no card']];
+---
+<section id="pricing" class="pt-12 pb-12 sm:pt-14 sm:pb-14 lg:pt-20 lg:pb-20 bg-white relative scroll-mt-nav overflow-hidden">
+  <div class={cx(layout.compactShell, 'relative z-10 px-5 sm:px-6 lg:px-12')}>
+    <div class="text-center max-w-2xl mx-auto space-y-1.5 mb-5 md:mb-12 lg:mb-16">
+      <h2 class={cx(typography.displayLg, 'text-[var(--color-text-primary)]')}>Pricing plans. <br /><span class="text-black/40">For every scale.</span></h2>
+      <p class="text-black/60 text-[16px] lg:text-[18px] leading-relaxed max-w-lg mx-auto font-normal">{pricingContent.landingDescription || 'Pre-configured workflows. Order instantly, ship faster.'}</p>
+    </div>
+
+    <ServiceTable />
+
+    <div class="grid grid-cols-1 gap-2.5 md:hidden">
+      {plans.map((p: any) => (
+        <article class={cx('rounded-2xl border p-3 shadow-[0_14px_34px_-28px_rgba(0,0,0,0.5)]', p.highlight ? 'border-[#171717] bg-[var(--color-text-primary)] text-white' : 'bg-white border border-black/[0.18] shadow-sm text-[var(--color-text-primary)]')}>
+          <div class="flex items-center justify-between gap-3">
+            <div class="min-w-0"><h3 class={cx('truncate text-[12px] font-black uppercase tracking-[0.16em]', p.highlight ? 'text-white/75' : 'text-black/80')}>{p.name}</h3></div>
+            <span class={cx('shrink-0 rounded-full px-2 py-1 text-[12px] font-black uppercase tracking-[0.08em]', p.highlight ? 'bg-white/10 text-white/70' : 'bg-black/5 text-black/75 border border-black/[0.18]')}>{p.savings}</span>
+          </div>
+          <div class="mt-2 flex items-end justify-between gap-3">
+            <div class="min-w-0">
+              <div class="flex items-baseline gap-1.5">
+                {p.price !== null
+                  ? <Price usd={p.price} class="text-[25px] font-black leading-none tracking-[-0.04em]" />
+                  : <span class="text-[25px] font-black leading-none tracking-[-0.04em]">Custom</span>}
+                <span class={cx('text-[12px] font-medium', p.highlight ? 'text-white/55' : 'text-black/45')}>/image</span>
+              </div>
+              <div class="mt-2 flex min-w-0 gap-1.5">
+                {(p.services || []).slice(0, 2).map((s: string) => (
+                  <span class={cx('max-w-[120px] truncate rounded-full px-2 py-1 text-[12px] font-semibold leading-none', p.highlight ? 'bg-white/10 text-white/70' : 'bg-black/5 text-black/75 border border-black/[0.18]')}>{s}</span>
+                ))}
+              </div>
+            </div>
+            <a href="/free-trial" data-auth-cta data-auth-label="Start" class={cx('group flex h-9 shrink-0 items-center gap-1.5 rounded-full px-3 text-[12px] font-bold transition-transform active:scale-[0.98]', p.highlight ? 'bg-white text-[var(--color-text-primary)]' : 'bg-[var(--color-text-primary)] text-white')}>
+              <span data-auth-cta-label>Start</span>
+              <ArrowRight size={14} className="transition-transform duration-300 group-hover:-rotate-45" />
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="relative hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 max-w-6xl mx-auto items-center">
+      {plans.map((p: any) => (
+        <div class={cx('group relative flex flex-col p-1 transition-all duration-300', tokens.radiusLargeCard, p.highlight ? 'z-20' : 'z-10')}>
+          <div class={cx('absolute inset-0 overflow-hidden border transition-all duration-300', tokens.radiusLargeCard, p.highlight ? 'bg-[var(--color-text-primary)]' : 'bg-white border border-black/[0.18] shadow-[0_4px_12px_rgba(0,0,0,0.02)] group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.07),_0_14px_40px_rgba(0,0,0,0.12)]')}>
+            {!p.highlight && <div class="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]"></div>}
+          </div>
+          <div class={cx('relative flex-1 flex flex-col p-6 lg:p-8 overflow-hidden transition-all duration-500 bg-transparent', tokens.radiusLargeCard, p.highlight && 'text-white')}>
+            <div class="space-y-2 mb-6 lg:mb-8">
+              <h4 class={cx(typography.label, p.highlight ? 'text-white' : 'text-black/80')}>{p.name}</h4>
+              <div class="flex items-baseline gap-2">
+                {p.price !== null
+                  ? <Price usd={p.price} class={cx(typography.price, 'text-[30px] leading-none', p.highlight ? 'text-white' : 'text-black')} />
+                  : <span class={cx(typography.price, 'text-[30px] leading-none', p.highlight ? 'text-white' : 'text-black')}>Custom</span>}
+                <span class={cx('text-[16px] font-medium', p.highlight ? 'text-white/50' : 'text-black/45')}>/image</span>
+              </div>
+            </div>
+            <div class="flex-1 space-y-3 mb-8 lg:mb-10">
+              {p.services?.map((s: string) => (
+                <div class="flex items-center gap-3 group/item">
+                  <div class={cx('w-1.5 h-1.5 rounded-full transition-all duration-300 shrink-0', p.highlight ? 'bg-white/30' : 'bg-black/20 group-hover:bg-black/50')}></div>
+                  <span class={cx('text-[16px] font-medium transition-colors', p.highlight ? 'text-white/70 group-hover/item:text-white' : 'text-black/65 group-hover/item:text-black')}>{s}</span>
+                </div>
+              ))}
+              <div class="pt-2">
+                <div class={cx('inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[12px] font-black uppercase tracking-wider', p.highlight ? 'bg-white/10 text-white/70' : 'bg-black/5 text-black/75 border border-black/[0.18]')}>
+                  <Activity size={12} />
+                  {p.savings}
+                </div>
+              </div>
+            </div>
+            <div class="pt-4">
+              <ButtonWithIcon variant={p.highlight ? 'white' : 'default'} label="Get Started" href="/free-trial" class="!w-full !max-w-none" animated={false} authCta data-auth-label="Start Editing" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 md:mt-14 max-w-6xl mx-auto">
+      <div class="grid grid-cols-2 sm:grid-cols-4 divide-x divide-black/[0.06] rounded-2xl border border-black/[0.18] bg-white overflow-hidden">
+        {strip.map(([value, label]) => (
+          <div class="flex flex-col items-center justify-center gap-1 px-6 py-5">
+            <span class="font-heading text-[22px] sm:text-[26px] font-black tracking-[-0.04em] text-[var(--color-text-primary)]">{value}</span>
+            <span class="text-[12px] font-semibold uppercase tracking-widest text-black/38">{label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

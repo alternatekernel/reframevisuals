@@ -1,0 +1,50 @@
+---
+import { ArrowRight } from 'lucide-react';
+import { loadSections, getSection } from '../lib/content';
+import { cx, layout, typography } from '../utils/theme';
+import DotBackground from '../components/ui/DotBackground';
+
+const SOURCE_URLS: Record<string, string> = {
+  'Salsify 2025 Consumer Report': 'https://www.salsify.com/blog/images-and-videos-most-important-product-page-elements',
+  'Baymard Institute UX Research': 'https://baymard.com/blog/home-and-hardware-ux-benchmark-2026',
+  'NRF Happy Returns Report': 'https://nrf.com/media-center/press-releases/nrf-and-happy-returns-report-2024-retail-returns-total-890-billion',
+};
+const content = getSection(await loadSections(), 'stats');
+const stats = (content.stats || []) as any[];
+const sourceUrl = (source: string) => SOURCE_URLS[source] || '#';
+const numeric = (v: string) => {
+  const n = parseInt(String(v).replace(/[^0-9]/g, ''), 10);
+  return String(v).includes('%') ? `${n}%` : String(v).includes('B') ? `${n}B` : String(n);
+};
+---
+<section id="stats" class={cx('pt-10 pb-12 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-[#F7F6F3] sm:bg-white text-center relative overflow-hidden scroll-mt-nav', layout.sectionGutter)}>
+  <div class={cx(layout.contentShell, 'relative z-10')}>
+    <h2 class={cx(typography.displayLg, 'text-[var(--color-text-primary)] mb-8 sm:mb-12 lg:mb-16')}>
+      {content.heading || 'The research is clear.'} <br class="hidden lg:block" />
+      <span class="text-black/40">{content.subheading || 'The best brands already act on it.'}</span>
+    </h2>
+    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto z-10">
+      <DotBackground variant="ellipse" className="absolute -inset-y-20 left-1/2 -translate-x-1/2 w-screen h-[calc(100%+160px)] opacity-[0.45] pointer-events-none" />
+      {stats.map((stat: any, i: number) => (
+        <div
+          data-reveal
+          style={`--reveal-delay:${i * 0.1}s;--reveal-duration:0.4s;--reveal-y:15px`}
+          class="relative py-12 lg:py-16 px-6 lg:px-8 bg-white border border-black/[0.14] shadow-[0_2px_8px_rgba(0,0,0,0.06),_0_12px_32px_-8px_rgba(0,0,0,0.12)] rounded-3xl flex flex-col justify-between items-center transition-all duration-300 overflow-hidden group min-h-[320px] md:min-h-[360px] before:pointer-events-none before:absolute before:left-[10%] before:right-[10%] before:bottom-4 before:h-16 before:rounded-full before:bg-black/[0.05] before:blur-2xl before:transition-all before:duration-300 hover:-translate-y-1.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08),_0_20px_48px_-8px_rgba(0,0,0,0.16)] hover:before:bottom-2 hover:border-zinc-300 hover:shadow-[0_24px_50px_-12px_rgba(0,0,0,0.11)] before:shadow-[0_28px_40px_-24px_rgba(0,0,0,0.08)]"
+        >
+          <a href={sourceUrl(stat.source)} target="_blank" rel="noopener noreferrer" aria-label={`Open source article for ${stat.source}`} class="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 bg-white/95 text-zinc-400 opacity-0 shadow-[0_10px_24px_rgba(0,0,0,0.08)] transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 translate-y-1 hover:border-zinc-900 hover:bg-zinc-900 hover:text-white">
+            <ArrowRight size={16} className="transition-transform duration-300 group-hover:-rotate-45" />
+          </a>
+          <div class="font-mono text-[12px] sm:text-[12px] text-zinc-400 font-bold uppercase tracking-[0.25em] mb-4">0{i + 1}</div>
+          <span class="block text-[48px] sm:text-[56px] lg:text-[64px] font-mono font-black tracking-tight text-zinc-900 leading-none"><span data-count-up={stat.value}>{numeric(stat.value)}</span></span>
+          <p class="mt-4 text-[15px] sm:text-[16px] font-semibold text-zinc-500 leading-relaxed max-w-[260px] mx-auto mb-6 flex-grow">{stat.label}</p>
+          <div class="mt-auto pt-2">
+            <a href={sourceUrl(stat.source)} target="_blank" rel="noopener noreferrer" class="inline-block text-[12px] font-mono font-bold tracking-[0.16em] text-black/35 hover:text-black/80 hover:underline underline-offset-4 decoration-black/20 transition-all duration-200 uppercase">{stat.source}</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<script>
+  import '../lib/ui/count-up';
+</script>
