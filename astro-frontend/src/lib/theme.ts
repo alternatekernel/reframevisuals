@@ -8,7 +8,8 @@ const hexToRgb = (hex: string) => {
   return r ? `${parseInt(r[1], 16)}, ${parseInt(r[2], 16)}, ${parseInt(r[3], 16)}` : '233, 116, 81';
 };
 
-export function themeToCss(theme: ThemeSettings): string {
+// Inline style on <html> (like applyTheme's root.style.setProperty) so it beats the :root defaults in global.css.
+export function themeToInlineStyle(theme: ThemeSettings): string {
   const v: Array<[string, string]> = [
     ['--font-heading', `'${theme.fonts.heading}', sans-serif`],
     ['--font-body', `'${theme.fonts.body}', sans-serif`],
@@ -36,7 +37,7 @@ export function themeToCss(theme: ThemeSettings): string {
     ['--radius-lg', `${theme.radius.lg}px`],
     ['--radius-xl', `${theme.radius.xl}px`],
   ];
-  return `:root{${v.map(([k, val]) => `${k}:${val}`).join(';')}}`;
+  return v.map(([k, val]) => `${k}:${val}`).join(';');
 }
 
 const GOOGLE_FONTS = ['Google Sans', 'DM Sans', 'JetBrains Mono', 'Roboto', 'Open Sans', 'Lato', 'Poppins', 'Montserrat', 'Raleway', 'Oswald', 'Playfair Display', 'Merriweather', 'Source Sans Pro', 'Ubuntu', 'PT Sans', 'Crimson Text', 'Work Sans', 'Karla', 'Libre Baskerville'];
