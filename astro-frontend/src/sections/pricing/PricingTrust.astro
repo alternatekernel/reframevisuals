@@ -1,0 +1,32 @@
+---
+import { cx, layout, typography } from '../../utils/theme';
+
+const logos = [
+    { name: 'E-com Plus', src: '/logo.svg' },
+    { name: 'Visual Studio', src: '/logo.svg' },
+    { name: 'Frame.io', src: '/logo.svg' },
+    { name: 'Adobe', src: '/logo.svg' },
+    { name: 'Vercel', src: '/logo.svg' },
+  ];
+---
+<section class="py-24 bg-white border-y border-[#ebebeb]">
+      <div class={cx(layout.compactShell, "px-6 lg:px-12")}>
+        <div class="flex flex-col items-center" data-reveal>
+          <p class={cx(typography.vercelMono, "mb-12 text-center")}>
+            Trusted by innovative teams worldwide
+          </p>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 lg:gap-16 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+            {logos.map((logo, i) => (
+              <div class="flex justify-center">
+                <img 
+                  src={logo.src} 
+                  alt={`${logo.name} - trusted partner of Reframe Visuals`} 
+                  class="h-8 lg:h-10 w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>

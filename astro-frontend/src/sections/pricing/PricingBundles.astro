@@ -1,0 +1,40 @@
+---
+import React from 'react';
+import { cx, layout, typography } from '../../utils/theme';
+import BundleCard from '../../islands/wrapped/BundleCard';
+
+interface PricingBundlesProps {
+  bundles: any[];
+}
+
+const { bundles } = Astro.props;
+
+---
+<section class="relative px-6 lg:px-12 pt-16 pb-20 bg-white overflow-hidden">
+    {/* Background Watermark */}
+    <div class="absolute top-1/2 left-0 -translate-y-1/2 opacity-[0.02] pointer-events-none">
+      <img src="/logo.svg" alt="Reframe Pricing Bundles Backdrop" class="w-[500px] h-[500px] -translate-x-1/2" />
+    </div>
+
+    <div class={cx(layout.compactShell, "relative z-10")}>
+      {/* Section header */}
+      <div class="text-center max-w-4xl mx-auto mb-24" data-reveal>
+        <h2 class={cx(typography.vercelSection, typography.sectionTitleInk, "mb-8")}>
+          Pick your bundle. <br />
+          <span class="text-black/20">Start in seconds.</span>
+        </h2>
+        <p class="text-[18px] lg:text-[20px] text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mx-auto font-normal">
+          Transparent pricing for pre-configured workflows. 
+          Order instantly, ship faster, scale without friction.
+        </p>
+      </div>
+
+      {/* Cards */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch max-w-6xl mx-auto">
+        {bundles.map((b: any, i: number) => (
+          <BundleCard client:visible path={Astro.url.pathname} b={b} i={i} />
+        ))}
+      </div>
+
+      </div>
+    </section>

@@ -1,0 +1,69 @@
+---
+import AboutPhilosophy from '../sections/about/AboutPhilosophy.astro';
+import AboutExpertise from '../sections/about/AboutExpertise.astro';
+import AboutFAQ from '../sections/about/AboutFAQ.astro';
+import AboutCTA from '../islands/wrapped/AboutCTA';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  'name': 'About Reframe Visuals | E-commerce Photo Editing Studio',
+  'description': 'Reframe Visuals is an ecommerce photo editing studio. Human Photoshop editors handle background removal, ghost mannequin editing, jewelry retouching, and color correction with a manual QA pass on every image.',
+  'url': 'https://reframevisuals.com/about',
+  'mainEntity': {
+    '@type': 'Organization',
+    'name': 'Reframe Visuals',
+    'url': 'https://reframevisuals.com',
+    'logo': 'https://reframevisuals.com/logo.svg',
+    'image': 'https://reframevisuals.com/logo.svg',
+    'description': 'Ecommerce photo editing studio specializing in background removal, ghost mannequin editing, jewelry retouching, and product photography.',
+    'foundingDate': '2024',
+    'areaServed': ['Worldwide', 'United States', 'United Kingdom'],
+    'serviceType': 'Ecommerce photo editing and post-production',
+    'slogan': 'Product photo editing for ecommerce brands. Human editors, manual QA on every image.',
+    'knowsAbout': [
+      '3 free sample edits',
+      'dual-stage manual quality control',
+      'human Photoshop editors',
+      'AI-assisted image refinement',
+      'bulk product photo editing',
+      '12-hour express turnaround',
+      '24-hour standard turnaround'
+    ],
+    'makesOffer': [
+      {
+        '@type': 'Offer',
+        'name': '3 free sample edits for new customers',
+        'description': 'New customers can upload up to 3 product photos to evaluate Reframe Visuals quality before placing a paid order.',
+        'price': 0,
+        'priceCurrency': 'USD'
+      }
+    ],
+    'sameAs': [
+      'https://reframevisuals.com',
+      'https://www.linkedin.com/company/reframe-visuals/',
+      'https://www.instagram.com/reframevisualsstudio/',
+      'https://www.pinterest.com/reframevisuals/',
+      'https://www.behance.net/reframevisuals',
+      'https://x.com/ReframeVisual',
+      'https://www.trustpilot.com/review/reframevisuals.com',
+      'https://www.tiktok.com/@reframe_visuals'
+    ],
+    'contactPoint': [{
+      '@type': 'ContactPoint',
+      'contactType': 'sales',
+      'url': 'https://reframevisuals.com/contact'
+    }]
+  },
+  'dateModified': new Date().toISOString()
+};
+---
+<div class="min-h-screen bg-white">
+      <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
+      
+      <h1 class="sr-only">About Reframe Visuals | Ecommerce Photo Editing Studio</h1>
+      <AboutPhilosophy />
+      <AboutExpertise />
+      <AboutFAQ />
+      <AboutCTA client:visible path={Astro.url.pathname} />
+    </div>

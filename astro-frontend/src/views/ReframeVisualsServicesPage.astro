@@ -1,0 +1,35 @@
+---
+import { SERVICES } from '../data/services';
+import { Button } from '../components/ui/button';
+
+
+import { buttonVariants } from '../components/ui/button';
+import { cx } from '../utils/theme';
+---
+<div class="min-h-screen bg-white">
+      
+
+      <section class="max-w-5xl mx-auto px-6 lg:px-10 py-16 lg:py-24">
+        <p class="text-xs font-black tracking-[0.2em] uppercase text-black/40 mb-3">Service overview</p>
+        <h1 class="font-heading text-4xl lg:text-5xl font-semibold tracking-tight text-black mb-6">Reframe Visuals Services</h1>
+        <p class="text-lg text-black/70 leading-relaxed mb-10 max-w-3xl">
+          We provide end-to-end product image post-production for e-commerce teams with fast turnaround,
+          consistent output, and quality-control-first delivery. Explore our complete range of capabilities below.
+        </p>
+
+        <ul class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 text-black/80">
+          {SERVICES.map((service) => (
+            <li class="rounded-2xl border border-black/[0.18] px-5 py-4 hover:border-black/20 hover:shadow-sm transition-all flex flex-col">
+              <span class="font-bold text-[15px] mb-1">{service.name}</span>
+              <span class="text-[14px] text-black/60 line-clamp-2">{service.description || "Professional image editing and processing."}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="flex flex-wrap gap-4">
+          <a href="/services" class={cx(buttonVariants({ variant: "default" }))}>View Full Services</a>
+          <a href="/pricing" class={cx(buttonVariants({ variant: "secondary" }))}>Pricing Plans</a>
+          <a href="/book-meeting" class={cx(buttonVariants({ variant: "secondary" }))}>Book a Meeting</a>
+        </div>
+      </section>
+    </div>

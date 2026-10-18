@@ -1,6 +1,6 @@
 ---
 import PublicPageLayout from '../../../layouts/PublicPageLayout.astro';
-import ServiceIntentPage from '../../../islands/views/ServiceIntentPage';
+import ServiceIntentPage from '../../../views/ServiceIntentPage.astro';
 import { SERVICES } from '../../../data/services';
 import { isExcludedService } from '../../../context/ServicesContext';
 import { resolvePageSeo } from '../../../data/seoMeta';
@@ -14,5 +14,5 @@ const path = `/services/${serviceId}/${intent}`;
 const seo = resolvePageSeo(path);
 ---
 <PublicPageLayout title={seo.title} description={seo.description}>
-  <ServiceIntentPage client:load path={path} params={{ serviceId, intent }} />
+  <ServiceIntentPage />
 </PublicPageLayout>

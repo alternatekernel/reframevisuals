@@ -1,0 +1,58 @@
+---
+import React from 'react';
+import { cx, layout, typography } from '../../utils/theme';
+
+interface ServicesHeroProps {
+  content: any;
+}
+
+const { content } = Astro.props;
+
+---
+<section class="px-6 lg:px-12 py-16 bg-white relative overflow-hidden border-b border-black/[0.12]">
+      {/* Background Watermark */}
+      <div class="absolute top-1/2 left-0 -translate-y-1/2 opacity-[0.02] pointer-events-none">
+        <img src="/logo.svg" alt="Reframe Services Background Icon" class="w-[500px] h-[500px] -translate-x-1/2" />
+      </div>
+
+      <div class={cx(layout.compactShell, "relative z-10")}>
+        <div class="text-center max-w-4xl mx-auto mb-8" data-reveal>
+          {/* Heading - Like AboutPhilosophy */}
+          <h1 class={cx(typography.vercelSection, typography.sectionTitleInk, "mb-8")}>
+            {content.heading || 'Every editing service'}<br />
+            <span class="text-black/40">{content.subheading || 'reviewed by hand.'}</span>
+          </h1>
+
+          {/* Description - Like AboutPhilosophy */}
+          <p class={cx('text-[18px] leading-relaxed max-w-2xl mx-auto font-normal', typography.sectionSubtitleMuted)}>
+            {content.description || 'Background removal, clipping paths, ghost mannequin, retouching, and color correction for ecommerce brands at any volume.'}
+          </p>
+        </div>
+        
+        {/* Turnaround selector — pill tabs matching platform design */}
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          {[
+            { time: '12h', label: 'Express' },
+            { time: '24h', label: 'Standard' },
+            { time: '48h', label: 'Relaxed' },
+            { time: '72h', label: 'Economy' },
+          ].map(({ time, label }) => (
+            <div
+              class={`inline-flex items-center gap-2 rounded-full border px-4 py-2 ${
+                label === 'Standard'
+                  ? 'border-[var(--color-text-primary)] bg-[var(--color-text-primary)] text-white'
+                  : 'border-black/[0.18] bg-white text-[var(--color-text-primary)]'
+              }`}
+            >
+              <span class="text-[14px] font-bold">{time}</span>
+              <span class={`text-[12px] font-medium ${label === 'Standard' ? 'text-white/65' : 'text-black/45'}`}>
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p class="text-center text-[12px] text-black/38 mt-3">
+          Prices shown are for 24h Standard turnaround, Simple tier
+        </p>
+      </div>
+    </section>

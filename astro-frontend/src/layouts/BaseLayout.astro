@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/reveal.css';
 export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindex?: boolean; noindexOverride?: boolean }
 const { title, description, canonical = new URL(Astro.url.pathname, Astro.site).href, ogImage, jsonLd, noindex: noindexProp, noindexOverride } = Astro.props;
 const noindex = noindexOverride || (noindexProp ?? import.meta.env.PUBLIC_NOINDEX !== 'false');
@@ -23,4 +24,6 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   </head>
   <body><slot /></body>
   <script>import '../lib/lenis';</script>
+  <script>import '../lib/reveal';</script>
+  <noscript><style>[data-reveal]{opacity:1 !important;transform:none !important}</style></noscript>
 </html>

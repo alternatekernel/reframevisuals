@@ -1,0 +1,19 @@
+---
+import { layout, cx } from '../utils/theme';
+---
+<section class="bg-white">
+      {/* Thin brand black line */}
+      <div class="w-full h-[1px] bg-[#0A0A0B]/10" />
+      
+      <div class={cx("pt-12 lg:pt-20 pb-0", layout.sectionGutter)}>
+        <div class={cx(layout.contentShell, "flex justify-center items-center")}>
+          <div class="w-full max-w-7xl" data-reveal>
+            <img 
+              src="/above-footer.svg" 
+              alt="Reframe Visuals - ecommerce photo editing services branding artwork" 
+              class="w-full h-auto object-contain select-none"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
