@@ -13,7 +13,12 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [react(), sitemap()],
   vite: {
-    resolve: { alias: { 'react-router-dom': fileURLToPath(new URL('./src/shims/react-router-dom.tsx', import.meta.url)) } },
+    resolve: {
+      alias: {
+        'react-router-dom': fileURLToPath(new URL('./src/shims/react-router-dom.tsx', import.meta.url)),
+        'react-helmet-async': fileURLToPath(new URL('./src/shims/react-helmet-async.tsx', import.meta.url)),
+      },
+    },
     envPrefix: ['VITE_', 'PUBLIC_'],
     ssr: { noExternal: ['framer-motion', 'lucide-react', 'hugeicons-react'] },
   },

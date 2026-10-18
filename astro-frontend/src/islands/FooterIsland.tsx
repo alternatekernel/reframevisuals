@@ -1,10 +1,4 @@
-import React from 'react';
 import Footer from '../components/Footer';
-import { setSsrPath } from '../shims/react-router-dom';
-import { withProviders } from './Providers';
+import { routed } from './routed';
 
-const FooterIsland: React.FC<{ currentPath: string }> = ({ currentPath }) => {
-  setSsrPath(currentPath);
-  return <Footer />;
-};
-export default withProviders(FooterIsland);
+export default routed(Footer);

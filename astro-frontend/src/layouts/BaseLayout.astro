@@ -1,7 +1,8 @@
 ---
 import '../styles/global.css';
-export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindex?: boolean }
-const { title, description, canonical = new URL(Astro.url.pathname, Astro.site).href, ogImage, jsonLd, noindex = import.meta.env.PUBLIC_NOINDEX !== 'false' } = Astro.props;
+export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindex?: boolean; noindexOverride?: boolean }
+const { title, description, canonical = new URL(Astro.url.pathname, Astro.site).href, ogImage, jsonLd, noindex: noindexProp, noindexOverride } = Astro.props;
+const noindex = noindexOverride || (noindexProp ?? import.meta.env.PUBLIC_NOINDEX !== 'false');
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 <!doctype html>

@@ -1,0 +1,37 @@
+---
+import PublicPageLayout from '../layouts/PublicPageLayout.astro';
+import { STATIC_ROUTES } from '../data/staticRoutes';
+import { resolvePageSeo } from '../data/seoMeta';
+import AboutPage from '../islands/views/AboutPage';
+import AboutReframeVisualsPage from '../islands/views/AboutReframeVisualsPage';
+import ReframeVisualsServicesPage from '../islands/views/ReframeVisualsServicesPage';
+import HowItWorksPage from '../islands/views/HowItWorksPage';
+import PlatformPage from '../islands/views/PlatformPage';
+import PolicyPage from '../islands/views/PolicyPage';
+import CaseStudiesHubPage from '../islands/views/CaseStudiesHubPage';
+import ResourcesPage from '../islands/views/ResourcesPage';
+import ComparisonPage from '../islands/views/ComparisonPage';
+import CaseStudyDetailPage from '../islands/views/CaseStudyDetailPage';
+import InsightAndTrustPage from '../islands/views/InsightAndTrustPage';
+import ExpansionPage from '../islands/views/ExpansionPage';
+
+export function getStaticPaths() {
+  return STATIC_ROUTES.map((r) => ({ params: { slug: r.path.slice(1) }, props: r }));
+}
+const { path, view, noindex } = Astro.props;
+const seo = resolvePageSeo(path);
+---
+<PublicPageLayout title={seo.title} description={seo.description} noindexOverride={noindex}>
+  {view === 'AboutPage' && <AboutPage client:load path={path} />}
+  {view === 'AboutReframeVisualsPage' && <AboutReframeVisualsPage client:load path={path} />}
+  {view === 'ReframeVisualsServicesPage' && <ReframeVisualsServicesPage client:load path={path} />}
+  {view === 'HowItWorksPage' && <HowItWorksPage client:load path={path} />}
+  {view === 'PlatformPage' && <PlatformPage client:load path={path} />}
+  {view === 'PolicyPage' && <PolicyPage client:load path={path} />}
+  {view === 'CaseStudiesHubPage' && <CaseStudiesHubPage client:load path={path} />}
+  {view === 'ResourcesPage' && <ResourcesPage client:load path={path} />}
+  {view === 'ComparisonPage' && <ComparisonPage client:load path={path} />}
+  {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage client:load path={path} />}
+  {view === 'InsightAndTrustPage' && <InsightAndTrustPage client:load path={path} />}
+  {view === 'ExpansionPage' && <ExpansionPage client:load path={path} />}
+</PublicPageLayout>

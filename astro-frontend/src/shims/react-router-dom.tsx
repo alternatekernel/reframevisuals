@@ -1,7 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
-let ssrPath = '/';
-export const setSsrPath = (p: string) => { ssrPath = p; };
+type RouteState = { pathname: string; params: Record<string, string | undefined> };
+const RouteCtx = createContext<RouteState | null>(null);
+export const RouteProvider: React.FC<RouteState & { children: React.ReactNode }> = ({ pathname, params, children }) => (
+  <RouteCtx.Provider value={useMemo(() => ({ pathname, params }), [pathname, params])}>{children}</RouteCtx.Provider>
+);
+export const useParams = <T extends Record<string, string | undefined> = Record<string, string | undefined>>() => (useContext(RouteCtx)?.params ?? {}) as T;
 
 type To = string | { pathname?: string; search?: string; hash?: string };
 const toHref = (to: To) => (typeof to === 'string' ? to : `${to.pathname ?? ''}${to.search ?? ''}${to.hash ?? ''}`);
@@ -24,7 +28,8 @@ export const useNavigate = () =>
   );
 
 export const useLocation = () => {
-  const [loc, setLoc] = useState({ pathname: typeof window !== 'undefined' ? window.location.pathname : ssrPath, search: typeof window !== 'undefined' ? window.location.search : '', hash: typeof window !== 'undefined' ? window.location.hash : '', state: null as unknown, key: 'default' });
+  const ctx = useContext(RouteCtx);
+  const [loc, setLoc] = useState({ pathname: ctx?.pathname ?? (typeof window !== 'undefined' ? window.location.pathname : '/'), search: typeof window !== 'undefined' ? window.location.search : '', hash: typeof window !== 'undefined' ? window.location.hash : '', state: null as unknown, key: 'default' });
   useEffect(() => {
     const sync = () => setLoc((l) => ({ ...l, pathname: window.location.pathname, search: window.location.search, hash: window.location.hash }));
     sync();

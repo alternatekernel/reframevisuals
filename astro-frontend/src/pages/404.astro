@@ -1,0 +1,7 @@
+---
+import PublicPageLayout from '../layouts/PublicPageLayout.astro';
+import NotFoundPage from '../islands/views/NotFoundPage';
+---
+<PublicPageLayout title="Page not found | Reframe Visuals" description="The page you are looking for could not be found." noindexOverride={true}>
+  <NotFoundPage client:load path={Astro.url.pathname} />
+</PublicPageLayout>
