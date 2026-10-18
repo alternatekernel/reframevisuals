@@ -1,0 +1,15 @@
+---
+export interface Props { class?: string; showText?: boolean; light?: boolean }
+const { class: cls = '', showText = true, light = false } = Astro.props;
+---
+<a href="/" data-logo-home class={`flex items-center gap-2 group transition-opacity hover:opacity-90 ${cls}`} aria-label="Reframe Visuals Home">
+  <div class="relative w-8 h-8 flex items-center justify-center overflow-hidden rounded-sm">
+    <img src="/logo.svg" alt="Reframe Visuals Logo" class={`w-full h-full object-contain ${light ? 'brightness-0 invert' : ''}`} />
+  </div>
+  {showText && (
+    <div class="flex flex-col">
+      <span class="text-[16px] font-bold tracking-tight leading-none" style={{ fontFamily: 'var(--font-heading)', color: light ? '#FFFFFF' : '#171717' }}>REFRAME</span>
+      <span class="text-[12px] font-medium tracking-[0.2em] leading-none overflow-hidden transition-all duration-300 max-h-0 opacity-0 group-hover:max-h-4 group-hover:opacity-50 group-hover:mt-1" style={{ fontFamily: 'var(--font-heading)', color: light ? '#FFFFFF' : '#171717' }}>VISUALS</span>
+    </div>
+  )}
+</a>

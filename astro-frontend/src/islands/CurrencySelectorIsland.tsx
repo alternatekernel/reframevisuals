@@ -1,4 +1,14 @@
+import React from 'react';
 import FloatingCurrencySelector from '../components/FloatingCurrencySelector';
-import { routed } from './routed';
+import { CurrencyProvider } from '../context/CurrencyContext';
+import { RouteProvider } from '../shims/react-router-dom';
 
-export default routed(FloatingCurrencySelector);
+// Only needs the currency context (not the full provider stack).
+const CurrencySelectorIsland: React.FC<{ path?: string }> = ({ path = '/pricing' }) => (
+  <RouteProvider pathname={path} params={{}}>
+    <CurrencyProvider>
+      <FloatingCurrencySelector />
+    </CurrencyProvider>
+  </RouteProvider>
+);
+export default CurrencySelectorIsland;

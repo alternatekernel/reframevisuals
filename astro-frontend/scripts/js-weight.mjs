@@ -23,13 +23,14 @@ for (const route of routes) {
   const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
   await ctx.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
   const p = await ctx.newPage();
-  let bytes = 0, files = 0;
-  p.on('response', async (res) => { if (res.url().endsWith('.js')) { try { bytes += (await res.body()).length; files++; } catch {} } });
+  let bytes = 0, files = 0; const list = [];
+  p.on('response', async (res) => { if (res.url().endsWith('.js')) { try { const n = (await res.body()).length; bytes += n; files++; list.push([n, res.url().split('/').pop()]); } catch {} } });
   await p.goto(`http://localhost:4430${route}`, { waitUntil: 'networkidle' });
   // scroll so client:visible islands load too
   for (let y = 0; y < 20000; y += 700) { await p.evaluate((yy) => window.scrollTo(0, yy), y); await p.waitForTimeout(60); }
   await p.waitForTimeout(800);
   console.log(route.padEnd(34), `${(bytes / 1024).toFixed(0).padStart(6)} KB JS in ${String(files).padStart(2)} files`);
+  if (process.env.TOP) list.sort((a, b) => b[0] - a[0]).slice(0, Number(process.env.TOP)).forEach(([n, u]) => console.log('   ', String(Math.round(n / 1024)).padStart(5), 'KB', u));
   total += bytes;
   await ctx.close();
 }

@@ -1,0 +1,251 @@
+---
+import { ChevronDown, ChevronRight, ArrowRight, Mail, UserCircle, LogOut, Settings, Menu, X } from 'lucide-react';
+import { ORDERED_SERVICES } from '../data/services';
+import { isExcludedService } from '../context/ServicesContext';
+import { cx } from '../utils/theme';
+import { buttonVariants } from './ui/button';
+import LogoLink from './astro/LogoLink.astro';
+
+const NAV_ITEMS = [
+  { label: 'Services', path: '/services', hasDropdown: true },
+  { label: 'Pricing', path: '/pricing' },
+  { label: 'Portfolio', path: '/portfolio' },
+  { label: 'About', path: '/about' },
+  { label: 'Blog', path: '/blog' },
+  { label: 'Contact', path: '/contact' },
+];
+
+const pathname = Astro.url.pathname;
+const isActive = (path: string) => pathname === path;
+const services = ORDERED_SERVICES.filter((s: any) => !isExcludedService(s));
+const showMega = pathname !== '/services';
+---
+<nav
+  id="site-nav"
+  data-nav
+  class="fixed top-0 left-0 right-0 z-[200] bg-white/[0.92] backdrop-blur-xl backdrop-saturate-150 py-1 lg:py-2 transition-[transform,opacity] duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-[hidden=true]:-translate-y-16 data-[hidden=true]:opacity-0"
+  role="navigation"
+  aria-label="Main navigation"
+>
+  <div class="relative w-full px-5 sm:px-6 lg:px-10 xl:px-12 h-[64px] flex items-center justify-between">
+    <div class="relative z-10 h-[64px] flex items-center">
+      <LogoLink />
+    </div>
+
+    <div class="hidden lg:flex items-center h-[52px] gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -mt-1">
+      {NAV_ITEMS.map((item) => (
+        <div class="relative">
+          {item.hasDropdown ? (
+            <div class="relative h-full" data-services-trigger>
+              <a
+                href={item.path}
+                class={cx(
+                  'flex items-center gap-1 h-full text-[16px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded',
+                  isActive(item.path) ? 'text-text-primary' : 'text-black/60 hover:text-black'
+                )}
+              >
+                {item.label}
+                <ChevronDown size={14} aria-hidden="true" className="transition-transform duration-200" data-services-chevron />
+              </a>
+            </div>
+          ) : (
+            <a
+              href={item.path}
+              class={cx(
+                'h-full flex items-center text-[16px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded',
+                isActive(item.path) ? 'text-text-primary' : 'text-black/60 hover:text-black'
+              )}
+              aria-current={isActive(item.path) ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          )}
+        </div>
+      ))}
+      {showMega && <div data-services-backdrop class="fixed inset-0 -z-10 hidden" />}
+    </div>
+
+    {showMega && (
+      <div
+        id="services-menu"
+        data-services-menu
+        class="fixed left-1/2 top-[56px] pt-2 z-[250] -translate-x-1/2 opacity-0 pointer-events-none translate-y-2 scale-[0.98] transition-[opacity,transform] duration-200 ease-out data-[open=true]:opacity-100 data-[open=true]:pointer-events-auto data-[open=true]:translate-y-0 data-[open=true]:scale-100"
+        role="menu"
+        aria-label="Services menu"
+      >
+        <div class="bg-white rounded-[20px] p-5 grid grid-cols-3 gap-x-6 gap-y-0.5 w-[960px] max-w-[95vw] border border-black/[0.18] shadow-[0_24px_80px_-15px_rgba(0,0,0,0.12)]">
+          {services.map((svc: any) => {
+            const Icon = svc.icon;
+            return (
+              <a href={`/services/${svc.id}`} data-menu-link class="group flex items-center gap-3 py-2 px-3 hover:bg-[#F8F9FA] rounded-xl transition-colors" role="menuitem" tabindex="-1">
+                {Icon && (
+                  <div class="flex shrink-0 items-center justify-center text-black/60 transition-all group-hover:text-black group-hover:scale-110">
+                    <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                )}
+                <span class="text-[15px] font-semibold text-black/80 transition-colors group-hover:text-black">{svc.name}</span>
+              </a>
+            );
+          })}
+          <div class="col-span-3 border-t border-black/[0.12] mt-3 pt-3">
+            <a href="/services" data-menu-link class="group flex items-center justify-between py-2 px-3 text-[15px] font-bold text-black/80 hover:text-black hover:bg-[#F8F9FA] rounded-xl transition-all" role="menuitem" tabindex="-1">
+              Explore all services
+              <span class="flex h-6 w-6 items-center justify-center rounded-full bg-black/5 transition-all group-hover:bg-black group-hover:text-white">
+                <ArrowRight size={12} aria-hidden="true" className="transition-transform duration-300 group-hover:-rotate-45" />
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    )}
+
+    <div class="relative z-10 flex items-center gap-2.5 pr-0 sm:gap-3 sm:pr-2">
+      <div class="relative" data-contact-root>
+        <button
+          type="button"
+          data-contact-toggle
+          class="hidden sm:flex items-center justify-center h-10 w-10 shrink-0 rounded-full border border-black/15 hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation"
+          title="Contact us"
+          aria-label="Contact us"
+        >
+          <Mail size={16} style={{ color: '#171717' }} aria-hidden="true" />
+        </button>
+
+        <div data-contact-popover class="hidden absolute right-0 mt-3 w-72 bg-white/90 backdrop-blur-xl border border-black/[0.12] rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-[300]">
+          <div data-contact-form class="space-y-4">
+            <div class="space-y-1">
+              <h3 class="text-14 font-bold text-text-primary">Quick Contact</h3>
+              <p class="text-12 text-text-secondary font-medium leading-relaxed">Leave your email and we'll reach out, or contact us directly.</p>
+            </div>
+            <div class="space-y-3">
+              <div class="space-y-2">
+                <div class="relative">
+                  <input
+                    type="email"
+                    data-contact-email
+                    placeholder="Your email address"
+                    class="w-full min-h-11 px-3 bg-white/50 border border-black/[0.18] rounded-xl text-12 font-medium text-text-primary outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-text-placeholder focus:border-black/35 focus:bg-white focus:ring-1 focus:ring-black/5 disabled:opacity-50"
+                  />
+                </div>
+                <p class="text-12 text-text-faint px-1 italic">* No spam or annoying sales messages, guaranteed.</p>
+                <p data-contact-error class="hidden text-12 font-semibold text-semantic-error px-1"></p>
+              </div>
+              <button
+                type="button"
+                data-contact-submit
+                class="w-full min-h-11 bg-brand-hover text-white text-12 font-bold rounded-xl hover:bg-black transition-all flex items-center justify-center disabled:bg-text-secondary touch-manipulation"
+              >
+                <span data-contact-submit-label>Contact Me</span>
+                <div data-contact-spinner class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              </button>
+              <div class="relative py-1">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-black/[0.12]"></div></div>
+                <div class="relative flex justify-center text-12 uppercase tracking-wider font-bold text-text-faint"><span class="bg-white/0 px-2 backdrop-blur-xl">or</span></div>
+              </div>
+              <a href="mailto:hello@reframevisuals.com" class="flex items-center justify-center gap-2 w-full min-h-11 border border-black/[0.18] rounded-xl text-12 font-bold text-text-primary hover:bg-black/5 transition-all touch-manipulation">
+                <Mail size={14} />
+                Email hello@reframevisuals.com
+              </a>
+            </div>
+          </div>
+          <div data-contact-done class="hidden py-6 flex-col items-center justify-center text-center space-y-3">
+            <div class="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center"><ArrowRight size={20} className="text-text-primary" /></div>
+            <div class="space-y-1">
+              <h3 class="text-14 font-bold text-text-primary">Message Received</h3>
+              <p class="text-12 text-text-secondary font-medium">We'll reach out within 5 minutes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="/login" data-guest-only aria-label="Sign in" class={cx(buttonVariants({ variant: 'default', size: 'h10' }), 'hidden sm:flex touch-manipulation font-semibold')}>Sign In</a>
+
+      <div data-user-only data-profile-root class="relative hidden sm:block">
+        <button type="button" data-profile-toggle class="flex h-10 w-10 items-center justify-center rounded-full overflow-hidden bg-brand-hover text-white transition-colors hover:bg-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation" aria-label="Open customer profile" aria-expanded="false">
+          <img data-user-avatar-btn src="" alt="Profile" class="hidden h-full w-full object-cover" />
+          <span data-user-icon-btn><UserCircle size={20} /></span>
+        </button>
+        <div data-profile-menu class="hidden absolute right-0 top-12 z-[260] w-72 rounded-2xl border border-black/[0.18] bg-white p-3 text-left shadow-2xl">
+          <div class="border-b border-black/[0.12] pb-3 flex items-center gap-3">
+            <img data-user-avatar src="" alt="" class="hidden h-10 w-10 rounded-full object-cover shrink-0" />
+            <div data-user-initial class="h-10 w-10 rounded-full bg-brand-hover text-white flex items-center justify-center font-bold text-14 shrink-0">C</div>
+            <div class="min-w-0 flex-grow">
+              <div data-user-name class="text-14 font-bold text-text-primary truncate">Customer</div>
+              <div data-user-email class="mt-0.5 truncate text-12 text-text-secondary"></div>
+              <div data-user-code class="hidden mt-1 inline-flex rounded-full bg-black/[0.05] px-2 py-0.5 text-12 font-bold text-text-subtle"></div>
+            </div>
+          </div>
+          <a href="/dashboard" class="mt-2 flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-14 font-semibold text-text-primary hover:bg-black/[0.04] touch-manipulation"><Settings size={14} /> Profile / dashboard</a>
+          <button type="button" data-signout class="flex min-h-11 w-full items-center gap-2 rounded-xl px-3 py-2 text-14 font-semibold text-semantic-error hover:bg-semantic-error-light touch-manipulation"><LogOut size={14} /> Sign out</button>
+        </div>
+      </div>
+
+      <button type="button" data-mobile-open class="lg:hidden min-h-12 min-w-12 -mr-3 p-2 flex items-center justify-center text-text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded touch-manipulation" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <Menu size={24} aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div data-mobile-backdrop class="fixed inset-0 z-[290] bg-black/40 backdrop-blur-sm lg:hidden opacity-0 pointer-events-none transition-opacity duration-200 data-[open=true]:opacity-100 data-[open=true]:pointer-events-auto"></div>
+<div
+  id="mobile-menu"
+  data-mobile-menu
+  class="fixed top-0 left-0 bottom-0 w-full max-w-[400px] z-[300] bg-white lg:hidden flex flex-col shadow-2xl rounded-r-[28px] overflow-hidden -translate-x-full invisible transition-[transform,visibility] duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] data-[open=true]:translate-x-0 data-[open=true]:visible"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation menu"
+>
+  <div class="flex items-center justify-between p-5 border-b border-black/[0.14]">
+    <LogoLink />
+    <button type="button" data-mobile-close class="min-h-12 min-w-12 p-2 flex items-center justify-center rounded-full border border-black/[0.18] text-text-primary hover:bg-black/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-manipulation" aria-label="Close menu">
+      <X size={20} aria-hidden="true" />
+    </button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between" role="menu">
+    <div class="flex flex-col space-y-1.5">
+      {NAV_ITEMS.map((item) => (
+        <a
+          href={item.path}
+          class={cx(
+            'group flex items-center justify-between px-3 py-3 text-[16px] font-semibold focus-visible:outline-none transition-all touch-manipulation',
+            isActive(item.path) ? 'bg-[var(--brand)]/10 text-[var(--brand)] rounded-full' : 'text-black/70 hover:text-black border-b border-black/[0.14] rounded-none'
+          )}
+          role="menuitem"
+        >
+          <span>{item.label}</span>
+          <ChevronRight size={16} className={cx('transition-all duration-300 text-black/35 group-hover:text-black group-hover:translate-x-0.5', isActive(item.path) ? 'text-[var(--brand)] translate-x-0.5' : '')} />
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-black/[0.14] space-y-3">
+      <div data-guest-only class="space-y-3">
+        <a href="/login" class="flex min-h-12 items-center justify-center text-15 font-bold rounded-full border border-black/[0.18] text-text-primary hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation" role="menuitem">Sign In</a>
+        <a href="/signup" class="flex min-h-12 w-full items-center justify-center text-15 font-bold rounded-full bg-brand-hover text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation" role="menuitem">Sign Up</a>
+      </div>
+      <div data-user-only class="rounded-2xl border border-black/[0.18] bg-black/[0.04] p-4 text-left">
+        <div class="flex items-center gap-3 border-b border-black/[0.12] pb-3">
+          <img data-user-avatar src="" alt="" class="hidden h-10 w-10 rounded-full object-cover shrink-0" />
+          <div data-user-initial class="h-10 w-10 rounded-full bg-brand-hover text-white flex items-center justify-center font-bold text-14 shrink-0">C</div>
+          <div class="min-w-0 flex-grow">
+            <div data-user-name class="text-14 font-bold text-text-primary truncate">Customer</div>
+            <div data-user-email class="mt-0.5 truncate text-12 text-text-secondary"></div>
+            <div data-user-code class="hidden mt-1 inline-flex rounded-full bg-black/[0.06] px-2 py-0.5 text-12 font-bold text-text-subtle"></div>
+          </div>
+        </div>
+        <a href="/dashboard" class="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-black/[0.18] bg-white py-3 text-14 font-semibold text-text-primary hover:bg-black/[0.04] active:scale-[0.98] transition-all touch-manipulation" role="menuitem"><Settings size={15} /> Profile / dashboard</a>
+        <button type="button" data-signout class="mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-hover py-3 text-14 font-semibold text-white hover:bg-black active:scale-[0.98] transition-all touch-manipulation" role="menuitem"><LogOut size={15} /> Sign out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  html[data-authed] [data-guest-only] { display: none !important; }
+  html:not([data-authed]) [data-user-only] { display: none !important; }
+</style>
+
+<script>
+  import '../lib/nav';
+</script>

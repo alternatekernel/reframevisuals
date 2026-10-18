@@ -40,3 +40,24 @@ Root Directory `astro-frontend`; env vars: `PUBLIC_SITE_URL` (test domain, https
 - Setup order: `CREATE SCHEMA IF NOT EXISTS emdash;` in Supabase, set the env vars in Vercel, `npx tsx scripts/build-emdash-seed.ts`, `node scripts/export-prod-content.mjs --pages slug1,slug2` (needs production API access), then `npx emdash seed seed/emdash.json` against the same env, then open `/_emdash/admin` to create the first user (passkey sign-in).
 - Gotchas found: EmDash admin sign-in needs a session driver and Vercel has none, so Redis is required; the EmDash admin CSS is Tailwind 4, so `astro.config.mjs` runs our Tailwind 3 chain on everything except `@emdash-cms`; files importing `emdash` are generated per mode (`emdash/*.template`, git-ignored outputs) because its virtual modules only exist when the integration is on.
 - Not verified: a real Supabase connection, migrations, admin login, and the seed run (no credentials or network here). Site sections (`/api/sections` into `site_sections`) are modelled in the seed but not wired into the pages yet; the old admin stays the source for them until then.
+
+## Pure Astro conversion (progress)
+**Method**: `scripts/codemod-astro.mjs` converts stateless React sections/views to `.astro` (Framer entrance props become `data-reveal` + `src/styles/reveal.css` + `src/lib/reveal.ts`; `<Button asChild>` links become `<a class={buttonVariants(..)}>`; routing hooks become `Astro.url`/`Astro.params`). `scripts/fix-astro-imports.mjs` wires imports and wraps still-interactive children as provider islands. Files with state/handlers are skipped and stay React.
+
+**Converted to `.astro` (about 40 files)**: About, AboutReframeVisuals, ReframeVisualsServices, Platform, Policy, CaseStudiesHub, Comparison, Expansion, Resources, Portfolio, Testimonials, ServiceIntent, ServiceComparison, NotFound + their sections (about/*, portfolio/*, pricing Trust/Policies/Bundles, services CTA/Hero/Scope/..., Integrations, PreFooter, TargetAudienceProof, ...).
+**Shell now server-rendered, no React**: Navigation (`Navigation.astro` + `src/lib/nav.ts`), Footer (`Footer.astro`), ContinueBrowsing, cookie banner (`CookieBanner.astro` + `src/lib/cookie-banner.ts`), logo/social icons, reveal animations, smooth scroll. Chat widget hydrates lazily via the custom `client:interaction` directive (first pointer/focus/keyboard on it, the `reframe-cs:open` event, or after 15s). Currency selector only loads on `/pricing`.
+**Result**: `/privacy` ships 41 KB of JS and no React (was about 985 KB); pages that are still React views (forms, pricing, services lists, home, blog post) still load React for their own islands.
+
+**Tools**: `capture.mjs` + `diff-shots.mjs` (pixel diff vs a local build of the original `frontend/`; tall pages are captured in chunks because Chromium cannot rasterize more than 16384px), `geom-diff.mjs` (element geometry), `js-weight.mjs`, `nav-test.mjs` (18 interaction checks), `check-meta.mjs`, `check-live.mjs`.
+
+**Deliberate behavior differences (please review)**
+1. Contact popover validation/network errors show an inline message instead of the React modal (`showAlert`).
+2. Footer CTA and nav detect login from `localStorage` (`portal_token`, `reframe-current-user`) and confirm with `GET /portal/auth/me` like the React provider; the very first paint is always the signed-out state.
+3. Footer mobile link groups use native `<details name>` (exclusive accordion) instead of React state.
+4. Entrance animations use CSS transitions (0.5s ease-out) instead of Framer springs/easing; end states are identical.
+5. Chat widget bar is server-rendered but inert until first interaction (about one extra tap latency the first time).
+6. Boot loader remains off by default.
+
+**Found in the original (not touched)**: `frontend/index.html` has an unclosed `<a>` skip link, so the plain SPA shell nests the whole app in a 1px clipped anchor (production avoids it by serving prerendered HTML). Worth fixing there separately.
+
+**Still React (needs per-component work)**: home page sections (Hero, Services, Pricing, Testimonials, Workflow, ImageGrid, InstantDropZone, Stats, Faq...), Pricing page table/FAQ/CTA, services list/detail, forms (FreeTrial, Start, QuoteBuilder, PilotBatch, BookMeeting, Contact), blog listing/post/topic/series, AI product visuals, HowItWorks, InsightAndTrust, CaseStudyDetail. Content for CMS-driven sections still comes from the React ContentProvider defaults (EmDash sections wiring not done).

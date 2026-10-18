@@ -1,0 +1,32 @@
+---
+const pathname = Astro.url.pathname;
+
+
+  const links = [
+    { label: 'Services', to: '/services' },
+    { label: 'Pricing', to: '/pricing' },
+    { label: 'About', to: '/about' },
+    { label: 'Portfolio', to: '/portfolio' },
+    { label: 'Blog', to: '/blog' },
+  ];
+
+  const isActiveLink = (to: string) => {
+    if (to === '/blog') return pathname === '/blog' || pathname.startsWith('/blog/');
+    return pathname === to || pathname.startsWith(`${to}/`);
+  };
+
+  const visibleLinks = links.filter((link) => !isActiveLink(link.to)).slice(0, 4);
+---
+<section class="max-w-[1200px] mx-auto px-6 lg:px-10 pb-16">
+      <h2 class="text-[20px] font-semibold text-black mb-4">Explore Next</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {visibleLinks.map((link, index) => (
+          <a
+            href={link.to}
+            class="block rounded-lg px-4 py-3 text-sm font-medium text-black/85 transition-all duration-300 border border-black/[0.18] hover:border-black/20 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </section>

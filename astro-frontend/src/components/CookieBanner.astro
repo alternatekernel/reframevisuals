@@ -1,0 +1,24 @@
+---
+import { Cookie } from 'lucide-react';
+---
+<div
+  data-cookie-banner
+  class="hidden fixed bottom-4 left-4 right-4 sm:right-auto z-[9999] max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-[360px] translate-y-5 opacity-0 transition-[transform,opacity] duration-300 ease-out data-[show=true]:translate-y-0 data-[show=true]:opacity-100"
+>
+  <div class="bg-[#fcfcfc] border border-black/[0.12] rounded-[12px] p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] flex flex-col gap-3">
+    <div class="flex items-center gap-2">
+      <Cookie className="text-black/80 w-[16px] h-[16px]" />
+      <h3 class="text-[14px] font-bold text-black tracking-tight">Cookie Policy</h3>
+    </div>
+    <p class="text-[12px] text-black/60 leading-[1.45] font-normal">
+      This website uses third party cookies to serve you relevant ads and provide personalization by remembering your location. You may opt out from these cookies by selecting the "Opt out" button below. If you have a Reframe account, you may opt out of the "sale" or "sharing" of your data <a href="/privacy" class="underline hover:text-black transition-colors">in our Privacy Policy</a>.
+    </p>
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2 pt-1">
+      <button type="button" data-cookie="declined" class="w-full sm:w-auto px-4 py-2 bg-black/[0.06] hover:bg-black/[0.1] text-black text-[12px] font-semibold rounded-[8px] transition-all">Opt out</button>
+      <button type="button" data-cookie="accepted" class="w-full sm:w-auto px-5 py-2 bg-[#1a1a1a] hover:bg-black text-white text-[12px] font-semibold rounded-[8px] transition-all">Got it</button>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/cookie-banner';
+</script>

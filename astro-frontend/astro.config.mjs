@@ -30,6 +30,14 @@ const siteCss = {
   },
 };
 
+const interactionDirective = {
+  name: 'site-client-directives',
+  hooks: {
+    'astro:config:setup': ({ addClientDirective }) =>
+      addClientDirective({ name: 'interaction', entrypoint: fileURLToPath(new URL('./src/directives/interaction.js', import.meta.url)) }),
+  },
+};
+
 const SITE = process.env.PUBLIC_SITE_URL || 'https://reframevisuals.com';
 
 export default defineConfig({
@@ -41,6 +49,7 @@ export default defineConfig({
   ...(EMDASH_ON && process.env.REDIS_URL ? { session: { driver: sessionDrivers.redis({ url: process.env.REDIS_URL }) } } : {}),
   integrations: [
     react(),
+    interactionDirective,
     ...(EMDASH_ON ? [emdash({ database: postgres({ connectionString: process.env.EMDASH_DATABASE_URL, ssl: true }), storage: s3({}) })] : []),
     sitemap({ filter: (page) => !page.includes('/case-studies/') && !page.endsWith('/404') })],
   vite: {

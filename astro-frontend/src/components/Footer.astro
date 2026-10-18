@@ -1,0 +1,148 @@
+---
+import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { FOOTER_DEFAULTS } from '../data/siteDefaults';
+import { cx, layout } from '../utils/theme';
+import { buttonVariants } from './ui/button';
+import Frame from './ui/Frame';
+import LogoLink from './astro/LogoLink.astro';
+import SocialIcon from './astro/SocialIcon.astro';
+
+const content = FOOTER_DEFAULTS;
+const linkGroups = content.linkGroups || [];
+const socialLinks = content.socialLinks || [];
+
+const FALLBACK_URLS: Record<string, string> = {
+  instagram: 'https://www.instagram.com/reframevisualsstudio/',
+  linkedin: 'https://www.linkedin.com/company/reframe-visuals/',
+  pinterest: 'https://www.pinterest.com/reframevisuals/',
+  behance: 'https://www.behance.net/reframevisuals',
+  x: 'https://x.com/ReframeVisual',
+  twitter: 'https://x.com/ReframeVisual',
+  trustpilot: 'https://www.trustpilot.com/review/reframevisuals.com',
+  tiktok: 'https://www.tiktok.com/@reframe_visuals',
+};
+const resolveUrl = (link: { platform: string; url: string }) =>
+  link.url && link.url !== '#' ? link.url : FALLBACK_URLS[(link.platform || '').toLowerCase()] ?? '#';
+---
+<footer class="relative bg-[#0a0a0f] text-white overflow-hidden border-t border-white/[0.06]">
+  <div class={cx(layout.contentShell, 'relative z-10')}>
+    <div class="px-4 py-5 sm:py-8 lg:px-0 lg:py-12 border-b border-white/[0.08]">
+      <div class="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-5 sm:gap-6 lg:gap-8">
+        <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <h3 class="font-heading text-[24px] sm:text-[30px] font-bold mb-1 sm:mb-2 leading-tight">Start with 3 free edits.</h3>
+          <p class="text-white/50 text-[14px] sm:text-[16px]">Hand-traced edges. Two-stage QA. No minimum order.</p>
+        </div>
+
+        <a
+          href="/free-trial"
+          data-auth-cta
+          aria-label="Get 3 Free Sample Edits"
+          class={cx(buttonVariants({ variant: 'white' }), 'group relative h-12 p-1 ps-6 pe-16 overflow-hidden transition-[padding] duration-200 hover:ps-16 hover:pe-6')}
+        >
+          <span class="relative z-10 transition-opacity duration-200" data-auth-cta-label>Get 3 Free Sample Edits</span>
+          <div class="absolute right-1 top-1/2 -mt-5 w-10 h-10 rounded-full flex items-center justify-center transition-[right,transform] duration-300 rotate-0 group-hover:-rotate-45 group-hover:right-[calc(100%-44px)] bg-[var(--color-text-primary)] text-white" aria-hidden="true">
+            <ArrowRight size={16} />
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="px-4 py-5 sm:py-10 lg:px-0 lg:py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 sm:gap-9 lg:gap-14">
+        <div class="sm:col-span-2 md:col-span-4 space-y-3 sm:space-y-5">
+          <div><LogoLink light /></div>
+          <p class="text-white/50 text-[14px] sm:text-[15px] leading-[1.45] sm:leading-relaxed max-w-[320px]">{content.brandDescription}</p>
+          <div class="flex flex-wrap gap-2">
+            {socialLinks.map((link) => {
+              const url = resolveUrl(link);
+              return (
+                <a
+                  href={url}
+                  class="w-12 h-12 sm:w-11 sm:h-11 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[var(--brand)] hover:border-[var(--brand)] hover:text-white transition-all duration-300 touch-manipulation"
+                  target={url !== '#' ? '_blank' : undefined}
+                  rel={url !== '#' ? 'noopener noreferrer' : undefined}
+                  aria-label={link.platform}
+                >
+                  <SocialIcon platform={link.platform} size={18} class="sm:w-[15px] sm:h-[15px]" />
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        <div class="sm:col-span-2 md:col-span-8">
+          <div class="hidden md:grid grid-cols-4 gap-x-6 gap-y-5">
+            {linkGroups.map((group) => (
+              <div class="col-span-1">
+                <h5 class="font-heading font-bold text-[12px] sm:text-[14px] text-white/60 uppercase mb-2 sm:mb-2.5 tracking-[0.12em]">{group.title}</h5>
+                <ul class="space-y-0.5 sm:space-y-1.5">
+                  {group.links.map((link) => (
+                    <li>
+                      <a href={link.path} class="group flex min-h-8 items-center gap-2 text-[14px] text-white/55 hover:text-white hover:translate-x-1 transition-all touch-manipulation">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[var(--brand)] transition-colors" />
+                        <span>{link.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div class="md:hidden space-y-1.5">
+            {linkGroups.map((group) => (
+              <details name="footer-link-group" class="group/acc rounded-lg border border-white/10 bg-white/[0.02]">
+                <summary class="w-full flex items-center justify-between px-4 py-3.5 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                  <span class="font-heading font-bold text-[12px] text-white/55 uppercase tracking-[0.14em]">{group.title}</span>
+                  <ChevronDown size={14} className="text-white/45 group-open/acc:hidden" />
+                  <ChevronUp size={14} className="text-white/45 hidden group-open/acc:block" />
+                </summary>
+                <ul class="border-t border-white/10 px-3 py-2 space-y-0.5">
+                  {group.links.map((link) => (
+                    <li>
+                      <a href={link.path} class="group flex min-h-8 items-center gap-2 text-[14px] text-white/55 hover:text-white transition-all touch-manipulation">
+                        <span class="w-1 h-1 rounded-full bg-white/20 group-hover:bg-[var(--brand)] transition-colors" />
+                        <span>{link.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div data-mobile-contact-region class="mt-4 sm:mt-8 border-t border-white/[0.12] pt-4 sm:pt-5">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="space-y-1.5">
+            <span class="block font-semibold uppercase tracking-[0.1em] text-white/70">Contact</span>
+            <p class="text-[14px] leading-relaxed text-white/70 sm:text-[15px]">
+              <a class="font-medium text-white hover:text-white transition-colors underline decoration-white/30 underline-offset-2" href="mailto:hello@reframevisuals.com">hello@reframevisuals.com</a>
+              <span class="text-white/60"> · replies within 30 min</span>
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 sm:flex-row">
+            <button type="button" data-open-chat class="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-white/[0.08]">Open chat</button>
+            <a href="/book-meeting" class="inline-flex min-h-12 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-4 py-3 text-[14px] font-semibold text-white transition-colors hover:bg-white/[0.08]">Book a meeting</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-6 px-4 pt-6 pb-[calc(104px+env(safe-area-inset-bottom))] lg:pb-32 lg:px-0 border-t border-white/[0.06]">
+      <Frame light size="sm" className="opacity-100 mx-auto lg:mx-0">
+        <div class="flex flex-col items-center lg:items-start gap-1 px-3 py-1 text-center lg:text-left">
+          <div class="text-[12px] text-white/80 font-medium"><span>{content.version}</span></div>
+          <div class="text-[12px] text-white/60">{content.copyright}</div>
+        </div>
+      </Frame>
+      <Frame light className="opacity-100 mx-auto lg:mx-0">
+        <div class="flex items-center justify-center gap-3 py-1.5 px-3 sm:gap-4 sm:px-6">
+          <div class="w-5 h-5"><img src="/logo.svg" alt="Reframe Visuals" class="w-full h-full object-contain opacity-85 brightness-0 invert" /></div>
+          <span class="text-[12px] sm:text-[12px] font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/75 text-center">Precision Design by Reframe Visuals</span>
+        </div>
+      </Frame>
+    </div>
+  </div>
+</footer>
