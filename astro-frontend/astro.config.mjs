@@ -11,7 +11,7 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   adapter: vercel(),
-  integrations: [react(), sitemap()],
+  integrations: [react(), sitemap({ filter: (page) => !page.includes('/case-studies/') && !page.endsWith('/404') })],
   vite: {
     resolve: {
       alias: {

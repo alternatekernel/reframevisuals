@@ -7,8 +7,23 @@ const API_BASE_URL = import.meta.env.VITE_API_URL ||
 // Helper function to get auth token
 const getToken = () => localStorage.getItem('reframe-token');
 
-// Helper function to make API requests
-async function apiRequest(endpoint: string, options: RequestInit = {}) {
+// Astro islands each mount their own providers, so identical GETs fire together on one page.
+// Share the in-flight promise (not a cache: it is dropped as soon as the request settles).
+const inflightGets = new Map<string, Promise<any>>();
+
+function apiRequest(endpoint: string, options: RequestInit = {}) {
+  const isGet = !options.method || options.method.toUpperCase() === 'GET';
+  if (!isGet || typeof window === 'undefined') return apiRequestUncached(endpoint, options);
+  const key = `${endpoint}|${getToken() ?? ''}`;
+  let pending = inflightGets.get(key);
+  if (!pending) {
+    pending = apiRequestUncached(endpoint, options).finally(() => inflightGets.delete(key));
+    inflightGets.set(key, pending);
+  }
+  return pending;
+}
+
+async function apiRequestUncached(endpoint: string, options: RequestInit = {}) {
   const token = getToken();
   
   const config: RequestInit = {

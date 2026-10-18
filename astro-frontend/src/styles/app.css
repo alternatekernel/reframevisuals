@@ -1,5 +1,5 @@
 /* App-specific styles */
-@import './styles/notion-design-system.css';
+@import './notion-design-system.css';
 
 body[data-reframe-cs-open="true"] .global-feedback-widget {
   display: none !important;

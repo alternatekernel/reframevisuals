@@ -18,3 +18,18 @@ Parity baseline = `SEO_META_BY_PATH` / `resolvePageSeo` copied into `src/data/se
 - Lenis now initialises once from `src/lib/lenis.ts` (the SPA created one per provider tree).
 - Structured data parity: Express injected FAQPage/Organization/WebSite/Service/ItemList JSON-LD for `/` and `/services/*` (index.ts L1342-1693); Astro currently only has what each view's Helmet emits. Still to port.
 - Still to build: blog (SSR), `/p/:slug`, conversion pages, SPA embedding, sitemap/robots/llms, `/api` rewrite (needs the production API host).
+
+## Build status (end of build phase)
+- Done: 115 sitemap URLs / ~117 static pages, SSR blog + topic + series + `/p/:slug` (cache `s-maxage=300, swr=3600`, 404 for unknown), conversion pages, admin/dashboard/auth SPA (`src/spa`, built by `scripts/build-spa.mjs` into `public/csr-shell.html` + `public/spa-assets/`), robots/sitemap/llms, redirects/rewrites/headers in `vercel.json`.
+- Checks: `node scripts/check-meta.mjs` (39 mapped routes, 0 diffs; `/contact-us`, `/order/dedicated`, `/blog` are not static files), `node scripts/smoke.mjs [paths]` (Chromium load + console errors + screenshots to `tests/shots/`).
+- Fixes applied: hydration mismatch on `/contact` (`new Date()` inside JSON-LD; script tags now `suppressHydrationWarning`); duplicate `/theme`+`/sections` requests across islands deduped via in-flight GET sharing in `src/services/api.ts`.
+
+## Vercel project setup (you)
+Root Directory `astro-frontend`; env vars: `PUBLIC_SITE_URL` (test domain, https), `PUBLIC_NOINDEX=true`, `API_BASE=https://reframevisuals.com/api`, `VITE_API_URL=/api`, `VITE_GOOGLE_CLIENT_ID` (same as production). `/api/*` is rewritten to the production API, so no CORS change is needed.
+
+## Not done / needs a decision
+- Visual parity: only spot-checked in Chromium (design renders correctly); no pixel diff vs production (live site unreachable from the build container).
+- Blog seed ships full post bodies as island props on blog pages (payload cost); candidate for Phase 9.
+- `/contact-us` has an SEO map entry but no route in the SPA either; left unrouted.
+- Landing/service JSON-LD uses each view's own output (you chose "Astro default").
+- Cutover (Phase 10) untouched: Express HTML/SEO code, `ssrRenderer.ts`, root `vercel.json` all still in place.

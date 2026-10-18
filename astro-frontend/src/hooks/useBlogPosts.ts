@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSeed } from 'react-router-dom';
+import { useSeed } from '../lib/routeSeed';
 import { BLOG_POSTS, type BlogPost } from '../data/insightsData';
 
 // Module-level cache so we fetch the DB-backed posts once per page load.

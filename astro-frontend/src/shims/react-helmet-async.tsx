@@ -16,6 +16,6 @@ export const Helmet: React.FC<{ children?: React.ReactNode }> = ({ children }) =
       if (el.type === 'meta' && el.props.name === 'description') collector.description = el.props.content;
     }
   }
-  return <>{kids.filter((el) => el.type === 'script')}</>;
+  return <>{kids.filter((el) => el.type === 'script').map((el, i) => React.cloneElement(el, { key: i, suppressHydrationWarning: true }))}</>;
 };
 export const HelmetProvider: React.FC<{ children?: React.ReactNode; context?: unknown }> = ({ children }) => <>{children}</>;
