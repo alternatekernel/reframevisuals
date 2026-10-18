@@ -1,6 +1,6 @@
 ---
 import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
-import ServiceDetailPage from '../../islands/views/ServiceDetailPage';
+import ServiceDetailPage from '../../views/ServiceDetailPage.astro';
 import { SERVICES } from '../../data/services';
 import { isExcludedService } from '../../context/ServicesContext';
 import { resolvePageSeo } from '../../data/seoMeta';
@@ -13,5 +13,5 @@ const path = `/services/${serviceId}`;
 const seo = resolvePageSeo(path);
 ---
 <PublicPageLayout title={seo.title} description={seo.description}>
-  <ServiceDetailPage client:load path={path} params={{ serviceId }} />
+  <ServiceDetailPage />
 </PublicPageLayout>

@@ -6,10 +6,11 @@ const loggedIn = () => {
 function syncAuthCtas() {
   if (!loggedIn()) return;
   document.querySelectorAll<HTMLAnchorElement>('[data-auth-cta]').forEach((a) => {
-    a.href = '/dashboard?view=new-project';
+    const text = a.dataset.authLabel || 'Start New Job';
+    a.href = a.dataset.authHref || '/dashboard?view=new-project';
     const label = a.querySelector('[data-auth-cta-label]');
-    if (label) label.textContent = 'Start New Job';
-    a.setAttribute('aria-label', 'Start New Job');
+    if (label) label.textContent = text;
+    a.setAttribute('aria-label', text);
   });
 }
 

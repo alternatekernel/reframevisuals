@@ -31,7 +31,7 @@ import ButtonWithIcon from '../../components/astro/ButtonWithIcon.astro';
             <ButtonWithIcon href="/book-meeting" variant="default" label="Get Pricing Breakdown" class="!w-full sm:!w-auto" animated={false} />
             <a href="/services" class={cx(buttonVariants({ variant: 'white' }), 'h-12 w-full rounded-full px-6 text-sm font-medium sm:w-auto')}>Explore Services</a>
           </div>
-          <div class="w-full max-w-sm space-y-4 border-t border-black/[0.12] pt-8" data-inquiry data-type="Pricing Page Custom Pricing Breakdown" data-source="Pricing CTA">
+          <div class="w-full max-w-sm space-y-4 border-t border-black/[0.12] pt-8" data-inquiry data-meta='{"type":"Pricing Page Custom Pricing Breakdown","source":"Pricing CTA"}'>
             <p class="text-[14px] font-bold tracking-widest text-[var(--color-text-secondary)]">Or get a custom quote via email</p>
             <div class="group relative" data-inquiry-form>
               <input type="email" id="pricing-cta-email" data-inquiry-input placeholder="Enter your work email" class={cx(publicPillInputClass, 'h-14 bg-[var(--color-bg-secondary)] pl-6 pr-40 text-[14px] font-bold focus:border-black/20 placeholder:text-black/40 placeholder:font-normal')} />

@@ -38,11 +38,11 @@ let shown = 0;
 const used = new Set();
 for (const a of A) {
   const j = B.findIndex((x, i) => !used.has(i) && x.t === a.t);
-  if (j < 0) { if (shown++ < 8) console.log('only in SPA:', a.t); continue; }
+  if (j < 0) { if (shown++ < Number(process.env.MAXS || 8)) console.log('only in SPA:', a.t); continue; }
   used.add(j);
   const x = B[j];
-  if (Math.abs(a.x - x.x) > 1 || Math.abs(a.w - x.w) > 1 || Math.abs(a.h - x.h) > 1 || Math.abs(a.y - x.y) > 1) { if (shown++ < 8) console.log(`diff "${a.t}": spa x${a.x} y${a.y} w${a.w} h${a.h}  astro x${x.x} y${x.y} w${x.w} h${x.h}`); }
+  if (Math.abs(a.x - x.x) > 1 || Math.abs(a.w - x.w) > 1 || Math.abs(a.h - x.h) > 1 || Math.abs(a.y - x.y) > 1) { if (shown++ < Number(process.env.MAXS || 8)) console.log(`diff "${a.t}": spa x${a.x} y${a.y} w${a.w} h${a.h}  astro x${x.x} y${x.y} w${x.w} h${x.h}`); }
 }
-B.forEach((x, i) => { if (!used.has(i) && shown++ < 12) console.log('only in Astro:', x.t); });
+B.forEach((x, i) => { if (!used.has(i) && shown++ < Number(process.env.MAXS || 12)) console.log('only in Astro:', x.t); });
 console.log(`compared ${A.length} vs ${B.length} text nodes`);
 await b.close(); s1.close(); s2.close();

@@ -29,7 +29,7 @@ const steps = service?.servicePageContent?.process?.length ? service.servicePage
           )}
           <ol class="mt-10 grid gap-8 md:gap-10 md:grid-cols-4">
             {steps.map((step: any, index: number) => (
-              <li className="space-y-3"-${index}`}>
+              <li class="space-y-3">
                 <strong class="block text-[20px] lg:text-[22px] text-[var(--color-text-primary)] font-bold">{index + 1}. {step.title}</strong>
                 <span class="block text-[16px] lg:text-[18px] font-medium leading-relaxed text-black/60">{step.desc}</span>
               </li>

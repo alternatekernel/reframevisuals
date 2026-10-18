@@ -32,3 +32,9 @@
 [data-reveal][data-reveal-variant='scale'] { transform: scale(0.98); transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
 [data-reveal][data-reveal-variant='slide-left-sm'] { transform: translateX(-20px); }
 [data-reveal][data-reveal-variant].is-revealed { opacity: 1; transform: none; }
+
+/* load-variant modifiers: opacity-only and scale entrances */
+[data-reveal='load'][data-reveal-fade] { animation-name: reveal-fade; }
+[data-reveal='load'][data-reveal-scale] { animation-name: reveal-scale; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes reveal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reveal-scale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: none; } }

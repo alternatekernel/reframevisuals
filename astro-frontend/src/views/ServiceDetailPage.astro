@@ -1,0 +1,66 @@
+---
+import { getServiceById } from '../data/services';
+import { loadServices, getStartingPrice } from '../lib/serviceData';
+import ServiceHero from '../sections/services/ServiceHero.astro';
+import ServiceCapabilities from '../sections/services/ServiceCapabilities.astro';
+import ServiceConversion from '../sections/services/ServiceConversion.astro';
+import ServicePrecision from '../sections/services/ServicePrecision.astro';
+import ServiceScope from '../sections/services/ServiceScope.astro';
+import ServiceFaq from '../sections/services/ServiceFaq.astro';
+import ServicePricingBox from '../sections/services/ServicePricingBox.astro';
+import ServiceProcessSteps from '../sections/services/ServiceProcessSteps.astro';
+import ServiceBuyerAnswers from '../sections/services/ServiceBuyerAnswers.astro';
+import ServiceRelatedGuides from '../sections/services/ServiceRelatedGuides.astro';
+import ServiceFinalCTA from '../sections/services/ServiceFinalCTA.astro';
+import { absoluteCanonicalUrl, getCanonicalBaseUrl } from '../utils/seo';
+
+const { serviceId } = Astro.params;
+const baseService = getServiceById(serviceId || '')!;
+const services = await loadServices();
+const price = getStartingPrice(services, serviceId || '', baseService.price);
+const service: any = { ...baseService, price };
+
+const schemas: object[] = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'Reframe Visuals', url: getCanonicalBaseUrl(), logo: absoluteCanonicalUrl('/logo.svg') },
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: service.name, description: service.metaDescription || service.description,
+    provider: { '@type': 'Organization', name: 'Reframe Visuals', url: getCanonicalBaseUrl() },
+    offers: { '@type': 'Offer', price: service.price, priceCurrency: 'USD' },
+    areaServed: [{ '@type': 'Country', name: 'USA' }, { '@type': 'Country', name: 'Global' }],
+  },
+];
+if (service.faqs?.length) {
+  schemas.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: service.faqs.map((f: any) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+}
+schemas.push(
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: absoluteCanonicalUrl('/') },
+      { '@type': 'ListItem', position: 2, name: 'Services', item: absoluteCanonicalUrl('/services') },
+      { '@type': 'ListItem', position: 3, name: service.name, item: absoluteCanonicalUrl(`/services/${service.id}`) },
+    ],
+  },
+  { '@context': 'https://schema.org', '@type': 'Offer', name: `${service.name} ecommerce photo editing`, price: service.price, priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: absoluteCanonicalUrl(`/services/${service.id}`) },
+);
+
+const aiAnswerBlocks = [
+  { q: `What is ${service.name.toLowerCase()}?`, a: `${service.name} is a product photo editing service that prepares ecommerce images for cleaner catalogs, marketplace listings, and brand-consistent product pages. Reframe Visuals handles manual editing, QA review, and delivery for online sellers and product teams.` },
+  { q: `How much does ${service.name.toLowerCase()} cost?`, a: `${service.name} starts from $${service.price.toFixed(2)} per image. Final pricing depends on image complexity, volume, turnaround needs, and whether extra services such as retouching, shadows, clipping path, or color work are included.` },
+  { q: 'Is Reframe Visuals a good product image editing service for ecommerce brands?', a: 'Yes. Reframe Visuals is built for ecommerce brands that need consistent product images for Amazon, marketplaces, catalogs, and seasonal launches, with free sample edits available before ordering.' },
+];
+---
+{schemas.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+<div class="min-h-screen bg-white pb-20">
+  <ServiceHero service={service} price={price} />
+  <ServiceCapabilities service={service} />
+  <ServiceConversion service={service} />
+  <ServicePrecision service={service} />
+  <ServiceScope service={service} />
+  <ServicePricingBox service={service} />
+  <ServiceProcessSteps service={service} />
+  <ServiceFaq service={service} />
+  <ServiceBuyerAnswers aiAnswerBlocks={aiAnswerBlocks} />
+  <ServiceRelatedGuides service={service} />
+  <ServiceFinalCTA serviceName={service.name} serviceId={service.id} />
+</div>

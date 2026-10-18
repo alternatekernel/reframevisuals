@@ -377,7 +377,7 @@ function convert(file) {
   jsx = jsx
     .replace(/<Link\b([^>]*?)\bto=/g, '<a$1href=')
     .replace(/<\/Link>/g, '</a>')
-    .replace(/\s+key=\{[^}]*\}/g, '');
+    .replace(/\s+key=\{(?:[^{}]|\$\{[^}]*\})*\}/g, '');
 
   jsx = renameHtmlAttrs(jsx);
 

@@ -14,7 +14,7 @@ async function submitInquiry(root: HTMLElement) {
     await fetch('/api/portal/inquiry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, metadata: { type: root.dataset.type, source: root.dataset.source } }),
+      body: JSON.stringify({ email, metadata: JSON.parse(root.dataset.meta || '{}') }),
     });
     root.querySelector('[data-inquiry-form]')?.classList.add('hidden');
     root.querySelector('[data-inquiry-success]')?.classList.remove('hidden');
