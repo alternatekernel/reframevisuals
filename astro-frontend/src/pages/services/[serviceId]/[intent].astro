@@ -1,0 +1,18 @@
+---
+import PublicPageLayout from '../../../layouts/PublicPageLayout.astro';
+import ServiceIntentPage from '../../../islands/views/ServiceIntentPage';
+import { SERVICES } from '../../../data/services';
+import { isExcludedService } from '../../../context/ServicesContext';
+import { resolvePageSeo } from '../../../data/seoMeta';
+
+export function getStaticPaths() {
+  const INTENTS = ['best-for-ecommerce', 'pricing-guide', 'turnaround-quality'];
+  return SERVICES.filter((s) => !isExcludedService(s)).flatMap((s) => INTENTS.map((intent) => ({ params: { serviceId: s.id, intent } })));
+}
+const { serviceId, intent } = Astro.params;
+const path = `/services/${serviceId}/${intent}`;
+const seo = resolvePageSeo(path);
+---
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <ServiceIntentPage client:load path={path} params={{ serviceId, intent }} />
+</PublicPageLayout>
