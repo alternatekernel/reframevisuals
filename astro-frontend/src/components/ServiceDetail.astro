@@ -1,0 +1,93 @@
+---
+// Astro port of components/ServiceDetail.tsx (before/after preview with variant picker, spec copy, price, CTA).
+import { Check, ArrowRight } from 'lucide-react';
+import { cx } from '../utils/theme';
+import { getStartingPrice, type DynamicService } from '../lib/serviceData';
+import BeforeAfter from './astro/BeforeAfter.astro';
+import Price from './astro/Price.astro';
+export interface Props { service: any; services: DynamicService[] }
+const { service, services } = Astro.props;
+const variants: any[] = service.examples?.length > 0 ? service.examples : [{ before: service.beforeImage || '', after: service.afterImage || '', label: '' }];
+const price = getStartingPrice(services, service.id, service.price || service.startingPrice || 0);
+const sequence = variants.length > 1
+  ? [{ image: variants[variants.length - 1].before, label: 'BEFORE' }, ...variants.map((v: any, i: number) => ({ image: v.after, label: v.label || `OPTION ${i + 1}` }))]
+  : undefined;
+const showSwitcher = variants.length > 1 && variants.some((v: any) => v.label);
+---
+<div class="group relative" data-service-detail>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+    <div class="order-first lg:order-last lg:col-span-7 flex flex-col items-center lg:items-end">
+      <div data-reveal data-reveal-variant="scale" data-reveal-threshold="0.4" style="--reveal-duration:0.8s" class="w-full flex flex-col gap-6">
+        <div class="relative h-[50vh] sm:h-[60vh] lg:h-[70vh] aspect-[4/5] overflow-hidden bg-black/5 self-center lg:self-end">
+          <div class="absolute inset-0 overflow-hidden">
+            <BeforeAfter
+              beforeImage={variants[variants.length - 1]?.before || ''}
+              afterImage={variants[variants.length - 1]?.after || ''}
+              sequence={sequence}
+              aspectRatio="h-full w-full"
+              class="border-none w-full h-full rounded-none"
+              active="view"
+            />
+          </div>
+        </div>
+        {showSwitcher && (
+          <div class="flex justify-center lg:justify-end pr-0 lg:pr-4">
+            <div class="flex gap-1 bg-black/5 p-1 rounded-full">
+              {variants.map((variant: any, i: number) => (
+                <button
+                  type="button"
+                  data-ba-variant={i}
+                  data-before={variant.before}
+                  data-after={variant.after}
+                  data-active={String(i === 0)}
+                  class="px-4 py-1.5 rounded-full text-[9px] font-bold tracking-wider uppercase transition-all data-[active=true]:bg-black data-[active=true]:text-white data-[active=false]:text-black/40 data-[active=false]:hover:text-black/60"
+                >
+                  {variant.label || `Option ${i + 1}`}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div class="lg:col-span-5">
+      <div data-reveal data-reveal-variant="slide-left-sm" style="--reveal-duration:0.6s;--reveal-delay:0.1s">
+        <h2 class="text-3xl lg:text-4xl font-heading font-normal tracking-[-0.05em] text-[#171717] mb-6 leading-tight">{service.name}</h2>
+        <p class="text-xl font-medium text-[#333333] leading-relaxed mb-4 max-w-md">{service.description}</p>
+        <p class="text-base text-[#666666] leading-[1.6] sm:leading-relaxed mb-6 sm:mb-8 max-w-md">{service.detail}</p>
+        {service.bestFor && (
+          <div class="mb-8 sm:mb-10">
+            <span class="text-[12px] font-bold tracking-[0.15em] text-black/30 uppercase mb-2 block">IDEAL FOR</span>
+            <p class="text-sm font-medium text-[#4d4d4d] max-w-md leading-relaxed">{service.bestFor}</p>
+          </div>
+        )}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 mb-8 sm:mb-10">
+          {(service.includes || []).slice(0, 4).map((feature: string) => (
+            <div class="flex items-center gap-3 group/item">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-black/5 flex items-center justify-center"><Check className="w-3 h-3 text-[#171717]" /></div>
+              <span class="text-sm font-medium text-[#4d4d4d]">{feature}</span>
+            </div>
+          ))}
+        </div>
+        <div class="flex flex-wrap items-center gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-black/[0.12]">
+          <div class="flex items-center gap-6">
+            <div>
+              <p class="text-[12px] font-bold text-black/20 tracking-widest uppercase mb-1">FROM</p>
+              <Price usd={price} class="block text-xl font-heading font-bold text-[#171717]" />
+            </div>
+            <a data-order-now href={`/order?serviceId=${service.id}`} class="hidden h-12 items-center rounded-full bg-[#171717] px-6 text-[12px] font-bold uppercase tracking-widest text-white shadow-[0_8px_24px_rgba(0,0,0,0.10)] transition-all hover:bg-black active:scale-95">Order Now</a>
+          </div>
+          <div class="ml-auto pt-2 lg:pt-0">
+            <a href={`/services/${service.id}`} class="group/link inline-flex min-h-10 items-center gap-2 text-[12px] font-bold text-[#171717] tracking-widest underline-offset-4 hover:underline">
+              View Service Details <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/link:-rotate-45" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/ui/service-detail';
+</script>

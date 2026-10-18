@@ -3,7 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import BaseLayout from './BaseLayout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-import CurrencySelectorIsland from '../islands/CurrencySelectorIsland';
+import CurrencySelector from '../components/astro/CurrencySelector.astro';
 import BootLoaderIsland from '../islands/BootLoaderIsland';
 import ContinueBrowsing from '../components/ContinueBrowsing.astro';
 import ChatIsland from '../islands/ChatIsland';
@@ -22,6 +22,6 @@ const NO_CONTINUE = ['/', '/order', '/login', '/signup', '/forgot-password', '/r
     {import.meta.env.PUBLIC_BOOT_LOADER === 'true' && <BootLoaderIsland client:load path={currentPath} />}
     <ChatIsland client:interaction transition:persist path={currentPath} />
     <CookieBanner />
-    {!hideCurrency && currentPath === '/pricing' && <CurrencySelectorIsland client:idle path={currentPath} />}
+    {!hideCurrency && currentPath === '/pricing' && <CurrencySelector />}
   </div>
 </BaseLayout>

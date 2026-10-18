@@ -1,7 +1,7 @@
 ---
 import React from 'react';
 import { cx, layout, typography } from '../../utils/theme';
-import BundleCard from '../../islands/wrapped/BundleCard';
+import BundleCard from '../../components/pricing/BundleCard.astro';
 
 interface PricingBundlesProps {
   bundles: any[];
@@ -32,7 +32,7 @@ const { bundles } = Astro.props;
       {/* Cards */}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch max-w-6xl mx-auto">
         {bundles.map((b: any, i: number) => (
-          <BundleCard client:visible path={Astro.url.pathname} b={b} i={i} />
+          <BundleCard b={b} i={i} />
         ))}
       </div>
 

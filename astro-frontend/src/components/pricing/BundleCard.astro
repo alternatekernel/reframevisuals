@@ -1,0 +1,47 @@
+---
+import { Activity } from 'lucide-react';
+import { cx, tokens, typography } from '../../utils/theme';
+import ButtonWithIcon from '../astro/ButtonWithIcon.astro';
+import Price from '../astro/Price.astro';
+export interface Props { b: { name: string; price: number | null; services: string[]; savings?: string; highlight?: boolean }; i: number }
+const { b, i } = Astro.props;
+const isHighlighted = b.highlight ?? i === 1;
+---
+<div class={cx('group relative flex flex-col p-1 transition-all duration-300 h-full', tokens.radiusCard, isHighlighted ? 'z-20' : 'z-10')}>
+  <div class={cx('absolute inset-0 overflow-hidden border transition-all duration-300', tokens.radiusCard, isHighlighted ? 'bg-brand-hover' : 'bg-white border-black/[0.18] shadow-[0_8px_24px_rgba(0,0,0,0.09)] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)]')}>
+    {!isHighlighted && <div class="absolute inset-x-0 top-0 h-px bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.95),transparent)]"></div>}
+  </div>
+  <div class={cx('relative flex-1 flex flex-col p-6 lg:p-8 overflow-hidden transition-all duration-500 bg-transparent', tokens.radiusCard, isHighlighted && 'text-white')}>
+    <div class="space-y-2 mb-6 lg:mb-8">
+      <h4 class={cx(typography.label, isHighlighted ? 'text-white' : 'text-black')}>{b.name}</h4>
+      <div class="space-y-1">
+        {b.price !== null && <p class={cx('text-12 font-black uppercase tracking-[0.18em]', isHighlighted ? 'text-white/45' : 'text-black/40')}>Starting from</p>}
+        <div class="flex items-baseline gap-2">
+          <span class={cx(typography.price, 'text-[30px] leading-none', isHighlighted ? 'text-white' : 'text-black')}>
+            {b.price !== null ? <Price usd={b.price} /> : 'Custom'}
+          </span>
+          <span class={cx('text-[16px] font-medium', isHighlighted ? 'text-white/50' : 'text-black/40')}>/image</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 space-y-3 mb-8 lg:mb-10">
+      {b.services?.map((s) => (
+        <div class="flex items-center gap-3 group/item">
+          <div class={cx('w-1.5 h-1.5 rounded-full transition-all duration-300 shrink-0', isHighlighted ? 'bg-white/30' : 'bg-black/20 group-hover:bg-black/50')}></div>
+          <span class={cx('text-[16px] font-medium transition-colors', isHighlighted ? 'text-white/70 group-hover/item:text-white' : 'text-black/65 group-hover/item:text-black')}>{s}</span>
+        </div>
+      ))}
+      {b.savings && (
+        <div class="pt-2">
+          <div class={cx('inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-12 font-black uppercase tracking-wider', isHighlighted ? 'bg-white/10 text-white/70' : 'bg-black/[0.04] text-black/60 border border-black/[0.18]')}>
+            <Activity size={12} />
+            {b.savings}
+          </div>
+        </div>
+      )}
+    </div>
+    <div class="pt-4">
+      <ButtonWithIcon variant="white" label="Get Started" href="/free-trial" class="!w-full !max-w-none" animated={false} authCta />
+    </div>
+  </div>
+</div>

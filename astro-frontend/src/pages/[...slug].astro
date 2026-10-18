@@ -21,8 +21,8 @@ import PilotBatchPage from '../islands/views/PilotBatchPage';
 import BookMeetingPage from '../islands/views/BookMeetingPage';
 import ContactPage from '../islands/views/ContactPage';
 import QuoteBuilderPage from '../islands/views/QuoteBuilderPage';
-import ServicesPage from '../islands/views/ServicesPage';
-import PricingPage from '../islands/views/PricingPage';
+import ServicesPage from '../views/ServicesPage.astro';
+import PricingPage from '../views/PricingPage.astro';
 import PortfolioPage from '../views/PortfolioPage.astro';
 import TestimonialsPage from '../views/TestimonialsPage.astro';
 import AIProductVisualsPage from '../islands/views/AIProductVisualsPage';
@@ -50,8 +50,8 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'ComparisonPage' && <ComparisonPage />}
   {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage client:load path={path} />}
   {view === 'InsightAndTrustPage' && <InsightAndTrustPage client:load path={path} />}
-  {view === 'ServicesPage' && <ServicesPage client:load path={path} />}
-  {view === 'PricingPage' && <PricingPage client:load path={path} />}
+  {view === 'ServicesPage' && <ServicesPage />}
+  {view === 'PricingPage' && <PricingPage />}
   {view === 'PortfolioPage' && <PortfolioPage />}
   {view === 'TestimonialsPage' && <TestimonialsPage />}
   {view === 'AIProductVisualsPage' && <AIProductVisualsPage client:load path={path} />}

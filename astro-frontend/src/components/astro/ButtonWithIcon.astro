@@ -10,17 +10,19 @@ export interface Props {
   class?: string;
   ariaLabel?: string;
   animated?: boolean;
+  authCta?: boolean;
   [key: string]: unknown;
 }
-const { label, href, variant = 'default', class: cls, ariaLabel, animated = true, ...rest } = Astro.props;
+const { label, href, variant = 'default', class: cls, ariaLabel, animated = true, authCta = false, ...rest } = Astro.props;
 ---
 <a
   href={href}
   aria-label={ariaLabel || label}
   class={cx(buttonVariants({ variant }), 'group relative h-12 p-1 ps-6 pe-16 overflow-hidden', animated && 'transition-[padding] duration-200 hover:ps-16 hover:pe-6', cls)}
+  data-auth-cta={authCta ? '' : undefined}
   {...rest}
 >
-  <span class={cx('relative z-10', animated && 'transition-opacity duration-200')}>{label}</span>
+  <span data-auth-cta-label={authCta ? '' : undefined} class={cx('relative z-10', animated && 'transition-opacity duration-200')}>{label}</span>
   <div
     class={cx(
       'absolute right-1 top-1/2 -mt-5 w-10 h-10 rounded-full flex items-center justify-center transition-[right,transform] duration-300 rotate-0 group-hover:-rotate-45',

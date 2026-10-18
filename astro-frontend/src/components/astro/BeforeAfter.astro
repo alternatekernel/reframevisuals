@@ -1,0 +1,97 @@
+---
+// Astro port of components/BeforeAfterCard.tsx. Server renders the resting state (after image, hidden overlay);
+// src/lib/ui/before-after.ts drives the sweep animation, hover and drag.
+export interface Props {
+  beforeImage?: string;
+  afterImage?: string;
+  caption?: string;
+  class?: string;
+  aspectRatio?: string;
+  active?: boolean | 'view';
+  reveal?: boolean;
+  hideLabels?: boolean;
+  hideHandle?: boolean;
+  hideInteractionUI?: boolean;
+  disableHoverInteraction?: boolean;
+  sweepDuration?: number;
+  returnDuration?: number;
+  sequence?: { image: string; label: string }[];
+}
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1680&h=2100&auto=format&fit=crop';
+const srcSet = (url: string) => {
+  if (!url || !url.includes('cloudinary.com')) return undefined;
+  const base = url.replace(/w_\d+/, 'w_WIDTH');
+  return [300, 600, 800].map((w) => `${base.replace('w_WIDTH', 'w_' + w)} ${w}w`).join(', ');
+};
+const {
+  beforeImage = DEFAULT_IMAGE, afterImage = DEFAULT_IMAGE, caption, class: cls = '', aspectRatio = 'aspect-square', active = false, reveal = false,
+  hideLabels = false, hideHandle = false, hideInteractionUI = false, disableHoverInteraction = false, sweepDuration = 3000, returnDuration = 2000, sequence,
+} = Astro.props;
+const seq = sequence && sequence.length > 1 ? sequence : undefined;
+const overlay = seq ? seq[0].image : beforeImage;
+const bgImg = seq ? seq[1 % seq.length].image : afterImage;
+const SIZES = '(max-width: 768px) 300px, (max-width: 1200px) 600px, 800px';
+const shown = active === true;
+---
+<div
+  data-ba
+  data-ba-active={active === false ? undefined : String(active)}
+  data-ba-seq={seq ? JSON.stringify(seq) : undefined}
+  data-ba-sweep={sweepDuration}
+  data-ba-return={returnDuration}
+  data-ba-no-hover={String(disableHoverInteraction)}
+  data-ba-hide-ui={String(hideInteractionUI)}
+  data-reveal={reveal ? '' : undefined}
+  data-reveal-duration={reveal ? '0.6' : undefined}
+  style={reveal ? '--reveal-duration:0.6s;--reveal-y:20px' : undefined}
+  class={`relative ${cls}`}
+>
+  <div data-ba-stage class={`bg-white ${aspectRatio} border border-black/[0.12] relative overflow-hidden select-none`} style="touch-action: pan-y" itemscope itemtype="https://schema.org/VisualArtwork">
+    <meta itemprop="name" content={caption || 'Before and After Image Edit'} />
+    <meta itemprop="artMedium" content="Digital Photography" />
+    <meta itemprop="image" content={bgImg || undefined} data-ba-meta-image />
+    <div class="absolute inset-0">
+      <img data-ba-bg src={bgImg || undefined} srcset={srcSet(bgImg || '')} sizes={SIZES} class="w-full h-full object-cover" alt={caption ? `After professional product photo editing - ${caption} | Reframe Visuals` : 'After professional ecommerce product photo editing | Reframe Visuals'} loading="lazy" decoding="async" draggable="false" />
+    </div>
+    <div data-ba-before class="absolute inset-0 transition-opacity duration-500" style={`clip-path: inset(0 50% 0 0); will-change: clip-path; opacity: ${shown ? 1 : 0}`}>
+      <img data-ba-over src={overlay || undefined} srcset={srcSet(overlay || '')} sizes={SIZES} class="w-full h-full object-cover" alt={caption ? `Before product photo editing - ${caption} | Reframe Visuals` : 'Before ecommerce product photo editing | Reframe Visuals'} loading="lazy" decoding="async" draggable="false" />
+    </div>
+    <div data-ba-divider class="absolute inset-y-0 z-20 pointer-events-none transition-opacity duration-500" style={`left: 50%; transform: translateX(-50%); will-change: left; opacity: ${shown ? 1 : 0}`}>
+      <div class="w-[1px] h-full bg-white/90"></div>
+    </div>
+    {!hideHandle && (
+      <div data-ba-handle class="absolute z-30 pointer-events-none" style="left: 50%; top: 50%; transform: translate(-50%, -50%); will-change: left">
+        <div class="flex flex-col items-center gap-1.5" style="opacity:0;transform:scale(0.9);transition:opacity .15s ease-out,transform .15s ease-out">
+          <div class="w-7 h-7 rounded-full bg-brand flex items-center justify-center shadow-lg shadow-brand/30">
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 4L3 10L7 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M13 4L17 10L13 16" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="flex flex-col items-center gap-0.5"><div class="w-[1px] h-2 bg-brand/40"></div><div class="w-[1px] h-2 bg-brand/40"></div></div>
+        </div>
+      </div>
+    )}
+    {!hideLabels && (
+      <div data-ba-label class={`absolute bottom-5 right-5 z-10 transition-opacity duration-500 ${shown ? 'opacity-100' : 'opacity-0'}`}>
+        <div class="flex items-center gap-2 px-3 py-2 rounded-full bg-white border border-black/[0.18] shadow-sm">
+          <div data-ba-label-icon class="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500 bg-black">
+            <svg data-ba-icon-play class="hidden" width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 8L15 12L9 16V8Z" fill="white" /></svg>
+            <svg data-ba-icon-check width="21" height="21" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12L10 15L17 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </div>
+          <span data-ba-label-text class="text-[12px] font-bold tracking-[0.2em] text-black w-14 text-center">AFTER</span>
+        </div>
+      </div>
+    )}
+    {caption && (
+      <div class="absolute bottom-6 left-6 right-6 z-10">
+        <div class="px-4 py-2 lg:px-5 lg:py-2.5 rounded-full bg-white border border-black/[0.12] shadow-md">
+          <p class="text-[12px] font-black text-black tracking-[0.2em]">{caption}</p>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+<script>
+  import '../../lib/ui/before-after';
+</script>

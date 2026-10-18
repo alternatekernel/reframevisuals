@@ -1,0 +1,23 @@
+---
+import { cx, layout } from '../../utils/theme';
+import ServiceDetail from '../../components/ServiceDetail.astro';
+export interface Props { services?: any[] }
+const { services = [] } = Astro.props;
+---
+{services.length === 0 ? (
+  <section class="bg-white border-t border-black/[0.12]">
+    <div class={cx(layout.compactShell, 'py-32 px-6')}>
+      <div class="flex items-center justify-center py-20"><p class="text-[#666666]">No services available</p></div>
+    </div>
+  </section>
+) : (
+  <section class="bg-white border-t border-black/[0.12]">
+    <div class={cx(layout.compactShell, 'py-16 px-6')}>
+      <div class="flex flex-col gap-16">
+        {services.map((service: any) => (
+          <div data-service-id={service.id}><ServiceDetail service={service} services={services} /></div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
