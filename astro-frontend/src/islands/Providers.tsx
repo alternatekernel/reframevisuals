@@ -6,7 +6,6 @@ import { CurrencyProvider } from '../context/CurrencyContext';
 import { ContentProvider } from '../context/ContentContext';
 import { ModalProvider } from '../context/ModalContext';
 import { ServicesProvider } from '../context/ServicesContext';
-import { LenisProvider } from '../context/LenisContext';
 
 // Astro islands are separate React roots, so context does not cross between them.
 // Every island that needs shared context is wrapped with withProviders(); the
@@ -21,7 +20,7 @@ export const Providers: React.FC<{ children: React.ReactNode }> = ({ children })
         <ContentProvider>
           <ModalProvider>
             <ServicesProvider>
-              <LenisProvider>{children}</LenisProvider>
+              {children}
             </ServicesProvider>
           </ModalProvider>
         </ContentProvider>

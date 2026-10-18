@@ -22,4 +22,5 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
   </head>
   <body><slot /></body>
+  <script>import '../lib/lenis';</script>
 </html>

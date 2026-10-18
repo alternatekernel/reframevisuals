@@ -1,7 +1,8 @@
 ---
 import PublicPageLayout from '../layouts/PublicPageLayout.astro';
 import { STATIC_ROUTES } from '../data/staticRoutes';
-import { resolvePageSeo } from '../data/seoMeta';
+import { SEO_META_BY_PATH, resolvePageSeo } from '../data/seoMeta';
+import { collectHead } from '../lib/collectHead';
 import AboutPage from '../islands/views/AboutPage';
 import AboutReframeVisualsPage from '../islands/views/AboutReframeVisualsPage';
 import ReframeVisualsServicesPage from '../islands/views/ReframeVisualsServicesPage';
@@ -14,12 +15,20 @@ import ComparisonPage from '../islands/views/ComparisonPage';
 import CaseStudyDetailPage from '../islands/views/CaseStudyDetailPage';
 import InsightAndTrustPage from '../islands/views/InsightAndTrustPage';
 import ExpansionPage from '../islands/views/ExpansionPage';
+import ServicesPage from '../islands/views/ServicesPage';
+import PricingPage from '../islands/views/PricingPage';
+import PortfolioPage from '../islands/views/PortfolioPage';
+import TestimonialsPage from '../islands/views/TestimonialsPage';
+import AIProductVisualsPage from '../islands/views/AIProductVisualsPage';
 
 export function getStaticPaths() {
   return STATIC_ROUTES.map((r) => ({ params: { slug: r.path.slice(1) }, props: r }));
 }
 const { path, view, noindex } = Astro.props;
-const seo = resolvePageSeo(path);
+const mapped = SEO_META_BY_PATH[path];
+const own = mapped ? undefined : collectHead(view, path);
+const fallback = resolvePageSeo(path);
+const seo = mapped ?? { title: own?.title || fallback.title, description: own?.description || fallback.description };
 ---
 <PublicPageLayout title={seo.title} description={seo.description} noindexOverride={noindex}>
   {view === 'AboutPage' && <AboutPage client:load path={path} />}
@@ -33,5 +42,10 @@ const seo = resolvePageSeo(path);
   {view === 'ComparisonPage' && <ComparisonPage client:load path={path} />}
   {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage client:load path={path} />}
   {view === 'InsightAndTrustPage' && <InsightAndTrustPage client:load path={path} />}
+  {view === 'ServicesPage' && <ServicesPage client:load path={path} />}
+  {view === 'PricingPage' && <PricingPage client:load path={path} />}
+  {view === 'PortfolioPage' && <PortfolioPage client:load path={path} />}
+  {view === 'TestimonialsPage' && <TestimonialsPage client:load path={path} />}
+  {view === 'AIProductVisualsPage' && <AIProductVisualsPage client:load path={path} />}
   {view === 'ExpansionPage' && <ExpansionPage client:load path={path} />}
 </PublicPageLayout>

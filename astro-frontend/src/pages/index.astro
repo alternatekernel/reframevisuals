@@ -1,4 +1,9 @@
 ---
 import PublicPageLayout from '../layouts/PublicPageLayout.astro';
+import LandingPage from '../islands/views/LandingPage';
+import { SEO_META_BY_PATH } from '../data/seoMeta';
+const seo = SEO_META_BY_PATH['/'];
 ---
-<PublicPageLayout title="Reframe Visuals (Astro test)" description="Astro migration scaffold"><h1 class="font-heading text-hero p-10">Astro scaffold</h1></PublicPageLayout>
+<PublicPageLayout title={seo.title} description={seo.description}>
+  <LandingPage client:load path="/" />
+</PublicPageLayout>
