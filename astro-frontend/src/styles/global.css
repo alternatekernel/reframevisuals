@@ -443,7 +443,7 @@
   }
 
   /* Button tap target — 44px min as per HIG */
-  button, a[role="button"], [class*="btn"] {
+  button, a[role="button"], a[data-btn], [class*="btn"] {
     min-height: 44px;
   }
 

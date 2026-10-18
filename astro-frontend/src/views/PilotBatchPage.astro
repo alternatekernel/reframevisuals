@@ -1,0 +1,139 @@
+---
+import { CheckCircle, FileText, Image as ImageIcon, Lock, Upload, X } from 'lucide-react';
+
+const SERVICE_OPTIONS = [
+  ['background-removal', 'Background Removal'], ['clipping-path', 'Clipping Path'], ['retouching', 'Photo Retouching'],
+  ['color-correction', 'Color Correction'], ['ghost-mannequin', 'Ghost Mannequin'], ['shadow-creation', 'Shadow Creation'],
+];
+const FORMAT_OPTIONS = ['JPG', 'PNG', 'WebP', 'TIFF', 'PSD', 'Other'];
+const why = [
+  ['Proof before scale', 'See actual Reframe quality on your own images before committing to a larger batch.'],
+  ['Workflow fit check', 'Confirm instructions, references, file handling, and turnaround expectations early.'],
+  ['Risk-free decision', 'Use the result to approve style direction, request adjustments, or brief the next batch with confidence.'],
+];
+---
+<div data-pilot-batch>
+  <div data-pb-done class="hidden min-h-[calc(100dvh-64px)] bg-white items-center justify-center px-4 py-16 [&:not(.hidden)]:flex">
+    <div class="max-w-md w-full text-center space-y-6">
+      <div class="w-16 h-16 rounded-full bg-black flex items-center justify-center mx-auto"><CheckCircle size={30} className="text-white" /></div>
+      <div>
+        <h1 class="text-[28px] font-bold text-black">Test Batch Received</h1>
+        <p class="mt-2 text-[15px] text-black/55 leading-relaxed">Your files are being reviewed. We'll send a pricing breakdown to{' '}<strong data-pb-who></strong> within 30 minutes.</p>
+      </div>
+      <div class="rounded-2xl border border-black/[0.18] bg-neutral-50 px-6 py-4 inline-block">
+        <p class="text-[12px] font-bold uppercase tracking-widest text-black/40">Order Reference</p>
+        <p data-pb-code class="mt-1 text-[22px] font-bold text-black tracking-wider"></p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+        <a href="/dashboard" class="rounded-full bg-black px-6 py-3 text-[14px] font-bold text-white hover:bg-black/80 transition-colors">Track in Dashboard</a>
+        <a href="/" class="rounded-full border border-black/[0.18] px-6 py-3 text-[14px] font-bold text-black hover:bg-neutral-50 transition-colors">Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <div data-pb-form class="min-h-[calc(100dvh-64px)] bg-white px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+    <div class="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.35fr_0.9fr]">
+      <section class="rounded-[28px] border border-black/[0.18] bg-white p-6 shadow-[0_14px_40px_rgba(0,0,0,0.11)] sm:p-10">
+        <p class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Paid Test Batch</p>
+        <h1 class="mt-3 text-[34px] font-bold leading-tight tracking-tight text-black sm:text-[44px]">Test Batch Review</h1>
+        <p class="mt-3 max-w-2xl text-[15px] leading-relaxed text-black/60">Submit a small paid batch for review. Final price depends on service type and image complexity. We will send details within 30 minutes.</p>
+
+        <div data-guest-only class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-900">
+          <div class="flex items-start gap-3">
+            <Lock size={18} className="mt-0.5 shrink-0" />
+            <div>
+              <p class="text-[14px] font-bold">Track your order in your dashboard</p>
+              <p class="mt-1 text-[14px] leading-relaxed">Log in or create an account to track this batch and manage revisions. You can also continue as a guest — we'll email your quote within 30 minutes.</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <a href="/login" data-btn class="inline-block rounded-full bg-black px-4 py-2 text-[12px] font-bold text-white">Login</a>
+                <a href="/signup" data-btn class="inline-block rounded-full border border-black/[0.18] bg-white px-4 py-2 text-[12px] font-bold text-black">Create account</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label class="mb-1 block text-[14px] font-bold text-black/70">Service</label>
+            <select data-pb-service class="h-11 w-full rounded-xl border border-black/[0.18] bg-neutral-50 px-3 text-[14px] font-semibold outline-none focus:border-black/30">
+              {SERVICE_OPTIONS.map(([id, l]) => <option value={id}>{l}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block text-[14px] font-bold text-black/70">Output format</label>
+            <select data-pb-format class="h-11 w-full rounded-xl border border-black/[0.18] bg-neutral-50 px-3 text-[14px] font-semibold outline-none focus:border-black/30">
+              {FORMAT_OPTIONS.map((f) => <option value={f}>{f}</option>)}
+            </select>
+            <input data-pb-custom-format placeholder="Enter format" class="hidden mt-2 h-10 w-full rounded-xl border border-black/[0.18] px-3 text-[14px] outline-none focus:border-black/30" />
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <label class="mb-1 block text-[14px] font-bold text-black/70">Project notes</label>
+          <textarea data-pb-notes rows="5" placeholder="Describe the batch, references, background, color, and delivery needs..." class="min-h-[140px] max-h-[420px] w-full resize-y rounded-xl border border-black/[0.18] bg-neutral-50 px-3 py-3 text-[14px] outline-none focus:border-black/30"></textarea>
+        </div>
+
+        <div class="mt-5 rounded-2xl border border-black/[0.18] p-4">
+          <div class="flex items-center justify-between gap-3">
+            <div><p class="text-[14px] font-bold text-black">Main batch files</p><p class="text-[12px] text-black/50">Up to 15 images. These count toward pilot quantity.</p></div>
+            <span class="rounded-full bg-black px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-white">Counted</span>
+          </div>
+          <button type="button" data-pb-main-btn class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-black/20 bg-neutral-50 p-4 text-[14px] font-bold text-black hover:border-black"><Upload size={16} /> Upload main images</button>
+          <input data-pb-main-input type="file" multiple accept="image/*,.psd,.psb,.tif,.tiff,.raw,.cr2,.nef,.arw,.dng" class="hidden" />
+          <div data-pb-main-list class="hidden mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2"></div>
+        </div>
+
+        <div class="mt-5 rounded-2xl border border-orange-200 bg-orange-50/60 p-4">
+          <div class="flex items-center justify-between gap-3">
+            <div><p class="text-[14px] font-bold text-black">Supporting images / references</p><p class="text-[12px] text-black/55">References, briefs, examples, or PDFs. These stay separate from main files.</p></div>
+            <span class="rounded-full bg-white px-2.5 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-orange-600">Not counted</span>
+          </div>
+          <button type="button" data-pb-support-btn class="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-orange-300 bg-white/80 p-4 text-[14px] font-bold text-black hover:bg-white"><Upload size={16} /> Upload supporting files</button>
+          <input data-pb-support-input type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt" class="hidden" />
+          <div data-pb-support-list class="hidden mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2"></div>
+        </div>
+        <template data-pb-tpl>
+          <div class="relative flex min-w-0 items-center gap-2 rounded-xl border p-3 shadow-sm border-black bg-black text-white">
+            <button type="button" data-rm class="absolute -right-1.5 -top-1.5 rounded-full border border-black/[0.18] bg-white p-1 text-black shadow-sm"><X size={11} /></button>
+            <ImageIcon size={15} className="shrink-0 text-white/70" />
+            <span data-name class="truncate text-[12px] font-semibold"></span>
+          </div>
+        </template>
+        <template data-pb-support-tpl>
+          <div class="relative flex min-w-0 items-center gap-2 rounded-xl border p-3 shadow-sm border-orange-200 bg-orange-50 text-black">
+            <button type="button" data-rm class="absolute -right-1.5 -top-1.5 rounded-full border border-black/[0.18] bg-white p-1 text-black shadow-sm"><X size={11} /></button>
+            <FileText size={15} className="shrink-0 text-orange-500" />
+            <span data-name class="truncate text-[12px] font-semibold"></span>
+          </div>
+        </template>
+
+        <div data-guest-only class="mt-5">
+          <label class="mb-1 block text-[14px] font-bold text-black/70">Email for quote delivery <span class="text-red-500">*</span></label>
+          <input data-pb-email type="email" placeholder="you@company.com" class="h-11 w-full rounded-xl border border-black/[0.18] bg-neutral-50 px-3 text-[14px] outline-none focus:border-black/30" />
+        </div>
+
+        <div class="mt-6 rounded-2xl border border-blue-100 bg-blue-50 p-4 text-[14px] leading-relaxed text-blue-900">
+          Final price depends on service type and image complexity. <span data-guest-only>We will email your pricing breakdown within 30 minutes.</span><span data-authed-only class="hidden">After review, your estimate will appear in your dashboard.</span>
+        </div>
+
+        <p data-pb-error class="hidden mt-4 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-[14px] font-medium text-red-700"></p>
+
+        <button data-pb-submit type="button" disabled class="mt-5 inline-flex min-h-12 w-full items-center justify-center rounded-full bg-black px-8 text-[15px] font-bold text-white disabled:opacity-50 sm:w-auto transition-opacity">Submit Test Batch for Review</button>
+      </section>
+
+      <aside class="rounded-[28px] border border-black/[0.18] bg-neutral-50 p-6 sm:p-8">
+        <p class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Why Test Batch</p>
+        <h2 class="mt-3 text-[24px] font-bold text-black">What you get</h2>
+        <div class="mt-5 space-y-3">
+          {why.map(([t, b]) => (
+            <div class="rounded-2xl border border-black/[0.18] bg-white p-4"><p class="text-[14px] font-semibold text-black">{t}</p><p class="mt-1 text-[14px] text-black/55 leading-relaxed">{b}</p></div>
+          ))}
+        </div>
+        <a href="/free-trial" class="mt-6 inline-flex text-[14px] font-bold text-black underline underline-offset-4">Need only 3 free samples?</a>
+      </aside>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/ui/pilot-batch';
+</script>

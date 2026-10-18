@@ -240,6 +240,75 @@ const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
   check('free-trial payload parity', fields.every((f) => (seen || '').includes(f)));
   await ctx.close();
 }
+
+// book-meeting, contact, quote-builder, pilot-batch
+{
+  const { ctx, page } = await open('/book-meeting');
+  let body = null;
+  await page.route('**/api/portal/inquiry', async (r) => { body = JSON.parse(r.request().postData()); await r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }); });
+  const tomorrow = await page.inputValue('#meeting-date');
+  check('book-meeting defaults date to tomorrow', tomorrow > new Date().toISOString().slice(0, 10));
+  check('book-meeting submit disabled initially', await page.locator('[data-bm-submit]').isDisabled());
+  await page.fill('#meeting-name', 'Ada Lovelace'); await page.fill('#meeting-email', 'ada@example.com'); await page.fill('#meeting-company', 'Analytical Co'); await page.fill('#meeting-message', 'Need a custom SLA');
+  await page.click('[data-bm-slot="14:00"]'); await page.selectOption('#meeting-type', 'High-volume custom SLA');
+  await page.click('[data-bm-submit]');
+  await page.waitForSelector('[data-bm-success]:not(.hidden)');
+  check('book-meeting payload', body?.email === 'ada@example.com' && body.metadata.type === 'Meeting Request' && body.metadata.meetingTime === '14:00' && body.metadata.meetingType === 'High-volume custom SLA' && body.metadata.requiresEmailVerification === false && body.metadata.description === 'Need a custom SLA');
+  await ctx.close();
+}
+{
+  const { ctx, page } = await open('/contact');
+  let body = null;
+  await page.route('**/api/portal/inquiry', async (r) => { body = JSON.parse(r.request().postData()); await r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }); });
+  await page.fill('#contact-name', 'A'); await page.click('[data-cform-submit]');
+  check('contact validates name', (await page.locator('[data-cform-error]').textContent()) === 'Please enter your name.');
+  await page.fill('#contact-name', 'Ada'); await page.fill('#contact-email', 'ada@example.com'); await page.fill('#contact-message', 'short');
+  await page.click('[data-cform-submit]');
+  check('contact validates message', (await page.locator('[data-cform-error]').textContent()) === 'Please add a short message.');
+  await page.fill('#contact-message', 'A long enough message here'); await page.fill('#contact-company', 'Acme');
+  await page.click('[data-cform-submit]');
+  await page.waitForSelector('[data-cform-done]:not(.hidden)');
+  check('contact payload', body?.metadata?.type === 'Contact Page' && body.metadata.company === 'Acme' && body.email === 'ada@example.com');
+  await ctx.close();
+}
+{
+  const { ctx, page } = await open('/quote-builder');
+  check('quote default total', (await page.textContent('[data-q-total]')) === '$90.00');
+  await page.click('[data-q-service="ghost-mannequin"]');
+  await page.fill('[data-q-volume]', '500'); await page.selectOption('[data-q-turnaround]', '12');
+  // (1.00+3.00) * 500 = 2000, -20% = 1600, x1.5 = 2400
+  check('quote recalculates (discount + rush)', (await page.textContent('[data-q-total]')) === '$2400.00');
+  check('quote shows turnaround fee row', (await page.locator('[data-q-turn-row]').isVisible()) && (await page.textContent('[data-q-turn-label]')) === 'Turnaround fee (+50%)');
+  await page.click('[data-q-service="bg-removal"]'); await page.click('[data-q-service="ghost-mannequin"]');
+  check('quote keeps at least one service', (await page.textContent('[data-q-rate]')) === '$3.00');
+  let body = null;
+  await page.route('**/api/portal/inquiry', async (r) => { body = JSON.parse(r.request().postData()); await r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }); });
+  await page.fill('[data-q-name-field]', 'Ada'); await page.fill('[data-q-company]', 'Acme'); await page.fill('[data-q-email]', 'ada@acme.co');
+  await page.click('[data-q-submit]');
+  await page.waitForSelector('[data-q-done]:not(.hidden)');
+  check('quote payload message', body?.metadata?.type === 'Quote Builder Request' && body.metadata.message.includes('- Services: Ghost Mannequin') && body.metadata.message.includes('Image Volume: 500 images') && body.metadata.message.includes('Turnaround SLA: 12h'));
+  await ctx.close();
+}
+{
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+  const { ctx, page } = await open('/pilot-batch');
+  await page.route('**/api/portal/upload/init', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ data: { uploadUrl: 'http://localhost:4441/__dbx', path: '/p/a.png' } }) }));
+  await page.route('**/__dbx', (r) => r.fulfill({ status: 200, body: '{}' }));
+  await page.route('**/api/portal/upload/complete', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { url: 'https://dbx/a.png', path: '/p/a.png' } }) }));
+  let seen = null;
+  await page.route('**/api/portal/pilot-batch', async (r) => { seen = r.request().postData(); await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, orderCode: 'RV-123' }) }); });
+  await page.setInputFiles('[data-pb-main-input]', [{ name: 'a.png', mimeType: 'image/png', buffer: png }]);
+  check('pilot needs email for guests', await page.locator('[data-pb-submit]').isDisabled());
+  await page.fill('[data-pb-email]', 'buyer@example.com');
+  await page.selectOption('[data-pb-format]', 'Other'); 
+  check('pilot needs custom format', await page.locator('[data-pb-submit]').isDisabled());
+  await page.fill('[data-pb-custom-format]', 'EXR');
+  await page.click('[data-pb-submit]');
+  await page.waitForSelector('[data-pb-done]:not(.hidden)');
+  check('pilot shows order code', (await page.textContent('[data-pb-code]')) === 'RV-123');
+  check('pilot payload', ['name="service"', 'EXR', 'name="email"', 'buyer@example.com', 'name="mainUploads"', 'name="guestId"'].every((f) => (seen || '').includes(f)));
+  await ctx.close();
+}
 await b.close(); srv.close();
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

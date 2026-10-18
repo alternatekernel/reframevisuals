@@ -1,0 +1,108 @@
+---
+import { Check, ShieldCheck, Calculator } from 'lucide-react';
+
+const SERVICES = [
+  { id: 'bg-removal', name: 'Background Removal', price: 1.0 }, { id: 'clipping-path', name: 'Clipping Path', price: 1.25 },
+  { id: 'ghost-mannequin', name: 'Ghost Mannequin', price: 3.0 }, { id: 'jewelry-retouch', name: 'Jewelry Retouching', price: 4.0 },
+  { id: 'garment-retouch', name: 'Garment Retouching', price: 2.5 }, { id: 'model-retouch', name: 'Model Retouching', price: 5.0 },
+];
+const input = 'w-full rounded-xl border border-black/[0.18] bg-[var(--color-bg-secondary)] px-4 py-3 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white';
+const label = 'mb-1.5 block text-[14px] font-semibold text-black/70';
+const standards = [
+  ['100% Hand-Drawn Paths', 'We do not rely on lazy automated segmentation. Every cutout and vector path is meticulously hand-drawn using the Photoshop Pen Tool.'],
+  ['Turnaround Timeline SLA', 'Timeline windows begin the moment payment details or credit slots are verified, and delivery performance is guaranteed.'],
+  ['Tiered Volume Discounts', 'The larger your catalog, the more you save. Discount tiers apply automatically to bulk orders over 100 images.'],
+];
+---
+<div data-quote-builder class="min-h-[calc(100dvh-64px)] bg-white px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 lg:pt-6 pb-12 sm:pb-16 lg:pb-24 relative overflow-hidden flex items-start justify-center">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-[200px] right-[-50px] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-purple-200/20 to-sky-200/20 blur-[80px] opacity-70"></div>
+    <div class="absolute bottom-[50px] left-[-50px] w-[300px] h-[300px] rounded-full bg-gradient-to-br from-indigo-100/10 to-cyan-200/15 blur-[90px] opacity-70"></div>
+  </div>
+  <div class="mx-auto w-full max-w-5xl relative z-10">
+    <div class="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
+      <div class="pointer-events-none absolute inset-0">
+        <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" class="absolute -right-24 top-10 h-72 w-72 opacity-[0.035]" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/40"></div>
+      </div>
+
+      <div class="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
+        <div data-q-done class="hidden space-y-6 py-4">
+          <div class="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center border border-green-100 shadow-sm"><Check size={28} className="text-green-600" /></div>
+          <div class="space-y-2">
+            <h2 class="text-[28px] font-bold tracking-tight text-[var(--color-text-primary)]">Estimate Requested</h2>
+            <p class="text-[14px] text-black/60 leading-relaxed">We've received your scoped request. A coordination manager will email a formal production proposal to <span data-q-done-email class="font-bold text-[var(--color-text-primary)]"></span> within 30 minutes.</p>
+          </div>
+          <button type="button" data-q-again class="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full border border-black/[0.18] bg-white px-6 text-[14px] font-semibold text-[var(--color-text-primary)] shadow-sm hover:bg-[var(--color-bg-secondary)] transition-all duration-300">Build another quote</button>
+        </div>
+
+        <div data-q-intro class="space-y-3">
+          <h3 class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Interactive Estimator</h3>
+          <h1 class="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Estimate project</h1>
+          <p class="text-[16px] text-black/60 leading-relaxed">Select your service mix, volume, and turnaround time to calculate an estimate.</p>
+        </div>
+
+        <form data-q-form class="mt-8 space-y-6" novalidate>
+          <div class="space-y-2.5">
+            <label class="text-[14px] font-semibold text-black/70">1. Select Service Mix</label>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {SERVICES.map((s) => (
+                <button type="button" data-q-service={s.id} data-price={s.price} data-q-name={s.name} class={`flex items-center justify-between p-3 rounded-xl border transition-all text-left text-[14px] font-semibold ${s.id === 'bg-removal' ? 'bg-black text-white border-transparent' : 'bg-[var(--color-bg-secondary)] border-black/[0.18] text-black/70 hover:border-black/30'}`}>
+                  <span>{s.name}</span>
+                  <span data-q-price class={s.id === 'bg-removal' ? 'text-white/60' : 'text-black/40'}>${s.price.toFixed(2)}/ea</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="quote-volume" class={label}>2. Image Volume</label>
+              <input id="quote-volume" data-q-volume type="number" min="10" max="50000" value="100" class={input} required />
+              <p data-q-discount-note class="text-[12px] text-green-600 font-semibold mt-1 px-1">✓ Volume discount of <span data-q-discount-pct>10</span>% applied</p>
+            </div>
+            <div>
+              <label for="quote-turnaround" class={label}>3. Turnaround SLA</label>
+              <select id="quote-turnaround" data-q-turnaround class={`${input} h-[46px]`}>
+                <option value="48">48h Relaxed (Base)</option><option value="24">24h Standard (+25%)</option><option value="12">12h Express (+50%)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 space-y-2.5">
+            <div class="flex justify-between text-[14px] text-black/60 font-semibold"><span>Rate per image</span><span data-q-rate>$1.00</span></div>
+            <div data-q-discount-row class="flex justify-between text-[14px] text-green-600 font-semibold"><span data-q-discount-label>Volume discount (10%)</span><span data-q-discount-amt>-$0.10 /ea</span></div>
+            <div data-q-turn-row class="hidden justify-between text-[14px] text-black/60 font-semibold [&:not(.hidden)]:flex"><span data-q-turn-label>Turnaround fee</span><span data-q-turn-mult>x1</span></div>
+            <div class="border-t border-black/[0.12] pt-2 flex justify-between items-center">
+              <div class="flex items-center gap-1.5 text-[14px] font-bold text-black/80"><Calculator size={16} /><span>Estimated Total</span></div>
+              <span data-q-total class="text-[24px] font-bold text-[var(--color-text-primary)]">$90.00</span>
+            </div>
+          </div>
+
+          <div class="border-t border-black/[0.12] pt-4 space-y-4">
+            <h4 class="text-[14px] font-semibold text-black/70">4. Request Formal Proposal</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div><label for="quote-name" class={label}>Your Name <span class="text-red-600">*</span></label><input id="quote-name" data-q-name-input data-q-name-field type="text" class={input} required /></div>
+              <div><label for="quote-company" class={label}>Company Name <span class="text-red-600">*</span></label><input id="quote-company" data-q-company type="text" class={input} required /></div>
+            </div>
+            <div><label for="quote-email" class={label}>Work Email <span class="text-red-600">*</span></label><input id="quote-email" data-q-email type="email" class={`${input} py-3.5`} required /></div>
+          </div>
+
+          <div data-q-error class="hidden p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold"></div>
+          <div class="pt-2"><button data-q-submit type="submit" disabled class="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full bg-[var(--color-text-primary)] px-8 text-[15px] font-bold text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-95 disabled:opacity-60">Request this Quote</button></div>
+        </form>
+      </div>
+
+      <div class="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
+        <h3 class="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Pricing Standards</h3>
+        <div class="space-y-8">
+          {standards.map(([t, b]) => <div><p class="text-[16px] font-bold text-[var(--color-text-primary)]">{t}</p><p class="text-[14px] text-black/60 mt-1">{b}</p></div>)}
+          <div class="pt-4 border-t border-black/[0.12] flex items-center gap-2"><ShieldCheck size={16} className="text-black/40" /><span class="text-[12px] text-black/40 font-semibold tracking-wide">SOC2 & Transit Encrypted</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/ui/quote-builder';
+</script>

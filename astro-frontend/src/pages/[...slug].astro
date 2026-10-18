@@ -17,10 +17,10 @@ import InsightAndTrustPage from '../views/InsightAndTrustPage.astro';
 import ExpansionPage from '../views/ExpansionPage.astro';
 import FreeTrialPage from '../views/FreeTrialPage.astro';
 import StartPage from '../views/StartPage.astro';
-import PilotBatchPage from '../islands/views/PilotBatchPage';
-import BookMeetingPage from '../islands/views/BookMeetingPage';
-import ContactPage from '../islands/views/ContactPage';
-import QuoteBuilderPage from '../islands/views/QuoteBuilderPage';
+import PilotBatchPage from '../views/PilotBatchPage.astro';
+import BookMeetingPage from '../views/BookMeetingPage.astro';
+import ContactPage from '../views/ContactPage.astro';
+import QuoteBuilderPage from '../views/QuoteBuilderPage.astro';
 import ServicesPage from '../views/ServicesPage.astro';
 import PricingPage from '../views/PricingPage.astro';
 import PortfolioPage from '../views/PortfolioPage.astro';
@@ -57,9 +57,9 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'AIProductVisualsPage' && <AIProductVisualsPage />}
   {view === 'FreeTrialPage' && <FreeTrialPage />}
   {view === 'StartPage' && <StartPage />}
-  {view === 'PilotBatchPage' && <PilotBatchPage client:load path={path} />}
-  {view === 'BookMeetingPage' && <BookMeetingPage client:load path={path} />}
-  {view === 'ContactPage' && <ContactPage client:load path={path} />}
-  {view === 'QuoteBuilderPage' && <QuoteBuilderPage client:load path={path} />}
+  {view === 'PilotBatchPage' && <PilotBatchPage />}
+  {view === 'BookMeetingPage' && <BookMeetingPage />}
+  {view === 'ContactPage' && <ContactPage />}
+  {view === 'QuoteBuilderPage' && <QuoteBuilderPage />}
   {view === 'ExpansionPage' && <ExpansionPage />}
 </PublicPageLayout>

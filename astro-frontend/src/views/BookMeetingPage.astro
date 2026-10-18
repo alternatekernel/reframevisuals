@@ -1,0 +1,115 @@
+---
+import { CalendarDays, Clock3, Check, ShieldCheck } from 'lucide-react';
+import { cx, tokens, typography } from '../utils/theme';
+import ButtonWithIcon from '../components/astro/ButtonWithIcon.astro';
+
+const TIME_SLOTS = ['09:00', '11:00', '14:00', '16:00'];
+const nextSteps = ['Confirm time', 'Review workflow', 'Map next steps'];
+const details = ['30-minute strategy call', 'Technical workflow walkthrough', 'Direct access to our editing team', 'Review of your catalog needs'];
+const input = 'w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white';
+const label = 'mb-1 block text-[14px] font-semibold text-black/70';
+---
+<div data-book-meeting>
+  <div data-bm-success class="hidden min-h-screen bg-[var(--color-bg-secondary)] relative items-start justify-center overflow-hidden py-12 [&:not(.hidden)]:flex">
+    <div class="w-full h-auto lg:h-[62vh] relative z-10 flex flex-col items-center px-4 lg:px-8 pt-8 lg:pt-[4vh]">
+      <div class={cx('w-full h-full max-w-[800px] bg-white border border-black/[0.18] flex flex-col items-center justify-center p-8 lg:p-12 text-center overflow-hidden', tokens.radiusCard)}>
+        <div class="w-16 h-16 mb-8 rounded-full flex items-center justify-center bg-[#F0FDF4] border border-[#BBF7D0]"><Check size={24} className="text-[#16A34A]" /></div>
+        <h1 class={cx(typography.vercelSection, 'text-[var(--color-text-primary)] mb-6')}>Meeting <span class="text-black/40">confirmed.</span></h1>
+        <p class="text-[15px] sm:text-[16px] text-black/60 max-w-md mx-auto leading-relaxed mb-10">We'll confirm your meeting time by email within 24 hours.</p>
+        <div class="w-full max-w-xs"><ButtonWithIcon label="Return to Home" href="/" variant="default" class="!w-full !h-12 !rounded-full" animated={false} /></div>
+      </div>
+    </div>
+  </div>
+
+  <div data-bm-page class="min-h-[calc(100dvh-64px)] bg-white px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 lg:pt-6 pb-24 relative overflow-hidden flex items-start justify-center">
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="absolute top-[200px] right-[-50px] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-amber-100/20 to-orange-200/20 blur-[80px] opacity-70"></div>
+      <div class="absolute bottom-[50px] left-[-50px] w-[300px] h-[300px] rounded-full bg-gradient-to-br from-yellow-100/10 to-orange-100/15 blur-[90px] opacity-70"></div>
+    </div>
+    <div class="mx-auto w-full max-w-5xl relative z-10">
+      <div class="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
+        <div class="pointer-events-none absolute inset-0">
+          <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" class="absolute -right-24 top-10 h-72 w-72 opacity-[0.035]" />
+          <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/40"></div>
+        </div>
+
+        <div class="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
+          <div class="space-y-3">
+            <h3 class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Walkthrough</h3>
+            <h1 class="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Schedule call</h1>
+            <p class="text-[16px] text-black/60 leading-relaxed">Book a 30-minute call with our editing team to discuss your workflow, volume, and turnaround needs.</p>
+          </div>
+
+          <form data-bm-form class="mt-4 space-y-3" novalidate>
+            <div class="rounded-2xl border border-black/[0.18] bg-[var(--color-bg-secondary)] p-3 sm:p-4 space-y-3">
+              <div class="flex items-center gap-2 text-[14px] font-bold text-black/70"><CalendarDays size={16} /><span>Choose preferred slot</span></div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="meeting-date" class="mb-1 block text-[12px] font-semibold text-black/50">Date</label>
+                  <input id="meeting-date" name="meetingDate" type="date" class="h-[38px] w-full rounded-lg border border-black/[0.18] bg-white px-3 text-[16px] font-medium text-[var(--color-text-primary)] outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30" required />
+                </div>
+                <div>
+                  <div class="mb-1 flex items-center gap-1 text-[12px] font-semibold text-black/50"><Clock3 size={12} />Time</div>
+                  <div class="grid grid-cols-4 gap-1">
+                    {TIME_SLOTS.map((slot) => (
+                      <button type="button" data-bm-slot={slot} class={`h-[38px] rounded-lg text-[12px] font-bold transition-all border ${slot === '11:00' ? 'bg-[var(--color-text-primary)] text-white border-transparent' : 'bg-white text-black/70 border-black/[0.18] hover:border-black/30'}`}>{slot}</button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label for="meeting-name" class={label}>Full Name <span class="text-red-600">*</span></label><input id="meeting-name" name="name" type="text" placeholder="Jane Cooper" class={input} required /></div>
+              <div><label for="meeting-email" class={label}>Work Email <span class="text-red-600">*</span></label><input id="meeting-email" name="email" type="email" placeholder="jane@company.com" class={input} required /></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div><label for="meeting-company" class={label}>Company <span class="text-red-600">*</span></label><input id="meeting-company" name="company" type="text" placeholder="Acme Studios" class={input} required /></div>
+              <div>
+                <label for="meeting-type" class={label}>Meeting Option</label>
+                <select id="meeting-type" name="meetingType" class={`${input} h-[38px]`}><option>Strategy call</option><option>Project discussion</option><option>High-volume custom SLA</option></select>
+              </div>
+            </div>
+            <div>
+              <label for="meeting-message" class={label}>What would you like to discuss? <span class="text-red-600">*</span></label>
+              <textarea id="meeting-message" name="message" placeholder="Tell us about your project needs..." class={`${input} h-16 resize-none`} required></textarea>
+            </div>
+            <div data-bm-error class="hidden p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold"></div>
+            <div class="pt-2">
+              <button data-bm-submit type="submit" disabled class="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full bg-[var(--color-text-primary)] px-8 text-[15px] font-bold text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-95 disabled:opacity-60">Schedule Call</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
+          <h3 class="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-6">Meeting Details</h3>
+          <div class="space-y-6">
+            <div class="space-y-3">
+              {details.map((d) => (
+                <div class="flex items-center gap-3">
+                  <div class="w-5 h-5 rounded-full bg-green-50 border border-green-100 flex items-center justify-center shrink-0 mt-0.5"><Check size={11} className="text-green-600" /></div>
+                  <span class="text-[14px] text-black/75 font-medium">{d}</span>
+                </div>
+              ))}
+            </div>
+            <div class="border-t border-black/[0.12] pt-6 space-y-4">
+              <p class="text-[12px] font-bold text-black/40 uppercase tracking-[0.14em]">What happens next</p>
+              <div class="grid grid-cols-3 gap-2">
+                {nextSteps.map((step, i) => (
+                  <div class="rounded-lg bg-white p-3 border border-black/[0.12] shadow-[0_2px_8px_rgba(0,0,0,0.02)]"><span class="text-[12px] font-bold text-black/30">0{i + 1}</span><p class="mt-1 text-[12px] font-bold text-[var(--color-text-primary)] leading-tight">{step}</p></div>
+                ))}
+              </div>
+            </div>
+            <div class="rounded-xl border border-black/[0.18] bg-[var(--color-text-primary)] p-4 text-white shadow-sm space-y-2">
+              <div class="flex items-center gap-2"><ShieldCheck size={16} className="text-white/60" /><p class="text-[12px] font-bold uppercase tracking-[0.14em] text-white/60">QA Control</p></div>
+              <p class="text-[12px] leading-relaxed text-white/70">Every order is reviewed by a senior editor before delivery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import '../lib/ui/book-meeting';
+</script>
