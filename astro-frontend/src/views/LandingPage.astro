@@ -5,7 +5,7 @@ import { tokens } from '../utils/theme';
 import Hero from '../islands/wrapped/Hero';
 import InstantDropZone from '../sections/landing/InstantDropZone.astro';
 import ImageGridSection from '../sections/landing/ImageGridSection.astro';
-import Testimonials from '../islands/wrapped/Testimonials';
+import Testimonials from '../sections/Testimonials.astro';
 import Workflow from '../islands/wrapped/Workflow';
 import ClientCategoryStrip from '../sections/ClientCategoryStrip.astro';
 import TrialAuditCta from '../sections/TrialAuditCta.astro';
@@ -33,7 +33,7 @@ const points = [
   <Reveal variant="fade" duration={0.7}><InstantDropZone /></Reveal>
   <Reveal variant="fade" duration={0.55} class="hidden sm:block"><BeatPixelzBanner /></Reveal>
   <Reveal variant="fade" duration={0.9}><ImageGridSection images={landingImages.slice(0, 6)} /></Reveal>
-  <Reveal variant="fade" duration={0.7}><Testimonials client:visible path={path} /></Reveal>
+  <Reveal variant="fade" duration={0.7}><Testimonials /></Reveal>
 
   <section class="relative z-20 max-w-[1600px] mx-auto px-5 sm:px-6 lg:px-12 pt-10 pb-10 lg:pt-16 lg:pb-12">
     <div class="grid gap-5 lg:gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">

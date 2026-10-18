@@ -1,6 +1,6 @@
 ---
 import React from 'react';
-import Testimonials from '../islands/wrapped/Testimonials';
+import Testimonials from '../sections/Testimonials.astro';
 import { TESTIMONIALS } from '../data/testimonials';
 
 const reviewsSchema = {
@@ -99,5 +99,5 @@ const STATS = [
         </div>
       </section>
 
-      <Testimonials client:visible path={Astro.url.pathname} title="People love working with Reframe" />
+      <Testimonials title="People love working with Reframe" />
     </div>

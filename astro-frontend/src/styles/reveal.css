@@ -33,6 +33,7 @@
 [data-reveal][data-reveal-variant='slide-left-sm'] { transform: translateX(-20px); }
 [data-reveal][data-reveal-variant='rise-scale'] { transform: translateY(var(--reveal-y, 30px)) scale(0.98); transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
 [data-reveal][data-reveal-variant='slide-right'] { transform: translateX(18px); }
+[data-reveal][data-reveal-variant='laurel'] { transform: translateX(var(--reveal-x, -26px)); transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
 [data-reveal][data-reveal-variant].is-revealed { opacity: 1; transform: none; }
 
 /* load-variant modifiers: opacity-only and scale entrances */

@@ -3,7 +3,7 @@ import { SERVICES } from '../data/services';
 import PortfolioHero from '../sections/portfolio/PortfolioHero.astro';
 import { ArrowRight } from 'lucide-react';
 import { cx, tokens } from '../utils/theme';
-import Testimonials from '../islands/wrapped/Testimonials';
+import Testimonials from '../sections/Testimonials.astro';
 import PortfolioAbout from '../sections/portfolio/PortfolioAbout.astro';
 
 const showcase = SERVICES.filter((s) => !s.hidden && s.beforeImage && s.afterImage);
@@ -105,6 +105,6 @@ const imageGallerySchema = {
       </section>
 
       <PortfolioAbout />
-      <Testimonials client:visible path={Astro.url.pathname} />
+      <Testimonials />
 
     </div>

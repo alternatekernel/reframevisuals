@@ -1,0 +1,127 @@
+---
+import { X } from 'lucide-react';
+import { TESTIMONIALS } from '../data/testimonials';
+import { cx, typography } from '../utils/theme';
+import { cldTransform } from '../utils/cloudinary';
+import Frame from '../components/ui/Frame';
+import TestimonialCard from '../components/astro/TestimonialCard.astro';
+import LaurelBranch from '../components/astro/LaurelBranch.astro';
+
+export interface Props { class?: string; title?: string }
+const { class: cls = '', title = 'People love shipping with Reframe' } = Astro.props;
+const marquee = TESTIMONIALS.filter((item) => !item.name.includes('Nikola Filić'));
+const srOnly = 'position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0';
+const field = 'w-full rounded-xl border border-black/[0.18] bg-black/[0.04] px-4 py-2.5 text-[14px] outline-none focus:border-black/35 focus:bg-white transition-all focus:ring-1 focus:ring-black/5';
+const label = 'block text-[12px] font-bold uppercase tracking-wider text-black/55 mb-1.5';
+const verifiedPath = 'M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.99-3.818-3.99-.48 0-.941.1-1.352.277C14.774 2.525 13.5 1.5 12 1.5s-2.774 1.025-3.422 2.287c-.41-.177-.872-.277-1.352-.277-2.109 0-3.818 1.78-3.818 3.99 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.71 3.99 3.818 3.99.48 0 .941-.1 1.352-.277.648 1.262 1.922 2.287 3.422 2.287s2.774-1.025 3.422-2.287c.41.177.872.277 1.352.277 2.109 0 3.818-1.78 3.818-3.99 0-.495-.084-.965-.238-1.4 1.273-.65 2.148-2.02 2.148-3.6zm-12.233 4.29l-3.32-3.315 1.246-1.244 2.074 2.071 5.394-5.385 1.246 1.244-6.64 6.63z';
+---
+<section id="testimonials" data-testimonials class={`relative overflow-hidden bg-[#F7F6F3] sm:bg-white pt-14 sm:pt-16 lg:pt-24 pb-6 sm:pb-8 lg:pb-12 ${cls}`}>
+  <div class="mx-auto max-w-[1800px] px-5 sm:px-10 lg:px-16">
+    <div class="mb-12 md:mb-16 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div class="max-w-3xl space-y-2">
+        <h2 data-reveal data-reveal-threshold="0.2" style="--reveal-duration:0.7s;--reveal-y:28px" class={cx(typography.displayLg, 'text-[var(--color-text-primary)]')}>{title}</h2>
+        <p data-reveal data-reveal-threshold="0.2" style="--reveal-duration:0.65s;--reveal-delay:0.1s" class="text-[16px] text-black/50 font-medium max-w-xl">What catalog-scale teams say.</p>
+      </div>
+      <div data-reveal style="--reveal-duration:0.65s;--reveal-delay:0.15s" class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+        <a href="/free-trial" class="inline-flex min-h-[52px] w-full max-w-[280px] items-center justify-center rounded-full bg-[var(--color-text-primary)] px-6 text-[15px] font-bold text-white transition-all duration-300 hover:bg-black active:scale-95 sm:w-max">Get 3 Free Sample Edits</a>
+        <button type="button" data-t-open class="inline-flex min-h-[52px] w-full max-w-[280px] items-center justify-center rounded-full border border-black/15 px-6 text-[15px] font-bold text-black/70 transition-all duration-300 hover:border-black/30 hover:text-black active:scale-95 sm:w-max">Share your experience</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-5 sm:px-10 lg:px-16 mb-4">
+    <div data-reveal data-reveal-threshold="0.15" style="--reveal-duration:0.8s;--reveal-y:30px" class="relative w-full max-w-5xl">
+      <div class="absolute top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none z-0 left-0 -translate-x-[70%]"><LaurelBranch part="top" delay={0.6} uid="l-behind" /></div>
+      <div class="absolute top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none z-20 left-0 -translate-x-[70%]"><LaurelBranch part="bottom" delay={0.6} uid="l-front" /></div>
+      <div class="absolute top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none z-0 right-0 translate-x-[82%]"><LaurelBranch mirrored part="bottom" delay={0.75} uid="r-behind" /></div>
+      <div class="absolute top-1/2 -translate-y-1/2 hidden xl:flex items-center pointer-events-none z-20 right-0 translate-x-[82%]"><LaurelBranch mirrored part="top" delay={0.75} uid="r-front" /></div>
+
+      <Frame size="lg" noPadding hideCrosshairs className="w-full relative z-10">
+        <div class="w-full p-[5px]">
+          <div class="w-full grid md:grid-cols-[1fr_1.3fr] rounded-none bg-white border border-black/[0.16] shadow-[0_24px_60px_-34px_rgba(15,23,42,0.18)] overflow-hidden">
+            <div class="relative h-[260px] md:h-auto min-h-[420px] overflow-hidden bg-[#e9e9e9]">
+              <img src={cldTransform('https://res.cloudinary.com/dnmj4altq/image/upload/v1781971885/reframe/testimonials/nikola_filic_portrait.jpg', 'f_auto,q_auto,w_600')} alt="Nikola Filić, Founder of Bomber Clothing - 5-Year Reframe Visuals Ecommerce Photo Editing Client" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-700 scale-[1.02] hover:scale-[1.05]" />
+            </div>
+            <div class="p-8 sm:p-10 lg:p-12 flex flex-col justify-between min-w-0 bg-white">
+              <div>
+                <div class="flex gap-0.5 text-amber-500 mb-7">
+                  {[0, 1, 2, 3, 4].map(() => (
+                    <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" /></svg>
+                  ))}
+                </div>
+                <blockquote class="text-[15px] sm:text-[16px] lg:text-[18px] text-black/80 font-normal leading-relaxed" style={'font-family: Georgia, "Times New Roman", serif; font-style: italic'}>
+                  &ldquo;Probably the best team I have worked with, and I use the platform very very often. Awesome pricing &amp; highest possible result. Everything done to the smallest details. They really know how to use PS. Will definitely work with them in the long run.&rdquo;
+                </blockquote>
+                <p class="mt-4 text-[14px] sm:text-[14px] text-black/50 leading-relaxed border-l-2 border-black/[0.18] pl-4 italic">"Perfect collab as always. We have been working together now more than a year, and will definitely continue!"</p>
+                <p class="mt-6 text-[14px] text-black/45 leading-relaxed italic" style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale">
+                  Five years. Same vision, different seasons. Not every partnership is written in a contract. Some are written in the work.
+                  <span class="not-italic font-semibold text-black/30 ml-1">— Reframe Visuals</span>
+                </p>
+              </div>
+              <div class="mt-8 pt-6 border-t border-black/[0.14]">
+                <div class="flex items-center justify-between gap-4 flex-wrap">
+                  <div class="flex items-center gap-3.5">
+                    <div class="relative w-11 h-11 shrink-0">
+                      <img src="https://res.cloudinary.com/dnmj4altq/image/upload/w_88,h_88,c_fill,g_face,f_auto,q_auto/v1781715801/reframe/testimonials/nikola_filic_profile.png" alt="Nikola Filić - Founder, Bomber Clothing - Verified Reframe Visuals Long-term Partner" class="w-full h-full rounded-full object-cover border-2 border-black/[0.18]" />
+                      <div class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center border border-white">
+                        <svg viewBox="0 0 24 24" class="w-2.5 h-2.5 fill-white"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      </div>
+                    </div>
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-1.5">
+                        <span class="text-[15px] font-bold text-black leading-tight">Nikola Filić</span>
+                        <svg viewBox="0 0 24 24" class="w-4 h-4 fill-blue-500 flex-shrink-0" aria-label="Verified"><path d={verifiedPath} /></svg>
+                      </div>
+                      <span class="block text-[12px] text-black/50 mt-0.5 font-medium">Founder &amp; Creative Director,{' '}<a href="https://bomberclothing.com" target="_blank" rel="noopener noreferrer" class="text-black hover:underline font-semibold">Bomber Clothing</a></span>
+                      <span class="block text-[12px] text-black/50 mt-0.5 font-medium">Long-term partner</span>
+                    </div>
+                  </div>
+                  <span style={srOnly}>Nikola Filić, Founder and Creative Director at Bomber Clothing. Instagram: @bomber_clothing at instagram.com/bomber_clothing. Website: bomberclothing.com. Verified long-term partner of Reframe Visuals. 5-year collaboration.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Frame>
+    </div>
+  </div>
+
+  <span style={srOnly}>Suril, Founder of Acia Studio. UK-based streetwear and creative fashion brand. Instagram: @aciastudio at instagram.com/aciastudio. Verified client of Reframe Visuals.</span>
+
+  <div data-reveal data-reveal-threshold="0.1" style="--reveal-duration:0.75s;--reveal-y:30px" class="space-y-0 py-4">
+    <div class="w-full overflow-hidden sm:overflow-visible select-none relative sm:[mask-image:linear-gradient(to_right,transparent,white_5%,white_95%,transparent)]">
+      <div data-t-track class="flex w-max animate-marquee-custom sm:hover:[animation-play-state:paused] pt-6 pb-6">
+        {marquee.map((item) => <TestimonialCard item={item} />)}
+      </div>
+    </div>
+  </div>
+  <template data-t-tpl><TestimonialCard item={{ quote: '', name: '', company: '', metric: '…' }} /></template>
+
+  <div data-t-modal class="hidden fixed inset-0 z-[9999] items-center justify-center p-4 [&:not(.hidden)]:flex">
+    <div data-t-close class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div role="dialog" aria-modal="true" aria-label="Share your experience" class="relative w-full max-w-md overflow-hidden rounded-[28px] border border-black/[0.18] bg-white p-6 shadow-2xl sm:p-8">
+      <button type="button" data-t-close aria-label="Close" class="absolute right-4 top-4 rounded-full p-2 text-black/40 hover:bg-black/5 hover:text-black/70 transition-colors"><X size={18} /></button>
+      <div class="mb-6">
+        <h3 class="text-[20px] font-bold text-[var(--color-text-primary)]">Share your experience</h3>
+        <p class="text-[14px] text-black/50 mt-1">Add your testimonial to the Reframe scrolling marquee.</p>
+      </div>
+      <form data-t-form class="space-y-4">
+        <div><label class={label}>Your Name</label><input type="text" name="name" required placeholder="e.g. Sarah Jenkins" class={field} /></div>
+        <div><label class={label}>Company / Role</label><input type="text" name="company" required placeholder="e.g. Founder at CleanSkins" class={field} /></div>
+        <div><label class={label}>Work Email</label><input type="email" name="email" required placeholder="e.g. sarah@cleanskins.com" class={field} /></div>
+        <div>
+          <label class={`${label} flex justify-between`}><span>Your Review Quote</span><span class="text-[12px] text-black/35 normal-case font-normal"><span data-t-count>0</span>/180 chars</span></label>
+          <textarea name="quote" required maxlength="180" placeholder="Describe your experience with Reframe (e.g. quality, turnaround)..." rows="3" class={`${field} resize-none`}></textarea>
+        </div>
+        <div><label class={label}>Impact Metric (Optional)</label><input type="text" name="metric" placeholder="e.g. 3 days → 12 hours" class={field} /></div>
+        <div class="pt-2 flex gap-3">
+          <button type="button" data-t-close class="flex-1 min-h-11 rounded-xl border border-black/[0.18] text-[14px] font-bold text-black/70 hover:bg-neutral-50 active:scale-[0.98] transition-all">Cancel</button>
+          <button type="submit" class="min-h-12 flex-1 rounded-full bg-[var(--color-text-primary)] text-[15px] font-bold text-white shadow-[0_8px_24px_rgba(0,0,0,0.10)] transition-all hover:bg-black active:scale-[0.98]">Submit Testimonial</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  import '../lib/ui/testimonials';
+</script>

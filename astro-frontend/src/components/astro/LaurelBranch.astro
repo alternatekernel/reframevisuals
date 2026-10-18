@@ -1,0 +1,35 @@
+---
+import { LAUREL, TSPLIT } from '../../lib/laurel';
+export interface Props { mirrored?: boolean; delay?: number; uid: string; part: 'top' | 'bottom' }
+const { mirrored = false, delay = 0, uid, part } = Astro.props;
+const leaves = LAUREL.leaves.filter((lf) => (part === 'top' ? lf.t > TSPLIT : lf.t <= TSPLIT));
+const stem = part === 'top' ? LAUREL.stemPath(TSPLIT, 1) : LAUREL.stemPath(0, TSPLIT);
+---
+<div data-reveal data-reveal-variant="laurel" data-reveal-threshold="0.1" style={`--reveal-duration:1.2s;--reveal-delay:${delay}s;--reveal-x:${mirrored ? 26 : -26}px`} class="pointer-events-none select-none">
+  <div style={mirrored ? 'transform: scaleX(-1)' : undefined}>
+    <div class={part === 'top' ? 'laurel-sway' : undefined} style={part === 'top' ? `transform-origin: 61.5% 48.8%; animation-delay: ${delay + 0.4}s` : undefined}>
+      <svg viewBox="-54 0 150 466" width="132" height="410" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block; overflow: visible" aria-hidden="true">
+        <defs>
+          <linearGradient id={`leaf-${uid}`} x1="0" y1="0" x2="1" y2="0.4">
+            <stop offset="0" stop-color="#5a3d08" /><stop offset="0.28" stop-color="#a9760d" /><stop offset="0.5" stop-color="#ffe9a8" /><stop offset="0.72" stop-color="#c9971f" /><stop offset="1" stop-color="#6e4e0c" />
+          </linearGradient>
+          <linearGradient id={`stem-${uid}`} x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#7a5510" /><stop offset="0.5" stop-color="#e8bd53" /><stop offset="1" stop-color="#8a6212" />
+          </linearGradient>
+          <filter id={`sh-${uid}`} x="-60%" y="-25%" width="220%" height="150%">
+            <feDropShadow dx="0" dy="1.1" stdDeviation="1.1" flood-color="#2e1f04" flood-opacity="0.4" />
+          </filter>
+        </defs>
+        <path d={stem} stroke={`url(#stem-${uid})`} stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9" />
+        <g filter={`url(#sh-${uid})`}>
+          {leaves.map((lf) => (
+            <g>
+              <path d={lf.d} fill={`url(#leaf-${uid})`} stroke="#4a3206" stroke-width="0.4" stroke-opacity="0.5" />
+              <line x1={lf.vx1} y1={lf.vy1} x2={lf.vx2} y2={lf.vy2} stroke="#fff6d8" stroke-width="0.7" stroke-opacity="0.55" stroke-linecap="round" />
+            </g>
+          ))}
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>

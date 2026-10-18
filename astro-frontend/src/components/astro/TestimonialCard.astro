@@ -1,0 +1,39 @@
+---
+import { cldAvatar } from '../../utils/cloudinary';
+import { highlightHtml } from '../../lib/testimonialText';
+export interface Props { item: { quote: string; name: string; company: string; metric?: string; avatarUrl?: string; username?: string }; ariaHidden?: boolean }
+const { item, ariaHidden = false } = Astro.props;
+const alt = item.company ? `${item.name} - ${item.company} - Reframe Visuals Ecommerce Photo Editing Client` : `${item.name} - Reframe Visuals Client Testimonial`;
+const initials = item.name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+const verified = item.company.includes(',') || item.company.toLowerCase().includes(' at ');
+---
+<article aria-hidden={ariaHidden || undefined} class="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 flex flex-col bg-white border border-black/[0.16] -ml-[1px] cursor-default overflow-hidden">
+  <div class="flex-1 p-5 pb-4 flex flex-col">
+    <p data-t-quote class="text-[14px] sm:text-[14px] leading-relaxed text-black/75 font-normal" style="font-family: ui-sans-serif, system-ui, sans-serif" set:html={highlightHtml(item.quote)} />
+    {item.metric && (
+      <div data-t-metric-wrap class="mt-auto pt-2">
+        <span data-t-metric class="inline-block text-[12px] font-bold text-[#C2410C] uppercase tracking-wider bg-orange-50 border border-orange-100 rounded px-1.5 py-0.5 leading-none">{item.metric}</span>
+      </div>
+    )}
+  </div>
+  <div class="w-full h-px bg-black/[0.08]"></div>
+  <div class="flex items-center gap-3 p-5">
+    {item.avatarUrl ? (
+      <img src={cldAvatar(item.avatarUrl)} alt={alt} width="36" height="36" loading="lazy" decoding="async" class="w-9 h-9 rounded-full object-cover shrink-0 border border-black/[0.12]" />
+    ) : (
+      <div data-t-initials class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[12px] tracking-wide shrink-0 border border-black/[0.16] bg-black/[0.06] text-black/70">{initials}</div>
+    )}
+    <div class="min-w-0">
+      <div class="flex items-center gap-1">
+        <span data-t-name class="text-[14px] font-bold text-black leading-tight truncate">{item.name}</span>
+        {verified && (
+          <svg data-t-verified viewBox="0 0 24 24" class="w-3.5 h-3.5 flex-shrink-0" style="fill: rgba(0,0,0,0.35)" aria-label="Verified account">
+            <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.99-3.818-3.99-.48 0-.941.1-1.352.277C14.774 2.525 13.5 1.5 12 1.5s-2.774 1.025-3.422 2.287c-.41-.177-.872-.277-1.352-.277-2.109 0-3.818 1.78-3.818 3.99 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.71 3.99 3.818 3.99.48 0 .941-.1 1.352-.277.648 1.262 1.922 2.287 3.422 2.287s2.774-1.025 3.422-2.287c.41.177.872.277 1.352.277 2.109 0 3.818-1.78 3.818-3.99 0-.495-.084-.965-.238-1.4 1.273-.65 2.148-2.02 2.148-3.6zm-12.233 4.29l-3.32-3.315 1.246-1.244 2.074 2.071 5.394-5.385 1.246 1.244-6.64 6.63z" />
+          </svg>
+        )}
+      </div>
+      {item.username && <span data-t-username class="block text-[14px] text-black/60 leading-tight mt-0.5 truncate">{item.username}</span>}
+      <span data-t-company class="block text-[12px] text-black/40 leading-snug mt-0.5 truncate">{item.company}</span>
+    </div>
+  </div>
+</article>

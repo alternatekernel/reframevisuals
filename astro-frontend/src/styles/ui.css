@@ -31,3 +31,10 @@
 }
 [data-expand-body] > div { overflow: hidden; min-height: 0; }
 @media (prefers-reduced-motion: reduce) { [data-expand-body] { transition: none; } }
+
+/* Testimonials */
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.animate-marquee-custom { animation: marquee 100s linear infinite; }
+@keyframes laurel-sway { 0%, 100% { transform: rotate(0deg); } 33.33% { transform: rotate(6.5deg); } 66.66% { transform: rotate(-6.5deg); } }
+.laurel-sway { animation: laurel-sway 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .laurel-sway { animation: none; } }
