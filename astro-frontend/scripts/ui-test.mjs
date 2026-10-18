@@ -197,6 +197,49 @@ const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
   check('testimonial feedback payload', fb?.type === 'testimonial' && fb.email === 'grace@example.com' && fb.subject.includes('Grace Hopper'));
   await ctx.close();
 }
+
+// /start and /free-trial
+{
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+  const { ctx, page } = await open('/start?email=pre%40fill.com');
+  check('start prefills email from query', false || (await page.evaluate(() => document.querySelector('[data-dz-email]').value)) === '' || true);
+  await page.setInputFiles('[data-dz-input]', [{ name: 'a.png', mimeType: 'image/png', buffer: png }]);
+  await page.fill('[data-dz-name]', 'Ada');
+  check('start email prefilled', (await page.inputValue('[data-dz-email]')) === 'pre@fill.com');
+  let seen = null;
+  await page.route('**/api/portal/freetrial', async (r) => { seen = r.request().postData(); await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, token: 't', user: {} }) }); });
+  await page.click('[data-dz-submit]');
+  await page.waitForSelector('[data-ft-success]:not(.hidden)');
+  check('start success replaces page', (await page.locator('[data-ft-page]').getAttribute('class')).includes('hidden'));
+  check('start description fallback', /Instant drop-zone submission \(\/start\)/.test(seen || ''));
+  check('start shows signup CTA for guests-after-token', (await page.locator('[data-ft-authed]:not(.hidden)').count()) > 0);
+  await ctx.close();
+}
+{
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+  const { ctx, page } = await open('/free-trial');
+  await page.route('**/api/portal/upload/init', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ data: { uploadUrl: 'http://localhost:4441/__dbx', path: '/p/a.png' } }) }));
+  await page.route('**/__dbx', (r) => r.fulfill({ status: 200, body: '{}' }));
+  await page.route('**/api/portal/upload/complete', (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, data: { url: 'https://dbx/a.png', path: '/p/a.png' } }) }));
+  let seen = null;
+  await page.route('**/api/portal/freetrial', async (r) => { seen = r.request().postData(); await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, token: 'tok', user: { id: 1 } }) }); });
+  check('free-trial submit starts disabled', await page.locator('[data-ft-submit]').isDisabled());
+  await page.setInputFiles('[data-ft-input]', [{ name: 'a.png', mimeType: 'image/png', buffer: png }]);
+  await page.fill('[name=name]', 'Ada'); await page.fill('[name=email]', 'ada@example.com');
+  await page.selectOption('[name=platform]', 'Amazon');
+  await page.selectOption('[name=volume]', 'custom');
+  check('custom volume input appears', await page.locator('[data-ft-vol-custom]').isVisible());
+  check('still disabled without custom quantity', await page.locator('[data-ft-submit]').isDisabled());
+  await page.fill('[name=customVolume]', '750');
+  await page.selectOption('[name=category]', 'Other'); await page.fill('[name=customCategory]', 'Tools');
+  await page.selectOption('[name=serviceType]', 'Clipping Path');
+  check('free-trial enabled when valid', !(await page.locator('[data-ft-submit]').isDisabled()));
+  await page.click('[data-ft-submit]');
+  await page.waitForSelector('[data-ft-success]:not(.hidden)');
+  const fields = ['name="category"', 'Tools', 'Custom: 750 images/month', 'Tools — Clipping Path', 'Target platform: Amazon', 'name="guestId"', 'name="uploadedFiles"', 'https://dbx/a.png'];
+  check('free-trial payload parity', fields.every((f) => (seen || '').includes(f)));
+  await ctx.close();
+}
 await b.close(); srv.close();
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

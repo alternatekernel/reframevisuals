@@ -15,8 +15,8 @@ import ComparisonPage from '../views/ComparisonPage.astro';
 import CaseStudyDetailPage from '../views/CaseStudyDetailPage.astro';
 import InsightAndTrustPage from '../views/InsightAndTrustPage.astro';
 import ExpansionPage from '../views/ExpansionPage.astro';
-import FreeTrialPage from '../islands/views/FreeTrialPage';
-import StartPage from '../islands/views/StartPage';
+import FreeTrialPage from '../views/FreeTrialPage.astro';
+import StartPage from '../views/StartPage.astro';
 import PilotBatchPage from '../islands/views/PilotBatchPage';
 import BookMeetingPage from '../islands/views/BookMeetingPage';
 import ContactPage from '../islands/views/ContactPage';
@@ -55,8 +55,8 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'PortfolioPage' && <PortfolioPage />}
   {view === 'TestimonialsPage' && <TestimonialsPage />}
   {view === 'AIProductVisualsPage' && <AIProductVisualsPage />}
-  {view === 'FreeTrialPage' && <FreeTrialPage client:load path={path} />}
-  {view === 'StartPage' && <StartPage client:load path={path} />}
+  {view === 'FreeTrialPage' && <FreeTrialPage />}
+  {view === 'StartPage' && <StartPage />}
   {view === 'PilotBatchPage' && <PilotBatchPage client:load path={path} />}
   {view === 'BookMeetingPage' && <BookMeetingPage client:load path={path} />}
   {view === 'ContactPage' && <ContactPage client:load path={path} />}

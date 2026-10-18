@@ -1,0 +1,160 @@
+---
+import { Upload, X, Image as ImageIcon, Check, AlertTriangle } from 'lucide-react';
+import FreeTrialSuccess from '../components/astro/FreeTrialSuccess.astro';
+
+const CATEGORY_OPTIONS = ['Apparel / Fashion', 'Jewelry', 'Furniture', 'Beauty / Cosmetics', 'Electronics', 'Accessories', 'Marketplace product', 'Other'];
+const SERVICE_OPTIONS = ['Background Removal', 'Clipping Path', 'Photo Retouching', 'Color Correction', 'Ghost Mannequin', 'Shadow Creation', 'Not sure yet'];
+const select = 'w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white h-[42px]';
+const text = 'w-full rounded-lg border border-black/[0.18] bg-[var(--color-bg-secondary)] px-3 py-2 text-[16px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30 focus:bg-white';
+const sub = 'mt-2 w-full rounded-lg border border-black/[0.18] bg-white px-3 py-2 text-[15px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-black/30';
+const label = 'mb-1 block text-[14px] font-semibold text-black/70';
+const standards = [
+  ['3 Free Sample Edits', 'Submit your images and test our quality with zero commitment. No credit card required.'],
+  ['Back within 24 hours', 'Your edited trial files come back within 24 hours, reviewed by our lead editors.'],
+  ['Secure Asset Handling', 'Your source files are fully protected and never shared or used without your permission.'],
+];
+---
+<div data-ft-page data-free-trial class="min-h-[calc(100dvh-64px)] bg-white px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 lg:pt-6 pb-24 relative overflow-hidden flex items-start justify-center">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-[200px] right-[-50px] w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-emerald-100/20 to-teal-200/20 blur-[80px] opacity-70"></div>
+    <div class="absolute bottom-[50px] left-[-50px] w-[300px] h-[300px] rounded-full bg-gradient-to-br from-green-100/10 to-emerald-100/15 blur-[90px] opacity-70"></div>
+  </div>
+
+  <div class="mx-auto w-full max-w-5xl relative z-10">
+    <div class="relative overflow-hidden rounded-[24px] border border-black/[0.18] bg-white shadow-[0_14px_40px_rgba(0,0,0,0.11)] flex flex-col md:flex-row">
+      <div class="pointer-events-none absolute inset-0">
+        <img src="/logo.svg" alt="Reframe Visuals" aria-hidden="true" class="absolute -right-24 top-10 h-72 w-72 opacity-[0.035]" />
+        <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-transparent to-white/40"></div>
+      </div>
+
+      <div class="relative z-10 w-full md:w-[60%] p-6 sm:p-10 lg:p-12 border-b md:border-b-0 md:border-r border-black/[0.12]">
+        <div class="space-y-3">
+          <h3 class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Free Evaluation</h3>
+          <h1 class="text-[36px] sm:text-[40px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.1]">Get 3 images edited free</h1>
+          <p class="text-[16px] text-black/60 leading-relaxed">Upload up to 3 product photos. We’ll edit them free so you can evaluate quality and turnaround.</p>
+          <a href="/pilot-batch" class="inline-flex text-[12px] font-bold text-black underline underline-offset-4">Need a paid review batch? Start Test Batch</a>
+        </div>
+
+        <form data-ft-form class="mt-4 space-y-3" novalidate>
+          <div class="space-y-2">
+            <div class="relative rounded-xl border border-black/[0.12] bg-black/[0.04] p-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class={label}>Product Category <span class="text-black/35">(optional)</span></label>
+                  <select name="category" class={select}>
+                    <option value="">Select category (optional)</option>
+                    {CATEGORY_OPTIONS.map((o) => <option value={o}>{o}</option>)}
+                  </select>
+                  <input data-ft-cat-other name="customCategory" type="text" placeholder="Enter category" class={`hidden ${sub}`} />
+                </div>
+                <div>
+                  <label class={label}>Target Platform <span class="text-red-600">*</span></label>
+                  <select name="platform" class={select} required>
+                    <option value="">Select platform</option>
+                    <option>Amazon</option><option>Website</option><option>Marketplace</option><option>Agency client</option>
+                  </select>
+                </div>
+                <div>
+                  <label class={label}>Monthly Image Volume <span class="text-red-600">*</span></label>
+                  <select name="volume" class={select} required>
+                    <option value="">Select volume</option>
+                    <option>1-25 images</option><option>26-100 images</option><option>101-500 images</option><option>500+ images</option>
+                    <option value="custom">Custom quantity</option>
+                  </select>
+                  <input data-ft-vol-custom name="customVolume" type="number" min="1" step="1" placeholder="e.g. 750" class={`hidden ${sub}`} />
+                </div>
+                <div class="flex items-end gap-2">
+                  <div class="flex-1">
+                    <label class={label}>Service Name <span class="text-black/35">(optional)</span></label>
+                    <select name="serviceType" class={select}>
+                      <option value="">Select service (optional)</option>
+                      {SERVICE_OPTIONS.map((o) => <option value={o}>{o}</option>)}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class={label}>Project Brief</label>
+            <textarea name="description" rows="4" placeholder="Tell us the edit style, background, color, format, or reference direction..." class={`${text} min-h-[120px] max-h-[320px] resize-y`}></textarea>
+          </div>
+
+          <div>
+            <label class={label}>Upload Source Images <span class="text-red-600">*</span></label>
+            <div data-ft-drop class="cursor-pointer p-4 border border-dashed rounded-lg flex flex-col items-center justify-center gap-1 transition-all text-center border-black/20 hover:border-black hover:bg-black/[0.04]">
+              <Upload size={16} className="text-black/60" />
+              <p class="text-[12px] text-black/60">Drop up to 3 images or <span class="text-black font-semibold underline">browse</span></p>
+            </div>
+            <input data-ft-input type="file" multiple accept="image/*" class="hidden" />
+            <div data-ft-notice class="hidden mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-[12px] text-amber-800">
+              <div class="flex items-start gap-2 font-semibold"><AlertTriangle size={14} className="mt-0.5" /><span data-ft-notice-text></span></div>
+              <p data-ft-notice-list class="mt-1 text-[12px]"></p>
+            </div>
+            <div data-ft-list-wrap class="hidden mt-3">
+              <p data-ft-list-count class="mb-2 text-[12px] font-bold text-black/70"></p>
+              <div data-ft-list class="grid grid-cols-1 sm:grid-cols-3 gap-2"></div>
+            </div>
+          </div>
+
+          <div>
+            <label class={label}>Support / Reference Files <span class="text-black/35">(optional)</span></label>
+            <div data-ft-support-drop class="cursor-pointer rounded-lg border border-dashed border-orange-300 bg-orange-50/60 p-4 text-center transition-all hover:bg-orange-50">
+              <Upload size={16} className="mx-auto text-orange-500" />
+              <p class="mt-1 text-[12px] text-black/60">Add ghost mannequin inner shots, brand guides, PDFs, markups, or references. These are not counted as the 3 free sample images.</p>
+            </div>
+            <input data-ft-support-input type="file" multiple accept="image/*,.pdf,.doc,.docx,.txt" class="hidden" />
+            <div data-ft-support-list class="hidden mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+
+          <template data-ft-file-tpl>
+            <div class="min-w-0 flex items-center gap-2 p-2.5 rounded-lg border border-black bg-black text-white relative shadow-sm">
+              <button type="button" data-rm class="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black/5 transition-all"><X size={10} /></button>
+              <ImageIcon size={14} className="text-white/70 shrink-0" />
+              <span data-name class="text-[12px] font-medium text-white truncate"></span>
+            </div>
+          </template>
+          <template data-ft-support-tpl>
+            <div class="min-w-0 flex items-center gap-2 p-2.5 rounded-lg border border-orange-200 bg-orange-50 text-black relative shadow-sm">
+              <button type="button" data-rm class="absolute -top-1.5 -right-1.5 p-1 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black/5 transition-all"><X size={10} /></button>
+              <ImageIcon size={14} className="text-orange-500 shrink-0" />
+              <span data-name class="text-[12px] font-medium text-black truncate"></span>
+            </div>
+          </template>
+
+          <div class="border-t border-black/[0.12] pt-3 mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div><label class={label}>Full Name <span class="text-red-600">*</span></label><input name="name" type="text" placeholder="Jane Cooper" class={text} required /></div>
+            <div><label class={label}>Work Email <span class="text-red-600">*</span></label><input name="email" type="email" placeholder="jane@company.com" class={text} required /></div>
+          </div>
+
+          <div data-ft-stage class="hidden"></div>
+          <div data-ft-error class="hidden p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold"></div>
+
+          <div class="pt-2">
+            <button data-ft-submit type="submit" disabled class="inline-flex min-h-12 w-full sm:w-max items-center justify-center rounded-full bg-[var(--color-text-primary)] px-8 text-[15px] font-bold text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-95 disabled:opacity-60">Get 3 Images Edited Free</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="relative z-10 w-full md:w-[40%] bg-[var(--color-bg-secondary)] p-6 sm:p-10 flex flex-col justify-center border-t md:border-t-0 border-black/[0.12]">
+        <h3 class="text-[14px] font-bold uppercase tracking-widest text-black/40 mb-8">Trial Standards</h3>
+        <div class="space-y-8">
+          {standards.map(([title, body]) => (
+            <div><p class="text-[16px] font-bold text-[var(--color-text-primary)]">{title}</p><p class="text-[14px] text-black/60 mt-1">{body}</p></div>
+          ))}
+          <div class="rounded-2xl border border-black/[0.18] bg-white p-4">
+            <div class="flex gap-3 items-start">
+              <div class="w-5 h-5 rounded-full bg-green-50 border border-green-100 flex items-center justify-center shrink-0 mt-0.5"><Check size={11} className="text-green-600" /></div>
+              <p class="text-[14px] text-black/65">Need more than 3 files or a paid review? Use the dedicated Test Batch flow.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<FreeTrialSuccess />
+<script>
+  import '../lib/ui/free-trial';
+</script>

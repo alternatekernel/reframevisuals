@@ -1,0 +1,88 @@
+---
+import { Upload, X, Plus, Clock, Sparkles, CreditCard, ShieldCheck, AlertTriangle, ArrowRight } from 'lucide-react';
+import FreeTrialSuccess from '../components/astro/FreeTrialSuccess.astro';
+
+const TRUST_ITEMS = [{ icon: Clock, label: '24h turnaround' }, { icon: Sparkles, label: '3 edits free' }, { icon: CreditCard, label: 'No credit card' }, { icon: ShieldCheck, label: 'Files kept private' }];
+const field = 'border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-black/30 focus:border-black/30';
+---
+<div data-ft-page data-dropzone data-dz-fallback="Instant drop-zone submission (/start)" data-dz-page-success="1" data-dz-prefill-email="1" class="min-h-[calc(100dvh-64px)] bg-white relative overflow-hidden flex flex-col">
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <div class="absolute top-[120px] right-[-80px] w-[360px] h-[360px] rounded-full bg-gradient-to-tr from-orange-100/30 to-amber-100/20 blur-[90px] opacity-70"></div>
+    <div class="absolute bottom-[40px] left-[-60px] w-[320px] h-[320px] rounded-full bg-gradient-to-br from-emerald-100/15 to-teal-100/15 blur-[90px] opacity-70"></div>
+  </div>
+
+  <div class="relative z-10 flex-1 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-8">
+    <div class="w-full max-w-3xl text-center space-y-3 mb-6 sm:mb-8">
+      <h3 class="text-[12px] font-bold uppercase tracking-[0.2em] text-black/40">Instant Free Trial</h3>
+      <h1 class="text-[32px] sm:text-[44px] font-bold text-[var(--color-text-primary)] tracking-tight leading-[1.08]">Drop your product photos.<br class="hidden sm:block" /> Get 3 edited free.</h1>
+      <p class="text-[15px] sm:text-[17px] text-black/55 leading-relaxed max-w-xl mx-auto">No forms, no calls. Drag your images below and our lead editors send them back polished within 24 hours.</p>
+    </div>
+
+    <div class="w-full max-w-3xl" data-dz-view>
+      <div data-dz-area data-dz-on="border-[var(--brand)] bg-orange-50/40 scale-[0.995] shadow-[0_14px_40px_rgba(233,116,81,0.12)]" data-dz-off="border-black/15 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.10)]" data-dz-idle="cursor-pointer hover:border-black/40 hover:bg-black/[0.04]" role="button" tabindex="0" aria-label="Upload up to 3 product images" class="relative rounded-[24px] border-2 border-dashed transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-black/30 border-black/15 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.10)] cursor-pointer hover:border-black/40 hover:bg-black/[0.04]">
+        <div data-dz-empty class="flex flex-col items-center justify-center gap-4 px-6 py-16 sm:py-24 text-center">
+          <div data-dz-icon data-dz-on="bg-black text-white" data-dz-off="bg-black/[0.04] text-black/60" class="w-16 h-16 rounded-full flex items-center justify-center transition-colors bg-black/[0.04] text-black/60"><Upload size={26} /></div>
+          <div>
+            <p data-dz-drag-text class="text-[17px] sm:text-[19px] font-bold text-[var(--color-text-primary)]">Drag up to 3 images here</p>
+            <p class="mt-1 text-[14px] text-black/50">or <span class="text-black font-semibold underline underline-offset-4">browse your files</span> · JPG, PNG, WEBP · up to 15MB each</p>
+          </div>
+        </div>
+        <div data-dz-files class="hidden p-4 sm:p-6">
+          <div data-dz-grid class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <button type="button" data-dz-add class="hidden flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-black/20 aspect-square text-black/50 hover:border-black hover:text-black hover:bg-black/[0.04] transition-all [&:not(.hidden)]:flex">
+              <Plus size={20} />
+              <span class="text-[12px] font-semibold">Add more</span>
+              <span data-dz-left class="text-[12px] text-black/40">3 slots left</span>
+            </button>
+          </div>
+        </div>
+        <input data-dz-input type="file" multiple accept="image/*" class="hidden" />
+      </div>
+      <template data-dz-thumb>
+        <div class="relative group rounded-2xl overflow-hidden border border-black/[0.18] bg-black/[0.04] aspect-square">
+          <img src="" alt="" class="w-full h-full object-cover" />
+          <button type="button" data-dz-remove class="absolute top-2 right-2 p-1.5 bg-white text-black rounded-full border border-black/[0.18] shadow-sm hover:bg-black hover:text-white transition-all"><X size={12} /></button>
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-2.5 pb-2 pt-6"><p data-dz-meta class="text-[12px] font-medium text-white truncate"></p></div>
+        </div>
+      </template>
+
+      <div data-dz-notice class="hidden mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-[12px] text-amber-800">
+        <div class="flex items-start gap-2 font-semibold"><AlertTriangle size={14} className="mt-0.5 shrink-0" /><span data-dz-notice-text></span></div>
+        <p data-dz-notice-list class="mt-1 text-[12px]"></p>
+      </div>
+
+      <form data-dz-form novalidate class="hidden mt-4 rounded-[20px] border border-black/[0.18] bg-[var(--color-bg-secondary)] p-4 sm:p-5 shadow-[0_8px_28px_rgba(0,0,0,0.10)]">
+        <p class="text-[14px] font-bold text-[var(--color-text-primary)] mb-3">Last step — where do we send your edited images?</p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input data-dz-name type="text" placeholder="Your name" aria-label="Full name" required class={`flex-1 rounded-full ${field}`} />
+          <input data-dz-email type="email" placeholder="Work email" aria-label="Work email" required class={`flex-1 rounded-full ${field}`} />
+          <button data-dz-submit type="submit" disabled class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--color-text-primary)] px-7 text-[15px] font-bold text-white shadow-sm transition-all duration-300 hover:bg-black active:scale-95 disabled:opacity-60">
+            <span data-dz-submit-label>Get my free edits</span>
+            <span data-dz-submit-arrow class="inline-flex"><ArrowRight size={16} /></span>
+          </button>
+        </div>
+        <div class="mt-3 flex flex-col gap-3">
+          <textarea data-dz-instructions placeholder="Editing instructions — background, shadows, colour, anything specific (optional)" aria-label="Editing instructions" rows="3" maxlength="4000" class={`w-full resize-y rounded-[20px] ${field}`}></textarea>
+          <input data-dz-link type="url" placeholder="Drive / Dropbox / WeTransfer link to more files (optional)" aria-label="Link to additional files" class={`w-full rounded-full ${field}`} />
+        </div>
+        <div data-dz-progress class="hidden mt-3 p-3.5 rounded-xl border text-[14px] font-semibold bg-blue-50 text-blue-700 border-blue-100">Uploading your images...</div>
+        <div data-dz-error class="hidden mt-3 p-3.5 rounded-xl bg-red-50 text-red-600 border border-red-100 text-[14px] font-semibold"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="relative z-10 border-t border-black/[0.12] bg-white/70 backdrop-blur-sm">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        {TRUST_ITEMS.map(({ icon: Icon, label }) => (
+          <div class="flex items-center gap-2 text-black/60"><Icon size={14} className="text-black/60" /><span class="text-[12px] font-semibold">{label}</span></div>
+        ))}
+      </div>
+      <a href="/free-trial" class="text-[12px] font-semibold text-black/45 underline underline-offset-4 hover:text-black transition-colors">Prefer to add project details? Use the full brief form</a>
+    </div>
+  </div>
+</div>
+<FreeTrialSuccess />
+<script>
+  import '../lib/ui/drop-zone';
+</script>

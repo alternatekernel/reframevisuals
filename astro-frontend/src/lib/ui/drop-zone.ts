@@ -11,31 +11,32 @@ function init(root: HTMLElement) {
   if (root.dataset.dzReady) return;
   root.dataset.dzReady = '1';
   const q = <T extends HTMLElement = HTMLElement>(s: string) => root.querySelector<T>(s)!;
+  const qo = <T extends HTMLElement = HTMLElement>(s: string) => root.querySelector<T>(s) as T;
   const area = q('[data-dz-area]'), empty = q('[data-dz-empty]'), files = q('[data-dz-files]'), grid = q('[data-dz-grid]');
   const addBtn = q('[data-dz-add]'), thumb = q<HTMLTemplateElement>('[data-dz-thumb]'), input = q<HTMLInputElement>('[data-dz-input]');
   const notice = q('[data-dz-notice]'), noticeText = q('[data-dz-notice-text]'), noticeList = q('[data-dz-notice-list]');
-  const form = q<HTMLFormElement>('[data-dz-form]'), formView = q('[data-dz-view]'), success = q('[data-dz-success]');
+  const form = q<HTMLFormElement>('[data-dz-form]'), formView = qo('[data-dz-view]'), success = qo('[data-dz-success]');
   const name = q<HTMLInputElement>('[data-dz-name]'), email = q<HTMLInputElement>('[data-dz-email]');
   const instr = q<HTMLTextAreaElement>('[data-dz-instructions]'), link = q<HTMLInputElement>('[data-dz-link]');
   const submit = q<HTMLButtonElement>('[data-dz-submit]'), submitLabel = q('[data-dz-submit-label]'), submitArrow = q('[data-dz-submit-arrow]');
   const progress = q('[data-dz-progress]'), error = q('[data-dz-error]'), dragIcon = q('[data-dz-icon]'), dragText = q('[data-dz-drag-text]');
-  const count = q('[data-dz-count]');
+  const count = qo('[data-dz-count]');
 
   let assets: Asset[] = [];
   let dragging = false, busy = false;
 
   const valid = () => assets.length > 0 && name.value.trim() !== '' && EMAIL.test(email.value);
+  const cls = (v: string | undefined) => (v || '').split(/\s+/).filter(Boolean);
   const render = () => {
     const has = assets.length > 0;
     empty.classList.toggle('hidden', has);
     files.classList.toggle('hidden', !has);
     form.classList.toggle('hidden', !has);
-    area.classList.toggle('cursor-pointer', !has);
-    area.classList.toggle('hover:border-black/40', !has);
-    for (const c of ['border-[var(--brand)]', 'bg-orange-50/40', 'scale-[0.995]']) area.classList.toggle(c, dragging);
-    for (const c of ['border-black/15', 'bg-black/[0.04]']) area.classList.toggle(c, !dragging);
-    dragIcon.classList.toggle('bg-black', dragging); dragIcon.classList.toggle('text-white', dragging);
-    dragIcon.classList.toggle('bg-black/[0.04]', !dragging); dragIcon.classList.toggle('text-black/60', !dragging);
+    cls(area.dataset.dzIdle).forEach((c) => area.classList.toggle(c, !has));
+    cls(area.dataset.dzOn).forEach((c) => area.classList.toggle(c, dragging));
+    cls(area.dataset.dzOff).forEach((c) => area.classList.toggle(c, !dragging));
+    cls(dragIcon.dataset.dzOn).forEach((c) => dragIcon.classList.toggle(c, dragging));
+    cls(dragIcon.dataset.dzOff).forEach((c) => dragIcon.classList.toggle(c, !dragging));
     dragText.textContent = dragging ? 'Release to add your images' : 'Drag up to 3 images here';
     grid.querySelectorAll('[data-dz-item]').forEach((n) => n.remove());
     assets.forEach((a, i) => {
@@ -109,7 +110,7 @@ function init(root: HTMLElement) {
       const body = new FormData();
       body.append('name', name.value);
       body.append('email', email.value);
-      body.append('description', instr.value.trim() || 'Instant drop-zone submission (homepage)');
+      body.append('description', instr.value.trim() || root.dataset.dzFallback || 'Instant drop-zone submission (homepage)');
       if (link.value.trim()) body.append('sourceLink', link.value.trim());
       assets.forEach((a) => body.append('files', a.file));
       const res = await fetch('/api/portal/freetrial', { method: 'POST', body });
@@ -123,8 +124,9 @@ function init(root: HTMLElement) {
         localStorage.setItem('portal_token', result.token);
         localStorage.setItem('portal_user', JSON.stringify(result.user));
         localStorage.setItem('reframe_cs_welcome_trigger', 'true');
-        count.textContent = assets.length === 1 ? 'image is' : `${assets.length} images are`;
-        formView.classList.add('hidden'); success.classList.remove('hidden');
+        if (count) count.textContent = assets.length === 1 ? 'image is' : `${assets.length} images are`;
+        if (root.dataset.dzPageSuccess) document.dispatchEvent(new CustomEvent('ft:success'));
+        else { formView.classList.add('hidden'); success.classList.remove('hidden'); }
         return;
       }
       throw new Error(result?.message || 'Submission failed');
@@ -136,6 +138,7 @@ function init(root: HTMLElement) {
       busy = false; progress.classList.add('hidden'); render();
     }
   });
+  if (root.dataset.dzPrefillEmail) { const e = new URLSearchParams(location.search).get('email'); if (e) email.value = e; }
   render();
 }
 

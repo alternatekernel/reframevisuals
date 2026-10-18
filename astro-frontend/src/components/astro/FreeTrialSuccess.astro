@@ -1,0 +1,25 @@
+---
+import { Check } from 'lucide-react';
+import { cx, tokens, typography } from '../../utils/theme';
+import ButtonWithIcon from './ButtonWithIcon.astro';
+export interface Props { heading?: string }
+---
+<div data-ft-success class="hidden min-h-screen bg-[var(--color-bg-secondary)] relative items-start justify-center overflow-hidden py-12 [&:not(.hidden)]:flex">
+  <div class="w-full h-auto lg:h-[62vh] relative z-10 flex flex-col items-center px-4 lg:px-8 pt-8 lg:pt-[4vh]">
+    <div class={cx('w-full h-full max-w-[800px] bg-white border border-black/[0.18] flex flex-col items-center justify-center p-8 lg:p-12 text-center overflow-hidden', tokens.radiusCard)}>
+      <div class="w-16 h-16 mb-8 rounded-full flex items-center justify-center bg-[#F0FDF4] border border-[#BBF7D0]"><Check size={24} className="text-[#16A34A]" /></div>
+      <h1 class={cx(typography.vercelSection, 'text-[var(--color-text-primary)] mb-6')}>Trial <span class="text-black/40">submitted.</span></h1>
+      <p class="text-[15px] sm:text-[16px] text-black/60 max-w-md mx-auto leading-relaxed mb-4">Your 3 sample images are in our queue. Expect the edited files back within 24 hours.</p>
+      <p data-ft-authed class="hidden text-[14px] text-black/45 max-w-md mx-auto leading-relaxed mb-10">Track updates from your dashboard. We will also email you with details.</p>
+      <p data-ft-guest class="text-[14px] text-black/45 max-w-md mx-auto leading-relaxed mb-10">Create an account to track updates from your dashboard. Otherwise, we will email you with details.</p>
+      <div class="grid w-full max-w-md grid-cols-1 gap-3 sm:grid-cols-2">
+        <div data-ft-authed class="hidden"><ButtonWithIcon label="Go to Dashboard" href="/dashboard" variant="default" class="!w-full !h-12 !rounded-full" animated={false} /></div>
+        <div data-ft-guest><ButtonWithIcon label="Create account to track request" href="/signup" variant="default" class="!w-full !h-12 !rounded-full" animated={false} /></div>
+        <ButtonWithIcon label="Return Home" href="/" variant="outline" class="!w-full !h-12 !rounded-full" animated={false} />
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import '../../lib/ui/ft-success';
+</script>

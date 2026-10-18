@@ -22,9 +22,9 @@ const field = 'border border-black/[0.18] bg-white px-5 py-3 text-[15px] font-me
         <p class="mx-auto mt-2 max-w-xl text-[14px] sm:text-[15px] leading-relaxed text-black/55">No forms, no calls. Drag your images in and our lead editors send them back polished within 24 hours.</p>
       </div>
 
-      <div data-dz-area role="button" tabindex="0" aria-label="Upload up to 3 product images" class="relative rounded-2xl border-2 border-dashed transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-black/30 border-black/15 bg-black/[0.04] cursor-pointer hover:border-black/40 hover:bg-black/[0.04]">
+      <div data-dz-area data-dz-on="border-[var(--brand)] bg-orange-50/40 scale-[0.995]" data-dz-off="border-black/15 bg-black/[0.04]" data-dz-idle="cursor-pointer hover:border-black/40" role="button" tabindex="0" aria-label="Upload up to 3 product images" class="relative rounded-2xl border-2 border-dashed transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-black/30 border-black/15 bg-black/[0.04] cursor-pointer hover:border-black/40 hover:bg-black/[0.04]">
         <div data-dz-empty class="flex flex-col items-center justify-center gap-3 px-6 py-10 sm:py-14 text-center">
-          <div data-dz-icon class="flex h-12 w-12 items-center justify-center rounded-full transition-colors bg-black/[0.04] text-black/60"><Upload size={20} /></div>
+          <div data-dz-icon data-dz-on="bg-black text-white" data-dz-off="bg-black/[0.04] text-black/60" class="flex h-12 w-12 items-center justify-center rounded-full transition-colors bg-black/[0.04] text-black/60"><Upload size={20} /></div>
           <div>
             <p data-dz-drag-text class="text-[15px] sm:text-[17px] font-bold text-[var(--color-text-primary)]">Drag up to 3 images here</p>
             <p class="mt-1 text-[12px] text-black/50">or <span class="font-semibold text-black underline underline-offset-4">browse your files</span> · JPG, PNG, WEBP · up to 15MB each</p>
