@@ -1,0 +1,34 @@
+---
+// Astro port of components/ui/button-with-icon.tsx for link-style buttons (the React version used onClick + navigate()).
+import { ArrowRight } from 'lucide-react';
+import { cx } from '../../utils/theme';
+import { buttonVariants } from '../ui/button';
+export interface Props {
+  label: string;
+  href: string;
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'white';
+  class?: string;
+  ariaLabel?: string;
+  animated?: boolean;
+  [key: string]: unknown;
+}
+const { label, href, variant = 'default', class: cls, ariaLabel, animated = true, ...rest } = Astro.props;
+---
+<a
+  href={href}
+  aria-label={ariaLabel || label}
+  class={cx(buttonVariants({ variant }), 'group relative h-12 p-1 ps-6 pe-16 overflow-hidden', animated && 'transition-[padding] duration-200 hover:ps-16 hover:pe-6', cls)}
+  {...rest}
+>
+  <span class={cx('relative z-10', animated && 'transition-opacity duration-200')}>{label}</span>
+  <div
+    class={cx(
+      'absolute right-1 top-1/2 -mt-5 w-10 h-10 rounded-full flex items-center justify-center transition-[right,transform] duration-300 rotate-0 group-hover:-rotate-45',
+      animated && 'group-hover:right-[calc(100%-44px)]',
+      ['white', 'secondary', 'outline'].includes(variant) ? 'bg-[var(--color-text-primary)] text-white' : 'bg-white text-black'
+    )}
+    aria-hidden="true"
+  >
+    <ArrowRight size={16} />
+  </div>
+</a>

@@ -1,0 +1,43 @@
+---
+const OPTIONS = ['USD', 'EUR', 'GBP', 'INR', 'CAD', 'AUD', 'AED'];
+const FLAGS: Record<string, [string, string]> = {
+  USD: ['us', 'United States flag'], EUR: ['eu', 'European Union flag'], GBP: ['gb', 'United Kingdom flag'], INR: ['in', 'India flag'],
+  CAD: ['ca', 'Canada flag'], AUD: ['au', 'Australia flag'], AED: ['ae', 'United Arab Emirates flag'],
+};
+const flag = (c: string) => `https://flagcdn.com/w20/${FLAGS[c][0]}.png`;
+---
+<div data-currency-selector class="fixed bottom-6 left-6 z-[320] hidden" >
+  <button
+    type="button"
+    data-cs-toggle
+    class="relative min-h-11 rounded-full border border-black/[0.18] bg-white pl-3 pr-9 text-[12px] font-semibold text-[#171717] hover:bg-black/[0.04] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 shadow-[0_12px_30px_rgba(0,0,0,0.12)]"
+    aria-label="Select currency"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+  >
+    <span class="inline-flex items-center gap-1.5">
+      <img data-cs-flag src={flag('USD')} alt={FLAGS.USD[1]} class="w-4 h-4 rounded-full object-cover border border-black/[0.18]" loading="lazy" />
+      <span data-cs-code>USD</span>
+    </span>
+    <svg data-cs-chevron xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-black/55 transition-transform"><path d="m6 9 6 6 6-6" /></svg>
+  </button>
+  <div
+    data-cs-list
+    class="absolute bottom-full left-0 mb-2 w-36 overflow-hidden rounded-2xl border border-black/[0.18] bg-white/95 p-1.5 shadow-[0_14px_34px_rgba(0,0,0,0.14)] backdrop-blur-xl z-[320] opacity-0 translate-y-2 scale-[0.98] pointer-events-none invisible transition-[opacity,transform,visibility] duration-150 ease-[cubic-bezier(0.22,1,0.36,1)] data-[open=true]:opacity-100 data-[open=true]:translate-y-0 data-[open=true]:scale-100 data-[open=true]:pointer-events-auto data-[open=true]:visible"
+    role="listbox"
+    aria-label="Currency options"
+  >
+    {OPTIONS.map((code) => (
+      <button type="button" data-cs-option={code} role="option" aria-selected="false" class="flex w-full items-center justify-between rounded-xl px-3 py-2 text-[12px] font-semibold transition-colors text-[#171717] hover:bg-black/[0.04] data-[active=true]:bg-[#171717] data-[active=true]:text-white">
+        <span class="inline-flex items-center gap-2">
+          <img src={flag(code)} alt={FLAGS[code][1]} class="w-4 h-4 rounded-full object-cover border border-black/[0.18]" loading="lazy" />
+          <span>{code}</span>
+        </span>
+        <span data-cs-active class="hidden text-[12px]">Active</span>
+      </button>
+    ))}
+  </div>
+</div>
+<script>
+  import '../../lib/ui/currency-selector';
+</script>

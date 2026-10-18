@@ -1,0 +1,65 @@
+---
+import { ChevronDown, Image as ImageIcon, Cpu, Layers, Clock, CreditCard, RotateCcw, MessageCircle, HelpCircle } from 'lucide-react';
+import { loadSections, getSection } from '../lib/content';
+import { cx, layout, typography } from '../utils/theme';
+import Reveal from '../components/astro/Reveal.astro';
+
+const ICON_MAP: Record<string, any> = { Image: ImageIcon, Cpu, Layers, Clock, CreditCard, RotateCcw, MessageCircle };
+const content = getSection(await loadSections(), 'faq');
+const faqItems = (content.landing || []) as any[];
+---
+<section id="faq" class="px-6 lg:px-12 pt-8 pb-10 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-16 bg-[#F7F6F3] sm:bg-white relative overflow-hidden scroll-mt-nav">
+  <div class={cx(layout.compactShell, 'relative z-10')}>
+    <div data-reveal class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class={cx(typography.vercelSection, typography.sectionTitleInk, 'mb-6')}>
+        {content.heading || 'Common'}<br />
+        <span class="text-black/45">{content.subheading || 'Questions.'}</span>
+      </h2>
+      <p class="text-[16px] text-[var(--color-text-secondary)] leading-relaxed">
+        {content.description || 'Everything you need to know for seamless production.'}
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto rounded-3xl border border-black/[0.16] bg-white p-4 shadow-[0_2px_8px_rgba(0,0,0,0.06),_0_12px_40px_-8px_rgba(0,0,0,0.12)] sm:p-6">
+      <div class="flex flex-col gap-3" data-acc-group>
+        {faqItems.map((item, i) => {
+          const Icon = ICON_MAP[item.icon] || HelpCircle;
+          return (
+            <article
+              data-acc-item
+              data-open="false"
+              data-reveal
+              style={{ '--reveal-delay': `${i * 0.035}s`, '--reveal-duration': '0.25s', '--reveal-y': '12px' }}
+              class="group/acc overflow-hidden rounded-2xl border transition-all duration-300 border-black/[0.18] bg-[#FAFAFA] hover:border-black/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] data-[open=true]:border-black/[0.18] data-[open=true]:bg-white data-[open=true]:shadow-[0_8px_24px_rgba(0,0,0,0.11)] data-[open=true]:hover:border-black/[0.18]"
+            >
+              <button type="button" data-acc-toggle aria-expanded="false" class="flex w-full items-center justify-between gap-3 px-4 py-4 text-left sm:gap-4 sm:px-5 sm:py-5">
+                <div class="flex items-center gap-3 sm:gap-4">
+                  <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-colors duration-300 sm:h-9 sm:w-9 bg-white text-black/60 border-black/[0.18] shadow-sm group-data-[open=true]/acc:bg-black group-data-[open=true]/acc:text-white group-data-[open=true]/acc:border-black group-data-[open=true]/acc:shadow-md">
+                    <Icon size={15} />
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="mb-1 text-[12px] font-black uppercase tracking-widest text-black/50">{item.category || 'GENERAL'}</span>
+                    <span class="font-heading text-[14px] font-bold leading-snug tracking-tight text-black sm:text-[16px]">{item.question}</span>
+                  </div>
+                </div>
+                <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-all sm:h-7 sm:w-7 bg-white text-black/50 shadow-sm border border-black/[0.12] group-data-[open=true]/acc:bg-black group-data-[open=true]/acc:text-white group-data-[open=true]/acc:shadow-md group-data-[open=true]/acc:border-transparent group-data-[open=true]/acc:rotate-180">
+                  <ChevronDown size={13} />
+                </span>
+              </button>
+              <div data-acc-panel>
+                <div>
+                  <div class="border-t px-4 pb-4 pt-3 pl-[55px] sm:px-5 sm:pb-5 sm:pt-4 sm:pl-[68px] border-black/[0.12]">
+                    <p class="text-[14px] font-medium leading-relaxed text-black/60">{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import '../lib/ui/accordion';
+</script>

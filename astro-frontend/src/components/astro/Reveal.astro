@@ -1,0 +1,22 @@
+---
+// Astro port of components/common/ScrollReveal.tsx (Framer Motion) using CSS transitions + src/lib/reveal.ts.
+export interface Props {
+  variant?: 'fade-slide' | 'spring-scale' | 'fade' | 'slide-left';
+  delay?: number;
+  duration?: number;
+  threshold?: number;
+  y?: number;
+  class?: string;
+  style?: string | Record<string, string>;
+}
+const { variant = 'fade-slide', delay = 0, duration, threshold = 0.08, y, class: cls, style } = Astro.props;
+const DEFAULT_DURATION = { 'fade-slide': 0.65, fade: 0.5, 'slide-left': 0.6, 'spring-scale': 0.9 } as const;
+const vars: Record<string, string> = {
+  '--reveal-duration': `${duration ?? DEFAULT_DURATION[variant]}s`,
+  ...(delay ? { '--reveal-delay': `${delay}s` } : {}),
+  ...(variant === 'fade-slide' ? { '--reveal-y': `${y ?? 35}px` } : variant === 'spring-scale' ? { '--reveal-y': `${y ?? 30}px` } : {}),
+};
+const extra = typeof style === 'string' ? style : Object.entries(style ?? {}).map(([k, v]) => `${k}:${v}`).join(';');
+const css = Object.entries(vars).map(([k, v]) => `${k}:${v}`).join(';') + (extra ? ';' + extra : '');
+---
+<div data-reveal data-reveal-variant={variant} data-reveal-threshold={threshold} class={cls} style={css}><slot /></div>

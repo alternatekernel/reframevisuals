@@ -1,0 +1,75 @@
+---
+import React from 'react';
+import { cx, layout, typography } from '../../utils/theme';
+import { INDUSTRY_PAGES, GEO_PAGES } from '../../data/expansionPages';
+
+interface ServiceRelatedGuidesProps {
+  service: any;
+}
+
+
+import { loadBlogPosts } from '../../lib/blogSeed';
+
+const { service } = Astro.props;
+
+
+const BLOG_POSTS = await loadBlogPosts();
+  const kw = (service.keywords || []).map((k: string) => k.toLowerCase());
+
+  const guides = BLOG_POSTS.filter((p) =>
+    kw.some((k: string) => p.slug.includes(k) || (p.tags || []).some((t: string) => t.toLowerCase().includes(k)))
+  ).slice(0, 3);
+
+  const industryLinks = INDUSTRY_PAGES.filter((p) =>
+    kw.some((k: string) => p.slug.includes(k) || p.title.toLowerCase().includes(k))
+  );
+  const geoLinks = GEO_PAGES.filter((p) =>
+    kw.some((k: string) => p.slug.includes(k) || p.title.toLowerCase().includes(k))
+  );
+  const combinedPlatforms = [...industryLinks, ...geoLinks].slice(0, 5);
+---
+<section class="py-12 lg:py-20 bg-white">
+      <div class={cx(layout.compactShell, 'px-5 sm:px-6 lg:px-10')}>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+          
+          {/* Column 1: Decision Guides */}
+          <div class="space-y-6">
+            <h2 class={cx('text-[24px] lg:text-[28px] font-bold tracking-tight', typography.sectionTitleInk)}>Related Decision Guides</h2>
+            <div class="flex flex-col gap-4">
+              <a href={`/services/${service.id}/best-for-ecommerce`} class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">Best {service.name} for ecommerce</a>
+              <a href={`/services/${service.id}/pricing-guide`} class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">{service.name} pricing guide</a>
+              <a href={`/services/${service.id}/turnaround-quality`} class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">{service.name} turnaround + quality standards</a>
+              <a href="/compare/in-house-vs-outsourcing" class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">In-house vs outsourced editing</a>
+              <a href="/pricing" class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">View pricing</a>
+              <a href="/free-trial" class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">Start free trial</a>
+              <a href="/book-meeting" class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">Book a meeting</a>
+            </div>
+          </div>
+
+          {/* Expert Guides */}
+          {guides.length > 0 && (
+            <div class="space-y-6">
+              <h2 class={cx('text-[24px] lg:text-[28px] font-bold tracking-tight', typography.sectionTitleInk)}>Expert Guides</h2>
+              <div class="flex flex-col gap-4">
+                {guides.map((g) => (
+                  <a href={`/blog/${g.slug}`} class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">{g.title}</a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Platforms & Industries */}
+          {combinedPlatforms.length > 0 && (
+            <div class="space-y-6">
+              <h2 class={cx('text-[24px] lg:text-[28px] font-bold tracking-tight', typography.sectionTitleInk)}>Platforms & Industries</h2>
+              <div class="flex flex-col gap-4">
+                {combinedPlatforms.map((g) => (
+                  <a href={`/${g.slug}`} class="text-[16px] lg:text-[18px] font-medium text-[var(--color-text-primary)] hover:underline">{g.title}</a>
+                ))}
+              </div>
+            </div>
+          )}
+
+        </div>
+      </div>
+    </section>

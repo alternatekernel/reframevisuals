@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/reveal.css';
+import '../styles/ui.css';
 import { loadTheme, themeToInlineStyle, fontsHref } from '../lib/theme';
 export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindex?: boolean; noindexOverride?: boolean }
 const { title, description, canonical = new URL(Astro.url.pathname, Astro.site).href, ogImage, jsonLd, noindex: noindexProp, noindexOverride } = Astro.props;

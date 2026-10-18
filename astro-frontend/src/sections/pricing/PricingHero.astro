@@ -1,0 +1,46 @@
+---
+import { cx, layout, typography } from '../../utils/theme';
+import { Button } from '../../components/ui/button';
+
+
+import { buttonVariants } from '../../components/ui/button';
+
+import ButtonWithIcon from '../../components/astro/ButtonWithIcon.astro';
+---
+<section data-section="hero" class="relative pt-4 pb-20 overflow-hidden bg-white border-b border-[#ebebeb]">
+      <div class={cx(layout.compactShell, "px-6 lg:px-12 relative z-10")}>
+        <div class="pt-4 pb-20 px-8 lg:px-20 text-center relative">
+          {/* Vercel-style workflow badge */}
+          <div class="flex justify-center mb-6" data-reveal="load" style={{ '--reveal-y': '10px' }}>
+            <div class="px-3 py-1 bg-[#ebf5ff] text-[#0068d6] rounded-full text-[12px] font-semibold tracking-wide">
+              Pricing & Infrastructure
+            </div>
+          </div>
+
+          <div class="space-y-10" data-reveal="load" style={{ '--reveal-delay': `${0.1}s`, '--reveal-y': '15px' }}>
+            <h1 class={cx(typography.vercelHero, typography.sectionTitleInk, "max-w-5xl mx-auto")}>
+              Pricing that scales with your <br class="hidden lg:block" />
+              <span class="text-[var(--color-text-muted)]">creative vision.</span>
+            </h1>
+
+            <p class="text-[20px] lg:text-[24px] text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-[1.6] font-normal">
+              Simple, transparent pricing for teams of all sizes. 
+              No hidden fees. No complexity-based surcharges. Built for dependable daily output.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+              <ButtonWithIcon 
+                href={'/free-trial'}
+                variant="default"
+                label="Get Pricing Breakdown"
+                className="!w-full sm:!w-auto shadow-sm"
+                animated={false}
+              />
+              <a href={'/services'} class={cx(buttonVariants({ variant: "white" }), "h-12 w-full rounded-full px-6 text-sm font-medium sm:w-auto")}>
+                Explore Services
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

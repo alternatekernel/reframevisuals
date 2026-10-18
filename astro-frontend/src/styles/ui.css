@@ -1,0 +1,16 @@
+/* Shared styles for the vanilla UI toolkit (src/lib/ui/*). */
+[data-acc-item] > [data-acc-panel] {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.25s ease-out, opacity 0.25s ease-out, visibility 0s linear 0.25s;
+}
+[data-acc-item][data-open='true'] > [data-acc-panel] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 0.25s ease-out, opacity 0.25s ease-out, visibility 0s;
+}
+[data-acc-panel] > div { overflow: hidden; min-height: 0; }
+@media (prefers-reduced-motion: reduce) { [data-acc-item] > [data-acc-panel] { transition: none; } }

@@ -96,7 +96,7 @@ function stripEarlyJsxReturns(code) {
 function renameHtmlAttrs(src) {
   let out = '';
   let i = 0;
-  const re = /<([a-z][\w-]*)(?=[\s/>])/g;
+  const re = /<([a-z][\w-]*|Reveal)(?=[\s/>])/g;
   let m;
   while ((m = re.exec(src))) {
     let tag;
@@ -202,11 +202,125 @@ function rewriteMotion(src, issues) {
   return out.replace(/<\/motion\.([a-zA-Z0-9]+)>/g, '</$1>');
 }
 
+
+// ---- hook pre-transforms (server data instead of React context/hooks) ------------------------------
+function balancedCall(src, openIdx) { return balanced(src, openIdx); }
+
+function replaceCalls(src, name, fn) {
+  let out = '';
+  let i = 0;
+  const re = new RegExp(`\\b${name}\\(`, 'g');
+  let m;
+  while ((m = re.exec(src))) {
+    const open = m.index + m[0].length - 1;
+    const end = balancedCall(src, open);
+    out += src.slice(i, m.index) + fn(src.slice(open + 1, end - 1));
+    i = end;
+    re.lastIndex = end;
+  }
+  return out + src.slice(i);
+}
+
+function preTransform(src, file) {
+  const rel = (target) => { const r = relative(dirname(file), target).replace(/\\/g, '/'); return r.startsWith('.') ? r : './' + r; };
+  const imports = [];
+  const lines = [];
+  const issues = [];
+  let uses = { sections: false, services: false, blog: false, price: false, reveal: false, bwi: false };
+
+  // ScrollReveal -> Reveal
+  if (/<ScrollReveal\b/.test(src)) {
+    src = src.replace(/<ScrollReveal\b/g, '<Reveal').replace(/<\/ScrollReveal>/g, '</Reveal>').replace(/^import\s+ScrollReveal\s+from\s+['"][^'"]+['"];?\n?/m, '');
+    uses.reveal = true;
+  }
+
+  // useContent()
+  src = src.replace(/const\s*\{([^}]*)\}\s*=\s*useContent\(\);?/g, (_, names) => {
+    const out = [];
+    for (const raw of names.split(',').map((n) => n.trim()).filter(Boolean)) {
+      if (raw === 'getSectionContent') { uses.sections = true; }
+      else if (raw === 'isUserAuthenticated') out.push('const isUserAuthenticated = false;');
+      else if (raw === 'currentUser') out.push('const currentUser = null as any;');
+      else issues.push('useContent member ' + raw);
+    }
+    return out.join('\n');
+  });
+  if (uses.sections) lines.push("const __sections = await loadSections();\nconst getSectionContent = (id: string) => getSection(__sections, id);");
+
+  // useCurrency() -> <Price/>
+  if (/useCurrency\(\)/.test(src)) {
+    src = src.replace(/const\s*\{[^}]*\}\s*=\s*useCurrency\(\);?/g, '');
+    src = replaceCalls(src, 'formatCurrency', (args) => {
+      const m = /^\s*convertFromUsd\(/.exec(args);
+      if (!m) { issues.push('formatCurrency without convertFromUsd'); return `formatCurrency(${args})`; }
+      const open = m[0].length - 1 + args.indexOf('convertFromUsd(') ;
+      const idx = args.indexOf('convertFromUsd(') + 'convertFromUsd'.length;
+      const end = balanced(args, idx);
+      const usd = args.slice(idx + 1, end - 1);
+      uses.price = true;
+      return `<Price usd={${usd}} />`;
+    });
+    src = src.replace(/^import\s*\{\s*formatCurrency\s*\}\s*from\s*['"][^'"]+['"];?\n?/m, '');
+    if (/\bcurrency\b/.test(src.replace(/import[^;]*;/g, '').replace(/['"`][^'"`]*['"`]/g, ''))) { /* may be harmless text; gate checks hooks only */ }
+  }
+
+  // useBlogPosts()
+  src = src.replace(/const\s+(\w+)\s*=\s*useBlogPosts\(\);?/g, (_, n) => { uses.blog = true; return `const ${n} = await loadBlogPosts();`; });
+
+  // useServicesContext()
+  src = src.replace(/const\s*\{([^}]*)\}\s*=\s*useServicesContext\(\);?/g, (_, names) => {
+    uses.services = true;
+    const out = ['const services = await loadServices();'];
+    for (const n of names.split(',').map((x) => x.trim()).filter(Boolean)) {
+      if (n === 'services') continue;
+      if (n === 'getStartingPrice') out.push('const getStartingPrice = (id: string, fb?: number) => _getStartingPrice(services, id, fb);');
+      else if (n === 'getServicePrice') out.push('const getServicePrice = (id: string, c: string, t: string) => _getServicePrice(services, id, c, t);');
+      else issues.push('useServicesContext member ' + n);
+    }
+    return out.join('\n');
+  });
+  if (uses.services) {
+    imports.push(`import { loadServices, getStartingPrice as _getStartingPrice, getServicePrice as _getServicePrice } from '${rel('src/lib/serviceData')}';`);
+  }
+
+  // useNavigate(): ButtonWithIcon/Button with onClick navigate -> href
+  if (/useNavigate\(\)/.test(src)) {
+    src = src.replace(/const\s+navigate\s*=\s*useNavigate\(\);?/g, '');
+    const navRe = /onClick=\{\(\)\s*=>\s*(?:\{\s*)?navigate\(([^()]*(?:\([^()]*\)[^()]*)*)\);?\s*(?:\}\s*)?\}/g;
+    src = src.replace(/<ButtonWithIcon\b[\s\S]*?\/>/g, (tag) => { const t = tag.replace(navRe, (_, to) => { uses.bwi = true; return `href={${to}}`; }); return t; });
+    src = src.replace(/<Button\b([^>]*?)onClick=\{\(\)\s*=>\s*(?:\{\s*)?navigate\(([^()]*(?:\([^()]*\)[^()]*)*)\);?\s*(?:\}\s*)?\}([^>]*)>([\s\S]*?)<\/Button>/g, (full, a, to, b, content) => {
+      const attrs = `${a} ${b}`;
+      const vp = ['variant', 'size', 'shape'].map((n) => { const m = new RegExp(`\\b${n}=(\\{[^}]*\\}|"[^"]*")`).exec(attrs); return m ? `${n}: ${m[1].startsWith('{') ? m[1].slice(1, -1) : m[1]}` : null; }).filter(Boolean).join(', ');
+      const cm = /\bclassName=(\{[^}]*\}|"[^"]*")/.exec(attrs);
+      const rest = attrs.replace(/\b(variant|size|shape|className)=(\{[^}]*\}|"[^"]*")/g, '').replace(/\btype="button"/, '').trim();
+      uses.price = uses.price; // noop
+      state_uses_buttonVariants = true;
+      return `<a href={${to}}${rest ? ' ' + rest : ''} class={cx(buttonVariants({ ${vp} })${cm ? ', ' + (cm[1].startsWith('{') ? cm[1].slice(1, -1) : cm[1]) : ''})}>${content}</a>`;
+    });
+    if (/\bnavigate\(/.test(src)) issues.push('navigate() in other handler');
+    src = src.replace(/^import\s*\{[^}]*useNavigate[^}]*\}\s*from\s*['"]react-router-dom['"];?\n?/m, (m) => m);
+  }
+
+  if (uses.sections) imports.push(`import { loadSections, getSection } from '${rel('src/lib/content')}';`);
+  if (uses.blog) imports.push(`import { loadBlogPosts } from '${rel('src/lib/blogSeed')}';`);
+  if (uses.price) imports.push(`import Price from '${rel('src/components/astro/Price.astro')}';`);
+  if (uses.reveal) imports.push(`import Reveal from '${rel('src/components/astro/Reveal.astro')}';`);
+  if (uses.bwi) {
+    src = src.replace(/^import\s*\{\s*ButtonWithIcon\s*\}\s*from\s*['"][^'"]+['"];?\n?/m, '');
+    imports.push(`import ButtonWithIcon from '${rel('src/components/astro/ButtonWithIcon.astro')}';`);
+  }
+  return { src, imports, lines, issues };
+}
+let state_uses_buttonVariants = false;
+
 // ---- main conversion -------------------------------------------------------------------------
 function convert(file) {
-  const src = readFileSync(file, 'utf8').replace(/^﻿/, '');
+  let src = readFileSync(file, 'utf8').replace(/^\uFEFF/, '');
   const name = basename(file, '.tsx');
-  const issues = [];
+  state_uses_buttonVariants = false;
+  const pre = preTransform(src, file);
+  src = pre.src;
+  const issues = [...pre.issues];
 
   if (/\buse[A-Z]\w*\(/.test(src.replace(/useLocation|useParams/g, ''))) issues.push('hooks');
   if (/\bon[A-Z][A-Za-z]*=\{/.test(src)) issues.push('event handlers');
@@ -250,7 +364,9 @@ function convert(file) {
     .replace(/import\s+(?:React\s*,?\s*)?(?:\{[^}]*\}\s*from\s*)?['"]react['"];?\n?/g, '')
     .replace(/import[^;]*from\s*['"]framer-motion['"];?\n?/g, '')
     .replace(/import[^;]*from\s*['"]react-router-dom['"];?\n?/g, '')
-    .replace(/import[^;]*from\s*['"]react-helmet-async['"];?\n?/g, '');
+    .replace(/import[^;]*from\s*['"]react-helmet-async['"];?\n?/g, '')
+    .replace(/import[^;]*from\s*['"][^'"]*context\/(?:ContentBase|CurrencyContext|ServicesContext|ModalContext)['"];?\n?/g, '')
+    .replace(/import[^;]*from\s*['"][^'"]*hooks\/(?:useBlogPosts|useServices)['"];?\n?/g, '');
   const after = src.slice(bodyEnd).replace(/^\s*;?/, '');
   const tail = after.replace(/export\s+default\s+\w+;?/, '').trim();
 
@@ -287,12 +403,14 @@ function convert(file) {
   if (/useLocation|useParams/.test(inner)) issues.push('unhandled routing hook');
   if (issues.length) return { name, issues };
 
+  if (state_uses_buttonVariants) state.usesButtonVariants = true;
   if (state.usesButtonVariants) {
     const rel = relative(dirname(file), 'src/components/ui/button').replace(/\\/g, '/');
     before += `\nimport { buttonVariants } from '${rel.startsWith('.') ? rel : './' + rel}';\n`;
     if (!/\bcx\b.*from/.test(before)) before += `import { cx } from '${relative(dirname(file), 'src/utils/theme').replace(/\\/g, '/')}';\n`;
   }
-  const fm = [before.trim(), tail, propsLine, inner.trim()].filter(Boolean).join('\n\n');
+  before += '\n' + pre.imports.join('\n') + '\n';
+  const fm = [before.trim(), tail, propsLine, pre.lines.join('\n'), inner.trim()].filter(Boolean).join('\n\n');
   const astro = `---\n${fm}\n---\n${jsx.trim()}\n`;
   writeFileSync(join(dirname(file), `${name}.astro`), astro);
   return { name, issues: [] };

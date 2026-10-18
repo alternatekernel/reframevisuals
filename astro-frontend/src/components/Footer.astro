@@ -1,13 +1,13 @@
 ---
 import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
-import { FOOTER_DEFAULTS } from '../data/siteDefaults';
+import { loadSections, getSection } from '../lib/content';
 import { cx, layout } from '../utils/theme';
 import { buttonVariants } from './ui/button';
 import Frame from './ui/Frame';
 import LogoLink from './astro/LogoLink.astro';
 import SocialIcon from './astro/SocialIcon.astro';
 
-const content = FOOTER_DEFAULTS;
+const content = getSection(await loadSections(), 'footer') as typeof import('../data/siteDefaults').FOOTER_DEFAULTS;
 const linkGroups = content.linkGroups || [];
 const socialLinks = content.socialLinks || [];
 

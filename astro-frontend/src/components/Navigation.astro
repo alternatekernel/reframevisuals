@@ -1,7 +1,6 @@
 ---
 import { ChevronDown, ChevronRight, ArrowRight, Mail, UserCircle, LogOut, Settings, Menu, X } from 'lucide-react';
-import { ORDERED_SERVICES } from '../data/services';
-import { isExcludedService } from '../context/ServicesContext';
+import { loadServices } from '../lib/serviceData';
 import { cx } from '../utils/theme';
 import { buttonVariants } from './ui/button';
 import LogoLink from './astro/LogoLink.astro';
@@ -17,7 +16,7 @@ const NAV_ITEMS = [
 
 const pathname = Astro.url.pathname;
 const isActive = (path: string) => pathname === path;
-const services = ORDERED_SERVICES.filter((s: any) => !isExcludedService(s));
+const services = await loadServices();
 const showMega = pathname !== '/services';
 ---
 <nav

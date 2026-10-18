@@ -1,0 +1,98 @@
+---
+import { cx, layout, typography } from '../../utils/theme';
+import Frame from '../../components/ui/Frame';
+
+
+import ButtonWithIcon from '../../components/astro/ButtonWithIcon.astro';
+
+const isUserAuthenticated = false;
+---
+<section class="px-5 sm:px-6 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-14 lg:pt-16 lg:pb-20 bg-white">
+      <div class={cx(layout.compactShell)}>
+          <div class="bg-[var(--color-text-primary)] rounded-[28px] p-10 sm:p-14 lg:p-20 text-center relative overflow-hidden shadow-[0_24px_60px_rgba(15,23,42,0.14)]">
+
+            <div class="relative z-10">
+              <h2 class={cx(typography.vercelSection, 'text-white mb-4 sm:mb-6 lg:mb-8')}>
+                Scale your catalog without <br />
+                <span class="text-white/40">the enterprise minimums.</span>
+              </h2>
+
+              <div class="flex justify-center mb-5 sm:mb-7 lg:mb-10">
+                <ButtonWithIcon
+                  variant="white"
+                  label={isUserAuthenticated ? 'Start Editing' : 'Get 3 Free Sample Edits'}
+                  animated={false}
+                  href={isUserAuthenticated ? '/dashboard?view=new-project' : '/free-trial'}
+                />
+              </div>
+
+              <p class="text-[12px] sm:text-[12px] lg:text-[12px] font-heading font-black uppercase tracking-[0.14em] sm:tracking-[0.2em] text-white/40">
+                3 free image edits &bull; no credit card required &bull; response within 30 minutes
+              </p>
+            </div>
+          </div>
+      </div>
+
+      {/* Internal Links Section */}
+      <div class={cx(layout.compactShell, "mt-16")}>
+        <div class="text-center mb-10">
+          <h3 class={cx(typography.vercelMono, "text-black/60 uppercase tracking-widest mb-4")}>
+            Explore Reframe Visuals
+          </h3>
+          <p class="text-[16px] text-[#666] max-w-2xl mx-auto">
+            Browse our services and pricing, or see what teams use Reframe for.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <a
+            href="/services"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Services
+          </a>
+          <a
+            href="/pricing"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Pricing
+          </a>
+          <a
+            href="/free-trial"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Free Trial
+          </a>
+          <a
+            href="/blog"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Blog
+          </a>
+          <a
+            href="/case-studies"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Case Studies
+          </a>
+          <a
+            href="/contact"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Contact
+          </a>
+          <a
+            href="/who-is-reframe-visuals"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Who We Are
+          </a>
+          <a
+            href="/reframe-visuals-brand-facts"
+            class="rounded-full border border-black/[0.18] px-4 py-3 font-semibold hover:bg-[var(--color-text-primary)] hover:text-white transition-colors text-center"
+          >
+            Brand Facts
+          </a>
+        </div>
+      </div>
+    </section>

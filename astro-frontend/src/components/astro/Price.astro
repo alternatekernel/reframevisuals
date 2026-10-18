@@ -1,0 +1,10 @@
+---
+// Server-renders the USD price; src/lib/ui/currency.ts converts it to the visitor's currency in the browser.
+export interface Props { usd: number; class?: string }
+const { usd, class: cls } = Astro.props;
+const text = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(usd);
+---
+<span data-usd={usd} class={cls}>{text}</span>
+<script>
+  import '../../lib/ui/currency';
+</script>
