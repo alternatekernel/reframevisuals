@@ -1,0 +1,120 @@
+---
+import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import Reveal from '../components/astro/Reveal.astro';
+import { tokens } from '../utils/theme';
+import Hero from '../islands/wrapped/Hero';
+import InstantDropZone from '../islands/wrapped/InstantDropZone';
+import ImageGridSection from '../islands/wrapped/ImageGridSection';
+import Testimonials from '../islands/wrapped/Testimonials';
+import Workflow from '../islands/wrapped/Workflow';
+import ClientCategoryStrip from '../islands/wrapped/ClientCategoryStrip';
+import TrialAuditCta from '../islands/wrapped/TrialAuditCta';
+import ReframeCSShowcase from '../islands/wrapped/ReframeCSShowcase';
+import Stats from '../islands/wrapped/Stats';
+import BlogPreview from '../islands/wrapped/BlogPreview';
+import Pricing from '../islands/wrapped/Pricing';
+import BeatPixelzBanner from '../sections/BeatPixelzBanner.astro';
+import TargetAudienceProof from '../sections/TargetAudienceProof.astro';
+import CompetitorComparison from '../sections/pricing/CompetitorComparison.astro';
+import Integrations from '../sections/Integrations.astro';
+import Faq from '../sections/Faq.astro';
+import { landingImages } from '../sections/landing/landingImages';
+
+const path = '/';
+const points = [
+  { title: 'Human Photoshop editors', body: 'Every image traced and reviewed by hand before it ships.' },
+  { title: 'AI-assisted workflow', body: 'AI handles routine steps. Editors check and correct every image.' },
+  { title: 'Built for ecommerce teams', body: 'Amazon, jewelry, apparel, agencies. Any ecommerce seller, any size.' },
+  { title: 'Flexible turnaround', body: '12h, 24h, 48h, or 72h. Choose what fits your deadline.' },
+];
+---
+<div class="bg-surface pb-12 lg:pb-14">
+  <Hero client:load path={path} />
+  <Reveal variant="fade" duration={0.7}><InstantDropZone client:visible path={path} /></Reveal>
+  <Reveal variant="fade" duration={0.55} class="hidden sm:block"><BeatPixelzBanner /></Reveal>
+  <Reveal variant="fade" duration={0.9}><ImageGridSection client:visible path={path} images={landingImages.slice(0, 6)} /></Reveal>
+  <Reveal variant="fade" duration={0.7}><Testimonials client:visible path={path} /></Reveal>
+
+  <section class="relative z-20 max-w-[1600px] mx-auto px-5 sm:px-6 lg:px-12 pt-10 pb-10 lg:pt-16 lg:pb-12">
+    <div class="grid gap-5 lg:gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
+      <Reveal variant="fade-slide" y={30}>
+        <div class="flex flex-col justify-center rounded-2xl border border-black/[0.18] bg-[var(--color-text-primary)] p-6 text-white shadow-[0_18px_48px_rgba(0,0,0,0.12)] sm:p-9 lg:p-12" itemscope itemtype="https://schema.org/Offer">
+          <meta itemprop="name" content="3 Free Sample Edits" />
+          <meta itemprop="price" content="0" />
+          <meta itemprop="priceCurrency" content="USD" />
+          <h2 class="text-[32px] font-semibold tracking-[-0.04em] leading-[1.05] sm:text-[42px] lg:text-[50px]">Test the edit before your first paid order.</h2>
+          <p class="mt-5 max-w-xl text-[16px] leading-relaxed text-white/65">Send 3 images. Judge the quality. Pay only when you're ready to scale.</p>
+          <div class="mt-8 lg:mt-8 flex flex-col gap-2 sm:flex-row">
+            <a href="/free-trial" class="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-5 text-[16px] font-bold text-[var(--color-text-primary)] transition-all duration-300 hover:bg-[var(--color-bg-secondary)] shadow-sm active:scale-95">Get 3 Free Sample Edits</a>
+            <a href="/pricing" class="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-5 text-[16px] font-bold text-white transition-all duration-300 hover:bg-white/10 active:scale-95">View Pricing</a>
+          </div>
+        </div>
+      </Reveal>
+      <div class="hidden sm:grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:gap-x-12 lg:gap-y-12 lg:content-center">
+        {points.map(({ title, body }, i) => (
+          <Reveal delay={i * 0.07}>
+            <div class="flex gap-3 sm:gap-4 items-start py-2 sm:py-3">
+              <CheckCircle2 size={20} className="shrink-0 mt-0.5 sm:mt-1 sm:size-6 text-black/80" />
+              <div class="flex flex-col min-w-0">
+                <h3 class="text-[16px] sm:text-[19px] lg:text-[22px] font-semibold tracking-tight text-[var(--color-text-primary)] leading-snug">{title}</h3>
+                <p class="mt-1 sm:mt-2 text-[13.5px] sm:text-[15px] lg:text-[17px] leading-relaxed text-black/55">{body}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Reveal variant="fade-slide" y={50} threshold={0.04}><Workflow client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={30}><TargetAudienceProof /></Reveal>
+  <Reveal variant="fade" delay={0.05} duration={0.6}><ClientCategoryStrip client:visible path={path} /></Reveal>
+  <Reveal variant="spring-scale"><TrialAuditCta client:visible path={path} /></Reveal>
+
+  <Reveal variant="fade-slide" y={20}>
+    <section class="max-w-5xl mx-auto px-6 lg:px-10 pt-4 pb-4 lg:pt-6 lg:pb-6 overflow-visible">
+      <div class="grid gap-3 sm:p-5 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center overflow-visible">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-text-primary)] text-white"><ShieldCheck size={22} /></div>
+        <div class="min-w-0">
+          <h2 class="text-[18px] font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-[20px]">Two editors review every image before delivery.</h2>
+          <p class="mt-1 max-w-2xl text-[15px] leading-relaxed text-black/60">We check each file against service-specific criteria before delivery. Your catalog stays consistent across thousands of images.</p>
+        </div>
+        <a href="/quality-assurance-process" class="group inline-flex items-center justify-center gap-1.5 text-[16px] font-bold text-[var(--color-text-primary)] transition-all">
+          <span class="relative">View our QA Process<span class={tokens.interactiveUnderline}></span></span>
+          <ArrowRight size={14} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/70 shrink-0" />
+        </a>
+      </div>
+    </section>
+  </Reveal>
+
+  <Reveal variant="fade-slide" y={40} class="hidden sm:block"><ReframeCSShowcase client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={40}><CompetitorComparison /></Reveal>
+  <Reveal variant="spring-scale"><Stats client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={30} class="hidden sm:block"><BlogPreview client:visible path={path} /></Reveal>
+  <Reveal variant="spring-scale"><Pricing client:visible path={path} /></Reveal>
+  <Reveal variant="fade-slide" y={30}><Integrations /></Reveal>
+  <Reveal variant="fade"><Faq /></Reveal>
+
+  <Reveal variant="fade-slide" y={25}>
+    <section class="max-w-5xl mx-auto px-6 lg:px-10 pt-6 lg:pt-8">
+      <div class="relative overflow-hidden rounded-2xl border border-black/[0.18] animate-card-bg p-5 shadow-sm sm:p-7">
+        <div class="pointer-events-none absolute -top-10 -right-10 h-36 w-36 rounded-full bg-black/5 blur-2xl hidden sm:block"></div>
+        <div class="pointer-events-none absolute -bottom-12 -left-8 h-36 w-36 rounded-full bg-black/5 blur-2xl hidden sm:block"></div>
+        <div class="relative z-10 grid gap-5 lg:grid-cols-[1.15fr_1fr] lg:gap-8">
+          <div>
+            <h2 class="text-[22px] lg:text-[28px] font-semibold tracking-tight text-[var(--color-text-primary)] leading-[1.15]">About Reframe Visuals</h2>
+            <p class="mt-3 max-w-xl text-[16px] leading-relaxed text-black/65">Reframe Visuals edits product photos for Amazon sellers, apparel brands, jewelry stores, and agencies.</p>
+          </div>
+          <div class="flex flex-col gap-2.5">
+            {[['/about', 'About Reframe Visuals'], ['/reframe-visuals-services', 'Reframe Visuals Services']].map(([href, label]) => (
+              <a href={href} class="group flex items-center justify-between rounded-2xl border border-black/[0.18] bg-white px-4 py-3 text-[16px] font-medium text-black shadow-sm transition-all duration-300 hover:border-black/20 hover:bg-black/[0.04] active:scale-95">
+                <span>{label}</span>
+                <ArrowRight size={14} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/75" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </Reveal>
+</div>
