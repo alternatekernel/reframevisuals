@@ -1,9 +1,14 @@
 ---
 import '../styles/global.css';
 import '../styles/reveal.css';
+import { loadTheme, themeToCss, fontsHref } from '../lib/theme';
 export interface Props { title: string; description: string; canonical?: string; ogImage?: string; jsonLd?: object | object[]; noindex?: boolean; noindexOverride?: boolean }
 const { title, description, canonical = new URL(Astro.url.pathname, Astro.site).href, ogImage, jsonLd, noindex: noindexProp, noindexOverride } = Astro.props;
 const noindex = noindexOverride || (noindexProp ?? import.meta.env.PUBLIC_NOINDEX !== 'false');
+const BASE_FONTS = 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=fallback';
+const theme = await loadTheme();
+const themeCss = themeToCss(theme);
+const fontCssHref = fontsHref(theme);
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 <!doctype html>
@@ -12,6 +17,13 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <style is:inline set:html={themeCss}></style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href={BASE_FONTS} onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href={BASE_FONTS} /></noscript>
+    {fontCssHref && <link rel="preload" as="style" href={fontCssHref} onload="this.onload=null;this.rel='stylesheet'" />}
+    {fontCssHref && <noscript><link rel="stylesheet" href={fontCssHref} /></noscript>}
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
