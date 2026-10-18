@@ -30,3 +30,4 @@ document.addEventListener('click', (e) => {
 
 syncAuthCtas();
 document.addEventListener('astro:page-load', syncAuthCtas);
+import './ui/forms';

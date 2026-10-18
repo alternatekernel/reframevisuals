@@ -1,0 +1,54 @@
+---
+import { ArrowRight } from 'lucide-react';
+import { cx, layout, tokens, typography } from '../../utils/theme';
+import { buttonVariants } from '../../components/ui/button';
+import { publicPillInputClass } from '../../components/ui/form-controls';
+import Frame from '../../components/ui/Frame';
+import ButtonWithIcon from '../../components/astro/ButtonWithIcon.astro';
+---
+<section class="relative overflow-hidden bg-white px-6 py-16 lg:py-20 lg:px-12">
+  <div class={cx(layout.compactShell, 'relative z-10')}>
+    <Frame extended size="lg" className="w-full max-w-5xl">
+      <div class="w-full px-4 py-12 text-center lg:px-12">
+        <div class={cx(typography.vercelMono, 'mb-10')}>Volume Pricing</div>
+        <h2 class={cx(typography.vercelSection, typography.sectionTitleInk, 'mb-8')}>
+          Processing 500+ images? <br />
+          <span class="text-[var(--color-text-muted)]">Book a call for custom pricing.</span>
+        </h2>
+        <p class="mx-auto mb-8 max-w-2xl text-[18px] font-normal leading-relaxed text-[var(--color-text-secondary)] lg:text-[20px]">
+          For high-volume catalogs we work out dedicated editors, custom turnaround windows, and pricing that reflects your actual order size.
+        </p>
+        <div class="mx-auto mb-10 grid w-full max-w-3xl grid-cols-1 gap-3 text-left sm:grid-cols-3">
+          {[['Reply SLA', '≤ 30 min'], ['Quality control', 'Manual QA'], ['Turnaround', '12h–72h options']].map(([k, v]) => (
+            <div class="rounded-2xl border border-black/[0.18] bg-white px-4 py-3 shadow-sm">
+              <p class="text-[12px] font-bold uppercase tracking-widest text-black/50">{k}</p>
+              <p class="mt-1 text-[18px] font-black text-[var(--color-text-primary)]">{v}</p>
+            </div>
+          ))}
+        </div>
+        <div class="flex flex-col items-center justify-center gap-6">
+          <div class="flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
+            <ButtonWithIcon href="/book-meeting" variant="default" label="Get Pricing Breakdown" class="!w-full sm:!w-auto" animated={false} />
+            <a href="/services" class={cx(buttonVariants({ variant: 'white' }), 'h-12 w-full rounded-full px-6 text-sm font-medium sm:w-auto')}>Explore Services</a>
+          </div>
+          <div class="w-full max-w-sm space-y-4 border-t border-black/[0.12] pt-8" data-inquiry data-type="Pricing Page Custom Pricing Breakdown" data-source="Pricing CTA">
+            <p class="text-[14px] font-bold tracking-widest text-[var(--color-text-secondary)]">Or get a custom quote via email</p>
+            <div class="group relative" data-inquiry-form>
+              <input type="email" id="pricing-cta-email" data-inquiry-input placeholder="Enter your work email" class={cx(publicPillInputClass, 'h-14 bg-[var(--color-bg-secondary)] pl-6 pr-40 text-[14px] font-bold focus:border-black/20 placeholder:text-black/40 placeholder:font-normal')} />
+              <button type="button" data-inquiry-submit class="absolute right-4 top-1/2 -translate-y-1/2 group inline-flex items-center justify-center gap-1.5 text-[14px] font-bold text-[var(--color-text-primary)] transition-all disabled:opacity-50">
+                <span class="relative"><span data-inquiry-label>Request Custom Quote</span><span class={tokens.interactiveUnderline}></span></span>
+                <ArrowRight size={14} className="text-black/40 transition-all duration-300 group-hover:-rotate-45 group-hover:text-black/70 shrink-0" />
+              </button>
+            </div>
+            <div data-inquiry-success class="hidden rounded-2xl border border-green-100 bg-green-50 p-4 text-center">
+              <p class="text-[14px] font-bold text-green-700">Quote Request Sent</p>
+              <p class="mt-1 text-[12px] font-medium text-green-600/80">Our specialists will reach out in 5 minutes.</p>
+            </div>
+            <p class="text-[14px] text-[var(--color-text-secondary)]">Prefer email? <a href="mailto:hello@reframevisuals.com" class="text-[var(--color-text-primary)] underline">hello@reframevisuals.com</a></p>
+            <p class="text-[12px] font-medium text-[var(--color-text-muted)]">No spam. Replies within 30 min.</p>
+          </div>
+        </div>
+      </div>
+    </Frame>
+  </div>
+</section>

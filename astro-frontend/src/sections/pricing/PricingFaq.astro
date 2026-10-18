@@ -1,0 +1,59 @@
+---
+import { ChevronDown, FileText, Clock, RotateCcw, CreditCard } from 'lucide-react';
+import { cx, layout, typography } from '../../utils/theme';
+
+const faqItems = [
+  { category: 'File Formats', icon: FileText, question: 'What file formats do you accept for editing, and what formats do you deliver?', answer: 'We accept almost all image formats including RAW camera files (CR2, NEF, ARW, DNG), high-resolution TIFF, layered PSD, PNG, JPG, and WebP. For output delivery, we typically provide layered PSD (with paths or transparent layers), web-optimized high-quality transparent PNG, flat JPG, or WebP depending on your exact marketplace or theme requirements.' },
+  { category: 'Turnaround Times', icon: Clock, question: 'How do turnaround times work for small vs. large catalog batches?', answer: 'Our workflow supports 12h, 24h, 48h, and 72h turnaround speeds selected at checkout. Standard volumes (under 500 images) are guaranteed within the selected time window. For batches over 1,000 images, our team coordinates a staggered delivery schedule with daily batches.' },
+  { category: 'Revisions', icon: RotateCcw, question: 'How do I request revisions, and what is your turnaround on corrections?', answer: 'You can request revisions within 14 days of image delivery. Simply open your dashboard, navigate to the delivered batch, select the image requiring correction, and submit your guidelines. Revisions are free of charge and processed with high priority, matching or beating your original order turnaround speed.' },
+  { category: 'Payments & Billing', icon: CreditCard, question: 'What payment methods do you accept, and do you support invoicing?', answer: 'We accept all major credit cards, Apple Pay, Google Pay, and bank wire transfers (ACH/SEPA). Payment is processed per batch upon order placement. For enterprise-level accounts or teams managing consistent weekly volume, we support consolidated monthly billing with 15-day or 30-day payment terms.' },
+];
+---
+<section class="px-6 lg:px-12 py-12 lg:py-16 bg-white border-t border-[#f0f0f0] relative overflow-hidden">
+  <div class={cx(layout.compactShell, 'relative z-10')}>
+    <div data-reveal class="text-center max-w-2xl mx-auto mb-16">
+      <div class={cx(typography.vercelMono, 'mb-4 text-black/50')}>FAQ</div>
+      <h2 class={cx(typography.vercelSection, typography.sectionTitleInk, 'mb-6')}>
+        Common questions<br />
+        <span class="text-black/45">about pricing and policies.</span>
+      </h2>
+      <p class="text-[16px] text-[var(--color-text-secondary)] leading-relaxed">Answers on file formats, turnaround times, revisions, and payment.</p>
+    </div>
+    <div class="max-w-3xl mx-auto rounded-3xl border border-black/[0.18] bg-white p-4 shadow-[0_12px_40px_rgba(0,0,0,0.08)] sm:p-6">
+      <div class="flex flex-col gap-3" data-acc-group>
+        {faqItems.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <article data-acc-item data-open="false" data-reveal style={{ '--reveal-delay': `${i * 0.05}s`, '--reveal-duration': '0.3s', '--reveal-y': '12px' }}
+              class="group/acc overflow-hidden rounded-2xl border transition-all duration-300 border-black/[0.18] bg-[#FAFAFA] hover:border-black/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] data-[open=true]:bg-white data-[open=true]:shadow-[0_8px_24px_rgba(0,0,0,0.11)]">
+              <button type="button" data-acc-toggle aria-expanded="false" class="flex w-full items-center justify-between gap-3 sm:gap-4 px-4 py-4 sm:px-5 sm:py-5 text-left">
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <div class="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl border transition-colors duration-300 bg-white text-black/60 border-black/[0.18] shadow-sm group-data-[open=true]/acc:bg-black group-data-[open=true]/acc:text-white group-data-[open=true]/acc:border-black group-data-[open=true]/acc:shadow-md">
+                    <Icon size={15} />
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <span class="mb-1 text-[12px] font-semibold uppercase tracking-widest text-black/50">{item.category}</span>
+                    <span class="font-heading text-[15px] font-bold leading-snug tracking-tight text-black sm:text-[16px]">{item.question}</span>
+                  </div>
+                </div>
+                <span class="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 bg-white text-black/50 shadow-sm border border-black/[0.12] group-data-[open=true]/acc:bg-black group-data-[open=true]/acc:text-white group-data-[open=true]/acc:shadow-md group-data-[open=true]/acc:border-transparent group-data-[open=true]/acc:rotate-180">
+                  <ChevronDown size={13} />
+                </span>
+              </button>
+              <div data-acc-panel>
+                <div>
+                  <div class="border-t px-4 pb-4 pt-4 pl-[52px] sm:px-5 sm:pb-5 sm:pl-[60px] border-black/[0.12]">
+                    <p class="text-[14px] sm:text-[15px] font-medium leading-relaxed text-black/60">{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import '../../lib/ui/accordion';
+</script>
