@@ -1,0 +1,115 @@
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import {
+  Info,
+  CheckCircle2,
+  AlertTriangle,
+  AlertOctagon,
+  Lightbulb,
+  X,
+} from "lucide-react"
+import { cx } from "../../utils/theme"
+
+const alertVariants = cva(
+  "relative w-full rounded-2xl border border-l-[3px] p-4 text-left transition-all duration-200",
+  {
+    variants: {
+      variant: {
+        info:        "border-semantic-info-border border-l-semantic-info bg-semantic-info-light text-semantic-info-text",
+        success:     "border-semantic-success-border border-l-semantic-success bg-semantic-success-light text-semantic-success-text",
+        warning:     "border-semantic-warning-border border-l-semantic-warning bg-semantic-warning-light text-semantic-warning-text",
+        destructive: "border-semantic-error-border border-l-semantic-error bg-semantic-error-light text-semantic-error-text",
+        tip:         "border-black/[0.18] border-l-black/50 bg-black/[0.05] text-text-primary",
+      },
+    },
+    defaultVariants: {
+      variant: "info",
+    },
+  },
+)
+
+const iconContainerVariants = cva(
+  "shrink-0 flex h-8 w-8 items-center justify-center rounded-lg",
+  {
+    variants: {
+      variant: {
+        info:        "bg-semantic-info-light text-semantic-info",
+        success:     "bg-semantic-success-light text-semantic-success",
+        warning:     "bg-semantic-warning-light text-semantic-warning",
+        destructive: "bg-semantic-error-light text-semantic-error",
+        tip:         "bg-black/8 text-text-primary",
+      },
+    },
+    defaultVariants: { variant: "info" },
+  },
+)
+
+export interface AlertProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof alertVariants> {
+  title?: React.ReactNode
+  icon?: React.ReactNode
+  onDismiss?: () => void
+  action?: React.ReactNode
+}
+
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  (
+    {
+      className,
+      variant = "info",
+      title,
+      icon,
+      onDismiss,
+      action,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const defaultIcon = {
+      info:        <Info className="h-4 w-4" />,
+      success:     <CheckCircle2 className="h-4 w-4" />,
+      warning:     <AlertTriangle className="h-4 w-4" />,
+      destructive: <AlertOctagon className="h-4 w-4" />,
+      tip:         <Lightbulb className="h-4 w-4" />,
+    }[variant || "info"]
+
+    return (
+      <div
+        ref={ref}
+        role="alert"
+        className={cx(alertVariants({ variant, className }))}
+        {...props}
+      >
+        <div className="flex items-start gap-3">
+          <div className={iconContainerVariants({ variant })}>
+            {icon || defaultIcon}
+          </div>
+          <div className="flex-1 min-w-0 pr-6">
+            {title && (
+              <h5 className="font-heading text-[14px] font-semibold leading-tight mb-0.5 text-inherit">
+                {title}
+              </h5>
+            )}
+            <div className="text-[14px] leading-relaxed text-inherit opacity-85">
+              {children}
+            </div>
+            {action && <div className="mt-3">{action}</div>}
+          </div>
+          {onDismiss && (
+            <button
+              type="button"
+              onClick={onDismiss}
+              className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-current opacity-40 hover:opacity-80 hover:bg-black/8 transition-opacity"
+              aria-label="Dismiss alert"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+    )
+  },
+)
+Alert.displayName = "Alert"
