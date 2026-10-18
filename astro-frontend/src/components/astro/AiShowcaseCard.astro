@@ -1,0 +1,13 @@
+---
+import { cx, tokens } from '../../utils/theme';
+export interface Props { title: string; img: string; copy: string }
+const { title, img, copy } = Astro.props;
+const asset = (name: string) => `https://res.cloudinary.com/dnmj4altq/image/upload/reframeimages/ai-product-visuals/${name}`;
+---
+<article class={cx(tokens.surfacePanel, 'overflow-hidden bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_rgba(0,0,0,0.11)]')}>
+  <img src={asset(img)} alt={title} class="aspect-[4/3] w-full bg-[#F3F4F6] object-cover" />
+  <div class="p-3 sm:p-5">
+    <h3 class="text-[22px] font-bold tracking-tight">{title}</h3>
+    <p class="mt-2 text-[14px] leading-relaxed text-black/55">{copy}</p>
+  </div>
+</article>

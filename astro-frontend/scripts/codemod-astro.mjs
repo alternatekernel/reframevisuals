@@ -326,7 +326,7 @@ function convert(file) {
   if (/\bon[A-Z][A-Za-z]*=\{/.test(src)) issues.push('event handlers');
   if (/AnimatePresence|useInView|useScroll|useTransform|useAnimation/.test(src.replace(/import[^;]*;/g, ''))) issues.push('advanced framer');
   if (/\bchildren\b/.test(src)) issues.push('children');
-  if (/window\.|document\./.test(src)) issues.push('browser globals');
+  if (/\b(window|document)\.[a-zA-Z]/.test(src)) issues.push('browser globals');
   if (issues.length) return { name, issues };
 
   // Component: `const Name = (props?) => { ...stmts; return (JSX); };` or `=> (JSX)`.

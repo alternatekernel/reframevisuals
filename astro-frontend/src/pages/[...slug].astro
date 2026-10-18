@@ -6,14 +6,14 @@ import { collectHead } from '../lib/collectHead';
 import AboutPage from '../views/AboutPage.astro';
 import AboutReframeVisualsPage from '../views/AboutReframeVisualsPage.astro';
 import ReframeVisualsServicesPage from '../views/ReframeVisualsServicesPage.astro';
-import HowItWorksPage from '../islands/views/HowItWorksPage';
+import HowItWorksPage from '../views/HowItWorksPage.astro';
 import PlatformPage from '../views/PlatformPage.astro';
 import PolicyPage from '../views/PolicyPage.astro';
 import CaseStudiesHubPage from '../views/CaseStudiesHubPage.astro';
 import ResourcesPage from '../views/ResourcesPage.astro';
 import ComparisonPage from '../views/ComparisonPage.astro';
-import CaseStudyDetailPage from '../islands/views/CaseStudyDetailPage';
-import InsightAndTrustPage from '../islands/views/InsightAndTrustPage';
+import CaseStudyDetailPage from '../views/CaseStudyDetailPage.astro';
+import InsightAndTrustPage from '../views/InsightAndTrustPage.astro';
 import ExpansionPage from '../views/ExpansionPage.astro';
 import FreeTrialPage from '../islands/views/FreeTrialPage';
 import StartPage from '../islands/views/StartPage';
@@ -25,7 +25,7 @@ import ServicesPage from '../views/ServicesPage.astro';
 import PricingPage from '../views/PricingPage.astro';
 import PortfolioPage from '../views/PortfolioPage.astro';
 import TestimonialsPage from '../views/TestimonialsPage.astro';
-import AIProductVisualsPage from '../islands/views/AIProductVisualsPage';
+import AIProductVisualsPage from '../views/AIProductVisualsPage.astro';
 
 export function getStaticPaths() {
   return STATIC_ROUTES.map((r) => ({ params: { slug: r.path.slice(1) }, props: r }));
@@ -42,19 +42,19 @@ const seo = mapped ?? { title: own?.title || fallback.title, description: own?.d
   {view === 'AboutPage' && <AboutPage />}
   {view === 'AboutReframeVisualsPage' && <AboutReframeVisualsPage />}
   {view === 'ReframeVisualsServicesPage' && <ReframeVisualsServicesPage />}
-  {view === 'HowItWorksPage' && <HowItWorksPage client:load path={path} />}
+  {view === 'HowItWorksPage' && <HowItWorksPage />}
   {view === 'PlatformPage' && <PlatformPage />}
   {view === 'PolicyPage' && <PolicyPage />}
   {view === 'CaseStudiesHubPage' && <CaseStudiesHubPage />}
   {view === 'ResourcesPage' && <ResourcesPage />}
   {view === 'ComparisonPage' && <ComparisonPage />}
-  {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage client:load path={path} />}
-  {view === 'InsightAndTrustPage' && <InsightAndTrustPage client:load path={path} />}
+  {view === 'CaseStudyDetailPage' && <CaseStudyDetailPage />}
+  {view === 'InsightAndTrustPage' && <InsightAndTrustPage />}
   {view === 'ServicesPage' && <ServicesPage />}
   {view === 'PricingPage' && <PricingPage />}
   {view === 'PortfolioPage' && <PortfolioPage />}
   {view === 'TestimonialsPage' && <TestimonialsPage />}
-  {view === 'AIProductVisualsPage' && <AIProductVisualsPage client:load path={path} />}
+  {view === 'AIProductVisualsPage' && <AIProductVisualsPage />}
   {view === 'FreeTrialPage' && <FreeTrialPage client:load path={path} />}
   {view === 'StartPage' && <StartPage client:load path={path} />}
   {view === 'PilotBatchPage' && <PilotBatchPage client:load path={path} />}
