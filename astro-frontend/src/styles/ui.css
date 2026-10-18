@@ -53,3 +53,22 @@
 .wf-badge:hover { color: var(--bc); transform: translateY(-2px); }
 .wf-badge:hover i { background: var(--bc); transform: scale(1.3); box-shadow: 0 0 8px var(--bc); }
 @media (prefers-reduced-motion: reduce) { [data-workflow] .wf-anim { opacity: 1; transform: none; transition: none; } .workflow-flowing-path { animation: none; } }
+
+/* Hero: first-visit intro (flag set by an inline script in Hero.astro) and carousel */
+@keyframes hero-in { from { opacity: 0; transform: translate(var(--hx, 0px), var(--hy, 0px)) scale(var(--hs, 1)); } to { opacity: 1; transform: none; } }
+[data-hero-intro] .hero-a { animation: hero-in var(--hdur, 0.35s) cubic-bezier(0, 0, 0.2, 1) calc(var(--hd, 0) * 1ms) both; }
+@keyframes hero-word { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: none; } }
+[data-hero-intro] .hero-word { animation: hero-word 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) calc(var(--hd, 0) * 1ms) both; }
+@keyframes hero-grid { from { opacity: 0; } to { opacity: 1; } }
+[data-hero-intro] .hero-grid-fine { animation: hero-grid 2s ease-out 0.8s both; }
+@keyframes hero-underline { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes hero-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
+.hero-bob { display: inline-block; animation: hero-bob 1.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { [data-hero-intro] .hero-a, [data-hero-intro] .hero-word { animation: none; } .hero-bob { animation: none; } }
+
+[data-hc-card] [data-hc-before] { clip-path: inset(0 0% 0 0); transition: clip-path 2.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; will-change: clip-path; }
+[data-hc-card] [data-hc-divider] { left: 100%; transition: left 2.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; will-change: left; }
+[data-hc-card][data-revealed='true'] [data-hc-before] { clip-path: inset(0 100% 0 0); }
+[data-hc-card][data-revealed='true'] [data-hc-divider] { left: 0%; }
+[data-hc-card][data-fast] [data-hc-before], [data-hc-card][data-fast] [data-hc-divider] { transition-duration: 0.8s; transition-delay: 0s; }
+[data-hc-card][data-instant] [data-hc-before], [data-hc-card][data-instant] [data-hc-divider] { transition: none; }

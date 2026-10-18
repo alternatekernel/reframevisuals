@@ -100,6 +100,103 @@ const open = async (path, vp = { width: 1440, height: 900 }, opts = {}) => {
   check('services no page errors', errors.length === 0);
   await ctx.close();
 }
+
+// Home page (reduced motion: no autoplay so carousel assertions are deterministic)
+{
+  const { ctx, page, errors } = await open('/', { width: 1440, height: 900 }, { reducedMotion: 'reduce' });
+  // hero carousel
+  const centerName = async () => page.evaluate(() => {
+    const cs = [...document.querySelectorAll('[data-hc-card]')];
+    cs.sort((a, b) => Number(b.style.zIndex) - Number(a.style.zIndex));
+    return cs[0].querySelector('p')?.textContent;
+  });
+  const before = await centerName();
+  await page.click('[data-hc-next]');
+  await page.waitForTimeout(1800);
+  const after = await centerName();
+  check('hero carousel next arrow advances', before !== after);
+  await page.click('[data-hc-prev]');
+  await page.waitForTimeout(1800);
+  check('hero carousel prev arrow moves', (await centerName()) !== after);
+  const stage = await page.locator('[data-hc-stage]').boundingBox();
+  const c0 = await centerName();
+  await page.mouse.move(stage.x + stage.width * 0.6, stage.y + stage.height * 0.4);
+  await page.mouse.down(); await page.mouse.move(stage.x + stage.width * 0.35, stage.y + stage.height * 0.4, { steps: 8 }); await page.mouse.up();
+  await page.waitForTimeout(1800);
+  check('hero carousel drag changes card', (await centerName()) !== c0);
+  await page.mouse.move(5, 5); await page.waitForTimeout(800);
+  check('hero center card revealed', await page.evaluate(() => document.querySelector('[data-hc-card][data-active="true"]')?.getAttribute('data-revealed') === 'true'));
+
+  // stats count-up (renders final value for crawlers/no-JS, animates once in view)
+  await page.locator('#stats').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(2600);
+  check('stats numbers end at their final value', await page.evaluate(() => [...document.querySelectorAll('[data-count-up]')].every((e) => e.textContent === e.dataset.countUp.replace(/[^0-9%B]/g, '') || e.textContent.length > 0)));
+
+  // services table expand
+  const exp = page.locator('#pricing [data-expand]');
+  await exp.scrollIntoViewIfNeeded();
+  await exp.locator('[data-expand-toggle]').click();
+  await page.waitForTimeout(900);
+  check('services table expands', (await exp.getAttribute('data-open')) === 'true' && (await exp.locator('[data-expand-label]').textContent()) === 'Show less services');
+  await exp.locator('[data-expand-toggle]').click();
+  check('services table collapses', (await exp.getAttribute('data-open')) === 'false');
+
+  // faq
+  const faq = page.locator('#faq [data-acc-item]').first();
+  await faq.scrollIntoViewIfNeeded(); await faq.locator('[data-acc-toggle]').click();
+  check('home faq opens', (await faq.getAttribute('data-open')) === 'true');
+
+  // trial audit CTA is a native GET form
+  const form = page.locator('form[action="/free-trial"]').first();
+  await form.scrollIntoViewIfNeeded();
+  await form.locator('input[name=email]').fill('x@y.co');
+  await Promise.all([page.waitForURL('**/free-trial?email=x%40y.co'), form.locator('button[type=submit]').click()]);
+  check('trial audit CTA navigates with email', page.url().includes('/free-trial?email=x%40y.co'));
+  await ctx.close();
+  check('home no page errors', errors.length === 0);
+}
+{
+  // drop zone: validation + multipart payload
+  const { ctx, page } = await open('/');
+  const dz = page.locator('[data-dropzone]');
+  await dz.scrollIntoViewIfNeeded();
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64');
+  await page.setInputFiles('[data-dz-input]', [
+    { name: 'a.png', mimeType: 'image/png', buffer: png },
+    { name: 'notes.txt', mimeType: 'text/plain', buffer: Buffer.from('x') },
+  ]);
+  await page.waitForSelector('[data-dz-form]:not(.hidden)');
+  check('drop zone shows form and rejects non-image', (await page.locator('[data-dz-item]').count()) === 1 && (await page.locator('[data-dz-notice]:not(.hidden)').count()) === 1);
+  check('submit disabled until valid', await page.locator('[data-dz-submit]').isDisabled());
+  await page.fill('[data-dz-name]', 'Ada'); await page.fill('[data-dz-email]', 'ada@example.com');
+  check('submit enabled when valid', !(await page.locator('[data-dz-submit]').isDisabled()));
+  let seen = null;
+  await page.route('**/api/portal/freetrial', async (r) => { seen = { ct: r.request().headers()['content-type'], body: r.request().postData() }; await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, token: 't', user: { id: 1 } }) }); });
+  await page.click('[data-dz-submit]');
+  await page.waitForSelector('[data-dz-success]:not(.hidden)');
+  check('drop zone posts multipart with fields', /multipart\/form-data/.test(seen?.ct || '') && ['name="name"', 'name="email"', 'name="description"', 'name="files"'].every((f) => seen.body.includes(f)));
+  check('drop zone stores portal token', (await page.evaluate(() => localStorage.getItem('portal_token'))) === 't');
+  await ctx.close();
+}
+{
+  // testimonials modal
+  const { ctx, page } = await open('/');
+  const sec = page.locator('#testimonials');
+  await sec.scrollIntoViewIfNeeded();
+  const cardsBefore = await page.locator('#testimonials [data-t-track] article').count();
+  await page.click('[data-t-open]');
+  await page.fill('[data-t-form] [name=name]', 'Grace Hopper');
+  await page.fill('[data-t-form] [name=company]', 'Founder at Compilers');
+  await page.fill('[data-t-form] [name=email]', 'grace@example.com');
+  await page.fill('[data-t-form] [name=quote]', 'Great Amazon background removal work.');
+  let fb = null;
+  await page.route('**/api/portal/feedback', async (r) => { fb = JSON.parse(r.request().postData()); await r.fulfill({ status: 200, contentType: 'application/json', body: '{}' }); });
+  await page.click('[data-t-form] button[type=submit]');
+  await page.waitForTimeout(400);
+  check('testimonial added to marquee', (await page.locator('#testimonials [data-t-track] article').first().textContent()).includes('Grace Hopper') && (await page.locator('#testimonials [data-t-track] article').count()) > cardsBefore);
+  check('testimonial feedback payload', fb?.type === 'testimonial' && fb.email === 'grace@example.com' && fb.subject.includes('Grace Hopper'));
+  await ctx.close();
+}
 await b.close(); srv.close();
 console.log(fails ? `${fails} FAILED` : 'ALL PASSED');
 process.exit(fails ? 1 : 0);

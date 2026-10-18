@@ -2,7 +2,7 @@
 import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import Reveal from '../components/astro/Reveal.astro';
 import { tokens } from '../utils/theme';
-import Hero from '../islands/wrapped/Hero';
+import Hero from '../sections/Hero.astro';
 import InstantDropZone from '../sections/landing/InstantDropZone.astro';
 import ImageGridSection from '../sections/landing/ImageGridSection.astro';
 import Testimonials from '../sections/Testimonials.astro';
@@ -29,7 +29,7 @@ const points = [
 ];
 ---
 <div class="bg-surface pb-12 lg:pb-14">
-  <Hero client:load path={path} />
+  <Hero />
   <Reveal variant="fade" duration={0.7}><InstantDropZone /></Reveal>
   <Reveal variant="fade" duration={0.55} class="hidden sm:block"><BeatPixelzBanner /></Reveal>
   <Reveal variant="fade" duration={0.9}><ImageGridSection images={landingImages.slice(0, 6)} /></Reveal>
