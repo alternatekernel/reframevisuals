@@ -1,0 +1,126 @@
+{
+ "/start": {
+  "title": "Drop Your Photos — Get 3 Edited Free | Reframe Visuals",
+  "description": "Drag in up to 3 product photos and get them professionally edited free within 24 hours. No credit card, no forms — just drop and go."
+ },
+ "/testimonials": {
+  "title": "Client Testimonials | Ecommerce Photo Editing Reviews | Reframe Visuals",
+  "description": "Real reviews from ecommerce brands and photographers who use Reframe Visuals for background removal, ghost mannequin, retouching, and product image editing. From $0.39/image."
+ },
+ "/about-reframe-visuals": {
+  "title": "About Reframe Visuals | E-commerce Photo Editing Studio",
+  "description": "Learn what Reframe Visuals does: e-commerce photo editing, retouching, and post-production for brands. Not a video reframing tool."
+ },
+ "/reframe-visuals-services": {
+  "title": "Reframe Visuals Services | Product Image Editing for E-commerce",
+  "description": "Reframe Visuals services include background removal, retouching, color correction, ghost mannequin, clipping path, and high-volume post-production."
+ },
+ "/how-it-works": {
+  "title": "How Reframe Visuals Works | Enterprise Photo Editing Workflow",
+  "description": "Step-by-step guide: upload raw files, brief the team on requirements, receive QA-reviewed catalog-ready product images in 12–72 hours with free revisions included."
+ },
+ "/platform": {
+  "title": "Customer Portal & Platform Features | Reframe Visuals",
+  "description": "The Reframe Visuals customer portal gives you real-time order tracking, in-portal image review, revision requests, ZIP downloads, and direct editor messaging — all free with every order."
+ },
+ "/privacy": {
+  "title": "Privacy Policy | Reframe Visuals",
+  "description": "How Reframe Visuals collects, uses, protects, and handles customer information and uploaded project assets."
+ },
+ "/terms": {
+  "title": "Terms of Service | Reframe Visuals",
+  "description": "The service terms for using Reframe Visuals photo editing, sample edit, order, and customer portal workflows."
+ },
+ "/cookies": {
+  "title": "Cookie Policy | Reframe Visuals",
+  "description": "How Reframe Visuals uses necessary, analytics, preference, and advertising-related cookies and how visitors can opt out."
+ },
+ "/security": {
+  "title": "Security Overview | Reframe Visuals",
+  "description": "Security practices for Reframe Visuals customer assets, account access, operational controls, and responsible disclosure."
+ },
+ "/reframe-visuals-pricing": {
+  "title": "Reframe Visuals Pricing | Ecommerce Photo Editing",
+  "description": "Reframe Visuals pricing starts at $0.39 per image with service-specific rates, bulk workflow support, and turnaround options from 12 to 72 hours."
+ },
+ "/reframe-visuals-reviews": {
+  "title": "Reframe Visuals Reviews and Trust Signals",
+  "description": "Review Reframe Visuals trust signals, quality process, free sample edits, human editing workflow, and support options for ecommerce brands."
+ },
+ "/reframe-visuals-for-shopify-brands": {
+  "title": "Reframe Visuals for Ecommerce Brands",
+  "description": "Ecommerce photo editing for online brands needing consistent product images, free sample edits, bulk support, and fast catalog-ready delivery."
+ },
+ "/reframe-visuals-for-amazon-sellers": {
+  "title": "Reframe Visuals for Amazon Sellers",
+  "description": "Amazon product image editing support for sellers needing compliant, clean, catalog-ready images with free sample edits and fast turnaround."
+ },
+ "/resources/best-ecommerce-photo-editing-services-shopify-brands": {
+  "title": "Best Ecommerce Photo Editing Services Shopify Brands | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/ghost-mannequin-editing-cost-guide": {
+  "title": "Ghost Mannequin Editing Cost Guide | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/background-removal-service-pricing-guide": {
+  "title": "Background Removal Service Pricing Guide | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/how-to-prepare-product-photos-for-amazon": {
+  "title": "How To Prepare Product Photos For Amazon | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/jewelry-retouching-checklist-for-ecommerce": {
+  "title": "Jewelry Retouching Checklist For Ecommerce | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/clipping-path-vs-background-removal": {
+  "title": "Clipping Path Vs Background Removal | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/resources/in-house-vs-outsourced-product-photo-editing": {
+  "title": "In House Vs Outsourced Product Photo Editing | Reframe Visuals",
+  "description": "Practical ecommerce image production guide from Reframe Visuals focused on quality, speed, and conversion outcomes."
+ },
+ "/case-studies/amazon-accessories-sku-cleanup": {
+  "title": "Case Study: Amazon Accessories Sku Cleanup | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/fashion-drop-48-hour-turnaround": {
+  "title": "Case Study: Fashion Drop 48 Hour Turnaround | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/jewelry-retouching-conversion-lift": {
+  "title": "Case Study: Jewelry Retouching Conversion Lift | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/furniture-catalog-standardization": {
+  "title": "Case Study: Furniture Catalog Standardization | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/marketplace-compliance-recovery": {
+  "title": "Case Study: Marketplace Compliance Recovery | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/shopify-seasonal-launch-sprint": {
+  "title": "Case Study: Shopify Seasonal Launch Sprint | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/ghost-mannequin-scale-program": {
+  "title": "Case Study: Ghost Mannequin Scale Program | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/case-studies/multi-brand-color-consistency": {
+  "title": "Case Study: Multi Brand Color Consistency | Reframe Visuals",
+  "description": "Real ecommerce production workflow showing turnaround, quality controls, and measurable visual consistency outcomes."
+ },
+ "/compare/in-house-vs-outsourcing": {
+  "title": "In-house vs Outsourced Photo Editing for E-commerce | Reframe Visuals",
+  "description": "A practical comparison of in-house editing versus outsourced photo editing for ecommerce teams focused on speed, quality, and total cost."
+ },
+ "/compare/clipping-path-vs-background-removal": {
+  "title": "Clipping Path vs Background Removal: Which to Use | Reframe Visuals",
+  "description": "Understand when to use clipping path versus background removal for ecommerce product images, hard edges, and complex subject detail."
+ }
+}

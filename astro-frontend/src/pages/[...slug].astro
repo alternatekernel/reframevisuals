@@ -2,7 +2,7 @@
 import PublicPageLayout from '../layouts/PublicPageLayout.astro';
 import { STATIC_ROUTES } from '../data/staticRoutes';
 import { SEO_META_BY_PATH, resolvePageSeo } from '../data/seoMeta';
-import { collectHead } from '../lib/collectHead';
+import heads from '../data/collectedHeads.json';
 import AboutPage from '../views/AboutPage.astro';
 import AboutReframeVisualsPage from '../views/AboutReframeVisualsPage.astro';
 import ReframeVisualsServicesPage from '../views/ReframeVisualsServicesPage.astro';
@@ -34,7 +34,7 @@ const HIDE_FOOTER = ['/free-trial', '/start', '/pilot-batch', '/book-meeting'];
 const FOCUSED = ['/free-trial', '/start', '/pilot-batch', '/contact'];
 const { path, view, noindex } = Astro.props;
 const mapped = SEO_META_BY_PATH[path];
-const own = mapped ? undefined : collectHead(view, path);
+const own = mapped ? undefined : (heads as Record<string, { title?: string; description?: string }>)[path];
 const fallback = resolvePageSeo(path);
 const seo = mapped ?? { title: own?.title || fallback.title, description: own?.description || fallback.description };
 ---

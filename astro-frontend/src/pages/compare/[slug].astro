@@ -1,7 +1,7 @@
 ---
 import PublicPageLayout from '../../layouts/PublicPageLayout.astro';
 import ServiceComparisonPage from '../../views/ServiceComparisonPage.astro';
-import { collectHead } from '../../lib/collectHead';
+import heads from '../../data/collectedHeads.json';
 
 export function getStaticPaths() {
   const SLUGS = ['in-house-vs-outsourcing', 'clipping-path-vs-background-removal'];
@@ -9,7 +9,7 @@ export function getStaticPaths() {
 }
 const { slug } = Astro.params;
 const path = `/compare/${slug}`;
-const head = collectHead('ServiceComparisonPage', path, { slug });
+const head = (heads as Record<string, { title?: string; description?: string }>)[path] ?? {};
 ---
 <PublicPageLayout title={head.title ?? 'Compare | Reframe Visuals'} description={head.description ?? 'Compare ecommerce photo editing approaches with Reframe Visuals.'}>
   <ServiceComparisonPage />
